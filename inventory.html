@@ -1,0 +1,29 @@
+ <!--
+File: inventory.html
+91.462 GUI Programming II, Prof. Heines, University of Massachusetts Lowell
+Created:  2/09/2015 by Susan Souza for use in the Dinner Wizard application
+Modified: 2/14/2015 by Susan Souza to add initial accordion and inventory-building  logic
+
+-->
+
+<div class="col-xs-11 col-sm-6 contentContainer" ><p>{{ message }} Selection:</p> 
+<!-- AngularUI Bootstrap Accordion found here, with some modifications:
+http://angular-ui.github.io/bootstrap/ -->
+   <accordion close-others="oneAtATime"><!--captured click from examples found here: http://stackoverflow.com/questions/15642082/handle-open-collapse-events-of-accordion-in-angular/15642577#15642577
+   -->
+      <accordion-group heading="{{ingredient.Category}}" ng-repeat ="ingredient in ingredients">
+         <ul ng-repeat="content in ingredient.Contents" >
+            <li style="list-style-type: none" ><a ng-click="clickedFromListing(content)">{{content}}</a></li>
+         </ul><!-- note to self: need to get to the sub-categories in this... accordion nesting, GO! -->
+      </accordion-group>
+   </accordion>
+</div>
+<div class="col-xs-0 col-sm-1"></div>
+<div class="col-xs-11 col-sm-5 contentContainer">
+   <ul ng-repeat="item in list track by $index">
+      <li style="list-style-type: none" ng-click="clickedFromInventory(item)">{{item}}</li>
+   </ul><!-- Resolved error with using ng-repeat and adding items to an array dynamically here: https://docs.angularjs.org/error/ngRepeat/dupes -->
+</div>
+
+
+

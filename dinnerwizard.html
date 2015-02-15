@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="DinnerWizardApp">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no">
+    <title>Dinner Wizard</title>
+       <!--
+      File: 
+      91.462 GUI Programming II, Prof. Heines, University of Massachusetts Lowell
+      Created:  2/07/2015 by Susan Souza, for use in the Dinner Wizard Application.
+      Modified: 2/08/2015 by Susan Souza to further tweak layout positioning. 
+      Modified: 2/09/2015 by Susan Souza to add necessary script and elements for routing/views/navigation, found here: http://plnkr.co/edit/dd8Nk9PDFotCQu4yrnDg?p=preview 
+      -->
+      
+      
+    <!-- AngularJS -->
+   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.27/angular.min.js"></script>
+    
+   <!-- BOOTSTRAP -->
+   <!--AngularUI Bootstrap-->
+   <!--<script src="js/ui-bootstrap-tpls-0.12.0.min.js"></script>-->
+   <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.0/ui-bootstrap.min.js"></script>
+   <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.0/ui-bootstrap-tpls.min.js"></script>
+   <!-- Bootstrap Style Sheet -->
+   <!--<link href="css/bootstrap.css" rel="stylesheet">-->
+   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
+   <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
+
+   <!--Dinner Wizard's style sheet -->
+   <link href="css/dwStyles.css" rel="stylesheet">
+   <!--Routing script here-->
+   <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
+   <script src="js/dwScript.js"></script>
+
+  </head>
+  <body ng-controller="inventoryController">
+  
+     <div id="headerRow"class="container-fluid">
+         <a class = "col-xs-2" href="#inventory">
+           <div id = "logoMin">DW</div>
+           <div id = "logoText" class = "hidden-xs">Dinner Wizard</div>
+         </a><!-- end logo-->
+        
+            <div class="col-xs-6 col-sm-7"></div>
+            <a class="col-xs-2 col-md-1 roundEdges"href="#recipes"># Dishes</a>
+            <div class="col-xs-1"></div>
+         <!-- end dishes button placement -->
+        
+     </div><!-- end headerRow -->
+
+   <div id="randomAndFilterButtonsRow"class="container-fluid">   
+      <a class="col-sm-1 hidden-xs roundEdges"href="#recipes">Random Recipe</a> 
+      <div class="col-xs-7 col-sm-8"></div>
+      <!-- Filter recipes needs logic to not appear on certain screens.-->
+      <a class="col-xs-3 col-sm-2 col-md-1 roundEdges" href="#filter">Filter Recipes</a> 
+       <div class="col-xs-2"></div>
+   </div>
+   <div id= "contentRow" class="container-fluid"> 
+      <a class="col-xs-1 col-md-1 hidden-xs roundEdges"href="#inventory">Inventory</a>
+      <div class="col-xs-10 col-md-9 contentContainer">
+
+          <!-- angular templating -->
+		<!-- this is where content will be injected -->
+    <div ng-view></div>
+         
+      </div>
+   </div>
+   <!-- These are the two buttons at the bottom of the mobile layout.  
+   Need logic to swap them for appropriate ones(with appropriate navigation) 
+   depending on screen.-->
+   <div id = "hiddenFootButtons" class ="hidden-sm hidden-md hidden-lg hidden-xl col-xs-10">
+      <div class="col-xs-1"></div>
+      <a class="col-xs-5 roundEdges"href="#recipes">Random Recipe</a> 
+      <a class="col-xs-4 col-sm-3 pull-right roundEdges"href="#inventory">Inventory</a>
+      </div>
+
+  </body>
+</html>

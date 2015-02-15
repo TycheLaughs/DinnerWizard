@@ -1,0 +1,69 @@
+{
+   "INGREDIENTS":[
+      {
+         "Category":"Meat",
+         "Contents": [
+            "Cow",
+            "Holy Cow",
+            "Cowabunga",
+            "This Little Piggy Went to Market",
+            "This Little Piggy Stayed Home",
+            "Little Chicken",
+            "Chicken Little"
+         ]
+      }, 
+      {
+         "Category":"Seafood",
+         "Contents": [ 
+            "Squid",
+            "Scallops",
+            "Mussels",
+            "Clams",
+            "The World is Your Oyster",
+            "White Fish",
+            "One Fish",
+            "Two Fish",          
+            "Red Fish",
+            "Blue Fish"
+         ]
+      },
+      {
+            "Category":"Alternate Protein",
+            "Contents": [
+               "Fake Meat",
+               "Cheese",
+               "Beans",
+               "Eggs",
+               "Lentils"
+            ]
+      },
+      {      
+         "Category":"Vegetables",
+         "Contents": [
+            "Green Stuff",
+            "Leafy Stuff",
+            "Bitter Stuff",
+            "More Green Stuff",
+            "Root Vegetables",
+            "Eggplant",
+            "Tomatoes",
+            "Bell Peppers"
+         ]
+       },
+       {
+         "Category":"Starches",
+         "Contents": [
+            "Pasta",
+            "Bread",
+            "Potatoes",
+            "Rice",
+            "Corn"
+         ]
+      }
+   ]
+}
+
+
+
+
+
