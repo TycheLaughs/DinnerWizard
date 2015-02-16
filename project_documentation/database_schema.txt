@@ -1,0 +1,13 @@
+Diner Wizard Database Schema
+Creation date: 2/16/2015
+Creator: Tommy Leedberg
+Update date:
+
+categories( categoryID, categoryName )
+ingredients( ingredientID, ingredientName )
+recipes( recipeID, recipeName, prepInst )
+tags( tagID, tagName )
+ingredient_category_map( ingredientID, categoryID )
+recipe_category_map( recipeID, categoryID )
+ingredient_recipe_map( ingredientID, recipeID )
+recipe_tag_map( recipeID, tagID )

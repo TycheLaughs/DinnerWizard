@@ -37,4 +37,6 @@
     echo 'IngredientID: ' . $lastIngredientID->fetch_row()[0] ;
     echo 'RecipeID: ' . $lastRecipeID->fetch_row()[0]  ;
 
+
+
 ?>
