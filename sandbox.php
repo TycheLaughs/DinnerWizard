@@ -23,8 +23,18 @@
     //traverse the list of ingredients and output some sample information
     while ($row = $ingredients->fetch_assoc() )
     {
-        echo 'id = ' . $row['ingredientID']  . ' name = ' . $row['ingredientName'] . '\n' ;
+        print 'id = ' . $row['ingredientID']  . ' name = ' . $row['ingredientName'] . '</br>';
 
     }
+
+    //Get the last id for ingredients and for recipe so we can build our map
+    $lastIngredientID = $conn->query( 'SELECT max(ingredientID) FROM ingredients' ) ;
+    $lastRecipeID = $conn->query( 'SELECT max(recipeID) FROM recipes' ) ;
+
+    $lastIngredientID->data_seek(0) ;
+    $lastRecipeID->data_seek(0) ;
+
+    echo 'IngredientID: ' . $lastIngredientID->fetch_row()[0] ;
+    echo 'RecipeID: ' . $lastRecipeID->fetch_row()[0]  ;
 
 ?>
