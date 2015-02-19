@@ -1,0 +1,69 @@
+{
+  "recipes" : [
+    {
+      "recipeName" : "test recipe",
+      "categories" :
+      [
+        "category1",
+        "category2"
+      ],
+      "tags" :
+      [
+        "tag1",
+        "tag2"
+      ],
+      "ingredients" :
+      [
+        "ingredient1",
+        "ingredient2"
+      ]
+    },
+    {
+      "recipeName" : "test recipe2",
+      "categoies" :
+      [
+        "category1",
+        "category2"
+      ],
+      "tags" :
+      [
+        "tag1",
+        "tag2"
+      ],
+      "ingredients" :
+      [
+        "ingredient1",
+        "ingredient2"
+      ]
+    }
+  ],
+  "ingredients" :
+  [
+    {
+      "ingredientName" : "test Name",
+      "categories" :
+      [
+        "category1",
+        "category2"
+      ],
+      "recipes" :
+      [
+        "recipe1",
+        "recipe2"
+      ]
+    },
+    {
+      "ingredientName" : "test Name",
+      "categories" :
+      [
+        "category1",
+        "category2"
+      ],
+      "recipes" :
+      [
+        "recipe1",
+        "recipe2"
+      ]
+    }
+  ]
+}
