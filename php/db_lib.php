@@ -3,15 +3,20 @@
     class db_lib
     {
 
-        private $conn ; // class member to hold our database connection
+        private $conn = NULL ; // class member to hold our database connection
+        private $_HOST = 'localhost' ;
+        private $_USERNAME = 'root' ;
+        private $_PASSWORD = '' ;
+        private $_DATABASE = 'dinnerwizard' ;
+
 
         /**
          * Summary:
          *      Create a connection to the SQL Server and the database we want to use.
          */
-        public function connect()
+        public function __construct()
         {
-            $this->conn = new mysqli( 'localhost', 'root', '', 'dinnerwizard' ) ;
+            $this->$conn = new mysqli( $this->_HOST,  $this->_USERNAME, $this->$_PASSWORD, $this->$_DATABASE ) ;
 
             //Create any connection error warnings
             if( $this->conn->connect_error)
@@ -22,15 +27,77 @@
 
         }
 
+        public function getTables()
+        {
+
+
+/*        {
+            "recipeName" : "test recipe",
+            "categories" :
+            [
+            "category1",
+            "category2"
+            ],
+            "tags" :
+            [
+            "tag1",
+            "tag2"
+            ],
+            "ingredients" :
+            [
+            "ingredient1",
+            "ingredient2"
+            ]
+        }*/
+
+            /**
+             * Because this is only a class project these tables are not going to be very large it makes sense
+             * to bring all of the tables in, send them to the front end as a JSON object, and then filter them there.
+             * This will be a lot faster then querying the database for the information whenever we need it.
+             * If this was for a release project where the database could grow exponentially you would keep
+             * everything in the database and then write queries so you are only sending small pieces of data to the
+             * browser.
+             */
+            //get all of the tables
+            $recipeTable                = $this->conn->query( 'SELECT * FROM recipes' ) ;               //id,name
+            $categoryTable              = $this->conn->query( 'SELECT * FROM categories' ) ;            //id,name
+            $tagsTable                  = $this->conn->query( 'SELECT * FROM tags' ) ;                  //id,name
+            $ingredientsTable           = $this->conn->query( 'SELECT * FROM ingredients' ) ;           //id,name
+            $ingredientTagMapTable      = $this->conn->query( 'SELECT * FROM ingredient_tag_map' ) ;    //ingredientID, tagID
+            $ingredientRecipeMapTable   = $this->conn->query( 'SELECT * FROM ingredient_recipe_map' ) ; //ingredientID, recipeID
+            $recipeTagMapTable          = $this->conn->query( 'SELECT * FROM recipe_tag_map' ) ;        //recipeID, tagID
+            $recipeCategoryMapTable     = $this->conn->query( 'SELECT * FROM recipe_category_map' ) ;   //recipeID, categoryID
+
+            $recipeTable->data_seek(0) ;
+            $categoryTable->data_seek(0) ;
+            $tagsTable->data_seek(0) ;
+            $ingredientsTable->data_seek(0) ;
+            $ingredientTagMapTable->data_seek(0) ;
+            $ingredientRecipeMapTable->data_seek(0) ;
+            $recipeTagMapTable->data_seek(0) ;
+            $recipeCategoryMapTable->data_seek(0) ;
+
+            $arRecipes = array() ;
+            while( $row = $recipeTable->fetch_assoc() )
+            {
+                $arRecipe = array( 'name' => $row['name'] ) ;
+
+                $intRecipeID = $row['id'] ;
+
+
+
+
+                $arRecipes.push( $arRecipe ) ;
+            }
+
+        }
+
         /**
          * Summary:
          *      Get the information from the user and then use it to update the appropriate tables
          */
         public function update()
         {
-
-            //establish our connection
-            $this->connect() ;
 
             //get what's being updated from the front end
             $strRecipeName  = $_POST["recipeName"] ;
@@ -83,11 +150,11 @@
             {
 
                 //get the last recipe id
-                $intRecipeID = $this->conn->query('SELECT max(recipeID) FROM recipes')->data_seek(0);
+                $intRecipeID = $this->conn->query('SELECT max(id) FROM recipes')->data_seek(0);
                 $intRecipeID++;
 
                 //Insert the new recipe in the recipe table with the new last id
-                $strInsertQuery = 'INSERT INTO recipes( recipeID, recipeName ) VALUES( ' . $intRecipeID . ',' . $strRecipeName . ')' ;
+                $strInsertQuery = 'INSERT INTO recipes( id, name ) VALUES( ' . $intRecipeID . ',' . $strRecipeName . ')' ;
                 $this->conn->query( $strInsertQuery ) ;
 
             }
