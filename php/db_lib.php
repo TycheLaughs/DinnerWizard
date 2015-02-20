@@ -1,5 +1,9 @@
 <?php
 
+
+    $temp = new db_lib ;
+    $temp->getTables() ;
+
     class db_lib
     {
 
@@ -16,7 +20,7 @@
          */
         public function __construct()
         {
-            $this->$conn = new mysqli( $this->_HOST,  $this->_USERNAME, $this->$_PASSWORD, $this->$_DATABASE ) ;
+            $this->conn = new mysqli( $this->_HOST,  $this->_USERNAME, $this->_PASSWORD, $this->_DATABASE ) ;
 
             //Create any connection error warnings
             if( $this->conn->connect_error)
@@ -27,28 +31,13 @@
 
         }
 
+        /**
+         * Summary:
+         *      Queries the tables in the database and builds a json object representation of their contents.
+         *      The schema for the JSON object can be found at project_documentation/json_schema.json
+         */
         public function getTables()
         {
-
-
-/*        {
-            "recipeName" : "test recipe",
-            "categories" :
-            [
-            "category1",
-            "category2"
-            ],
-            "tags" :
-            [
-            "tag1",
-            "tag2"
-            ],
-            "ingredients" :
-            [
-            "ingredient1",
-            "ingredient2"
-            ]
-        }*/
 
             /**
              * Because this is only a class project these tables are not going to be very large it makes sense
@@ -58,37 +47,175 @@
              * everything in the database and then write queries so you are only sending small pieces of data to the
              * browser.
              */
-            //get all of the tables
-            $recipeTable                = $this->conn->query( 'SELECT * FROM recipes' ) ;               //id,name
-            $categoryTable              = $this->conn->query( 'SELECT * FROM categories' ) ;            //id,name
-            $tagsTable                  = $this->conn->query( 'SELECT * FROM tags' ) ;                  //id,name
-            $ingredientsTable           = $this->conn->query( 'SELECT * FROM ingredients' ) ;           //id,name
-            $ingredientTagMapTable      = $this->conn->query( 'SELECT * FROM ingredient_tag_map' ) ;    //ingredientID, tagID
-            $ingredientRecipeMapTable   = $this->conn->query( 'SELECT * FROM ingredient_recipe_map' ) ; //ingredientID, recipeID
-            $recipeTagMapTable          = $this->conn->query( 'SELECT * FROM recipe_tag_map' ) ;        //recipeID, tagID
-            $recipeCategoryMapTable     = $this->conn->query( 'SELECT * FROM recipe_category_map' ) ;   //recipeID, categoryID
 
-            $recipeTable->data_seek(0) ;
-            $categoryTable->data_seek(0) ;
-            $tagsTable->data_seek(0) ;
-            $ingredientsTable->data_seek(0) ;
-            $ingredientTagMapTable->data_seek(0) ;
+            //Get the main tables we need to build our json object
+            $recipeTable                = $this->conn->query( 'SELECT * FROM recipes' ) ;               //id,name
+            $ingredientsTable           = $this->conn->query( 'SELECT * FROM ingredients' ) ;           //id,name
+            $ingredientRecipeMapTable   = $this->conn->query( 'SELECT * FROM ingredient_recipe_map' ) ; //ingredientID, recipeID
+
             $ingredientRecipeMapTable->data_seek(0) ;
-            $recipeTagMapTable->data_seek(0) ;
-            $recipeCategoryMapTable->data_seek(0) ;
+            $recipeTable->data_seek(0) ;
+            $ingredientsTable->data_seek(0) ;
+
+            $arRecipes = $this->buildRecipesObject( $recipeTable, $ingredientsTable, $ingredientRecipeMapTable ) ;
+            $arIngredients = $this->buildIngredientsObject( $recipeTable, $ingredientsTable, $ingredientRecipeMapTable ) ; ;
+
+            print_r( $arRecipes );
+            $arDinnerWizard = array( $arRecipes, $arIngredients ) ;
+
+            $this->buildJSONObject( $arDinnerWizard ) ;
+
+        }
+
+        private function buildRecipesObject( $recipeTable, $ingredientsTable, $ingredientRecipeMapTable )
+        {
 
             $arRecipes = array() ;
-            while( $row = $recipeTable->fetch_assoc() )
+
+            while( $rowRecipe = $recipeTable->fetch_assoc() )
             {
-                $arRecipe = array( 'name' => $row['name'] ) ;
 
-                $intRecipeID = $row['id'] ;
+                //reset the arrays temporary array to empty
+                $arTemp       = array() ;
 
+                //get the recipe name and save it's id to find tags and categories
+                $arRecipe     = array( 'name' => $rowRecipe['name'] ) ;
+                $intRecipeID  = $rowRecipe['id'] ;
 
+                //get all of the categoryID and tagID's that are associated with this recipe
+                $recipeCategoryMapTable = $this->conn->query( 'SELECT categoryID FROM recipe_category_map WHERE recipeID = \'' . $intRecipeID . '\''  ) ;
+                $recipeTagMapTable      = $this->conn->query( 'SELECT tagID FROM recipe_tag_map WHERE recipeID = \'' . $intRecipeID . '\'' ) ;
+                $recipeCategoryMapTable->data_seek(0) ;
+                $recipeTagMapTable->data_seek(0) ;
 
+                //There is no reason to keep recreating row, id, and table variables so just reuse the same ones for
+                //the rest of the recipe loop
+                while( $rowTemp = $recipeCategoryMapTable->fetch_assoc() )
+                {
+
+                    $intTempID = $rowTemp['categoryID'] ;
+                    $tempTable = $this->conn->query( 'SELECT name FROM categories WHERE id = \'' . $intTempID . '\''  ) ;
+                    $tempTable->data_seek(0) ;
+
+                    while( $rowCategory = $tempTable->fetch_assoc() )
+                    {
+                        $arTemp->array_push( $rowCategory['name'] ) ;
+                    }
+
+                }
+
+                //update the categories array object with the categories and then update the recipe array
+                $arCategories = array( 'categories' => $arTemp ) ;
+                $arTemp       = array() ; //reset the arrays temporary array
+                $arRecipe->array_push( $arCategories ) ;
+
+                while( $rowTemp = $recipeTagMapTable->fetch_assoc() )
+                {
+
+                    $intTempID = $rowTemp['tagID'] ;
+                    $tempTable = $this->conn->query( 'SELECT name FROM tags WHERE id = \'' . $intTempID . '\''  ) ;
+                    $tempTable->data_seek(0) ;
+
+                    while( $rowTag = $tempTable->fetch_assoc() )
+                    {
+                        $arTemp->array_push( $rowTag['name'] ) ;
+                    }
+
+                }
+
+                //update the tags array object with the tags and then update the recipe array
+                $arTags = array( 'tags' => $arTemp ) ;
+                $arTemp = array() ; //reset the arrays temporary array
+                $arRecipe->array_push( $arTags ) ;
+
+                while( $rowTemp = $ingredientRecipeMapTable->fetch_assoc() )
+                {
+
+                    $intTempID = $rowTemp['ingredientID'] ;
+                    $tempTable = $this->conn->query( 'SELECT name FROM ingredients WHERE id = \'' . $intTempID . '\'' ) ;
+
+                    while( $rowTag = $tempTable->fetch_assoc() )
+                    {
+                        $arTemp->array_push( $rowTag['name'] ) ;
+                    }
+
+                }
+
+                //update the tags array object with the tags and then update the recipe array
+                $arTags = array( 'ingredients' => $arTemp ) ;
+                $arRecipe->array_push( $arTags ) ;
 
                 $arRecipes.push( $arRecipe ) ;
             }
+
+            return $arRecipes ;
+
+        }
+
+        private function buildIngredientsObject( $recipeTable, $ingredientsTable, $ingredientRecipeMapTable )
+        {
+
+            $arIngredients = array() ;
+
+            while( $rowIngredient = $ingredientsTable->fetch_assoc() )
+            {
+
+                //reset the arrays temporary array to empty
+                $arTemp       = array() ;
+
+                //get the recipe name and save it's id to find tags and categories
+                $arIngredient     = array( 'name' => $rowIngredient['name'] ) ;
+                $intIngredientID  = $rowIngredient['id'] ;
+
+                //get all of the categoryID and tagID's that are associated with this recipe
+                $ingredientTagMapTable = $this->conn->query( 'SELECT tagID FROM ingredient_tag_map WHERE ingredientID = \'' . $intIngredientID . '\'' ) ;
+                $ingredientTagMapTable->data_seek(0) ;
+
+                while( $rowTemp = $ingredientTagMapTable->fetch_assoc() )
+                {
+
+                    $intTempID = $rowTemp['tagID'] ;
+                    $tempTable = $this->conn->query( 'SELECT name FROM tags WHERE id = \'' . $intTempID . '\''  ) ;
+                    $tempTable->data_seek(0) ;
+
+                    while( $rowTag = $tempTable->fetch_assoc() )
+                    {
+                        $arTemp->array_push( $rowTag['name'] ) ;
+                    }
+
+                }
+
+                //update the tags array object with the tags and then update the recipe array
+                $arTags = array( 'tags' => $arTemp ) ;
+                $arTemp = array() ; //reset the arrays temporary array
+                $arIngredient->array_push( $arTags ) ;
+
+                while( $rowTemp = $ingredientRecipeMapTable->fetch_assoc() )
+                {
+
+                    $intTempID = $rowTemp['recipeID'] ;
+                    $tempTable = $this->conn->query( 'SELECT name FROM recipes WHERE id = \'' . $intTempID . '\'' ) ;
+
+                    while( $rowTag = $tempTable->fetch_assoc() )
+                    {
+                        $arTemp->array_push( $rowTag['name'] ) ;
+                    }
+
+                }
+
+                //update the tags array object with the tags and then update the recipe array
+                $arTags = array( 'ingredients' => $arTemp ) ;
+                $arIngredient->array_push( $arTags ) ;
+
+                $arIngredients.push( $arRecipe ) ;
+            }
+
+            return $arIngredients ;
+
+        }
+
+        private function buildJSONObject( $arDinnerWizard )
+        {
 
         }
 
