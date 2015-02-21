@@ -66,11 +66,29 @@ a:hover{
 
 }
 .tagsList{
+   height: 200px;
+   font-size:.7em;
+   
    -webkit-column-count: 2; /* Chrome, Safari, Opera */
    -moz-column-count: 2; /* Firefox */
    column-count: 2;
-   
+   -webkit-column-gap: 4px; /* Chrome, Safari, Opera */
+   -moz-column-gap: 4px; /* Firefox */
+   column-gap: 4px;
 } 
+
+.actualTagsList{
+   padding-left:0px;
+}
+
+
+.infoBox{
+   height: 200px;
+}
+
+.procedureBox{
+   height: 400px;
+}
 
 
 

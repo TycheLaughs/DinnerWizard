@@ -61,7 +61,7 @@ http://jsfiddle.net/b2fCE/1/
 */
 DinnerWizardApp.service('persistentService', function(){
    var list = ['Click ingredients to add them to your inventory'];
-   var tagsList = ['Click filters at left to add them to your search'];
+   var tagsList = ['No Search Filters Selected'];
    return{
       List:function(){
          return list;
@@ -131,7 +131,7 @@ DinnerWizardApp.service('persistentService', function(){
       */
       addTag:function(clicked){
          console.log('Clicked '+ clicked);
-         if(tagsList[0] == 'Click filters at left to add them to your search'){
+         if(tagsList[0] == 'No Search Filters Selected'){
             tagsList.splice(0, 1);//a tag was clicked to add, so remove the user 
             //prompt before adding the item
          }
@@ -161,7 +161,7 @@ DinnerWizardApp.service('persistentService', function(){
          console.log('Clicked '+ clicked +' in selected search tags.');
             tagsList.splice(itemIndex, 1); 
             if(tagsList.length === 0){//if array is empty, print user prompt
-               tagsList.push('Click filters at left to add them to your search');
+               tagsList.push('No Search Filters Selected');
             }
       
       },
@@ -197,8 +197,10 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
 
 
 //Recipe Selection and Browsing
-	DinnerWizardApp.controller('recipesController', function($scope, $http) {
+	DinnerWizardApp.controller('recipesController', function($scope, $http, persistentService) {
 		$scope.message = 'Recipe View';
+      $scope.tags = persistentService.Tags();
+      
 	});
    
 //Recipe Filtering

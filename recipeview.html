@@ -7,21 +7,17 @@ placeholder text
 
 
 -->
-<div class="col-xs-11 col-sm-6 contentContainer"><p>{{ message }}  Left column</p></div>
+<div class="col-xs-11 col-sm-6 contentContainer"><p>{{ message }}  Accordion Goes Here</p></div>
 <div class="col-xs-0 col-sm-1"></div>
-<div class="col-xs-11 col-sm-5 contentContainer"><p>{{ message }} Right Column</p>
+<div class="col-xs-11 col-sm-5 contentContainer rightColumn">
    <div class="col-xs-11 contentContainer">
-      <div class="col-xs-6 contentContainer"><p>Tips, Substitutions, Ratio Chart or Complex Component Mini Recipes</p></div>
+      <div class="col-xs-6 contentContainer infoBox"><p>Tips, Substitutions, Ratio Chart or Complex Component Mini Recipes</p></div>
       <div class="col-xs-0 col-sm-1"></div>
-      <div class="col-xs-5 contentContainer">
-       <p>Tag List:</p>
-       <ul class="tagsList">
-         <li style="list-style-type: none">Tag</li>
-         <li style="list-style-type: none">Tag</li>
-         <li style="list-style-type: none">Tag</li>
-         <li style="list-style-type: none">Tag</li>
-         </ul>
+      <div class="col-xs-5 contentContainer tagsList">
+       <ul class = "actualTagsList">
+         <li ng-repeat= "tag in tags"style="list-style-type: none">{{tag}}</li>
+       </ul>
       </div>
    </div>
-   <div class="col-xs-11  contentContainer"><p>Procedure</p></div>
+   <div class="col-xs-11  contentContainer procedureBox"><p>Procedure</p></div>
 </div>

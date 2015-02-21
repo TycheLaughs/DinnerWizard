@@ -22,8 +22,8 @@ http://angular-ui.github.io/bootstrap/ -->
 <div class="col-xs-0 col-sm-1"></div>  
 <div class="col-xs-11 col-sm-5 contentContainer ">
    <div class = "rightColumn contentContainer">
-      <ul ng-repeat="item in list track by $index"><!-- ng-change="" have the php for updating the # dishes button be called here, on change-->
-         <li style="list-style-type: none" ng-click="clickedFromInventory(item)">{{item}}</li>
+      <ul><!-- ng-change="" have the php for updating the # dishes button be called here, on change-->
+         <li ng-repeat="item in list track by $index" style="list-style-type: none" ng-click="clickedFromInventory(item)">{{item}}</li>
       </ul><!-- Resolved error with using ng-repeat and adding items to an array dynamically here: https://docs.angularjs.org/error/ngRepeat/dupes -->
    </div>
    <div class="col-xs-5"></div>
