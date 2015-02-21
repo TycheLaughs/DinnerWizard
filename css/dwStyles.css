@@ -33,12 +33,17 @@ body {
 }
 .roundEdges{
    border: 1px solid black;
-   border-radius: 9px;
+   border-radius: 7px;
    font-size: .75em;
    text-align: center;
    margin-top: 3px;
    margin-bottom:2px;
+   padding: 2px;
   
+}
+
+.rightColumn{
+   height: 650px;
 }
 @media (max-width: 500px) {
    body{
@@ -49,13 +54,25 @@ body {
 }
 @media (max-width: 500px) {
    .roundEdges{
-
-    font-size: 1em;
-    }
-
+      font-size: 1em;
+   }
+   .rightColumn{
+      height: 200px;
+   }
 }
 
 a:hover{
    cursor: pointer;
 
 }
+.tagsList{
+   -webkit-column-count: 2; /* Chrome, Safari, Opera */
+   -moz-column-count: 2; /* Firefox */
+   column-count: 2;
+   
+} 
+
+
+
+
+

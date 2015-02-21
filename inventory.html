@@ -3,6 +3,7 @@ File: inventory.html
 91.462 GUI Programming II, Prof. Heines, University of Massachusetts Lowell
 Created:  2/09/2015 by Susan Souza for use in the Dinner Wizard application
 Modified: 2/14/2015 by Susan Souza to add initial accordion and inventory-building  logic
+Modified: 2/21/2015 by Susan souza to add 'Clear Inventory' button
 
 -->
 
@@ -18,12 +19,16 @@ http://angular-ui.github.io/bootstrap/ -->
       </accordion-group>
    </accordion>
 </div>
-<div class="col-xs-0 col-sm-1"></div>
-<div class="col-xs-11 col-sm-5 contentContainer">
-   <ul ng-repeat="item in list track by $index">
-      <li style="list-style-type: none" ng-click="clickedFromInventory(item)">{{item}}</li>
-   </ul><!-- Resolved error with using ng-repeat and adding items to an array dynamically here: https://docs.angularjs.org/error/ngRepeat/dupes -->
+<div class="col-xs-0 col-sm-1"></div>  
+<div class="col-xs-11 col-sm-5 contentContainer ">
+   <div class = "rightColumn contentContainer">
+      <ul ng-repeat="item in list track by $index"><!-- ng-change="" have the php for updating the # dishes button be called here, on change-->
+         <li style="list-style-type: none" ng-click="clickedFromInventory(item)">{{item}}</li>
+      </ul><!-- Resolved error with using ng-repeat and adding items to an array dynamically here: https://docs.angularjs.org/error/ngRepeat/dupes -->
+   </div>
+   <div class="col-xs-5"></div>
+       <div class="col-xs-5 "><span class="roundEdges">Clear Inventory</span></div> 
+    <div class="col-xs-2"></div>
 </div>
-
 
 

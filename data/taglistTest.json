@@ -1,0 +1,55 @@
+{
+   "TAGS":[
+      {
+         "Category":"Flavors",
+         "Contents": [
+            "Mexican",
+            "Chinese",
+            "Italian",
+            "Western",
+            "Mediterranean",
+            "Southeast Asian"
+         ]
+      }, 
+      {
+         "Category":"Dishes",
+         "Contents": [ 
+            "Casserole",
+            "Pasta",
+            "Rice Dish",
+            "Meat and Starch",
+            "Soup",
+            "Stew",
+            "Finger Food",
+            "Snack or Appetizer",          
+            "Sweet"
+         ]
+      },
+      {
+         "Category":"Other",
+         "Contents": [
+            "Vegetarian",
+            "Under 30 Minutes",
+            "Cost Cutter"
+            ]
+      },
+      {      
+         "Category":"Without",
+         "Contents": [
+            "Green Stuff",
+            "Leafy Stuff",
+            "Bitter Stuff",
+            "More Green Stuff",
+            "Root Vegetables",
+            "Eggplant",
+            "Tomatoes",
+            "Bell Peppers"
+         ]
+       }
+   ]
+}
+
+
+
+
+
