@@ -195,13 +195,6 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
       };
 });
 
-
-//Recipe Selection and Browsing
-	DinnerWizardApp.controller('recipesController', function($scope, $http, persistentService) {
-		$scope.message = 'Recipe View';
-      $scope.tags = persistentService.Tags();
-      
-	});
    
 //Recipe Filtering
 	DinnerWizardApp.controller('filterController', function($scope, $http, persistentService) {
@@ -220,4 +213,25 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
       $scope.clickedFromSelectedTags = function(item){
          persistentService.removeTag(item);
       }; 
+	});
+   
+   //Recipe Selection and Browsing
+	DinnerWizardApp.controller('recipesController', function($scope, $http, persistentService) {
+		$scope.message = 'Recipe View';
+      $scope.oneAtATime = true;
+      $scope.showMeRecipe = '';
+      $scope.tags = persistentService.Tags();
+      $http.get("data/recipesThreeTest.json").success(function(data){
+         $scope.recipes = data.RECIPES; //assign the array of objects called 
+       //Recipes in the json file to a variable named recipes
+      });
+      $scope.showRecipe = function(recipe){
+         console.log( recipe +' clicked.');
+         $scope.showMeRecipe = recipe;
+         //console.log($scope.showMeRecipe + ' is the variable we set.');
+         
+      };
+      
+      
+      
 	});

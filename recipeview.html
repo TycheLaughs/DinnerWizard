@@ -7,7 +7,18 @@ placeholder text
 
 
 -->
-<div class="col-xs-11 col-sm-6 contentContainer"><p>{{ message }}  Accordion Goes Here</p></div>
+<div class="col-xs-11 col-sm-6 contentContainer"><p>{{ message }}  Accordion Goes Here</p>
+<!-- AngularUI Bootstrap Accordion found here, with some modifications:
+http://angular-ui.github.io/bootstrap/ -->
+   <accordion close-others="oneAtATime"><!--captured click from examples found here: http://stackoverflow.com/questions/15642082/handle-open-collapse-events-of-accordion-in-angular/15642577#15642577
+   -->
+      <accordion-group heading="{{recipe.RecipeName}}" ng-repeat ="recipe in recipes" ng-click=showRecipe(recipe.RecipeName)>
+         <ul ng-repeat="ingredient in recipe.Ingredients" >
+            <li style="list-style-type: none" >{{ingredient}}</li>
+         </ul><!-- note to self: need to get to the sub-categories in this... accordion nesting, GO! -->
+      </accordion-group>
+   </accordion>
+</div>
 <div class="col-xs-0 col-sm-1"></div>
 <div class="col-xs-11 col-sm-5 contentContainer rightColumn">
    <div class="col-xs-11 contentContainer">
@@ -19,5 +30,6 @@ placeholder text
        </ul>
       </div>
    </div>
-   <div class="col-xs-11  contentContainer procedureBox"><p>Procedure</p></div>
+   <div class="col-xs-11  contentContainer procedureBox"><p>{{showMeRecipe}} Procedure:</p>
+   <ol ng-repeat="rec in recipes| filter: {RecipeName:showMeRecipe}:true"><li  ng-repeat="pro in rec.Procedure">{{pro}}</li></ol></div>
 </div>
