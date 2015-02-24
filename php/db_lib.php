@@ -10,11 +10,20 @@
     class db_lib
     {
 
-        private $conn = NULL; // class member to hold our database connection
-        private $_HOST = 'localhost';
+        //datbase connection information
+        private $conn      = NULL;
+        private $_HOST     = 'localhost';
         private $_USERNAME = 'root';
         private $_PASSWORD = '';
         private $_DATABASE = 'dinnerwizard';
+
+        //The most used queries for sustainability and easy formating
+        private $mQuery_SelectAll             = "SELECT * FROM %s" ;                                                        //SELECT * FROM <tableName>
+        private $mQuery_SelectFromTable       = "SELECT %s FROM %s WHERE %s = '%d'"  ;                                     //SELECT <attribute> FROM <table> WHERE <attribute> = <value>
+        private $mQuery_InsBaseTableWithID    = "INSERT INTO %s( id, name ) VALUES( '%d', '%s' ) " ;                        //INSERT INTO <table>( id, name ) VALUES( <id>, <name> )
+        private $mQuery_InsBaseTables         = "INSERT INTO %s( name ) VALUES( '%s' ) " ;                                  //INSERT INTO <table>( name ) VALUES( <name> )
+        private $mQuery_InsRecipesTable       = "INSERT INTO recipes( name, prepInst ) VALUES( '%s', '%s' ) " ;             //INSERT INTO recipes( name, prepInst ) VALUES( <name>, <prepInst> )
+        private $mQUery_InsRecipesTableWithID = "INSERT INTO recipes( id, name, prepInst ) VALUES ( '%d', '%s', '%s' ) " ;  //INSERT INTO recipes( id, name, prepInst ) VALUES( <id>, <name>, <prepInst> )
 
 
         /**
@@ -52,16 +61,18 @@
              */
 
             //Get the main tables we need to build our json object
-            $recipeTable = $this->conn->query( 'SELECT * FROM recipes' );               //id,name
-            $ingredientsTable = $this->conn->query( 'SELECT * FROM ingredients' );           //id,name
-            $ingredientRecipeMapTable = $this->conn->query( 'SELECT * FROM ingredient_recipe_map' ); //ingredientID, recipeID
+            $recipesTable             = $this->conn->query( sprintf( $this->mQuery_SelectAll, 'recipes' ) );               //id,name,prepInst
+            $ingredientsTable         = $this->conn->query( sprintf( $this->mQuery_SelectAll, 'ingredients' ) );           //id,name
+            $ingredientRecipeMapTable = $this->conn->query( sprintf( $this->mQuery_SelectAll, 'ingredient_recipe_map' ) ); //ingredientID, recipeID
 
+
+            //Set everyone to their first rows
             $ingredientRecipeMapTable->data_seek( 0 );
-            $recipeTable->data_seek( 0 );
+            $recipesTable->data_seek( 0 );
             $ingredientsTable->data_seek( 0 );
 
-            $arRecipes = $this->buildRecipesObject( $recipeTable, $ingredientsTable, $ingredientRecipeMapTable );
-            //$arIngredients = $this->buildIngredientsObject( $recipeTable, $ingredientsTable, $ingredientRecipeMapTable );;
+            $arRecipes     = $this->buildObject( $recipesTable, 'recipes', $ingredientRecipeMapTable ) ;
+            $arIngredients = $arRecipes = $this->buildObject( $ingredientsTable, 'ingredients', $ingredientRecipeMapTable ) ;
 
             print_r( $arRecipes );
             //$arDinnerWizard = [ $arRecipes, $arIngredients ];
@@ -70,32 +81,73 @@
 
         }
 
-        private function buildRecipesObject( $recipeTable, $ingredientRecipeMapTable )
+        private function buildObject( $baseTable, $strTable, $ingredientRecipeMapTable )
         {
 
+            //Storeage space for all of the recipies
             $arRecipes = [ ];
 
-            while( $rowRecipe = $recipeTable->fetch_assoc() )
+            //Determin if we're adding a recipe or an ingredient
+            if( $strTable == 'recipes' )
+            {
+                $strMapTable = 'recipe_tag_map' ;
+                $strAttrToMatch = 'recipeID' ;
+            }
+            else
+            {
+                $strMapTable = 'ingredient_tag_map' ;
+                $strAttrToMatch = 'ingredientID' ;
+            }
+
+            while( $row = $baseTable->fetch_assoc() )
             {
 
                 //reset the arrays temporary array to empty
                 $strTemp = '';
 
                 //get the recipe name and save it's id to find tags
-                $arRecipe = [ 'name' => $rowRecipe['name'] ];
-                $arRecipe[ 'prepIns' ] = $rowRecipe['prepInst'] ;
+                $arItem = [ 'name' => $row['name'] ];
 
-                $intRecipeID = $rowRecipe['id'];
+                if( $strTable == 'recipes' )
+                {
+                    $arItem['prepIns'] = $row['prepInst'];
+                }
 
-                //get all of the tagID's that are associated with this recipe
-                $recipeTagMapTable = $this->conn->query( 'SELECT tagID FROM recipe_tag_map WHERE recipeID = \'' . $intRecipeID . '\'' );
-                $recipeTagMapTable->data_seek( 0 );
+                $intIdToMatch = $row['id'];
 
-                while( $rowTemp = $recipeTagMapTable->fetch_assoc() )
+
+                while( $rowMap = $ingredientRecipeMapTable->fetch_assoc() )
                 {
 
-                    $intTempID = $rowTemp['tagID'];
-                    $tempTable = $this->conn->query( 'SELECT name FROM tags WHERE id = \'' . $intTempID . '\'' );
+                    //SELECT name FROM ingredients WHERE id = 'ingredientID'
+                    $tempTable = $this->conn->query( $this->mQuery_SelectFromTable, 'name', $strTable, 'id', $rowMap[$strAttrToMatch] );
+
+
+                    while( $rowIngredientOrRecipe = $tempTable->fetch_assoc() )
+                    {
+                        $strTemp = "\"" . $strTemp . $rowIngredientOrRecipe['name'] . "\",";
+                    }
+
+                }
+
+                //get rid of the last comma
+                rtrim($strTemp, ",") ;
+
+
+                //update the recipe array with the tag's
+                $arRecipe['ingredients'] = $strTemp ;
+
+                array_push( $arRecipes, $arRecipe ) ;
+                //get all of the tagID's that are associated with this recipe
+                //SELECT tagID FROM mapTable WHERE attributeToMatch = '$intIdToMatch' );
+                $rsltMatchingIDs = $this->conn->query( sprintf( $this->$mQuery_SelectFromTable, 'tagID', $strMapTable, $strAttrToMatch, $intIdToMatch ) );
+                $rsltMatchingIDs->data_seek( 0 );
+
+                while( $rowMap = $rsltMatchingIDs->fetch_assoc() )
+                {
+
+                    //SELECT name FROM tags WHERE id = 'tagID'
+                    $tempTable = $this->conn->query( $this->$mQuery_SelectFromTable, 'name', 'tags', 'id', $rowMap['tagID'] );
                     $tempTable->data_seek( 0 );
 
                     while( $rowTag = $tempTable->fetch_assoc() )
@@ -109,31 +161,11 @@
                 rtrim($strTemp, ",") ;
 
                 //Add all of the tags to the array
-                $arRecipe['tags'] =  $strTemp ;
+                $arItem['tags'] =  $strTemp ;
                 $strTemp = '' ;
 
-                print_r( $arRecipe ) ;
+                print_r( $arItem ) ;
 
-                while( $rowTemp = $ingredientRecipeMapTable->fetch_assoc() )
-                {
-
-                    $intTempID = $rowTemp['ingredientID'];
-                    $tempTable = $this->conn->query( 'SELECT name FROM ingredients WHERE id = \'' . $intTempID . '\'' );
-
-                    while( $rowTag = $tempTable->fetch_assoc() )
-                    {
-                        $strTemp = "\"" . $strTemp . $rowTag['name'] . "\",";
-                    }
-
-                }
-
-                //get rid of the last comma
-                rtrim($strTemp, ",") ;
-
-                //update the recipe array with the tag's
-                $arRecipe['ingredients'] = $strTemp ;
-
-                array_push( $arRecipes, $arRecipe ) ;
                 print_r( $arRecipes ) ;
             }
 
@@ -156,8 +188,9 @@
                 $arIngredient = [ 'name' => $rowIngredient['name'] ];
                 $intIngredientID = $rowIngredient['id'];
 
-                //get all of the tags that are associated with this recipe
-                $ingredientTagMapTable = $this->conn->query( 'SELECT tagID FROM ingredient_tag_map WHERE ingredientID = \'' . $intIngredientID . '\'' );
+                //get all of the tags that are associated with this
+                //SELECT tagID FROM ingredient_tag_map WHERE ingredientID = $intIngredientID
+                $ingredientTagMapTable = $this->conn->query( $this->mQuery_SelectFromTable, 'tagID', 'ingredient_tag_map', 'ingredientID', $intIngredientID );
                 $ingredientTagMapTable->data_seek( 0 );
 
                 while( $rowTemp = $ingredientTagMapTable->fetch_assoc() )
