@@ -2,12 +2,11 @@ Diner Wizard Database Schema
 Creation date: 2/16/2015
 Creator: Tommy Leedberg
 Update date:
+        Tommy Leedberg - 2/24/2015 - Removing "categories" tables
 
-categories( id, name )
 ingredients( id, name )
 recipes( id, name, prepInst )
 tags( id, name )
 ingredient_tag_map( ingredientID, tagID )
 ingredient_recipe_map( ingredientID, recipeID )
-recipe_category_map( recipeID, categoryID )
 recipe_tag_map( recipeID, tagID )

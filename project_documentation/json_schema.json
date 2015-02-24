@@ -2,11 +2,7 @@
   "recipes" : [
     {
       "name" : "test recipe",
-      "categories" :
-      [
-        "category1",
-        "category2"
-      ],
+      "prepInst" : "These are preparation instructions.",
       "tags" :
       [
         "tag1",
@@ -20,11 +16,7 @@
     },
     {
       "recipeName" : "test recipe2",
-      "categoies" :
-      [
-        "category1",
-        "category2"
-      ],
+      "prepInst" : "These are preparation instructions.",
       "tags" :
       [
         "tag1",
@@ -41,10 +33,10 @@
   [
     {
       "ingredientName" : "test Name",
-      "categories" :
+      "tags":
       [
-        "category1",
-        "category2"
+        "tag1",
+        "tag2"
       ],
       "recipes" :
       [
@@ -54,10 +46,10 @@
     },
     {
       "ingredientName" : "test Name",
-      "categories" :
+      "tags":
       [
-        "category1",
-        "category2"
+        "tag1",
+        "tag2"
       ],
       "recipes" :
       [
