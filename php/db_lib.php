@@ -1,6 +1,5 @@
 <?php
 
-
     $temp = new db_lib ;
     $temp->getTables() ;
 
