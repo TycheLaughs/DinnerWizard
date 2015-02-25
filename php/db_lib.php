@@ -1,29 +1,30 @@
 <?php
-//TODO: Generate GLobal Queries
-//TODO: Fix associative array's to properly generate nested arrays
-//TODO: Encode to JSON.
+    //TODO: Generate GLobal Queries
+    //TODO: Fix associative array's to properly generate nested arrays
+    //TODO: Encode to JSON.
 
 
     $temp = new db_lib;
-    $temp->getTables();
+    $temp->update();
 
     class db_lib
     {
 
         //datbase connection information
-        private $conn      = NULL;
-        private $_HOST     = 'localhost';
+        private $conn = NULL;
+        private $_HOST = 'localhost';
         private $_USERNAME = 'root';
         private $_PASSWORD = '';
         private $_DATABASE = 'dinnerwizard';
 
         //The most used queries for sustainability and easy formating
-        private $mQuery_SelectAll             = "SELECT * FROM %s" ;                                                        //SELECT * FROM <tableName>
-        private $mQuery_SelectFromTable       = "SELECT %s FROM %s WHERE %s = '%d'"  ;                                     //SELECT <attribute> FROM <table> WHERE <attribute> = <value>
-        private $mQuery_InsBaseTableWithID    = "INSERT INTO %s( id, name ) VALUES( '%d', '%s' ) " ;                        //INSERT INTO <table>( id, name ) VALUES( <id>, <name> )
-        private $mQuery_InsBaseTables         = "INSERT INTO %s( name ) VALUES( '%s' ) " ;                                  //INSERT INTO <table>( name ) VALUES( <name> )
-        private $mQuery_InsRecipesTable       = "INSERT INTO recipes( name, prepInst ) VALUES( '%s', '%s' ) " ;             //INSERT INTO recipes( name, prepInst ) VALUES( <name>, <prepInst> )
-        private $mQUery_InsRecipesTableWithID = "INSERT INTO recipes( id, name, prepInst ) VALUES ( '%d', '%s', '%s' ) " ;  //INSERT INTO recipes( id, name, prepInst ) VALUES( <id>, <name>, <prepInst> )
+        private $mQuery_SelectAll = "SELECT * FROM %s";                                                        //SELECT * FROM <tableName>
+        private $mQuery_SelectFromTable = "SELECT %s FROM %s WHERE %s = '%s'";                                      //SELECT <attribute> FROM <table> WHERE <attribute> = <value>
+        private $mQuery_InsBaseTableWithID = "INSERT INTO %s( id, name ) VALUES( '%d', '%s' ) ";                        //INSERT INTO <table>( id, name ) VALUES( <id>, <name> )
+        private $mQuery_InsBaseTables = "INSERT INTO %s( name ) VALUES( '%s' ) ";                                  //INSERT INTO <table>( name ) VALUES( <name> )
+        private $mQuery_InsRecipesTable = "INSERT INTO recipes( name, prepInst ) VALUES( '%s', '%s' ) ";             //INSERT INTO recipes( name, prepInst ) VALUES( <name>, <prepInst> )
+        private $mQuery_InsRecipesTableWithID = "INSERT INTO recipes( id, name, prepInst ) VALUES ( '%d', '%s', '%s' ) ";  //INSERT INTO recipes( id, name, prepInst ) VALUES( <id>, <name>, <prepInst> )
+        private $mQuery_InsMapTable = "INSERT INTO %s( %s, %s) VALUES( '%d', '%d')";
 
 
         /**
@@ -61,8 +62,8 @@
              */
 
             //Get the main tables we need to build our json object
-            $recipesTable             = $this->conn->query( sprintf( $this->mQuery_SelectAll, 'recipes' ) );               //id,name,prepInst
-            $ingredientsTable         = $this->conn->query( sprintf( $this->mQuery_SelectAll, 'ingredients' ) );           //id,name
+            $recipesTable = $this->conn->query( sprintf( $this->mQuery_SelectAll, 'recipes' ) );               //id,name,prepInst
+            $ingredientsTable = $this->conn->query( sprintf( $this->mQuery_SelectAll, 'ingredients' ) );           //id,name
             $ingredientRecipeMapTable = $this->conn->query( sprintf( $this->mQuery_SelectAll, 'ingredient_recipe_map' ) ); //ingredientID, recipeID
 
 
@@ -71,8 +72,8 @@
             $recipesTable->data_seek( 0 );
             $ingredientsTable->data_seek( 0 );
 
-            $arRecipes     = $this->buildObject( $recipesTable, 'recipes', $ingredientRecipeMapTable ) ;
-            $arIngredients = $arRecipes = $this->buildObject( $ingredientsTable, 'ingredients', $ingredientRecipeMapTable ) ;
+            $arRecipes = $this->buildObject( $recipesTable, 'recipes', $ingredientRecipeMapTable );
+            $arIngredients = $arRecipes = $this->buildObject( $ingredientsTable, 'ingredients', $ingredientRecipeMapTable );
 
             print_r( $arRecipes );
             //$arDinnerWizard = [ $arRecipes, $arIngredients ];
@@ -85,18 +86,18 @@
         {
 
             //Storeage space for all of the recipies
-            $arRecipes = [ ];
+            $arObject = [ ];
 
             //Determin if we're adding a recipe or an ingredient
             if( $strTable == 'recipes' )
             {
-                $strMapTable = 'recipe_tag_map' ;
-                $strAttrToMatch = 'recipeID' ;
+                $strMapTable = 'recipe_tag_map';
+                $strAttrToMatch = 'recipeID';
             }
             else
             {
-                $strMapTable = 'ingredient_tag_map' ;
-                $strAttrToMatch = 'ingredientID' ;
+                $strMapTable = 'ingredient_tag_map';
+                $strAttrToMatch = 'ingredientID';
             }
 
             while( $row = $baseTable->fetch_assoc() )
@@ -120,7 +121,7 @@
                 {
 
                     //SELECT name FROM ingredients WHERE id = 'ingredientID'
-                    $tempTable = $this->conn->query( $this->mQuery_SelectFromTable, 'name', $strTable, 'id', $rowMap[$strAttrToMatch] );
+                    $tempTable = $this->conn->query( $this->mQuery_SelectFromTable, 'name', $strTable, 'id', $rowMap[ $strAttrToMatch ] );
 
 
                     while( $rowIngredientOrRecipe = $tempTable->fetch_assoc() )
@@ -131,13 +132,13 @@
                 }
 
                 //get rid of the last comma
-                rtrim($strTemp, ",") ;
+                rtrim( $strTemp, "," );
 
 
                 //update the recipe array with the tag's
-                $arRecipe['ingredients'] = $strTemp ;
+                $arRecipe['ingredients'] = $strTemp;
 
-                array_push( $arRecipes, $arRecipe ) ;
+                array_push( $arRecipes, $arRecipe );
                 //get all of the tagID's that are associated with this recipe
                 //SELECT tagID FROM mapTable WHERE attributeToMatch = '$intIdToMatch' );
                 $rsltMatchingIDs = $this->conn->query( sprintf( $this->$mQuery_SelectFromTable, 'tagID', $strMapTable, $strAttrToMatch, $intIdToMatch ) );
@@ -158,87 +159,24 @@
                 }
 
                 //get rid of the last comma
-                rtrim($strTemp, ",") ;
+                rtrim( $strTemp, "," );
 
                 //Add all of the tags to the array
-                $arItem['tags'] =  $strTemp ;
-                $strTemp = '' ;
+                $arItem['tags'] = $strTemp;
 
-                print_r( $arItem ) ;
-
-                print_r( $arRecipes ) ;
+                print_r( $arItem );
+                array_push( $arObject, $arItem );
             }
 
-            return $arRecipes;
+            print_r( $arObject );
+
+            return $arObject;
 
         }
 
-        private function buildIngredientsObject( $recipeTable, $ingredientsTable, $ingredientRecipeMapTable )
-        {
-
-            $arIngredients = [ ];
-
-            while( $rowIngredient = $ingredientsTable->fetch_assoc() )
-            {
-
-                //reset the arrays temporary array to empty
-                $strTemp = '';
-
-                //get the recipe name and save it's id to find tags
-                $arIngredient = [ 'name' => $rowIngredient['name'] ];
-                $intIngredientID = $rowIngredient['id'];
-
-                //get all of the tags that are associated with this
-                //SELECT tagID FROM ingredient_tag_map WHERE ingredientID = $intIngredientID
-                $ingredientTagMapTable = $this->conn->query( $this->mQuery_SelectFromTable, 'tagID', 'ingredient_tag_map', 'ingredientID', $intIngredientID );
-                $ingredientTagMapTable->data_seek( 0 );
-
-                while( $rowTemp = $ingredientTagMapTable->fetch_assoc() )
-                {
-
-                    $intTempID = $rowTemp['tagID'];
-                    $tempTable = $this->conn->query( 'SELECT name FROM tags WHERE id = \'' . $intTempID . '\'' );
-                    $tempTable->data_seek( 0 );
-
-                    while( $rowTag = $tempTable->fetch_assoc() )
-                    {
-                        $strTemp = $strTemp . $rowTag['name'];
-                    }
-
-                }
-
-                //update the tags array object with the tags and then update the recipe array
-                $arIngredient['tags'] = $strTemp;
-                $strTemp = '';
-
-                while( $rowTemp = $ingredientRecipeMapTable->fetch_assoc() )
-                {
-
-                    $intTempID = $rowTemp['recipeID'];
-                    $tempTable = $this->conn->query( 'SELECT name FROM recipes WHERE id = \'' . $intTempID . '\'' );
-
-                    while( $rowTag = $tempTable->fetch_assoc() )
-                    {
-                        $strTemp->array_push( $rowTag['name'] );
-                    }
-
-                }
-
-                //update the tags array object with the tags and then update the recipe array
-                $arTags = [ 'ingredients' => $strTemp ];
-                $arIngredient->array_push( $arTags );
-
-                $arIngredients['recipes'] = $arIngredient ;
-            }
-
-            return $arIngredients;
-
-        }
-
-        private function buildJSONObject( $arDinnerWizard )
-        {
-
-        }
+        // private function buildJSONObject( $arDinnerWizard )
+        //{
+        //}
 
         /**
          * Summary:
@@ -248,11 +186,17 @@
         {
 
             //get what's being updated from the front end
-            $strRecipeName = $_POST["recipeName"];
-            $strTags = $_POST["tags"] ;
-            $strIngredients = $_POST["ingredients"];
+            //$strRecipeName = $_POST["recipeName"];
+            //$strPrepInst = $_POST["prepInst"];
+            //$strTags = $_POST["tags"];
+            //$strIngredients = $_POST["ingredients"];
 
-            $this->updateTables( $strRecipeName, $strTags, $strIngredients );
+            //Sample Code
+            $strRecipeName = "Garlic Herb Chicken";
+            $strPrepInst = "Marinate CHick in italian dressing, then pan fry with minced garlic and onion";
+            $strTags = [ "Garlicky", "Chicken" ];
+            $strIngredients = [ "Chicken", "Garlic", "Italian Dressing", "Onion" ];
+            $this->updateTables( $strRecipeName, $strPrepInst, $strTags, $strIngredients );
 
         }
 
@@ -263,33 +207,22 @@
          *
          * @param $strRecipeName
          *      The recipe name we are going to add to or update in the database, value is not required.
+         * @param $strPrepInst
+         *      The prepration instructions for the recipe the user has submitted
          * @param $strTags
          *      A tag or list of tags we are going to add to or update in the database, value is not required.
          * @param $strIngredients
          *      An ingredient or ist of ingredients we are going to update in the database, we always require at least 1
          *      ingredient.
          */
-        private function updateTables( $strRecipeName, $strTags, $strIngredients )
-        {
-
-            //Check if we have a recipe to update
-            if( !$strRecipeName == '' )
-            {
-                $this->updateRecipes( $strRecipeName, $strTags, $strIngredients );
-            }
-
-            //Update the ingredients and corresponding tables
-            $this->updateIngredients( $strIngredients, $strRecipeName, $strTags );
-
-        }
-
-        private function updateRecipes( $strRecipeName, $strTags )
+        private function updateTables( $strRecipeName, $strPrepInst, $strTags, $strIngredients )
         {
 
             //get the id for the recipe if it exists otherwise generate a new one
             if( $this->exists( $strRecipeName, 'recipes', 'name' ) )
             {
-                $intRecipeID = $this->conn->query( 'SELECT id FROM recipes WHERE recipeName = \'' . $strRecipeName . '\'' );
+                //SELECT id FROM recipes WHERE recipeName = '$strRecipeName '
+                $intRecipeID = $this->conn->query( sprintf( $this->mQuery_SelectFromTable, 'id', 'recipes', 'name', $strRecipeName ) )->data_seek( 0 );
             }
             else
             {
@@ -299,67 +232,62 @@
                 $intRecipeID++;
 
                 //Insert the new recipe in the recipe table with the new last id
-                $strInsertQuery = 'INSERT INTO recipes( id, name ) VALUES( ' . $intRecipeID . ',' . $strRecipeName . ')';
-                $this->conn->query( $strInsertQuery );
+                //'INSERT INTO recipes( id, name, prepInst ) VALUES( $intRecipeID, $strRecipeName, $strPrepInst )
+                $this->conn->query( sprintf( $this->mQuery_InsRecipesTableWithID, $intRecipeID, $strRecipeName, $strPrepInst ) );
 
             }
 
             //if there is 1 or more tags then we need to update the tags and recipe_tag_map tables
-            if( !$strTags == '' )
+            if( sizeOf( $strTags ) > 0 )
             {
                 $this->updateTags( $strTags, $intRecipeID, "recipes" );
             }
 
-        }
 
-        private function updateIngredients( $strIngredients, $strRecipeName, $strTags )
-        {
-
-            foreach( $strIngredients as $ingredient )
+            if( sizeOf( $strIngredients ) > 0 )
             {
 
-                //get the id for the tag if it exists otherwise generate a new one
-                if( $this->exists( $ingredient, 'ingredient', 'name' ) )
-                {
-                    $intIngredientID = $this->conn->query( 'SELECT id FROM ingredients WHERE ingredientName = \'' . $ingredient . '\'' );
-                }
-                else
+                foreach( $strIngredients as $ingredient )
                 {
 
-                    //get the last recipe id
-                    $intIngredientID = $this->conn->query( 'SELECT max(id) FROM ingredients' )->data_seek( 0 );
-                    $intIngredientID++;
-
-                    //because there is a new tag we have to insert it into the tag table
-                    $this->conn->query( 'INSERT INTO tags( id, name ) VALUES( ' . $intIngredientID . ',' . $ingredient . ')' );
-
-                }
-
-                //if there is 1 or more tags then we need to update the tags and recipe_tag_map tables
-                if( !$strTags == '' )
-                {
-                    $this->updateTags( $strTags, $intIngredientID, "recipes" );
-                }
-
-                if( !$strRecipeName == '' )
-                {
-
-                    //CYA: At this point the recipe should already exist but if for some reason it doesn't then we have to add
-                    //it to the database before we can map the ingredients and recipes together
-                    if( !$this->exists( $strRecipeName, 'recipe', 'name' ) )
+                    //get the id for the ingredient if it exists otherwise generate a new one
+                    if( $this->exists( $ingredient, 'ingredient', 'name' ) )
                     {
-                        $this->updateRecipes( $strRecipeName, '', $strTags );
+                        //SELECT id FROM ingredients WHERE ingredientName = '$ingredient'
+                        $intIngredientID = $this->conn->query( sprintf( $this->mQuery_SelectFromTable, 'id', 'ingredients', 'name', $ingredient ) )->data_seek( 0 );
+                    }
+                    else
+                    {
+
+                        //get the last ingredient id
+                        $intIngredientID = $this->conn->query( 'SELECT max(id) FROM ingredients' )->data_seek( 0 );
+                        $intIngredientID++;
+
+                        //because there is a new tag we have to insert it into the tag table
+                        //INSERT INTO ingredients( id, name ) VALUES( $intIngredientID, $ingredient )
+                        $this->conn->query( sprintf( $this->mQuery_InsBaseTableWithID, 'ingredients', $intIngredientID, $ingredient ) );
+
                     }
 
-                    //Get the recipeID so we can update the map table
-                    $intRecipeID = $this->conn->query( 'SELECT id FROM recipes WHERE RecipeName = \'' . $strRecipeName . '\'' );
+                    //if there is 1 or more tags then we need to update the tags and recipe_tag_map tables
+                    if( sizeOf( $strTags ) > 0 )
+                    {
+                        $this->updateTags( $strTags, $intIngredientID, "ingredients" );
+                    }
 
-                    $this->conn->query( 'INSERT INTO ingredient_recipe_map( ingredientID, recipeID ) VALUES( ' . $intIngredientID . ',' . $intRecipeID . ')' );
+                    if( !$strRecipeName == '' )
+                    {
 
+                        //Get the recipeID so we can update the map table
+                        //SELECT id FROM recipes WHERE name = '$strRecipeName'
+                        $intRecipeID = $this->conn->query( sprintf( $this->mQuery_SelectFromTable, 'id', 'recipes', 'name', $strRecipeName ) )->data_seek(0);
+
+                        //INSERT INTO ingredient_recipe_map( ingredientID, recipeID ) VALUES( $intIngredientID, $intRecipeID )
+                        $this->conn->query( sprintf( $this->mQuery_InsMapTable, 'ingredient_recipe_map', 'ingredientID', 'recipeID', $intIngredientID, $intRecipeID ) );
+
+                    }
                 }
-
             }
-
         }
 
         /**
@@ -382,29 +310,36 @@
                 //get the id for the tag if it exists otherwise generate a new one
                 if( $this->exists( $tag, 'tags', 'name' ) )
                 {
-                    $intTagID = $this->conn->query( 'SELECT id FROM tags WHERE tagName = \'' . $tag . '\'' );
+                    //SELECT id FROM tags WHERE tagName = $tag
+                    $intTagID = $this->conn->query( sprintf( $this->mQuery_SelectFromTable, 'id', 'tags', 'name', $tag ) )->data_seek(0);
                 }
                 else
                 {
 
                     //get the last recipe id
-                    $intTagID = $this->conn->query( 'SELECT max(id) FROM tags' )->data_seek( 0 );
+                    $intTagID = $this->conn->query( 'SELECT max(id) FROM tags' )->data_seek(0);
                     $intTagID++;
 
                     //because there is a new tag we have to insert it into the tag table
-                    $this->conn->query( 'INSERT INTO tags( id, name ) VALUES( ' . $intTagID . ',' . $tag . ')' );
+                    //INSERT INTO tags( id, name ) VALUES( $intTagID, $tag )
+                    $this->conn->query( sprintf( $this->$mQuery_InsBaseTableWithID, 'tags', $intTagID, $tag ) );
 
                 }
 
+                echo $intMapID;
+                echo $intTagID;
                 //update either the ingredient or the recipe tag_map tables
                 //ASSUMPTION: we have already checked to see if the recipe or the ingredient exists
                 if( $strTable == 'recipes' )
                 {
-                    $this->conn->query( 'INSERT INTO recipe_tag_map( recipeID, tagID ) VALUES( ' . $intMapID . ',' . $intTagID . ')' );
+                    //                    echo $intTagID ;
+                    //INSERT INTO recipe_tag_map( recipetID, tagID ) VALUES( $intMapID, $intTagID )
+                    $this->conn->query( sprintf( $this->mQuery_InsMapTable, 'recipe_tag_map', 'recipeID', 'tagID', $intMapID, $intTagID ) );
                 }
-                else // strMapTable is set to ingredients
+                else
                 {
-                    $this->conn->query( 'INSERT INTO ingredient_tag_map( ingredientID, tagID ) VALUES( ' . $intMapID . ',' . $intTagID . ')' );
+                    //INSERT INTO ingredient_tag_map( ingredientID, tagID ) VALUES( $intMapID,  $intTagID )
+                    $this->conn->query( sprintf( $this->mQuery_InsMapTable, 'ingredient_tag_map', 'ingredientID', 'tagID', $intMapID, $intTagID ) );
                 }
 
             }
@@ -421,62 +356,23 @@
          *      The table we should be checking.
          * @param string $strIdentifier
          *      An identifier telling us if we are checking for an id or a name.
+         *
          * @return bool
          *      True if we found the value and false if we didn't
          */
         public function exists( $strValue, $strTable, $strIdentifier = "id" )
         {
 
-            $strQuery = '';
 
-            //Determine which table we are checking and generate a SELECT query for either the id or the name
-            switch( $strTable )
+            if( $strIdentifier == 'id' )
             {
-
-                case "ingredients":
-                {
-                    if( $strIdentifier == 'id' )
-                    {
-                        $strQuery = 'SELECT * from ingredients WHERE id = \'' . $strValue . '\'';
-                    }
-                    else
-                    {
-                        $strQuery = 'SELECT * from ingredients WHERE name = \'' . $strValue . '\'';
-                    }
-                    break;
-                }
-
-                case "recipes":
-                {
-                    if( $strIdentifier == 'id' )
-                    {
-                        $strQuery = 'SELECT * from recipes WHERE id = \'' . $strValue . '\'';
-                    }
-                    else
-                    {
-                        $strQuery = 'SELECT * from recipes WHERE name = \'' . $strValue . '\'';
-                    }
-                    break;
-                }
-
-                case "tags":
-                {
-                    if( $strIdentifier == 'id' )
-                    {
-                        $strQuery = 'SELECT * from tags WHERE id = \'' . $strValue . '\'';
-                    }
-                    else
-                    {
-                        $strQuery = 'SELECT * from tags WHERE name = \'' . $strValue . '\'';
-                    }
-                    break;
-                }
-                default:
-                {
-                    echo( "db_lib.exists() invalid table passed in" );
-
-                    return FALSE;
-                }
+                //SELECT * from ingredients WHERE id = '$strValue '
+                $strQuery = sprintf( $this->mQuery_SelectFromTable, 'id', $strTable, 'id', $strValue );
+            }
+            else
+            {
+                //'SELECT * from ingredients WHERE name = \'' . $strValue . '\'';
+                $strQuery = sprintf( $this->mQuery_SelectFromTable, 'name', $strTable, 'name', $strValue );
             }
 
             //If the query returns a value then return true otherwise return false
