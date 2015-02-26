@@ -1,14 +1,8 @@
 {
    "RECIPES":[
       {
-         "RecipeName":"Quick Garlicky Pasta",
-         "Tags":[
-            "Italian",
-            "Under 30 Minutes",
-            "Pasta",
-            "Vegetarian"
-         ],
-         "Ingredients": [
+         "recipeName":"Quick Garlicky Pasta",
+         "ingredients": [
             "Olive Oil",
             "Pasta",
             "Garlic",
@@ -17,13 +11,19 @@
             "Herbs",
             "Lemon"
          ],
-         "Procedure":[
+         "prepInst":[
             "Cook pasta according to package instructions, drain and set aside.",
             "While the pasta is cooking, heat the oil in a large, flat pan on medium-high, and sear or brown the vegetables, if using any.  Then reduce the heat and allow the vegetables to cook, at most ten minutes.",
             "Add garlic, chopped fine.  This should be about when the pasta is ready and just as the vegetables still have some bite.  Stir fry briefly with herbs and chili flakes if using.",
             "Remove from heat and toss with pasta, adding lemon juice or zest if desired."
          ],
-         "Equipment":[
+         "tags":[
+            "Italian",
+            "Under 30 Minutes",
+            "Pasta",
+            "Vegetarian"
+         ],
+         "equipment":[
             "Stove",
             "Large Pot",
             "Medium or Large Pan",
@@ -34,14 +34,8 @@
          ]
       }, 
       {
-         "RecipeName":"Stir Fry",
-         "Tags":[
-            "Chinese",
-            "Under 30 Minutes",
-            "Rice Dish",
-            "Stir Fry"
-         ],
-         "Ingredients": [
+         "recipeName":"Stir Fry",
+         "ingredients": [
             "Oil",
             "Rice",
             "Garlic",
@@ -53,14 +47,20 @@
             "Soy Sauce",
             "Meat"
          ],
-         "Procedure":[
+         "prepInst":[
             "Cook the rice.",
             "When the rice is about halfway done, heat the oil in a large, rounded pan on medium-high, and add the scallions and ginger, if using, stirring lightly so they do not burn.",
             "Add meat, keeping it moving lightly around the pan, until it seems to be mostly cooked, about a minute.",
             "Add the vegetables(sliced) and garlic, chopped fine, continuing to keep the mixture in contact with the bottom of the pan for as brief a moment at a time as you can.",
             "If you're using it, mix some broth with a spoonful of soy sauce and a spoonful of cornstarch and add to the pan, stirring to incorporate this sauce.  Remove from heat within the minute, and serve immediately over rice."
          ],
-         "Equipment":[
+         "tags":[
+            "Chinese",
+            "Under 30 Minutes",
+            "Rice Dish",
+            "Stir Fry"
+         ],
+         "equipment":[
             "Stove",
             "Rice Cooker or Saucepan",
             "Medium or Large Pan or Wok",
@@ -70,13 +70,8 @@
          ]
       },
       {
-         "RecipeName":"Fridge Cleanup Casserole",
-         "Tags":[
-            "Western",
-            "Casserole",
-            "Vegetarian"
-         ],
-         "Ingredients": [
+         "recipeName":"Fridge Cleanup Casserole",
+         "ingredients": [
             "Olive Oil",
             "Bread",
             "Garlic",
@@ -90,7 +85,7 @@
             "Cheese",
             "Salt and Pepper"
          ],
-         "Procedure":[
+         "prepInst":[
             "Heat the oven to 375^F.",
             "Brush a baking dish with oil.",
             "Whisk together eggs, milk, herbs, salt and pepper.",
@@ -99,10 +94,15 @@
             "Bake for approximately 40 minutes, or until a fork inserved at the center can be removed cleanly.",
             "Once removed from the oven, let the casserole rest for 10 minutes before serving."
          ],
-         "Equipment":[
+         "tags":[
+            "Western",
+            "Casserole",
+            "Vegetarian"
+         ],
+         "equipment":[
             "Oven",
             "Baking Dish",
-            "Knives and Curing Board"
+            "Knives and Cutting Board"
          ]
       }
    ]
