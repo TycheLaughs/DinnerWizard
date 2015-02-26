@@ -4,32 +4,32 @@ File: recipeview.html
 Created:  2/09/2015 by Susan Souza for use in the Dinner Wizard application
 Modified: 2/21/2015 by Susan Souza to customize general layout and add some 
 placeholder text
-
+Modified: 2/22/2015 by Susan Souza to drop in the AngularJS for the display of recipes
+Modified: 2/25/2015 by Susan Souza to tweak Angular expressions in compliance with new JSON
 
 -->
-<div class="col-xs-11 col-sm-6 contentContainer"><p>{{ message }}  Accordion Goes Here</p>
-<!-- AngularUI Bootstrap Accordion found here, with some modifications:
-http://angular-ui.github.io/bootstrap/ -->
+<div class="col-xs-11 col-sm-6 contentContainer"><!--left-hand column. Contains recipe selection accordion (with ingredients)-->
+<!-- AngularUI Bootstrap Accordion found here, with some modifications: http://angular-ui.github.io/bootstrap/ -->
    <accordion close-others="oneAtATime"><!--captured click from examples found here: http://stackoverflow.com/questions/15642082/handle-open-collapse-events-of-accordion-in-angular/15642577#15642577
    -->
-      <accordion-group heading="{{recipe.RecipeName}}" ng-repeat ="recipe in recipes" ng-click=showRecipe(recipe.RecipeName)>
-         <ul ng-repeat="ingredient in recipe.Ingredients" >
+      <accordion-group ng-repeat="recipe in recipes" heading="{{recipe.recipeName}}" ng-click="showRecipe(recipe.recipeName)">
+         <ul ng-repeat="ingredient in recipe.ingredients" >
             <li style="list-style-type: none" >{{ingredient}}</li>
-         </ul><!-- note to self: need to get to the sub-categories in this... accordion nesting, GO! -->
+         </ul>
       </accordion-group>
    </accordion>
-</div>
-<div class="col-xs-0 col-sm-1"></div>
+</div><!--end left-hand column-->
+<div class="col-xs-0 col-sm-1"></div><!--spacer column; hidden on smaller screens-->
 <div class="col-xs-11 col-sm-5 contentContainer rightColumn">
-   <div class="col-xs-11 contentContainer">
-      <div class="col-xs-6 contentContainer infoBox"><p>Tips, Substitutions, Ratio Chart or Complex Component Mini Recipes</p></div>
-      <div class="col-xs-0 col-sm-1"></div>
+   <div class="col-xs-11 contentContainer"><!--container for positioning of the right-hand column's content -->
+      <div class="col-xs-6 contentContainer infoBox"><p>Tips, Substitutions, Ratio Chart or Component Mini Recipes</p></div>
+      <div class="col-xs-0 col-sm-1"></div><!--spacer column; hidden on smaller screens-->
       <div class="col-xs-5 contentContainer tagsList">
        <ul class = "actualTagsList">
          <li ng-repeat= "tag in tags"style="list-style-type: none">{{tag}}</li>
        </ul>
       </div>
-   </div>
+   </div><!--end all recipe display content for right-hand column-->
    <div class="col-xs-11  contentContainer procedureBox"><p>{{showMeRecipe}} Procedure:</p>
-   <ol ng-repeat="rec in recipes| filter: {RecipeName:showMeRecipe}:true"><li  ng-repeat="pro in rec.Procedure">{{pro}}</li></ol></div>
-</div>
+   <ol ng-repeat="rec in recipes| filter: {recipeName:showMeRecipe}:true"><li  ng-repeat="procedure in rec.prepInst">{{procedure}}</li></ol></div>
+</div><!--end rightColumn-->
