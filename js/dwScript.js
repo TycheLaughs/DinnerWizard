@@ -12,7 +12,9 @@
 * across multiple controller $scopes.  Made controllers reference functions and data from 
 * persistentService rather than large functins within each controller.  Added basic filter
 * click interactivity along same lines as that from inventory building.
-*
+* Modified 2/22/2015 by Susan Souza to add some more functionality to recipesController
+* Modified 2/25/2015 by Susan Souza to implement functions to clear the inventory and search 
+* filters arrays (list and tagsList) and to clean up a little.
 * 
 */
 // create the module
@@ -63,6 +65,10 @@ DinnerWizardApp.service('persistentService', function(){
    var list = ['Click ingredients to add them to your inventory'];
    var tagsList = ['No Search Filters Selected'];
    return{
+   
+   /**
+      * constructs an array called list to store ingredients selected by one user at a time
+      */
       List:function(){
          return list;
       },
@@ -112,9 +118,17 @@ DinnerWizardApp.service('persistentService', function(){
                list.push('Click ingredients to add them to your inventory');
             }
       },
-      clearIventory:function(){
-      
+      /** clearInventory
+      * Function that shrinks the array of ingredients to nothing and then adds on the user prompt
+      * @return nothing.  list should now have only the prompt.
+      */
+      clearInventory:function(){
+         list.length = 0;
+         list.push('Click ingredients to add them to your inventory');
       },
+      /**
+      * constructs an array called tagsList to store search filters selected by one user at a time
+      */
       Tags:function(){
          return tagsList;
       },
@@ -163,14 +177,20 @@ DinnerWizardApp.service('persistentService', function(){
             if(tagsList.length === 0){//if array is empty, print user prompt
                tagsList.push('No Search Filters Selected');
             }
+      },
+     /** clearTags
+      * Function that shrinks the array of search filters to none and then adds the user prompt
+      * @return nothing.  tagsList should now have only the prompt.
+      */
+      clearTags:function(){
+         tagsList.length = 0;
+         tagsList.push('No Search Filters Selected');
       
       },
-      clearTags:function(){
-      
-      }
-
    };
 });
+
+
 
 // create each controller and inject Angular's $scope
 
@@ -182,10 +202,9 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
       $scope.message = 'Inventory';
       $http.get("data/ingredientsTest.json").success(function(data){
          $scope.ingredients = data.INGREDIENTS; //assign the array of objects called 
-       //Ingredients in the json file to a variable named ingredients
+       //INGREDIENTS in the json file to a variable named ingredients
       });
-
-      
+      /* call mutators for the arrays stored 'globally' in a service*/
      $scope.clickedFromListing = function(content){
          persistentService.addIngredient(content);    
       };
@@ -193,6 +212,11 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
       $scope.clickedFromInventory = function(item){
          persistentService.removeIngredient(item);
       };
+
+      $scope.clearInv = function(){
+         persistentService.clearInventory();
+      };
+      
 });
 
    
@@ -205,14 +229,17 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
       $scope.filterList = data.TAGS; //assign the array of objects called 
        //Tags in the json file to a variable named ingredients
       });
-
-       $scope.clickedFromTagListing = function(item){
+      /* call mutators for the arrays stored 'globally' in a service*/
+      $scope.clickedFromTagListing = function(item){
          persistentService.addTag(item);    
       };
       
       $scope.clickedFromSelectedTags = function(item){
          persistentService.removeTag(item);
       }; 
+      $scope.clearList = function(){
+         persistentService.clearTags();
+      };
 	});
    
    //Recipe Selection and Browsing
@@ -220,18 +247,21 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
 		$scope.message = 'Recipe View';
       $scope.oneAtATime = true;
       $scope.showMeRecipe = '';
+    
       $scope.tags = persistentService.Tags();
       $http.get("data/recipesThreeTest.json").success(function(data){
          $scope.recipes = data.RECIPES; //assign the array of objects called 
-       //Recipes in the json file to a variable named recipes
+       //RECIPES in the json file to a variable named recipes
       });
+      /**showRecipe
+      * Determines which JSON object to be using based on parameters (gotten via click)
+      * and stores this information in a variable for use outside of the accordion's scope
+      * @param recipe the recipe name that was clicked
+      * @return nothing: showMeRecipe should now have the value from recipe
+      */
       $scope.showRecipe = function(recipe){
          console.log( recipe +' clicked.');
          $scope.showMeRecipe = recipe;
-         //console.log($scope.showMeRecipe + ' is the variable we set.');
          
       };
-      
-      
-      
 	});

@@ -3,7 +3,9 @@ File: inventory.html
 91.462 GUI Programming II, Prof. Heines, University of Massachusetts Lowell
 Created:  2/09/2015 by Susan Souza for use in the Dinner Wizard application
 Modified: 2/14/2015 by Susan Souza to add initial accordion and inventory-building  logic
-Modified: 2/21/2015 by Susan souza to add 'Clear Inventory' button
+Modified: 2/21/2015 by Susan Souza to add 'Clear Inventory' button
+Modified: 2/25/2015 by Susan Souza to change implementation of accordion sections in compliance 
+with new JSON and to add interactvity to 'Clear Invenory' button.
 
 -->
 
@@ -12,10 +14,30 @@ Modified: 2/21/2015 by Susan souza to add 'Clear Inventory' button
 http://angular-ui.github.io/bootstrap/ -->
    <accordion close-others="oneAtATime"><!--captured click from examples found here: http://stackoverflow.com/questions/15642082/handle-open-collapse-events-of-accordion-in-angular/15642577#15642577
    -->
-      <accordion-group heading="{{ingredient.Category}}" ng-repeat ="ingredient in ingredients">
-         <ul ng-repeat="content in ingredient.Contents" >
-            <li style="list-style-type: none" ><a ng-click="clickedFromListing(content)">{{content}}</a></li>
-         </ul><!-- note to self: need to get to the sub-categories in this... accordion nesting, GO! -->
+      <accordion-group heading="Alternate Protein">
+         <ul>
+            <li ng-repeat="content in ingredients" ng-if="content.tags[0]==='Alternate Protein'"style="list-style-type: none" ><a ng-click="clickedFromListing(content.ingredientName)">{{content.ingredientName}}</a></li>
+         </ul>
+      </accordion-group>
+            <accordion-group heading="Meat">
+         <ul>
+            <li ng-repeat="content in ingredients" ng-if="content.tags[0]==='Meat'"style="list-style-type: none"style="list-style-type: none" ><a ng-click="clickedFromListing(content.ingredientName)">{{content.ingredientName}}</a></li>
+         </ul>
+      </accordion-group>
+            <accordion-group heading="Seafood">
+         <ul>
+            <li ng-repeat="content in ingredients" ng-if="content.tags[0]==='Seafood'"style="list-style-type: none"style="list-style-type: none" ><a ng-click="clickedFromListing(content.ingredientName)">{{content.ingredientName}}</a></li>
+         </ul>
+      </accordion-group>
+            <accordion-group heading="Starch">
+         <ul>
+            <li ng-repeat="content in ingredients" ng-if="content.tags[0]==='Starch'"style="list-style-type: none"style="list-style-type: none" ><a ng-click="clickedFromListing(content.ingredientName)">{{content.ingredientName}}</a></li>
+         </ul>
+      </accordion-group>
+            <accordion-group heading="Vegetables">
+         <ul>
+            <li ng-repeat="content in ingredients" ng-if="content.tags[0]==='Vegetables'"style="list-style-type: none"style="list-style-type: none" ><a ng-click="clickedFromListing(content.ingredientName)">{{content.ingredientName}}</a></li>
+         </ul>
       </accordion-group>
    </accordion>
 </div>
@@ -27,7 +49,7 @@ http://angular-ui.github.io/bootstrap/ -->
       </ul><!-- Resolved error with using ng-repeat and adding items to an array dynamically here: https://docs.angularjs.org/error/ngRepeat/dupes -->
    </div>
    <div class="col-xs-5"></div>
-       <div class="col-xs-5 "><span class="roundEdges">Clear Inventory</span></div> 
+       <div class="col-xs-5 "><a class="roundEdges" ng-click="clearInv()">Clear Inventory</a></div> 
     <div class="col-xs-2"></div>
 </div>
 
