@@ -1,61 +1,152 @@
 {
-  "recipes" : [
+  "recipes" :
+  [
     {
-      "name" : "test recipe",
-      "prepInst" : "These are preparation instructions.",
+      "id"   : 0,
+      "name" : "a thing",
       "tags" :
       [
-        "tag1",
-        "tag2"
+        {
+          "id"   : 6,
+          "name" : "tag 1"
+        },
+        {
+          "id"   : 2,
+          "name" : "tag 2"
+        }
       ],
+      "pretInst"    : "Do stuff",
       "ingredients" :
       [
-        "ingredient1",
-        "ingredient2"
-      ]
-    },
-    {
-      "recipeName" : "test recipe2",
-      "prepInst" : "These are preparation instructions.",
-      "tags" :
-      [
-        "tag1",
-        "tag2"
+        {
+          "id"               : 0,
+          "name"             : "spinach",
+          "optional"         : false,
+          "recaplacebleWith" : [ 1, 2, 3, 4, 55, 67, 76 ]
+        },
+        {
+          "id"               : 1,
+          "name"             : "carrot",
+          "optional"         : true,
+          "recaplacebleWith" : [ 1, 2, 3, 4, 55, 67, 76 ]
+        }
       ],
-      "ingredients" :
+      "equipment" :
       [
-        "ingredient1",
-        "ingredient2"
+        {
+          "id"   : 0,
+          "name" : "stove"
+        },
+        {
+          "id"   : 1,
+          "name" : "pan"
+        }
       ]
     }
   ],
   "ingredients" :
   [
     {
-      "ingredientName" : "test Name",
-      "tags":
-      [
-        "tag1",
-        "tag2"
-      ],
-      "recipes" :
-      [
-        "recipe1",
-        "recipe2"
-      ]
+      "id"   : 0,
+      "name" : "spinach"
     },
     {
-      "ingredientName" : "test Name",
-      "tags":
-      [
-        "tag1",
-        "tag2"
-      ],
-      "recipes" :
-      [
-        "recipe1",
-        "recipe2"
-      ]
+      "id"   : 1,
+      "name" : "carrot"
+    }
+  ],
+  "recipeTags" :
+  [
+    {
+      "id"   : 0,
+      "name" : "tag 1",
+      "recipes" : [ 7, 34, 7643, 234, 236, 123 ]
+    },
+    {
+      "id"   : 1,
+      "name" : "tag 2",
+      "recipes" : [ 17, 35, 2344, 5555, 5556, 6000 ]
+    }
+  ],
+  "equipment" :
+  [
+    {
+      "id"   : 0,
+      "name" : "stove"
+    },
+    {
+      "id"   : 1,
+      "name" : "pan"
+    }
+  ],
+  "inredientTags" :
+  [
+    {
+      "id"          : 0,
+      "name"        : "Vegetables",
+      "ingredients" : [ 7, 34, 7643, 234, 236, 123 ]
+    },
+    {
+      "id"          : 1,
+      "name"        : "meat",
+      "ingredients" : [ 17, 35, 2344, 5555, 5556, 6000 ]
     }
   ]
 }
+
+
+
+
+/* Original JSON object
+{
+"recipes" :     [
+{
+"name" :        "test recipe",
+"prepInst" :    "These are preparation instructions.",
+"tags" :        [
+"tag1",
+"tag2"
+],
+"ingredients" : [
+"ingredient1",
+"ingredient2"
+]
+},
+{
+"recipeName" :  "test recipe2",
+"prepInst" :    "These are preparation instructions.",
+"tags" :        [
+"tag1",
+"tag2"
+],
+"ingredients" : [
+"ingredient1",
+"ingredient2"
+]
+}
+],
+"ingredients" : [
+{
+"ingredientName" : "test "name"",
+"tags" :           [
+"tag1",
+"tag2"
+],
+"recipes" :        [
+"recipe1",
+"recipe2"
+]
+},
+{
+"ingredientName" : "test "name"",
+"tags" :           [
+"tag1",
+"tag2"
+],
+"recipes" :        [
+"recipe1",
+"recipe2"
+]
+}
+]
+}*/
