@@ -2,44 +2,54 @@
   "recipes" :
   [
     {
-      "id"   : 0,
-      "name" : "a thing",
-      "tags" :
+      "id"          : 0,
+      "name"        : "a thing",
+      "prepInst"    : "Do stuff",
+      "tags"        :
       [
         {
-          "id"   : 6,
+          "id"   : 0,
           "name" : "tag 1"
         },
         {
-          "id"   : 2,
+          "id"   : 1,
           "name" : "tag 2"
         }
       ],
-      "pretInst"    : "Do stuff",
+      "equipment"   :
+      [
+        {
+          "id"   :   0,
+          "name" : "stove"
+        },
+        {
+          "id"   :   1,
+          "name" : "flamethrower"
+        }
+      ],
       "ingredients" :
       [
         {
           "id"               : 0,
           "name"             : "spinach",
           "optional"         : false,
-          "recaplacebleWith" : [ 1, 2, 3, 4, 55, 67, 76 ]
+          "replaceableWith"  :
+          [
+            "ingredient1",
+            "ingredient2",
+            "ingredient3"
+          ]
         },
         {
           "id"               : 1,
           "name"             : "carrot",
           "optional"         : true,
-          "recaplacebleWith" : [ 1, 2, 3, 4, 55, 67, 76 ]
-        }
-      ],
-      "equipment" :
-      [
-        {
-          "id"   : 0,
-          "name" : "stove"
-        },
-        {
-          "id"   : 1,
-          "name" : "pan"
+          "replaceableWith"  :
+          [
+            "ingredient1",
+            "ingredient2",
+            "ingredient3"
+          ]
         }
       ]
     }
@@ -47,49 +57,90 @@
   "ingredients" :
   [
     {
-      "id"   : 0,
-      "name" : "spinach"
+      "id"   :   0,
+      "name" : "spinach",
+      "tags" :
+      [
+        "tag1",
+        "tag2",
+        "tag3"
+      ]
     },
     {
-      "id"   : 1,
-      "name" : "carrot"
+      "id"   :   0,
+      "name" : "carrot",
+      "tags" :
+      [
+        "tag1",
+        "tag2",
+        "tag3"
+      ]
     }
   ],
   "recipeTags" :
   [
     {
-      "id"   : 0,
-      "name" : "tag 1",
-      "recipes" : [ 7, 34, 7643, 234, 236, 123 ]
+      "id"      : 0,
+      "name"    : "tag 1",
+      "recipes" :
+      [
+        "recipe1",
+        "recipe2"
+      ]
     },
     {
-      "id"   : 1,
-      "name" : "tag 2",
-      "recipes" : [ 17, 35, 2344, 5555, 5556, 6000 ]
+      "id"      : 1,
+      "name"    : "tag 2",
+      "recipes" :
+      [
+        "recipe3",
+        "recipe2"
+      ]
     }
   ],
   "equipment" :
   [
     {
-      "id"   : 0,
-      "name" : "stove"
+      "id"      : 0,
+      "name"    : "stove",
+      "recipes" :
+      [
+        "recipe1",
+        "recipe2"
+      ]
     },
     {
-      "id"   : 1,
-      "name" : "pan"
+      "id"      : 1,
+      "name"    : "pan",
+      "recipes" :
+      [
+        "recipe1",
+        "recipe2",
+        "recipe3"
+      ]
     }
   ],
-  "inredientTags" :
+  "ingredientTags" :
   [
     {
       "id"          : 0,
       "name"        : "Vegetables",
-      "ingredients" : [ 7, 34, 7643, 234, 236, 123 ]
+      "ingredients" :
+      [
+        "ingredient1",
+        "ingredient2",
+        "ingredient3"
+      ]
     },
     {
       "id"          : 1,
       "name"        : "meat",
-      "ingredients" : [ 17, 35, 2344, 5555, 5556, 6000 ]
+      "ingredients" :
+      [
+        "ingredient1",
+        "ingredient2",
+        "ingredient3"
+      ]
     }
   ]
 }
