@@ -14,7 +14,7 @@ Modified: 2/25/2015 by Susan Souza to tweak Angular expressions in compliance wi
    -->
       <accordion-group ng-repeat="recipe in recipes" heading="{{recipe.recipeName}}" ng-click="showRecipe(recipe.recipeName)">
          <ul ng-repeat="ingredient in recipe.ingredients" >
-            <li style="list-style-type: none" >{{ingredient}}</li>
+            <li style="list-style-type: none" >{{ingredient.name}}</li>
          </ul>
       </accordion-group>
    </accordion>

@@ -1,15 +1,31 @@
 {
    "RECIPES":[
+   
+   
       {
          "recipeName":"Quick Garlicky Pasta",
          "ingredients": [
-            "Olive Oil",
-            "Pasta",
-            "Garlic",
-            "Vegetable",
-            "Chili Flakes",
-            "Herbs",
-            "Lemon"
+            {
+               "name":"Olive Oil"
+            },
+            { 
+               "name":"Pasta"
+            },
+            { 
+               "name":"Garlic"
+            },
+            {
+               "name":"Vegetable"
+            },
+            {
+               "name":"Chili Flakes"
+            },
+            {
+               "name":"Herbs"
+            },
+            {
+               "name": "Lemon"
+            }
          ],
          "prepInst":[
             "Cook pasta according to package instructions, drain and set aside.",
@@ -36,16 +52,36 @@
       {
          "recipeName":"Stir Fry",
          "ingredients": [
-            "Oil",
-            "Rice",
-            "Garlic",
-            "Green Vegetable",
-            "Scallions",
-            "Ginger",
-            "Broth",
-            "Cornstarch",
-            "Soy Sauce",
-            "Meat"
+            {
+               "name":"Oil"
+            },
+            {
+               "name":"Rice"
+            },
+            {
+               "name":"Garlic"
+            },
+            {
+               "name":"Green Vegetable"
+            },
+            {
+               "name":"Scallions"
+            },
+            {
+               "name":"Ginger"
+            },
+            {
+               "name":"Broth"
+            },
+            {
+               "name":"Cornstarch"
+            },
+            {
+               "name":"Soy Sauce"
+            },
+            {
+               "name":"Meat"
+            }
          ],
          "prepInst":[
             "Cook the rice.",
@@ -72,18 +108,42 @@
       {
          "recipeName":"Fridge Cleanup Casserole",
          "ingredients": [
-            "Olive Oil",
-            "Bread",
-            "Garlic",
-            "Bell Peppers",
-            "Mushrooms",
-            "Tomatoes",
-            "Chili Flakes",
-            "Herbs",
-            "Eggs",
-            "Milk",
-            "Cheese",
-            "Salt and Pepper"
+            {
+               "name":"Olive Oil"
+            },
+            {
+               "name":"Bread"
+            },
+            { 
+               "name": "Garlic"
+            },
+            {
+               "name":"Bell Peppers"
+            },
+            {
+               "name":"Mushrooms"
+            },
+            {
+               "name":"Tomatoes"
+            },
+            {
+               "name":"Chili Flakes"
+            },
+            {
+               "name":"Herbs"
+            },
+            {
+               "name":"Eggs"
+            },
+            {
+               "name":"Milk"
+            },
+            {
+               "name":"Cheese"
+            },
+            {
+               "name":"Salt and Pepper"
+            }
          ],
          "prepInst":[
             "Heat the oven to 375^F.",
