@@ -3,13 +3,155 @@ Creation date: 2/16/2015
 Creator: Tommy Leedberg
 Update date:
         Tommy Leedberg - 2/24/2015 - Removing "categories" tables
-        Tommy Leedberg - 3/03/2015 - Updated tables in accordance to Matt's suggestions.
+        Tommy Leedberg - 3/03/2015 - Updated tables in accordance to Matts suggestions.
 
 ingredients( id, name )
+tags( id, name, isFilterable )
 recipes( id, name, prepInst )
 equipment( id, name )
-tags( id, name, isFilterable )
-ingredient_tag_map( ingredientID, tagID )
-ingredient_recipe_map( ingredientID, recipeID, isOptional, replaceableCategory )
-recipe_tag_map( recipeID, tagID )
 recipe_equipment_map( recipeID, equipmentID )
+ingredient_recipe_map( ingredientID, recipeID, isOptional, replaceableCategory )
+ingredient_tag_map( ingredientID, tagID )
+recipe_tag_map( recipeID, tagID )
+
+--
+-- Database: dinnerwizard
+--
+
+CREATE DATABASE IF NOT EXISTS dinnerwizard
+    DEFAULT CHARACTER SET utf8
+    DEFAULT COLLATE utf8_general_ci
+
+USE dinnerwizard
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table ingredients
+--
+
+CREATE TABLE IF NOT EXISTS ingredients
+(
+  id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name varchar(255) DEFAULT NULL
+)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table tags
+--
+
+CREATE TABLE IF NOT EXISTS tags
+(
+  id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name varchar(255) DEFAULT NULL,
+  isFilterable bool
+)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table recipes
+--
+
+CREATE TABLE IF NOT EXISTS recipes
+(
+  id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name varchar(255) NOT NULL,
+  prepInst text
+)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table equipment
+--
+
+CREATE TABLE IF NOT EXISTS equipment
+(
+  id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
+  name varchar(255) NOT NULL
+)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table recipe_equipment_map
+--
+
+CREATE TABLE IF NOT EXISTS recipe_equipment_map
+(
+    recipeID int(11) NOT NULL,
+    equipmentID int(11) NOT NULL,
+    INDEX (equipmentID),
+    INDEX (recipeID),
+    FOREIGN KEY (recipeID) REFERENCES recipes(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+    FOREIGN KEY (equipmentID) REFERENCES equipment(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table ingredient_recipe_map
+--
+
+CREATE TABLE IF NOT EXISTS ingredient_recipe_map
+(
+    ingredientID int(11) NOT NULL,
+    recipeID int(11) NOT NULL,
+    isOptional bool,
+    replaceableCategory int(11),
+    INDEX (ingredientID),
+    INDEX (recipeID),
+    FOREIGN KEY (ingredientID) REFERENCES ingredients(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+    FOREIGN KEY (recipeID) REFERENCES recipes(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table ingredient_tag_map
+--
+
+CREATE TABLE IF NOT EXISTS ingredient_tag_map
+(
+    ingredientID int(11) NOT NULL,
+    tagID int(11) NOT NULL,
+    INDEX (ingredientID),
+    INDEX (tagID),
+    FOREIGN KEY (ingredientID) REFERENCES ingredients(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+    FOREIGN KEY (tagID) REFERENCES tags(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+)
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table recipe_tag_map
+--
+
+CREATE TABLE IF NOT EXISTS recipe_tag_map
+(
+    recipeID int(11) NOT NULL,
+    tagID int(11) NOT NULL,
+    INDEX (recipeID),
+    INDEX (tagID),
+    FOREIGN KEY (recipeID) REFERENCES recipes(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE,
+    FOREIGN KEY (tagID) REFERENCES tags(id)
+    ON DELETE CASCADE
+    ON UPDATE CASCADE
+)
