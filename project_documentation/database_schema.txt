@@ -3,10 +3,13 @@ Creation date: 2/16/2015
 Creator: Tommy Leedberg
 Update date:
         Tommy Leedberg - 2/24/2015 - Removing "categories" tables
+        Tommy Leedberg - 3/03/2015 - Updated tables in accordance to Matt's suggestions.
 
 ingredients( id, name )
 recipes( id, name, prepInst )
-tags( id, name )
+equipment( id, name )
+tags( id, name, isFilterable )
 ingredient_tag_map( ingredientID, tagID )
-ingredient_recipe_map( ingredientID, recipeID )
+ingredient_recipe_map( ingredientID, recipeID, isOptional, replaceableCategory )
 recipe_tag_map( recipeID, tagID )
+recipe_equipment_map( recipeID, equipmentID )
