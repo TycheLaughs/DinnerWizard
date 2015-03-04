@@ -1,0 +1,153 @@
+    recipes
+    :
+    [
+    {
+    id : 0,
+    name : "a thing",
+    ingredients: [
+    { id : 0, name : "spinach", optional: false, replaceableWith : [ 1, 2, 3, 6, 14, 5874, 347 ]}
+    ,
+    {
+    id : 1, name : "carrot", optional : true, replaceableWith : [ ] }
+    ],
+    tags : [ { id : 0, name : "tag 1" } , { id : 1, name : "tag 2" } ],
+
+    pretInst : "Do stuff",
+
+    equipment : [ { id : 0, name : "stove" } , { id : 1, name : "pan" } ]
+    } ,
+    { more recipes here } ,
+    { more recipes here } ,
+    { more recipes here } ...
+    ]
+
+    ingredients
+    :
+              [
+    { id : 0, name : "spinach" } ,
+    { id : 1, name : "carrot" }
+
+    recipeTags:
+    [
+    { id : 0, name : "tag 1" } ,
+    { id : 1, name : "tag 2" } ,
+    { id : 2, name : "tag 3" } ,
+    { id : 3, name : "tag 4" }
+    ]
+
+    equipment :
+    [
+    { id : 0, name : "stove" } ,
+    { id : 1, name : "pan" } ,
+    { id : 2, name : "toaster oven" } ,
+    { id : 3, name : "pyrokinesis" }
+    ]
+
+    (only contains categories that we can filter on, so "meat" might be included, but not "pork", since that's too granular)
+    inredient_tags :
+    [
+    { id : 0, name : "Vegetables", ingredients: [ 7, 34, 7643, 234, 236, 123 ]}
+    ,
+    {
+    id : 1, name : "Meats", ingredients : [ 782, 563, 4649, 9754, 5 ]}
+    ]
+
+    }
+
+    For that we'll need the following tables with these attributes:
+
+
+    TABLE recipes : ; Table for recipes
+    int recipeID, string name, string prepInstructions
+
+    TABLE ingredients : ; Table for ingredients
+    int ingredientID, string name
+
+    TABLE equipment : ; Table for equipment
+    int equipmentID, string name
+
+    TABLE recipe_tags : ; Table for tags used by recipes
+    int tagID, string name
+
+    TABLE ingredient_categories : ; Table for ingredient categories containing an ID, a name, and whether or not it is available for use as a filter
+    int categoryID, string name, bool filterable            ; Only entries where filterable=true are returned as a JSON file.
+
+    TABLE ingredient_category_map;                          ; Table that stores which categories an ingredient is in, or alternatively which ingredients a category contains
+    int categoryID, int ingredientID
+
+    TABLE recipe_ingredient_map : ; Table that stores which ingredients a recipe uses, indicating whether or not it is optional and what, if any, categories can replace a given ingredient.
+    int recipeID, int ingredientID, bool optional, int? replaceableCategoryID
+
+    TABLE recipe_tag_map : ; Table that stores the tags a recipe uses
+    int recipeID, int tagID
+
+    TABLE recipe_equipment_map : ; Table that stores the equipment a recipe uses
+    int recipeID, int equipmentID
+
+
+
+
+
+
+
+
+
+
+
+    And we build our JSON information from these tables using the following queries.
+    This monster query will get us all our recipe information : SELECT
+    recipes.recipeID AS RecipeID,
+    recipes.name AS RecipeName,
+    recipe_ingredient_map.ingredientID AS IngredientID,
+    ingredients.name AS IngredientName,
+    recipe_ingredient_map.isOptional AS IngredientIsOptional,
+    AllIngredientReplacements.ingredientID AS ReplacementIngredientID,
+    recipes.prepInstructions AS RecipePrepInstructions,
+    recipe_tag_map.tagID AS TagID,
+    recipe_tags.name AS TagName,
+    recipe_equipment_map.equipmentID AS EquipmentID,
+    equipment.name AS EquipmentName
+    FROM recipes
+
+    ; Join on the tables to get us our primary ingredient info
+    INNER JOIN recipe_ingredient_map ON recipes.recipeID = recipe_ingredient_map.recipeID INNER JOIN ingredients ON recipe_ingredient_map.ingredientID = ingredients.ingredientID
+
+    ; Join on the table to get us our replaceable ingredient IDs
+    INNER JOIN (SELECT ingredientID FROM ingredient_category_map) AS AllIngredientReplacements ON recipe_ingredient_map.ingredientID  = AllIngredientReplacements.ingredientID
+
+    ; Join on the tables to get us our recipe tag array (with ID and name)
+    INNER JOIN recipe_tag_map ON recipe_tag_map.recipeID = recipes.recipeID INNER JOIN recipe_tags ON recipe_tag_map.tagID = recipe_tags.tagID
+
+    ; Join on the tables to get us our equipment array (with ID and name)
+    INNER JOIN recipe_equipment_map ON recipe_equipment_map.recipeID = recipes.recipeID INNER JOIN equipment ON recipe_equipment_map.equipmentID = equipment.equipmentID
+
+
+
+
+    The best way to deal with the returned information would probably be to create an associative array based on the returned recipeID and assign all of our information based on that.
+    So something like : array[ row.RecipeID ].id = row.RecipeID                                                                           ; Will be assigned at least once for each ingredient, could be optimized out later on if performance becomes in issue
+    array[ row.RecipeID ].name = row.name                                                                             ; Will be assigned at least once for each ingredient
+    array[ row.RecipeID ].ingredients[ row.IngredientID ].id = row.IngredientID                                         ; Will be assigned at least once for each ingredient substitute
+    array[ row.RecipeID ].ingredients[ row.IngredientID ].name = row.IngredientName                                     ; Will be assigned at least once for each ingredient substitute
+    array[ row.RecipeID ].ingredients[ row.IngredientID ].isOptional = row.IngredientIsOptional                         ; Will be assigned at least once for each ingredient substitute
+    array[ row.RecipeID ].ingredients[ row.IngredientID ].replaceableIngredients.append(row.ReplacementIngredientID)    ; The only thing that won't ever be assigned multiple times, so we can just append
+    array[ row.RecipeID ].prepInstructions = row.PrepInstructions                                                     ; Will be assigned at least once for each ingredient
+    array[ row.RecipeID ].tags[ row.TagID ].id = row.TagID                                                              ; Will be assigned at least once for each ingredient
+    array[ row.RecipeID ].tags[ row.TagID ].name = row.TagName                                                          ; Will be assigned at least once for each ingredient
+    array[ row.RecipeID ]
+    .equipment[ row.EquipmentID ] = row.EquipmentID                                                ; Will be assigned at least once for each ingredient
+    array[ row.RecipeID ].equipment[ row.EquipmentName ] = row.EquipmentName                                            ; Will be assigned at least once for each ingredient
+
+    Finally, once every row has been iterated through, we can build the JSON object
+    and return it.
+
+
+    The other queries (like the
+    one to return all ingredients or all filterable categories)
+    in
+    comparison
+    should
+    be
+    extremely
+    simple
+    .

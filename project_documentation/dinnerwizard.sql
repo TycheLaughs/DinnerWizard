@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.7.1
+-- version 4.3.10
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Feb 24, 2015 at 08:54 PM
--- Server version: 5.6.20
--- PHP Version: 5.5.15
+-- Generation Time: Mar 04, 2015 at 04:42 AM
+-- Server version: 5.6.21
+-- PHP Version: 5.6.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -23,13 +23,24 @@ SET time_zone = "+00:00";
 -- --------------------------------------------------------
 
 --
+-- Table structure for table `equipment`
+--
+
+CREATE TABLE IF NOT EXISTS `equipment` (
+  `id` int(11) NOT NULL,
+  `name` varchar(255) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
 -- Table structure for table `ingredients`
 --
 
 CREATE TABLE IF NOT EXISTS `ingredients` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -39,7 +50,9 @@ CREATE TABLE IF NOT EXISTS `ingredients` (
 
 CREATE TABLE IF NOT EXISTS `ingredient_recipe_map` (
   `ingredientID` int(11) NOT NULL,
-  `recipeID` int(11) NOT NULL
+  `recipeID` int(11) NOT NULL,
+  `isOptional` tinyint(1) DEFAULT NULL,
+  `replaceableCategory` int(11) DEFAULT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
@@ -60,10 +73,21 @@ CREATE TABLE IF NOT EXISTS `ingredient_tag_map` (
 --
 
 CREATE TABLE IF NOT EXISTS `recipes` (
-`id` int(11) NOT NULL,
+  `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `prepInst` text
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=2 ;
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `recipe_equipment_map`
+--
+
+CREATE TABLE IF NOT EXISTS `recipe_equipment_map` (
+  `recipeID` int(11) NOT NULL,
+  `equipmentID` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -83,69 +107,87 @@ CREATE TABLE IF NOT EXISTS `recipe_tag_map` (
 --
 
 CREATE TABLE IF NOT EXISTS `tags` (
-`id` int(11) NOT NULL,
-  `tag` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB DEFAULT CHARSET=utf8 AUTO_INCREMENT=1 ;
+  `id` int(11) NOT NULL,
+  `name` varchar(255) DEFAULT NULL,
+  `isFilterable` tinyint(1) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Indexes for dumped tables
 --
 
 --
+-- Indexes for table `equipment`
+--
+ALTER TABLE `equipment`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `ingredients`
 --
 ALTER TABLE `ingredients`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- Indexes for table `ingredient_recipe_map`
 --
 ALTER TABLE `ingredient_recipe_map`
- ADD KEY `ingredientID` (`ingredientID`), ADD KEY `recipeID` (`recipeID`);
+  ADD KEY `ingredientID` (`ingredientID`), ADD KEY `recipeID` (`recipeID`);
 
 --
 -- Indexes for table `ingredient_tag_map`
 --
 ALTER TABLE `ingredient_tag_map`
- ADD KEY `ingredientID` (`ingredientID`), ADD KEY `tagID` (`tagID`);
+  ADD KEY `ingredientID` (`ingredientID`), ADD KEY `tagID` (`tagID`);
 
 --
 -- Indexes for table `recipes`
 --
 ALTER TABLE `recipes`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `recipe_equipment_map`
+--
+ALTER TABLE `recipe_equipment_map`
+  ADD KEY `equipmentID` (`equipmentID`), ADD KEY `recipeID` (`recipeID`);
 
 --
 -- Indexes for table `recipe_tag_map`
 --
 ALTER TABLE `recipe_tag_map`
- ADD KEY `recipeID` (`recipeID`), ADD KEY `tagID` (`tagID`);
+  ADD KEY `recipeID` (`recipeID`), ADD KEY `tagID` (`tagID`);
 
 --
 -- Indexes for table `tags`
 --
 ALTER TABLE `tags`
- ADD PRIMARY KEY (`id`);
+  ADD PRIMARY KEY (`id`);
 
 --
 -- AUTO_INCREMENT for dumped tables
 --
 
 --
+-- AUTO_INCREMENT for table `equipment`
+--
+ALTER TABLE `equipment`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+--
 -- AUTO_INCREMENT for table `ingredients`
 --
 ALTER TABLE `ingredients`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `recipes`
 --
 ALTER TABLE `recipes`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=2;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- AUTO_INCREMENT for table `tags`
 --
 ALTER TABLE `tags`
-MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT;
 --
 -- Constraints for dumped tables
 --
@@ -163,6 +205,13 @@ ADD CONSTRAINT `ingredient_recipe_map_ibfk_2` FOREIGN KEY (`recipeID`) REFERENCE
 ALTER TABLE `ingredient_tag_map`
 ADD CONSTRAINT `ingredient_tag_map_ibfk_1` FOREIGN KEY (`ingredientID`) REFERENCES `ingredients` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
 ADD CONSTRAINT `ingredient_tag_map_ibfk_2` FOREIGN KEY (`tagID`) REFERENCES `tags` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
+
+--
+-- Constraints for table `recipe_equipment_map`
+--
+ALTER TABLE `recipe_equipment_map`
+ADD CONSTRAINT `recipe_equipment_map_ibfk_1` FOREIGN KEY (`recipeID`) REFERENCES `recipes` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `recipe_equipment_map_ibfk_2` FOREIGN KEY (`equipmentID`) REFERENCES `equipment` (`id`) ON DELETE CASCADE ON UPDATE CASCADE;
 
 --
 -- Constraints for table `recipe_tag_map`
