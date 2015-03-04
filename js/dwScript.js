@@ -14,7 +14,7 @@
 * click interactivity along same lines as that from inventory building.
 * Modified 2/22/2015 by Susan Souza to add some more functionality to recipesController
 * Modified 2/25/2015 by Susan Souza to implement functions to clear the inventory and search 
-* filters arrays (list and tagsList) and to clean up a little.
+* filters arrays (list and tagsList) and to clean up a little. 
 * 
 */
 // create the module
