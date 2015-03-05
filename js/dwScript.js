@@ -14,7 +14,7 @@
 * click interactivity along same lines as that from inventory building.
 * Modified 2/22/2015 by Susan Souza to add some more functionality to recipesController
 * Modified 2/25/2015 by Susan Souza to implement functions to clear the inventory and search 
-* filters arrays (list and tagsList) and to clean up a little. 
+* filters arrays (list and tagsList) and to clean up a little.
 * 
 */
 // create the module
@@ -200,7 +200,9 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
       $scope.list = persistentService.List();
       $scope.oneAtATime = true;
       $scope.message = 'Inventory';
-      $http.get("data/ingredientsTest.json").success(function(data){
+     $http.get("data/recipesTest2.json").success(function(data){
+         $scope.recipes = data.RECIPES; //assign the array of objects called 
+       //RECIPES in the json file to a variable named recipes
          $scope.ingredients = data.INGREDIENTS; //assign the array of objects called 
        //INGREDIENTS in the json file to a variable named ingredients
       });
@@ -225,10 +227,13 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
 		$scope.message = 'Recipe Search Filters';
       $scope.tags = persistentService.Tags();
       $scope.oneAtATime = true;
-      $http.get("data/taglistTest.json").success(function(data){
-      $scope.filterList = data.TAGS; //assign the array of objects called 
+       $http.get("data/recipesTest2.json").success(function(data){
+         $scope.recipes = data.RECIPES; //assign the array of objects called 
+       //RECIPES in the json file to a variable named recipes
+        $scope.filterList = data.TAGS; //assign the array of objects called 
        //Tags in the json file to a variable named ingredients
       });
+     
       /* call mutators for the arrays stored 'globally' in a service*/
       $scope.clickedFromTagListing = function(item){
          persistentService.addTag(item);    
@@ -249,7 +254,7 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
       $scope.showMeRecipe = '';
     
       $scope.tags = persistentService.Tags();
-      $http.get("data/recipesThreeTest.json").success(function(data){
+      $http.get("data/recipesTest2.json").success(function(data){
          $scope.recipes = data.RECIPES; //assign the array of objects called 
        //RECIPES in the json file to a variable named recipes
       });

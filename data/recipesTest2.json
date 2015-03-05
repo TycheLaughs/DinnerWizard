@@ -1,0 +1,465 @@
+{
+   "RECIPES":[
+   
+   
+      {
+         "recipeName":"Seuss Stew",
+         "ingredients": [
+            {
+               "name":"One Fish"
+            },
+            { 
+               "name":"Two Fish"
+            },
+            { 
+               "name":"Red Fish"
+            },
+            {
+               "name":"Blue Fish"
+            },
+            {
+               "name":"Chili Flakes"
+            },
+            {
+               "name":"Green Stuff"
+            },
+            {
+               "name": "Lemon"
+            },
+            {
+               "name":"Potatoes"
+            }
+         ],
+         "prepInst":[
+            "Throw all ingredients in a pot.",
+            "Don't worry about being gentle, except for with the lemon.",
+            "Let simmer while you go find some tigers.  Maybe ten.",
+            "Remove from heat and carry out the door, down the steps and all the way to Solla Sollew before serving."
+         ],
+         "tags":[
+            "Western"
+         ],
+         "equipment":[
+            "Stove",
+            "Large Pot",
+            "Large Spoon"
+         ]
+      }, 
+      {
+         "recipeName":"Some Chicken",
+         "ingredients": [
+            {
+               "name":"Oil"
+            },
+            {
+               "name":"Chicken Little"
+            },
+            {
+               "name":"Bitter Stuff"
+            },
+            {
+               "name":"Bell Peppers"
+            },
+            {
+               "name":"Green Stuff"
+            },
+            {
+               "name":"Corn"
+            },
+            {
+               "name":"Chili Flakes"
+            }
+           
+         ],
+         "prepInst":[
+           
+            "Cut all ingredients but corn into pieces no larger than a Post-it and sprinkle with chili flakes.",
+            "Heat oil in a pan until it shimmers, and then add your ingredients, stirring gently and constantly, so that they spend little time in one place.",
+            "Remove from heat after the chicken is fully cooked.",
+            "Serve with corn."
+         ],
+         "tags":[
+            "Under 30 Minutes",
+            "Stir Fry"
+         ],
+         "equipment":[
+            "Stove",
+            "Medium or Large Pan or Wok",
+            "Knives and Cutting Board",
+            "Flat Spatula",
+            "Large Spoon"
+         ]
+      },
+      {
+         "recipeName":"Fridge Cleanup Casserole",
+         "ingredients": [
+            {
+               "name":"Olive Oil"
+            },
+            {
+               "name":"Bread"
+            },
+            { 
+               "name": "Garlic"
+            },
+            {
+               "name":"Bell Peppers"
+            },
+            {
+               "name":"Mushrooms"
+            },
+            {
+               "name":"Tomatoes"
+            },
+            {
+               "name":"Chili Flakes"
+            },
+            {
+               "name":"Herbs"
+            },
+            {
+               "name":"Eggs"
+            },
+            {
+               "name":"Milk"
+            },
+            {
+               "name":"Cheese"
+            },
+            {
+               "name":"Salt and Pepper"
+            }
+         ],
+         "prepInst":[
+            "Heat the oven to 375^F.",
+            "Brush a baking dish with oil.",
+            "Whisk together eggs, milk, herbs, salt and pepper.",
+            "Layer bread torn into chunks, vegetables and cheese until the baking dish is 3/4 of the way full.",
+            "Gently pour the egg mixture over the layers and top with any remaining cheese.",
+            "Bake for approximately 40 minutes, or until a fork inserved at the center can be removed cleanly.",
+            "Once removed from the oven, let the casserole rest for 10 minutes before serving."
+         ],
+         "tags":[
+            "Western",
+            "Casserole",
+            "Vegetarian"
+         ],
+         "equipment":[
+            "Oven",
+            "Baking Dish",
+            "Knives and Cutting Board"
+         ]
+      }
+   ],
+   
+    "INGREDIENTS":[
+      {
+         "ingredientName" : "Cow",
+         "tags":[
+            "Meat", 
+            "Red Meat", 
+            "Beef"
+         ]
+      },
+      
+      {
+         "ingredientName" : "Holy Cow",
+         "tags":[
+            "Meat", 
+            "Red Meat", 
+            "Beef"
+         
+         ]
+      },
+      {
+         "ingredientName" : "Cowabunga",
+         "tags":[
+            "Meat", 
+            "Red Meat", 
+            "Beef"
+         
+         ]
+      },
+      {
+         "ingredientName" : "This Little Piggy Went to Market",
+         "tags":[
+            "Meat", 
+            "Red Meat", 
+            "Pork"
+         
+         ]
+      },
+      {
+         "ingredientName" : "This Little Piggy Stayed Home",
+         "tags":[
+            "Meat", 
+            "Red Meat", 
+            "Pork"
+         ]
+      },
+      {
+         "ingredientName" : "Little Chicken",
+         "tags":[
+            "Meat", 
+            "Poultry"
+         ]
+      },
+            {
+         "ingredientName" : "Chicken Little",
+         "tags":[
+            "Meat", 
+            "Poultry"
+         ]
+      },
+            {
+         "ingredientName" :  "Squid",
+         "tags":[
+            "Seafood"
+         ]
+      },
+      {
+         "ingredientName" : "Scallops",
+         "tags":[
+            "Seafood", 
+            "Shellfish"
+         ]
+      },
+      {
+         "ingredientName" : "Mussels",
+         "tags":[
+            "Seafood",
+            "Shellfish"
+         ]
+      },
+            {
+         "ingredientName" : "Clams",
+         "tags":[
+            "Seafood",
+            "Shellfish"
+         ]
+      },
+      {
+         "ingredientName" : "The World is Your Oyster",
+         "tags":[
+            "Seafood",
+            "Shellfish"
+         ]
+      },
+      {
+         "ingredientName" : "White Fish",
+         "tags":[
+            "Seafood", 
+            "Fish"
+         ]
+      },
+      {
+         "ingredientName" : "One Fish",
+         "tags":[
+            "Seafood",
+            "Fish"
+         ]
+      },
+      {
+         "ingredientName" : "Two Fish",
+         "tags":[
+            "Seafood",
+            "Fish"
+         
+         ]
+      },
+      {
+         "ingredientName" : "Red Fish",
+         "tags":[
+            "Seafood",
+            "Fish"
+         ]
+      },
+      {
+         "ingredientName" : "Blue Fish",
+         "tags":[
+            "Seafood",
+            "Fish"
+         ]
+      },
+      {
+         "ingredientName" : "Tofu",
+         "tags":[
+            "Alternate Protein", 
+            "Soy"
+         ]
+      },
+            {
+         "ingredientName" : "Tempeh",
+         "tags":[
+            "Alternate Protein"
+         ]
+      },
+      {
+         "ingredientName" : "Lentils",
+         "tags":[
+            "Alternate Protein", 
+            "Legumes"
+         ]
+      },
+      {
+         "ingredientName" : "Beans",
+         "tags":[
+            "Alternate Protein",
+            "Legumes"
+         ]
+      },
+      {
+         "ingredientName" : "Eggs",
+         "tags":[
+            "Alternate Protein"
+         ]
+      },
+      {
+         "ingredientName" : "Cheese",
+         "tags":[
+            "Alternate Protein", 
+            "Dairy"
+         ]
+      },
+      {
+         "ingredientName" : "Green Stuff",
+         "tags":[
+            "Vegetables"
+         ]
+      },
+      {
+         "ingredientName" : "Leafy Stuff",
+         "tags":[
+            "Vegetables", 
+            "Leafy Vegetables"
+         ]
+      },
+            {
+         "ingredientName" : "Bitter Stuff",
+         "tags":[
+            "Vegetables"
+         ]
+      },
+      {
+         "ingredientName" : "More Green Stuff",
+         "tags":[
+            "Vegetables"
+         ]
+      },
+      {
+      "ingredientName" : "Bell Peppers",
+         "tags":[
+            "Vegetables",
+            "Nightshades"
+         ]
+      },
+      {
+      "ingredientName" : "Root Vegetables",
+         "tags":[
+            "Vegetables", 
+            "Root Vegetables"
+         ]
+      },
+      {
+      "ingredientName" : "Mushrooms",
+         "tags":[
+            "Vegetables"
+         ]
+      },
+      {
+         "ingredientName" : "Eggplant",
+         "tags":[
+            "Vegetables",
+            "Nightshades"
+         ]
+      },
+      {
+         "ingredientName" : "Tomatoes",
+         "tags":[
+            "Vegetables",
+            "Nightshades"
+         ]
+      },
+      {
+         "ingredientName" : "Pasta",
+         "tags":[
+            "Starch"
+         ]
+      },
+      {
+         "ingredientName" : "Bread",
+         "tags":[
+            "Starch"
+         ]
+      },
+      {
+         "ingredientName" : "Potatoes",
+         "tags":[
+            "Starch"
+         ]
+      },
+      {
+         "ingredientName" : "Rice",
+         "tags":[
+            "Starch"
+         ]
+      },
+      {
+         "ingredientName" : "Corn",
+         "tags":[
+            "Starch"
+         ]
+      }
+   ],
+   "TAGS":[
+      {
+         "Category":"Flavors",
+         "Contents": [
+            "Mexican",
+            "Chinese",
+            "Italian",
+            "Western",
+            "Mediterranean",
+            "Southeast Asian"
+         ]
+      }, 
+      {
+         "Category":"Dishes",
+         "Contents": [ 
+            "Casserole",
+            "Pasta",
+            "Rice Dish",
+            "Meat and Starch",
+            "Soup",
+            "Stew",
+            "Finger Food",
+            "Snack or Appetizer",          
+            "Sweet"
+         ]
+      },
+      {
+         "Category":"Other",
+         "Contents": [
+            "Vegetarian",
+            "Under 30 Minutes",
+            "Cost Cutter"
+            ]
+      },
+      {      
+         "Category":"Without",
+         "Contents": []
+       }
+   ]
+}
+
+
+
+
+
+
+
+
+
+
+
+
