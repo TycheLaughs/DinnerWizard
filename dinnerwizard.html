@@ -41,21 +41,23 @@
            <div id = "logoText" class = "hidden-xs">Dinner Wizard</div>
          </a><!-- end logo-->
         
-            <div class="col-xs-6 col-sm-7"></div>
-            <a class="col-xs-2 col-md-1"href="#recipes"><span class= "roundEdges">{{recipes.length}} Dishes</span></a>
+            <div class="col-xs-7 col-sm-7 col-lg-7"></div>
+            <a class="col-xs-2 col-md-2"href="#recipes"><span class= "roundEdges">{{recipes.length}} Recipes</span></a>
             <div class="col-xs-1"></div>
          <!-- end dishes button placement -->
         
      </div><!-- end headerRow -->
-
+   <div class="col-xs-12" style="height:4px"></div><!--hacked-in spacer-->
    <div id="randomAndFilterButtonsRow"class="container-fluid">   
-      <a class="col-sm-1 hidden-xs"href="#recipes"><span class= "roundEdges">Random Recipe</span></a> 
-      <div class="col-xs-7 col-sm-8"></div>
+      <a class="col-sm-2 hidden-xs"href="#recipes"><span class= "roundEdges">Random Recipe</span></a> 
+      <div class="col-sm-7 col-lg-7"></div>
       <!-- Filter recipes needs logic to not appear on certain screens.-->
-      <a class="col-xs-3 col-sm-2 col-md-1" href="#filter"><span class= "roundEdges">Filter Recipes</span></a> 
+      <a class="col-xs-3 col-sm-2 col-md-2" href="#filter"><span class= "roundEdges">Recipe Filters</span></a> 
        <div class="col-xs-2"></div>
    </div>
+  
    <div id= "contentRow" class="container-fluid"> 
+      <div class="col-xs-12" style="height:7px"></div><!--hacked-in spacer-->
       <a class="col-xs-1 col-md-1 hidden-xs"href="#inventory"><span class= "roundEdges">Inventory</span></a>
       <div class="col-xs-10 col-md-9 contentContainer">
 
