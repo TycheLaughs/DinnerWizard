@@ -1,0 +1,258 @@
+SCHEMA:
+
+"recipes" :
+[{
+    "id"          : id,
+    "name"        : name,
+    "prepInst"    : inst,
+    "tags"        : [ id, name, isFilterable ],
+    "equipment"   : [ id, name ],
+    "ingredients" : [{ id, name, isOptional, "replaceableWith": [ name ] }],
+}],
+"ingredients" :
+[{
+    "id"   : id,
+    "name" : name,
+    "tags" : [ name ]
+}],
+"recipeTags" :
+[{
+    "id"          : id,
+    "name"        : name,
+    "isFilterable": bool,
+    "recipes"     : [ name ]
+}],
+"equipment" :
+[{
+    "id"      : id
+    "name"    : name,
+    "recipes" : [ name ]
+}],
+"ingredientTags" :
+[{
+    "id"           : id,
+    "name"         : name,
+    "isFilterable" : bool,
+    "ingredients"  : [ name ]
+}]
+
+
+EXAMPLE:
+
+{
+  "recipes" :
+  [
+    {
+      "id"          : 0,
+      "name"        : "a thing",
+      "prepInst"    : "Do stuff",
+      "tags"        :
+      [
+        {
+          "id"           : 0,
+          "name"         : "tag 1",
+          "isFilterable" : true
+        },
+        {
+          "id"           : 1,
+          "name"         : "tag 2",
+          "isFilterable" : false
+        }
+      ],
+      "equipment"   :
+      [
+        {
+          "id"   :   0,
+          "name" : "stove"
+        },
+        {
+          "id"   :   1,
+          "name" : "flamethrower"
+        }
+      ],
+      "ingredients" :
+      [
+        {
+          "id"               : 0,
+          "name"             : "spinach",
+          "optional"         : false,
+          "replaceableWith"  :
+          [
+            "ingredient1",
+            "ingredient2",
+            "ingredient3"
+          ]
+        },
+        {
+          "id"               : 1,
+          "name"             : "carrot",
+          "optional"         : true,
+          "replaceableWith"  :
+          [
+            "ingredient1",
+            "ingredient2",
+            "ingredient3"
+          ]
+        }
+      ]
+    }
+  ],
+  "ingredients" :
+  [
+    {
+      "id"   :   0,
+      "name" : "spinach",
+      "tags" :
+      [
+        "tag1",
+        "tag2",
+        "tag3"
+      ]
+    },
+    {
+      "id"   :   0,
+      "name" : "carrot",
+      "tags" :
+      [
+        "tag1",
+        "tag2",
+        "tag3"
+      ]
+    }
+  ],
+  "recipeTags" :
+  [
+    {
+      "id"          : 0,
+      "name"        : "tag 1",
+      "isFilterable : false,
+      "recipes"     :
+      [
+        "recipe1",
+        "recipe2"
+      ]
+    },
+    {
+      "id"          : 1,
+      "name"        : "tag 2",
+      "isFilterable : true,
+      "recipes"     :
+      [
+        "recipe3",
+        "recipe2"
+      ]
+    }
+  ],
+  "equipment" :
+  [
+    {
+      "id"      : 0,
+      "name"    : "stove",
+      "recipes" :
+      [
+        "recipe1",
+        "recipe2"
+      ]
+    },
+    {
+      "id"      : 1,
+      "name"    : "pan",
+      "recipes" :
+      [
+        "recipe1",
+        "recipe2",
+        "recipe3"
+      ]
+    }
+  ],
+  "ingredientTags" :
+  [
+    {
+      "id"          : 0,
+      "name"        : "Vegetables",
+      "isFilterable : false,
+      "ingredients" :
+      [
+        "ingredient1",
+        "ingredient2",
+        "ingredient3"
+      ]
+    },
+    {
+      "id"          : 1,
+      "name"        : "meat",
+      "isFilterable : true,
+      "ingredients" :
+      [
+        "ingredient1",
+        "ingredient2",
+        "ingredient3"
+      ]
+    }
+  ]
+}
+
+
+/* Original JSON object
+{
+    "recipes" :
+    [
+        {
+            "name" :        "test recipe",
+            "prepInst" :    "These are preparation instructions.",
+            "tags" :
+            [
+                "tag1",
+                "tag2"
+            ],
+            "ingredients" :
+            [
+                "ingredient1",
+                "ingredient2"
+            ]
+        },
+        {
+            "recipeName" :  "test recipe2",
+            "prepInst" :    "These are preparation instructions.",
+            "tags" :
+            [
+                "tag1",
+                "tag2"
+            ],
+            "ingredients" :
+            [
+                "ingredient1",
+                "ingredient2"
+            ]
+        }
+    ],
+    "ingredients" :
+    [
+        {
+            "ingredientName" : "test "name",
+            "tags" :
+            [
+                "tag1",
+                "tag2"
+            ],
+            "recipes" :
+            [
+                "recipe1",
+                "recipe2"
+            ]
+        },
+        {
+            "ingredientName" : "test "name",
+            "tags" :
+            [
+                "tag1",
+                "tag2"
+            ],
+            "recipes" :
+            [
+                "recipe1",
+                "recipe2"
+            ]
+        }
+    ]
+}*/
