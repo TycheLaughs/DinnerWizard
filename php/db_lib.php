@@ -1,8 +1,4 @@
 <?php
-    //TODO: Generate GLobal Queries
-    //TODO: Fix associative array's to properly generate nested arrays
-    //TODO: Encode to JSON.
-
 
     $temp = new db_lib;
     $temp->getTables();
@@ -29,7 +25,7 @@
         private $mTable_RecipeTagMap        = "recipe_tag_map" ;
 
 
-        //The most used queries for sustainability and easy formating
+        //The most used queries for sustainability and easy formatting
         private $mQuery_SelectAll          = "SELECT * FROM %s";                                                       //SELECT * FROM <tableName>
         private $mQuery_SelectLastID       = "SELECT max(id) FROM %s" ;                                                //SELECT max(id) FROM <tableName>
         private $mQuery_SelectFromTable    = "SELECT %s FROM %s WHERE %s = '%s'";                                      //SELECT <attribute> FROM <table> WHERE <attribute> = <value>
@@ -203,12 +199,20 @@
                     $this->conn->query( sprintf( $this->mQuery_InsBaseTable, $strTableName, $intLastID, $objDinnerWizard["name"] ) );
                 }
 
-
             }
 
             return;
         }
 
+        /**
+         * Summary:
+         *      Update the mapping tables with the appropriate id's
+         *
+         * @param $objDinnerWizard
+         *      The object we are adding to the database
+         * @param $strTableName
+         *      The name of the base table we are updating
+         */
         function updateMapTables( $objDinnerWizard, $strTableName )
         {
 
@@ -272,6 +276,7 @@
                     //SELECT id FROM $strTableName WHERE name = <value>
                     $itemID = $this->conn->query( sprintf( $this->mQuery_SelectFromTable, "id", $strTableName, "name", $item["name"] ) );
 
+                    //if we found the item in a base table then we just have to update the map table, otherwise we have to add the item to the base table as first
                     if( $itemID != NULL )
                     {
                         //INSERT INTO <table>( id, id ) VALUES( <id>, <id> ) ;
@@ -279,7 +284,7 @@
                     }
                     else
                     {
-                        if( $strTableName == tags )
+                        if( $strTableName == "tags" )
                         {
                             $tempObj = [ "name" => $item["name"], "isFilterable" => false ] ;
                         }
@@ -291,12 +296,73 @@
                         $this->updateBaseTables( $tempObj, $strTableName ) ;
                         $this->updateMapTables( $objDinnerWizard, $strTableName ) ;
                     }
-
                 }
+            }
+            else
+            {
+                $recipe = [ "id" => 0, "name" => "burrito", "prepInst" => "Cook the rice, saute the vegetables, cook the chicken, microwave the wrap for 10 seconds.",
+                    "tags" => [ [ "id" => 2, "name" => "spicy", "isFilterable" => true ], [ "id" => 4, "name" => "Mexican", "isFilterable" => true ] ],
+                    "equipment" => [ "id" => 0, "name" => "stove" ],
+                    "ingredients" => [ "id" => 0, "name" => "chicken", "isOptional" => TRUE, "replaceableWith" => [ "turkey", "steak", "pork" ] ] ];
 
+                $objListOfItemsToMap = $objDinnerWizard["tags"];
+                $strBaseTable = $this->mTable_Tags ;
+                $strTableToMap = $this->$mTable_RecipeTagMap;
+                $updateRecipes = true;
+
+                while( $updateRecipes == true )
+                {
+                    if( $strTableToMap == $this->$mTable_RecipeEquipmentMap )
+                    {
+                        $updateRecipes = false ;
+                    }
+
+                    foreach( $objListOfItemsToMap as $item )
+                    {
+
+                        //SELECT id FROM $strTableName WHERE name = <value>
+                        $itemID = $this->conn->query( sprintf( $this->mQuery_SelectFromTable, "id", $strBaseTable, "name", $item["name"] ) );
+
+                        //if we found the item in a base table then we just have to update the map table, otherwise we have to add the item to the base table as first
+                        if( $itemID != NULL )
+                        {
+                            //INSERT INTO <table>( id, id ) VALUES( <id>, <id> ) ;
+                            $this->conn->query( sprintf( $this->mQuery_InsMapTable, $strTableToMap, $intNewItemID, $itemID ) );
+                        }
+                        else
+                        {
+                            if( $strBaseTable == "tags" )
+                            {
+                                $tempObj = [ "name" => $item["name"], "isFilterable" => false ];
+                            }
+                            else
+                            {
+                                $tempObj = [ "name" => $item["name"] ];
+                            }
+
+                            $this->updateBaseTables( $tempObj, $strBaseTable );
+                            $this->updateMapTables( $objDinnerWizard, $strTableName );
+                        }
+                    }
+
+                    if( $strTableToMap == $mTable_RecipeTagMap )
+                    {
+                        $objListOfItemsToMap = $objDinnerWizard["ingredients"];
+                        $strTableToMap = $this->$mTable_IngredientRecipeMap;
+                    }
+                    else
+                    {
+                        $objListOfItemsToMap = $objDinnerWizard["equipment"];
+                        $strTableToMap = $this->$mTable_RecipeEquipmentMap;
+                    }
+                }
             }
         }
 
+        private function filter( $ObjFilters )
+        {
+
+        }
         /**
          * Summary:
          *      check to see if the given value exists in the given table, by default we check for ids but
@@ -312,7 +378,7 @@
          * @return bool
          *      True if we found the value and false if we didn't
          */
-        public function exists( $strValue, $strTable, $strIdentifier = "id" )
+        private function exists( $strValue, $strTable, $strIdentifier = "id" )
         {
 
 
