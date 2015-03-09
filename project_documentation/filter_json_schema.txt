@@ -1,0 +1,49 @@
+"filter":
+{
+    "ingredientTags":
+    [
+        {
+            "id": id,
+            "name": name
+        },
+        {
+            "id": id,
+            "name": name
+        }
+    ],
+    "recipeTags":
+    [
+        {
+            "id": id,
+            "name": name
+        },
+        {
+            "id": id,
+            "name": name
+        }
+    ],
+    "equipment":
+    [
+        {
+            "id": id,
+            "name": name
+        },
+        {
+            "id": id,
+            "name": name
+        }
+    ],
+    "without":
+    [
+        {
+            "id": id,
+            "name": name
+            "group": ingredients
+        },
+        {
+            "id": id,
+            "name": name
+            "group": equipment
+        }
+    ],
+}

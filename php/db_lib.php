@@ -29,7 +29,6 @@
         private $mQuery_SelectAll          = "SELECT * FROM %s";                                                       //SELECT * FROM <tableName>
         private $mQuery_SelectLastID       = "SELECT max(id) FROM %s" ;                                                //SELECT max(id) FROM <tableName>
         private $mQuery_SelectFromTable    = "SELECT %s FROM %s WHERE %s = '%s'";                                      //SELECT <attribute> FROM <table> WHERE <attribute> = <value>
-        private $mQuery_SelectFromMapTable = "SELECT %s FROM %s WHERE %s = '%s' AND %s = '%s'";                        //SELECT <attribute> FROM <table> WHERE <attribute> = <value> AND <attribute> = <value>
         private $mQuery_InsBaseTable       = "INSERT INTO %s( id, name ) VALUES( '%d', '%s' ) ";                       //INSERT INTO <table>( id, name ) VALUES( <id>, <name> )
         private $mQuery_InsTagsTable       = "INSERT INTO tags( id, name, isFilterable ) VALUES '%s', '%s' )" ;        //INSERT INTO tags( id, name, isFilterable ) VALUES( <id>, <name>, <isFilterable> ) ;
         private $mQuery_InsRecipesTable    = "INSERT INTO recipes( id, name, prepInst ) VALUES ( '%d', '%s', '%s' ) "; //INSERT INTO recipes( id, name, prepInst ) VALUES( <id>, <name>, <prepInst> )
@@ -216,13 +215,6 @@
         function updateMapTables( $objDinnerWizard, $strTableName )
         {
 
-//            "ingredients" :
-//              [{
-//            "id"   : id,
-//                  "name" : name,
-//                  "tags" : [ name ]
-//              }],
-
             $intNewItemID = $objDinnerWizard["id"];
             $strTableToMap = '';
             $objListOfItemsToMap = [ ];
@@ -359,8 +351,60 @@
             }
         }
 
-        private function filter( $ObjFilters )
+        public function buildFilterObjects( $ObjFilters )
         {
+            $testFilter = ["ingredientTags" => ["id" => 0, "name" => "eggs"],
+                          [ "recipeTags" => ""],
+                          [ "equipment" => ["id" => 0, "name" => "frying pan"]],
+                          [ "without" => [["id" => 0, "name" => "spicy", "group" => "recipes"], [ "id" => 2, "name" => "steak", "group" => "ingredients" ]]]] ;
+
+            $recipeList = [];
+            $ingredientFilter = $testFilter["ingredientTags"] ;
+            $recipeFilter = $testFilter["recipeTags"] ;
+            $equipmentFilter = $testFilter["equipment"] ;
+            $withoutFilter = $testFilter["without"] ;
+
+            if( $ingredientFilter->count() > 0 )
+            {
+                $recipeList->array_push( filter( $ingredientFilter ) );
+            }
+            if( $recipeFilter->count() > 0 )
+            {
+                $recipeList->array_push( filter( $recipeFilter ) );
+            }
+            if( $equipmentFilter->count() > 0 )
+            {
+                $recipeList->array_push( filter( $equipmentFilter ) );
+            }
+            if( $withoutFilter->count() > 0 )
+            {
+                $recipeList->array_push( filter( $withoutFilter ) );
+            }
+
+
+        }
+
+        private function filter( $objFilterObj )
+        {
+
+            $recipeList = [] ;
+            foreach( $objFilterObj as $item )
+            {
+                //SELECT recipeID FROM ingredient_recipe_map WHERE ingredientID = $ingredients["id"]
+                $recipeIDList = $this->conn->query( sprintf( $this->$mQuery_SelectFromTable, "recipeID", $this->mTable_IngredientRecipeMap, "ingredientID", $item["id"] ) ) ;
+
+                $recipeIDList->data_seek(0) ;
+                while ($row = $recipeIDList->fetch_assoc() )
+                {
+
+                    //SELECT name FROM recipes WHERE id = row
+                    $recipe = $this->conn->query( sprintf( $this->$mQuery_SelectFromTable, "name", $this->$mTable_Recipes, "id", $row ) ) ;
+                    $recipeList->array_push($recipe) ;
+
+                }
+            }
+
+            return $recipeIDList ;
 
         }
         /**
