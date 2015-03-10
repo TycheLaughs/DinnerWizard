@@ -1,8 +1,14 @@
 <?php
 
+
+    $postData = file_get_contents("php://input");
+    $request = json_decode($postData);
+
+    print_r( $request ) ;
+
     $temp = new db_lib;
     //$temp->getTables();
-    $temp->buildFilterObjects("empty") ;
+    $temp->buildFilterObjects($request->filter) ;
     $temp->closeConnection();
 
     class db_lib
@@ -126,16 +132,16 @@
             $ingredientTags3 = [ "id" => 3, "name" => "turkey", "isFilterable" => true, "ingredients" => [ "turkey" ] ];
 
             //if being passed just a new ingredient
-            $this->updateBaseObjects( $ingredient1, $this->mTable_Ingredients );
-            $this->updateBaseObjects( $ingredient2, $this->mTable_Ingredients );
-            $this->updateBaseObjects( $ingredient3, $this->mTable_Ingredients );
-            $this->updateBaseObjects( $ingredient4, $this->mTable_Ingredients );
-            $this->updateBaseObjects( $equipment, $this->mTable_Equipment );
-            $this->updateBaseObjects( $recipeTags, $this->mTable_Tags  );
-            $this->updateBaseObjects( $ingredientTags1, $this->mTable_Tags );
-            $this->updateBaseObjects( $ingredientTags2, $this->mTable_Tags );
-            $this->updateBaseObjects( $ingredientTags3, $this->mTable_Tags );
-            $this->updateBaseObjects( $recipe, $this->mTable_Tags );
+            $this->updateBaseTables( $ingredient1, $this->mTable_Ingredients );
+            $this->updateBaseTables( $ingredient2, $this->mTable_Ingredients );
+            $this->updateBaseTables( $ingredient3, $this->mTable_Ingredients );
+            $this->updateBaseTables( $ingredient4, $this->mTable_Ingredients );
+            $this->updateBaseTables( $equipment, $this->mTable_Equipment );
+            $this->updateBaseTables( $recipeTags, $this->mTable_Tags  );
+            $this->updateBaseTables( $ingredientTags1, $this->mTable_Tags );
+            $this->updateBaseTables( $ingredientTags2, $this->mTable_Tags );
+            $this->updateBaseTables( $ingredientTags3, $this->mTable_Tags );
+            $this->updateBaseTables( $recipe, $this->mTable_Tags );
 
             $this->updateMapTables( $ingredient1, $this->mTable_Ingredients );
             $this->updateMapTables( $ingredient2, $this->mTable_Ingredients );
@@ -307,10 +313,10 @@
             }
             else
             {
-                $recipe = [ "id" => 0, "name" => "burrito", "prepInst" => "Cook the rice, saute the vegetables, cook the chicken, microwave the wrap for 10 seconds.",
-                    "tags" => [ [ "id" => 2, "name" => "spicy", "isFilterable" => true ], [ "id" => 4, "name" => "Mexican", "isFilterable" => true ] ],
-                    "equipment" => [ "id" => 0, "name" => "stove" ],
-                    "ingredients" => [ "id" => 0, "name" => "chicken", "isOptional" => TRUE, "replaceableWith" => [ "turkey", "steak", "pork" ] ] ];
+//                $recipe = [ "id" => 0, "name" => "burrito", "prepInst" => "Cook the rice, saute the vegetables, cook the chicken, microwave the wrap for 10 seconds.",
+//                    "tags" => [ [ "id" => 2, "name" => "spicy", "isFilterable" => true ], [ "id" => 4, "name" => "Mexican", "isFilterable" => true ] ],
+//                    "equipment" => [ "id" => 0, "name" => "stove" ],
+//                    "ingredients" => [ "id" => 0, "name" => "chicken", "isOptional" => TRUE, "replaceableWith" => [ "turkey", "steak", "pork" ] ] ];
 
                 $objListOfItemsToMap = $objDinnerWizard["tags"];
                 $strBaseTable = $this->mTable_Tags ;
