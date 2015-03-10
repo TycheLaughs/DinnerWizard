@@ -25,7 +25,8 @@ http://angular-ui.github.io/bootstrap/ -->
          <li ng-repeat="item in tags track by $index" style="list-style-type: none" ng-click="clickedFromSelectedTags(item)"> {{item}}</li>
       </ul><!-- Resolved error with using ng-repeat and adding items to an array dynamically here: https://docs.angularjs.org/error/ngRepeat/dupes -->
    </div>
-   <div class="col-xs-5"></div>
+   <div class="col-xs-2"></div>
+      <div class="col-xs-5 "><a class="roundEdges" ng-click="search()">Filter Recipes</a></div>
        <div class="col-xs-5 "><a class="roundEdges" ng-click="clearList()">Clear Filters</a></div> 
     <div class="col-xs-2"></div>
 </div>
