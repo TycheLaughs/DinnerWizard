@@ -1,7 +1,8 @@
 <?php
 
     $temp = new db_lib;
-    $temp->getTables();
+    //$temp->getTables();
+    $temp->buildFilterObjects("empty") ;
     $temp->closeConnection();
 
     class db_lib
@@ -33,6 +34,9 @@
         private $mQuery_InsTagsTable       = "INSERT INTO tags( id, name, isFilterable ) VALUES '%s', '%s' )" ;        //INSERT INTO tags( id, name, isFilterable ) VALUES( <id>, <name>, <isFilterable> ) ;
         private $mQuery_InsRecipesTable    = "INSERT INTO recipes( id, name, prepInst ) VALUES ( '%d', '%s', '%s' ) "; //INSERT INTO recipes( id, name, prepInst ) VALUES( <id>, <name>, <prepInst> )
         private $mQuery_InsMapTable        = "INSERT INTO %s( id, id) VALUES( '%d', '%d')";                            //INSERT INTO <table>( id, id ) VALUES( <id>, <id> ) ;
+
+        private $filterObj = array() ;
+        private $updateObj = array() ;
 
 
         /**
@@ -107,16 +111,16 @@
             //$strIngredients = $_POST["ingredients"];
 
 
-            $recipe = [ "id" => 0, "name" => "burrito", "prepInst" => "Cook the rice, saute the vegetables, cook the chicken, microwave the wrap for 10 seconds.",
-                        "tags" => [ [ "id" => 2, "name" => "spicy", "isFilterable" => true ], [ "id" => 4, "name" => "Mexican", "isFilterable" => true ] ],
-                        "equipment" => [ "id" => 0, "name" => "stove" ],
-                        "ingredients" => [ "id" => 0, "name" => "chicken", "isOptional" => TRUE, "replaceableWith" => [ "turkey", "steak", "pork" ] ] ];
-            $ingredient1 = [ "id" => 0, "name" => "chicken", "tags" => [ ] ];
-            $ingredient2 = [ "id" => 1, "name" => "turkey", "tags" => [ "turkey" ] ];
-            $ingredient3 = [ "id" => 2, "name" => "steak", "tags" => [ "cow", "read meat" ] ];
-            $ingredient4 = [ "id" => 3, "name" => "pork", "tags" => [ ] ];
-            $equipment = [ "id" => 0, "name" => "stove", "recipes" => [ "burrito" ] ];
-            $recipeTags = [ "id" => 2, "name" => "spicy", "isFilterable" => true, "recipes" => [ "burrito" ] ];
+            $recipe          = [ "id" => 0, "name" => "burrito", "prepInst" => "Cook the rice, saute the vegetables, cook the chicken, microwave the wrap for 10 seconds.",
+                                 "tags" => [ [ "id" => 2, "name" => "spicy", "isFilterable" => true ], [ "id" => 4, "name" => "Mexican", "isFilterable" => true ] ],
+                                 "equipment" => [ "id" => 0, "name" => "stove" ],
+                                 "ingredients" => [ "id" => 0, "name" => "chicken", "isOptional" => TRUE, "replaceableWith" => [ "turkey", "steak", "pork" ] ] ];
+            $ingredient1     = [ "id" => 0, "name" => "chicken", "tags" => [ ] ];
+            $ingredient2     = [ "id" => 1, "name" => "turkey", "tags" => [ "turkey" ] ];
+            $ingredient3     = [ "id" => 2, "name" => "steak", "tags" => [ "cow", "read meat" ] ];
+            $ingredient4     = [ "id" => 3, "name" => "pork", "tags" => [ ] ];
+            $equipment       = [ "id" => 0, "name" => "stove", "recipes" => [ "burrito" ] ];
+            $recipeTags      = [ "id" => 2, "name" => "spicy", "isFilterable" => true, "recipes" => [ "burrito" ] ];
             $ingredientTags1 = [ "id" => 0, "name" => "read meat", "isFilterable" => false, "ingredients" => [ "steak" ] ];
             $ingredientTags2 = [ "id" => 1, "name" => "cow", "isFilterable" => true, "ingredients" => [ "steak" ] ];
             $ingredientTags3 = [ "id" => 3, "name" => "turkey", "isFilterable" => true, "ingredients" => [ "turkey" ] ];
@@ -132,6 +136,17 @@
             $this->updateBaseObjects( $ingredientTags2, $this->mTable_Tags );
             $this->updateBaseObjects( $ingredientTags3, $this->mTable_Tags );
             $this->updateBaseObjects( $recipe, $this->mTable_Tags );
+
+            $this->updateMapTables( $ingredient1, $this->mTable_Ingredients );
+            $this->updateMapTables( $ingredient2, $this->mTable_Ingredients );
+            $this->updateMapTables( $ingredient3, $this->mTable_Ingredients );
+            $this->updateMapTables( $ingredient4, $this->mTable_Ingredients );
+            $this->updateMapTables( $equipment, $this->mTable_Equipment );
+            $this->updateMapTables( $recipeTags, $this->mTable_Tags  );
+            $this->updateMapTables( $ingredientTags1, $this->mTable_Tags );
+            $this->updateMapTables( $ingredientTags2, $this->mTable_Tags );
+            $this->updateMapTables( $ingredientTags3, $this->mTable_Tags );
+            $this->updateMapTables( $recipe, $this->mTable_Tags );
 
         }
 
@@ -351,7 +366,7 @@
             }
         }
 
-        public function buildFilterObjects( $ObjFilters )
+        public function buildFilterObjects()
         {
             $testFilter = ["ingredientTags" => ["id" => 0, "name" => "eggs"],
                           [ "recipeTags" => ""],
@@ -364,47 +379,94 @@
             $equipmentFilter = $testFilter["equipment"] ;
             $withoutFilter = $testFilter["without"] ;
 
+
             if( $ingredientFilter->count() > 0 )
             {
-                $recipeList->array_push( filter( $ingredientFilter ) );
+                $recipeList->array_push( filter( $ingredientFilter, "ingredientTags" ) );
             }
             if( $recipeFilter->count() > 0 )
             {
-                $recipeList->array_push( filter( $recipeFilter ) );
+                $recipeList->array_push( filter( $recipeFilter, "recipeTags" ) );
             }
             if( $equipmentFilter->count() > 0 )
             {
-                $recipeList->array_push( filter( $equipmentFilter ) );
+                $recipeList->array_push( filter( $equipmentFilter, "equipment" ) );
             }
             if( $withoutFilter->count() > 0 )
             {
-                $recipeList->array_push( filter( $withoutFilter ) );
+                $recipeList->array_push( filter( $withoutFilter, "without" ) );
             }
 
 
         }
 
-        private function filter( $objFilterObj )
+        private function filter( $objFilterObj, $strFilterGroup )
         {
 
-            $recipeList = [] ;
-            foreach( $objFilterObj as $item )
+            $recipeList   = [] ;
+            $mapTable     = "" ;
+            $mapAttribute = "" ;
+
+            switch( $strFilterGroup )
             {
-                //SELECT recipeID FROM ingredient_recipe_map WHERE ingredientID = $ingredients["id"]
-                $recipeIDList = $this->conn->query( sprintf( $this->$mQuery_SelectFromTable, "recipeID", $this->mTable_IngredientRecipeMap, "ingredientID", $item["id"] ) ) ;
-
-                $recipeIDList->data_seek(0) ;
-                while ($row = $recipeIDList->fetch_assoc() )
+                case "ingredientTags":
                 {
-
-                    //SELECT name FROM recipes WHERE id = row
-                    $recipe = $this->conn->query( sprintf( $this->$mQuery_SelectFromTable, "name", $this->$mTable_Recipes, "id", $row ) ) ;
-                    $recipeList->array_push($recipe) ;
-
+                    $mapTable = $this->mTable_IngredientRecipeMap ;
+                    $mapAttribute = "ingredientID" ;
+                    break ;
+                }
+                case "recipeTags":
+                {
+                    //do nothing because we have a list of recipe id's so we can just go straight to the recipes table
+                    break ;
+                }
+                case "equipment":
+                {
+                    $mapTable = $this->mTable_RecipeEquipmentMap ;
+                    $mapAttribute = "equipmentID" ;
+                    break ;
+                }
+                case "without":
+                {
+                    //this is a special case i need to pull the group value out to get the appropriate tabless
+                    break ;
+                }
+                default:
+                {
+                    //log an error
+                    return -1 ;
                 }
             }
 
-            return $recipeIDList ;
+            foreach( $objFilterObj as $item )
+            {
+
+                //We already have the id of a recipe while filtering so there is no need to go to a map table
+                if( $strFilterGroup != "recipes" )
+                {
+
+                    //SELECT recipeID FROM $mapTable WHERE $mapApptribute = $item["id"]
+                    $recipeIDList = $this->conn->query( sprintf( $this->$mQuery_SelectFromTable, "recipeID", $mapTable, $mapAttribute, $item["id"] ) );
+
+                    $recipeIDList->data_seek( 0 );
+                    while( $row = $recipeIDList->fetch_assoc() )
+                    {
+
+                        //SELECT name FROM recipes WHERE id = row
+                        $recipe = $this->conn->query( sprintf( $this->$mQuery_SelectFromTable, "name", $this->$mTable_Recipes, "id", $row ) );
+                        $recipeList->array_push( $recipe );
+
+                    }
+                }
+                else
+                {
+                    //SELECT name FROM recipes WHERE id = $item["id"]
+                    $recipe = $this->conn->query( sprintf( $this->$mQuery_SelectFromTable, "name", $this->$mTable_Recipes, "id", $item["id"] ) );
+                    $recipeList->array_push( $recipe );
+                }
+            }
+
+            return $recipeList ;
 
         }
         /**
