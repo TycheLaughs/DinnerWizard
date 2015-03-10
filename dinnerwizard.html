@@ -51,13 +51,17 @@
       <a class="col-sm-2 hidden-xs"href="#recipes"><span class= "roundEdges hidden-xs hidden-sm hidden-md hidden-lg">Random Recipe</span></a> 
       <div class="col-sm-7 col-lg-7"></div>
       <!-- Filter recipes needs logic to not appear on certain screens.-->
-      <a class="col-xs-3 col-sm-2 col-md-2" href="#filter"><span class= "roundEdges">Recipe Filters</span></a> 
+     
        <div class="col-xs-2"></div>
    </div>
   
    <div id= "contentRow" class="container-fluid"> 
       <div class="col-xs-12" style="height:7px"></div><!--hacked-in spacer-->
-      <a class="col-xs-1 col-md-1 hidden-xs"href="#inventory"><span class= "roundEdges">Inventory</span></a>
+      <div class="col-xs-1 col-sm-1 col-md-1" >
+         <a class="hidden-xs"href="#inventory"><span class= "roundEdges">Inventory</span></a>
+         <div class="col-xs-12" style="height:7px"></div><!--hacked-in spacer-->
+         <a class="hidden-xs" href="#filter"><span class= "roundEdges">Recipe Filters</span></a> 
+      </div>
       <div class="col-xs-10 col-md-9 contentContainer">
 
           <!-- angular templating -->

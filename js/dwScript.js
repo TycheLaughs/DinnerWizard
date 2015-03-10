@@ -15,6 +15,8 @@
 * Modified 2/22/2015 by Susan Souza to add some more functionality to recipesController
 * Modified 2/25/2015 by Susan Souza to implement functions to clear the inventory and search 
 * filters arrays (list and tagsList) and to clean up a little.
+* Modified 3/9/2015 by Uzi to begin work on generating JSON objects to pass to the PHP function
+* that filters recipes
 * 
 */
 // create the module
@@ -187,6 +189,54 @@ DinnerWizardApp.service('persistentService', function(){
          tagsList.push('No Search Filters Selected');
       
       },
+      /** filtering
+      * take data from the user-constructed inventory and filters lists,
+      * convert it into JSON objects and send if off to query the database
+      * references:
+      * http://www.keyboardninja.eu/webdevelopment/a-simple-search-with-angularjs-and-php
+      * http://stackoverflow.com/questions/19970301/convert-javascript-object-or-array-to-json-for-ajax-data
+      */
+      filtering:function(ingredients, tags){
+      
+         var filter={};
+         var ing = {};
+         var rec = {};
+         var idFinder='';
+         filter.ingredientTags=[];
+         filter.recipeTags=[];
+         //test print to see that we are in fact getting the right thing from ingredients param
+         //console.log(JSON.stringify(ingredients));
+         if(list[0] !== 'Click ingredients to add them to your inventory'){
+            for(var i = 0; i < list.length; i++){ //iterate through array for inventory
+            //having some issues with id's
+               //for(var i = 0; i < list.length; i++){
+                 // if(ingredients[i].ingredientName === list[i]){
+                  //   idFinder = ingredients[i].id;
+                  //}
+               
+               //ing.id = idFinder;
+               ing.name = '"'+list[i]+'"';
+               filter.ingredientTags[i] = ing;
+               }
+            }
+         
+         if(tagsList[0] !== 'No Search Filters Selected'){//iterate through array for tags
+            for(var i = 0; i < tagsList.length; i++){
+               //for(var j = 0; j < tags.length; j++){
+                 // if(tags[i].name === tagsList[i]){
+                   //  idFinder = tags[i].id;
+                  //}
+               
+               rec.id = idFinder;
+               rec.name = '"'+ tagsList[i]+'"';
+               filter.recipeTags[i] = rec;
+            }
+         }
+         //test print to see what we built
+         console.log( JSON.stringify(filter));
+      } 
+         
+
    };
 });
 
@@ -205,6 +255,8 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
        //RECIPES in the json file to a variable named recipes
          $scope.ingredients = data.INGREDIENTS; //assign the array of objects called 
        //INGREDIENTS in the json file to a variable named ingredients
+        $scope.filterList = data.TAGS; //assign the array of objects called 
+       //Tags in the json file to a variable named ingredients
       });
       /* call mutators for the arrays stored 'globally' in a service*/
      $scope.clickedFromListing = function(content){
@@ -219,6 +271,13 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
          persistentService.clearInventory();
       };
       
+     
+       $scope.search = function(){
+       
+         persistentService.filtering($scope.ingredients, $scope.tags);
+       };
+      
+         
 });
 
    
@@ -230,6 +289,8 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
        $http.get("data/recipesTest2.json").success(function(data){
          $scope.recipes = data.RECIPES; //assign the array of objects called 
        //RECIPES in the json file to a variable named recipes
+         $scope.ingredients = data.INGREDIENTS; //assign the array of objects called 
+       //INGREDIENTS in the json file to a variable named ingredients
         $scope.filterList = data.TAGS; //assign the array of objects called 
        //Tags in the json file to a variable named ingredients
       });
@@ -245,6 +306,9 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
       $scope.clearList = function(){
          persistentService.clearTags();
       };
+      $scope.search = function(){
+         persistentService.filtering($scope.ingredients, $scope.tags);
+       };
 	});
    
    //Recipe Selection and Browsing
@@ -257,6 +321,10 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
       $http.get("data/recipesTest2.json").success(function(data){
          $scope.recipes = data.RECIPES; //assign the array of objects called 
        //RECIPES in the json file to a variable named recipes
+         $scope.ingredients = data.INGREDIENTS; //assign the array of objects called 
+       //INGREDIENTS in the json file to a variable named ingredients
+        $scope.filterList = data.TAGS; //assign the array of objects called 
+       //Tags in the json file to a variable named ingredients
       });
       /**showRecipe
       * Determines which JSON object to be using based on parameters (gotten via click)
