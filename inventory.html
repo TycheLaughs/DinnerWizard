@@ -6,6 +6,8 @@ Modified: 2/14/2015 by Susan Souza to add initial accordion and inventory-buildi
 Modified: 2/21/2015 by Susan Souza to add 'Clear Inventory' button
 Modified: 2/25/2015 by Susan Souza to change implementation of accordion sections in compliance 
 with new JSON and to add interactvity to 'Clear Invenory' button.
+Modified: 3/10/2015 by susan Souza to change the attribute accessed to generate ingredient lists 
+from 'ingredientName' to 'name'
 
 -->
 
@@ -16,27 +18,27 @@ http://angular-ui.github.io/bootstrap/ -->
    -->
       <accordion-group heading="Alternate Protein">
          <ul>
-            <li ng-repeat="content in ingredients" ng-if="content.tags[0]==='Alternate Protein'"style="list-style-type: none" ><a ng-click="clickedFromListing(content.ingredientName)">{{content.ingredientName}}</a></li>
+            <li ng-repeat="content in ingredients" ng-if="content.tags[0]==='Alternate Protein'"style="list-style-type: none" ><a ng-click="clickedFromListing(content.name)">{{content.name}}</a></li>
          </ul>
       </accordion-group>
             <accordion-group heading="Meat">
          <ul>
-            <li ng-repeat="content in ingredients" ng-if="content.tags[0]==='Meat'"style="list-style-type: none"style="list-style-type: none" ><a ng-click="clickedFromListing(content.ingredientName)">{{content.ingredientName}}</a></li>
+            <li ng-repeat="content in ingredients" ng-if="content.tags[0]==='Meat'"style="list-style-type: none"style="list-style-type: none" ><a ng-click="clickedFromListing(content.name)">{{content.name}}</a></li>
          </ul>
       </accordion-group>
             <accordion-group heading="Seafood">
          <ul>
-            <li ng-repeat="content in ingredients" ng-if="content.tags[0]==='Seafood'"style="list-style-type: none"style="list-style-type: none" ><a ng-click="clickedFromListing(content.ingredientName)">{{content.ingredientName}}</a></li>
+            <li ng-repeat="content in ingredients" ng-if="content.tags[0]==='Seafood'"style="list-style-type: none"style="list-style-type: none" ><a ng-click="clickedFromListing(content.name)">{{content.name}}</a></li>
          </ul>
       </accordion-group>
             <accordion-group heading="Starch">
          <ul>
-            <li ng-repeat="content in ingredients" ng-if="content.tags[0]==='Starch'"style="list-style-type: none"style="list-style-type: none" ><a ng-click="clickedFromListing(content.ingredientName)">{{content.ingredientName}}</a></li>
+            <li ng-repeat="content in ingredients" ng-if="content.tags[0]==='Starch'"style="list-style-type: none"style="list-style-type: none" ><a ng-click="clickedFromListing(content.name)">{{content.name}}</a></li>
          </ul>
       </accordion-group>
             <accordion-group heading="Vegetables">
          <ul>
-            <li ng-repeat="content in ingredients" ng-if="content.tags[0]==='Vegetables'"style="list-style-type: none"style="list-style-type: none" ><a ng-click="clickedFromListing(content.ingredientName)">{{content.ingredientName}}</a></li>
+            <li ng-repeat="content in ingredients" ng-if="content.tags[0]==='Vegetables'"style="list-style-type: none"style="list-style-type: none" ><a ng-click="clickedFromListing(content.name)">{{content.name}}</a></li>
          </ul>
       </accordion-group>
    </accordion>

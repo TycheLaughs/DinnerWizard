@@ -6,6 +6,7 @@
          "recipeName":"Seuss Stew",
          "ingredients": [
             {
+               
                "name":"One Fish"
             },
             { 
@@ -154,7 +155,8 @@
    
     "INGREDIENTS":[
       {
-         "ingredientName" : "Cow",
+         "id":"1",
+         "name" : "Cow",
          "tags":[
             "Meat", 
             "Red Meat", 
@@ -163,7 +165,8 @@
       },
       
       {
-         "ingredientName" : "Holy Cow",
+         "id":"2",
+         "name" : "Holy Cow",
          "tags":[
             "Meat", 
             "Red Meat", 
@@ -172,7 +175,8 @@
          ]
       },
       {
-         "ingredientName" : "Cowabunga",
+         "id":"3",
+         "name" : "Cowabunga",
          "tags":[
             "Meat", 
             "Red Meat", 
@@ -181,7 +185,8 @@
          ]
       },
       {
-         "ingredientName" : "This Little Piggy Went to Market",
+         "id":"4",
+         "name" : "This Little Piggy Went to Market",
          "tags":[
             "Meat", 
             "Red Meat", 
@@ -190,7 +195,8 @@
          ]
       },
       {
-         "ingredientName" : "This Little Piggy Stayed Home",
+         "id":"5",
+         "name" : "This Little Piggy Stayed Home",
          "tags":[
             "Meat", 
             "Red Meat", 
@@ -198,69 +204,79 @@
          ]
       },
       {
-         "ingredientName" : "Little Chicken",
+         "id":"6",
+         "name" : "Little Chicken",
          "tags":[
             "Meat", 
             "Poultry"
          ]
       },
             {
-         "ingredientName" : "Chicken Little",
+            "id":"7",
+         "name" : "Chicken Little",
          "tags":[
             "Meat", 
             "Poultry"
          ]
       },
             {
-         "ingredientName" :  "Squid",
+            "id":"8",
+         "name" :  "Squid",
          "tags":[
             "Seafood"
          ]
       },
       {
-         "ingredientName" : "Scallops",
+      "id":"9",
+         "name" : "Scallops",
          "tags":[
             "Seafood", 
             "Shellfish"
          ]
       },
       {
-         "ingredientName" : "Mussels",
-         "tags":[
-            "Seafood",
-            "Shellfish"
-         ]
-      },
-            {
-         "ingredientName" : "Clams",
+      "id":"10",
+         "name" : "Mussels",
          "tags":[
             "Seafood",
             "Shellfish"
          ]
       },
       {
-         "ingredientName" : "The World is Your Oyster",
+         "id":"11",
+         "name" : "Clams",
          "tags":[
             "Seafood",
             "Shellfish"
          ]
       },
       {
-         "ingredientName" : "White Fish",
+      "id":"12",
+         "name" : "The World is Your Oyster",
+         "tags":[
+            "Seafood",
+            "Shellfish"
+         ]
+      },
+      {
+         "id":"13",
+         "name" : "White Fish",
          "tags":[
             "Seafood", 
             "Fish"
          ]
       },
       {
-         "ingredientName" : "One Fish",
+         "id":"14",
+         "name" : "One Fish",
          "tags":[
             "Seafood",
             "Fish"
          ]
       },
       {
-         "ingredientName" : "Two Fish",
+         "id":"15",
+         "name" : "Two Fish",
          "tags":[
             "Seafood",
             "Fish"
@@ -268,144 +284,166 @@
          ]
       },
       {
-         "ingredientName" : "Red Fish",
+         "id":"16",
+         "name" : "Red Fish",
          "tags":[
             "Seafood",
             "Fish"
          ]
       },
       {
-         "ingredientName" : "Blue Fish",
+         "id":"37",
+         "name" : "Blue Fish",
          "tags":[
             "Seafood",
             "Fish"
          ]
       },
       {
-         "ingredientName" : "Tofu",
+         "id":"17",
+         "name" : "Tofu",
          "tags":[
             "Alternate Protein", 
             "Soy"
          ]
       },
-            {
-         "ingredientName" : "Tempeh",
+      {
+         "id":"18",
+         "name" : "Tempeh",
          "tags":[
             "Alternate Protein"
          ]
       },
       {
-         "ingredientName" : "Lentils",
+         "id":"19",
+         "name" : "Lentils",
          "tags":[
             "Alternate Protein", 
             "Legumes"
          ]
       },
       {
-         "ingredientName" : "Beans",
+         "id":"20",
+         "name" : "Beans",
          "tags":[
             "Alternate Protein",
             "Legumes"
          ]
       },
       {
-         "ingredientName" : "Eggs",
+         "id":"21",
+         "name" : "Eggs",
          "tags":[
             "Alternate Protein"
          ]
       },
       {
-         "ingredientName" : "Cheese",
+         "id":"22",
+         "name" : "Cheese",
          "tags":[
             "Alternate Protein", 
             "Dairy"
          ]
       },
       {
-         "ingredientName" : "Green Stuff",
+         "id":"23",
+         "name" : "Green Stuff",
          "tags":[
             "Vegetables"
          ]
       },
       {
-         "ingredientName" : "Leafy Stuff",
+         "id":"36",
+         "name" : "Leafy Stuff",
          "tags":[
             "Vegetables", 
             "Leafy Vegetables"
          ]
       },
-            {
-         "ingredientName" : "Bitter Stuff",
+      {
+         "id":"24",
+         "name" : "Bitter Stuff",
          "tags":[
             "Vegetables"
          ]
       },
       {
-         "ingredientName" : "More Green Stuff",
+         "id":"25",
+         "name" : "More Green Stuff",
          "tags":[
             "Vegetables"
          ]
       },
       {
-      "ingredientName" : "Bell Peppers",
+      "id":"26",
+      "name" : "Bell Peppers",
          "tags":[
             "Vegetables",
             "Nightshades"
          ]
       },
       {
-      "ingredientName" : "Root Vegetables",
+         "id":"27",
+         "name" : "Root Vegetables",
          "tags":[
             "Vegetables", 
             "Root Vegetables"
          ]
       },
       {
-      "ingredientName" : "Mushrooms",
+         "id":"28",
+         "name" : "Mushrooms",
          "tags":[
             "Vegetables"
          ]
       },
       {
-         "ingredientName" : "Eggplant",
+         "id":"29",
+         "name" : "Eggplant",
          "tags":[
             "Vegetables",
             "Nightshades"
          ]
       },
       {
-         "ingredientName" : "Tomatoes",
+         "id":"30",
+         "name" : "Tomatoes",
          "tags":[
             "Vegetables",
             "Nightshades"
          ]
       },
       {
-         "ingredientName" : "Pasta",
+         "id":"31",
+         "name" : "Pasta",
          "tags":[
             "Starch"
          ]
       },
       {
-         "ingredientName" : "Bread",
+         "id":"32",
+         "name" : "Bread",
          "tags":[
             "Starch"
          ]
       },
       {
-         "ingredientName" : "Potatoes",
+         "id":"33",
+         "name" : "Potatoes",
          "tags":[
             "Starch"
          ]
       },
       {
-         "ingredientName" : "Rice",
+         "id":"34",
+         "name" : "Rice",
          "tags":[
             "Starch"
          ]
       },
       {
-         "ingredientName" : "Corn",
+         "id":"35",
+         "name" : "Corn",
          "tags":[
             "Starch"
          ]

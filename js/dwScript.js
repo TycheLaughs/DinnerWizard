@@ -207,36 +207,39 @@ DinnerWizardApp.service('persistentService', function($http){
           filter.recipeTags = [];
           //test print to see that we are in fact getting the right thing from ingredients param
           //console.log(JSON.stringify(ingredients));
-          if ( list[0] !== 'Click ingredients to add them to your inventory' )
-          {
-              for ( var i = 0; i < list.length; i++ )
-              { //iterate through array for inventory
-                  //having some issues with id's
-                  //for(var i = 0; i < list.length; i++){
-                  // if(ingredients[i].ingredientName === list[i]){
-                  //   idFinder = ingredients[i].id;
-                  //}
-
-                  //ing.id = idFinder;
-                  ing.name = '"' + list[i] + '"';
-                  filter.ingredientTags[i] = ing;
-              }
-          }
-
-          if ( tagsList[0] !== 'No Search Filters Selected' )
-          {//iterate through array for tags
-              for ( var i = 0; i < tagsList.length; i++ )
-              {
-                  //for(var j = 0; j < tags.length; j++){
-                  // if(tags[i].name === tagsList[i]){
-                  //  idFinder = tags[i].id;
-                  //}
-
-                  rec.id = idFinder;
-                  rec.name = '"' + tagsList[i] + '"';
-                  filter.recipeTags[i] = rec;
-              }
-          }
+         if ( list[0] !== 'Click ingredients to add them to your inventory' )
+         {
+            for ( var i = 0; i < list.length; i++ )
+            { //iterate through array for inventory
+               for(var k = 0; k < ingredients.length; k++){
+                  if(ingredients[k].name === list[i]){
+                     idFinder = ingredients[k].id;
+                     //console.log(idFinder);
+                  }
+               }
+               var ing = {};
+              ing.id = idFinder;
+              ing.name = list[i];
+              filter.ingredientTags.push(ing);
+              // console.log(i + (JSON.stringify(filter.ingredientTags)));
+            }
+         }
+         if ( tagsList[0] !== 'No Search Filters Selected' )
+         {//iterate through array for tags
+            for ( var i = 0; i < tagsList.length; i++ )
+            {
+              for(var k = 0; k < tags.length; k++){
+                 if(tags[k].name === list[i]){
+                     idFinder = tags[k].id;
+                     //console.log(idFinder);
+                  }
+               }
+               var rec = {};
+               rec.id = idFinder;
+               rec.name = tagsList[i];
+               filter.recipeTags.push(rec);
+            }
+         }
           //test print to see what we built
           console.log( JSON.stringify( filter ) )
 
