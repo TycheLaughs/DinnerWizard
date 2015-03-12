@@ -1,14 +1,14 @@
 <?php
 
 
-    $postData = file_get_contents("php://input");
-    $request = json_decode($postData);
+   // $postData = file_get_contents("php://input");
+   // $request = json_decode($postData);
 
-    print_r( $request ) ;
+   // print_r( $request ) ;
 
     $temp = new db_lib;
     //$temp->getTables();
-    $temp->buildFilterObjects($request->filter) ;
+    $temp->buildFilterObjects() ;
     $temp->closeConnection();
 
     class db_lib
@@ -17,8 +17,8 @@
         //database connection information
         private $conn = NULL;
         private $_HOST = 'localhost';
-        private $_USERNAME = 'tommy';
-        private $_PASSWORD = 'p@ssw0rd';
+        private $_USERNAME = 'root';
+        private $_PASSWORD = '';
         private $_DATABASE = 'dinnerwizard';
 
         //table defines
@@ -374,33 +374,34 @@
 
         public function buildFilterObjects()
         {
-            $testFilter = ["ingredientTags" => ["id" => 0, "name" => "eggs"],
-                          [ "recipeTags" => ""],
-                          [ "equipment" => ["id" => 0, "name" => "frying pan"]],
-                          [ "without" => [["id" => 0, "name" => "spicy", "group" => "recipes"], [ "id" => 2, "name" => "steak", "group" => "ingredients" ]]]] ;
+            $testFilter = ["ingredientTags" => [["id" => 4, "name" => "eggs"]],
+                           "recipeTags" => "",
+                           "equipment" => ["id" => 9, "name" => "frying pan"],
+                           "without" => [["id" => 1, "name" => "spicy", "group" => "recipes"], [ "id" => 2, "name" => "seafood", "group" => "ingredients" ]]] ;
 
-            $recipeList = [];
+            $recipeList = array();
             $ingredientFilter = $testFilter["ingredientTags"] ;
             $recipeFilter = $testFilter["recipeTags"] ;
             $equipmentFilter = $testFilter["equipment"] ;
             $withoutFilter = $testFilter["without"] ;
 
 
-            if( $ingredientFilter->count() > 0 )
+            if( count( $ingredientFilter ) > 0 )
             {
-                $recipeList->array_push( filter( $ingredientFilter, "ingredientTags" ) );
+                $results = $this->filter( $ingredientFilter, "ingredientTags" ) ;
+                $recipeList->array_push(  );
             }
-            if( $recipeFilter->count() > 0 )
+            if( count( $recipeFilter ) > 0 )
             {
-                $recipeList->array_push( filter( $recipeFilter, "recipeTags" ) );
+                $recipeList->array_push( $this->filter( $recipeFilter, "recipeTags" ) );
             }
-            if( $equipmentFilter->count() > 0 )
+            if( count($equipmentFilter ) > 0 )
             {
-                $recipeList->array_push( filter( $equipmentFilter, "equipment" ) );
+                $recipeList->array_push( $this->filter( $equipmentFilter, "equipment" ) );
             }
-            if( $withoutFilter->count() > 0 )
+            if( count($withoutFilter) > 0 )
             {
-                $recipeList->array_push( filter( $withoutFilter, "without" ) );
+                $recipeList->array_push( $this->filter( $withoutFilter, "without" ) );
             }
 
 
@@ -409,7 +410,7 @@
         private function filter( $objFilterObj, $strFilterGroup )
         {
 
-            $recipeList   = [] ;
+            $recipeList   = array() ;
             $mapTable     = "" ;
             $mapAttribute = "" ;
 
@@ -452,14 +453,14 @@
                 {
 
                     //SELECT recipeID FROM $mapTable WHERE $mapApptribute = $item["id"]
-                    $recipeIDList = $this->conn->query( sprintf( $this->$mQuery_SelectFromTable, "recipeID", $mapTable, $mapAttribute, $item["id"] ) );
+                    $recipeIDList = $this->conn->query( sprintf( $this->mQuery_SelectFromTable, "recipeID", $mapTable, $mapAttribute, $item["id"] ) );
 
                     $recipeIDList->data_seek( 0 );
                     while( $row = $recipeIDList->fetch_assoc() )
                     {
 
                         //SELECT name FROM recipes WHERE id = row
-                        $recipe = $this->conn->query( sprintf( $this->$mQuery_SelectFromTable, "name", $this->$mTable_Recipes, "id", $row ) );
+                        $recipe = $this->conn->query( sprintf( $this->mQuery_SelectFromTable, "name", $this->$mTable_Recipes, "id", $row ) );
                         $recipeList->array_push( $recipe );
 
                     }
@@ -467,7 +468,7 @@
                 else
                 {
                     //SELECT name FROM recipes WHERE id = $item["id"]
-                    $recipe = $this->conn->query( sprintf( $this->$mQuery_SelectFromTable, "name", $this->$mTable_Recipes, "id", $item["id"] ) );
+                    $recipe = $this->conn->query( sprintf( $this->mQuery_SelectFromTable, "name", $this->$mTable_Recipes, "id", $item["id"] ) );
                     $recipeList->array_push( $recipe );
                 }
             }
