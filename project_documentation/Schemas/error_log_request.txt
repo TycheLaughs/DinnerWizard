@@ -1,0 +1,7 @@
+"error": { timestamp, level, description }
+
+{
+    "timestamp": currentTime
+    "level": debug,
+    "description": "Failed to connect to the database"
+}

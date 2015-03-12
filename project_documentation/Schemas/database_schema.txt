@@ -1,0 +1,18 @@
+Diner Wizard Database Schema
+Creation date: 2/16/2015
+Creator: Tommy Leedberg
+Update date:
+        Tommy Leedberg - 2/24/2015 - Removing "categories" tables
+        Tommy Leedberg - 3/03/2015 - Updated tables in accordance to Matts suggestions.
+        Tommy Leedberg - 3/12/2015 - Updated tables to include the categoryID in the map tables and added an error
+                                     table.
+
+ingredients( id, name )
+tags( id, name, isFilterable )
+recipes( id, name, prepInst )
+equipment( id, name )
+recipe_equipment_map( recipeID, equipmentID )
+ingredient_recipe_map( ingredientID, recipeID, isOptional, replaceableCategory )
+ingredient_tag_map( ingredientID, tagID, categoryID )
+recipe_tag_map( recipeID, tagID, categoryID )
+error_log( id, timestamp, level, description ) ;

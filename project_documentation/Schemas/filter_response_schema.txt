@@ -1,0 +1,32 @@
+"filter_request":
+{
+    "recipes" : [{ id, name}],
+    "without" : [{ id, name }]
+}
+
+"filter_response":
+{
+
+    "filters":
+    [
+        {
+            "id": id,
+            "name": name,
+        },
+        {
+            "id": id,
+            "name": name,
+        }
+    ]
+    "without":
+    [
+        {
+            "id": id,
+            "name": name
+        },
+        {
+            "id": id,
+            "name": name
+        }
+    ],
+}

@@ -5,7 +5,7 @@ SCHEMA:
     "id"          : id,
     "name"        : name,
     "prepInst"    : inst,
-    "tags"        : [ id, name, isFilterable ],
+    "categories"  : [{ tags: [ id, name, isFilterable ]}],
     "equipment"   : [ id, name ],
     "ingredients" : [{ id, name, isOptional, "replaceableWith": [ name ] }],
 }],
@@ -13,13 +13,14 @@ SCHEMA:
 [{
     "id"   : id,
     "name" : name,
-    "tags" : [ name ]
+    "categories"  : [{ tags: [ id, name, isFilterable ]}],
 }],
 "recipeTags" :
 [{
     "id"          : id,
     "name"        : name,
     "isFilterable": bool,
+    "category"    : category,
     "recipes"     : [ name ]
 }],
 "equipment" :
@@ -33,6 +34,7 @@ SCHEMA:
     "id"           : id,
     "name"         : name,
     "isFilterable" : bool,
+    "category"    : category,
     "ingredients"  : [ name ]
 }]
 

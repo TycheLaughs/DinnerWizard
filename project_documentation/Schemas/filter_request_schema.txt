@@ -1,4 +1,13 @@
-"filter":
+"filter_request":
+{
+    "ingredientTags" : [{ id, name}],
+    "recipeTags"     : [{ id, name}],
+    "equipment"      : [{ id, name}],
+    "without"        : [{ id, name, group}]
+}
+
+
+"filter_request":
 {
     "ingredientTags":
     [
