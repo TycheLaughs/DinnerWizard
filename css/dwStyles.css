@@ -1,18 +1,30 @@
 #logoMin{
-   background-color: "#ffff33";
-   border: 1px solid black;
-   height: 100%;
-   font-size: .8em;
-   text-align: center;
+   /*background-color: "#ffff33";*/
+   /*border: 1px solid black;*/
+   background-image: url("../images/dinnerWizardSmall_02.png");
+   background-repeat: no-repeat;
+   background-position: center; 
+   height: 40px;
+   width: 40px;
+   font-size: 0em;
    display: inline-block;
-   padding: 6px;
+   position:absolute;
+   top: -2px;
+   margin-bottom: 8px;
+   padding-bottom: 8px;
+
 }
 #logoText{
-   background-color: "#ff2222";
-   height: 100%;
-   font-size: .8em;
-   text-align: left;
+   /*background-color: "#ff2222";*/
+   background-image: url("../images/dinnerWizardText_small.png");
+   height: 35px;
+   width: 165px;
+   font-size: 0em;
+   /*text-align: left;*/
    display: inline-block;
+   position:absolute;
+   top: -2px;
+   left: 52px;
 }
 .contentContainer{
    border: 1px dashed black;
@@ -24,7 +36,14 @@
 
 body { 
    padding-top:5px;
-  font-family: serif;
+   font-family: serif;
+   /*font-size: 1.1em;*/
+  
+}
+@media(min-width: 1000px){
+   body{
+      overflow-y:hidden;
+   }
 }
 
 .container-fluid{
@@ -44,7 +63,7 @@ body {
 }
 
 .rightColumn{
-   height: 650px;
+   height: 550px;
 }
 @media (max-width: 500px) {
    body{
@@ -88,15 +107,16 @@ a:hover{
 }
 
 .procedureBox{
-   height: 400px;
+   height: 325px;
+   overflow-y: scroll;
 }
 
 
 /* styling accordions, overriding bootstrap css */
 .panel-default > .panel-heading{
    /*colors currently disabled for consistency for presentation tomorrow. dummy values directly below:*/ 
-   background-color: white;
-   border: 1px solid gray;
+  /* background-color: white;*/
+   /*border: 1px solid gray;*/
   /* background-color: #8d1801; /*dark red /*#99b9f4; medium light blue    #f8b30e; /* dark yellow */
    border-radius:19px;
    /*color: white;*/
@@ -104,6 +124,7 @@ a:hover{
    background-image: none;
    text-align: center;
    font-size: 3em;
+
 }
 
 .panel-group .panel{
@@ -117,39 +138,60 @@ a:hover{
     border: none;
     font-family: sans-serif;
 }
+
+.inv >.panel-group >.panel-default >.panel-heading{
+   background-color: #f8b30e !important; /* dark yellow */
+   color: white;
+   border: none;
+}
+
+.filt >.panel-group >.panel-default >.panel-heading{
+   background-color: #8d1801; /*dark red */
+   color: white;
+   border: none;
+}
+
+.rec >.panel-group >.panel-default >.panel-heading{
+   background-color: #99b9f4; /*medium light blue*/
+   color: white;
+   border: none;
+}
 /* end styling accordions*/
 
-
+/* splash screen and its fade in/out animations*/
 .splash {
   background: white;
   background-image:url("DWLogo05.png");
   background-repeat: no-repeat;
   background-position: center; 
-  -webkit-animation: splash 7s 1;
-  animation: splash 7s 1;
+  -webkit-animation: splash 10s linear 1s 1;
+  animation: splash 10s linear 1s 1;
   animation-fill-mode:forwards;
+  -webkit-animation-fill-mode:forwards;
+
   z-index: 2;
   position: absolute;
   height: 101%;
-  top:-2px;
+  top:-5px;
 
 }
 
-
-
-
-
-/* splash screen styling follows */
 .splash p {
-  font-size: 1.5em;
-  font-family: serif;
-  position: absolute;
-  top:85%;
-  left: 25%;
+   opacity: 0;
+   font-size: 1em;
+   font-family: serif;
+   position: absolute;
+   top:85%;
+   left: 20%;
+   -webkit-animation: splashText 6s ease  2s 1;
+   animation: splashText 6s ease 2s 1;
+   animation-fill-mode:forwards;
+   -webkit-animation-fill-mode:forwards;
+   z-index: 2;
 }
 @media (max-width: 1200px){
    .splash p {
-      top:85%;
+      top:87%;
       left:17%;
    }
 }
@@ -158,7 +200,7 @@ a:hover{
    background-image:url("DWLogo06.png");
    }
    .splash p {
-      top:65%;
+      top:68%;
       left: 3%;
   }
 }
@@ -168,13 +210,36 @@ a:hover{
    z-index: 2;}
    50%{opacity:100;
    z-index: 2;}
+   90%{opacity: 0;
+   z-index: 2;}
    100%{opacity: 0;
    z-index: -1;}
 }
 
 @-webkit-keyframes splash{
-   0%{opacity: 10;}
    40%{opacity:100;
+   z-index: 2;}
+   50%{opacity:100;
+   z-index: 2;}
+   90%{opacity: 0;
+   z-index: 2;}
+   100%{opacity: 0;
+   z-index: -1;}
+}
+
+@keyframes splashText{
+   0%{opacity: 0;}
+   30%{opacity:100;
+   z-index: 2;}
+   50%{opacity:100;
+   z-index: 2;}
+   100%{opacity: 0;
+   z-index: -1;}
+}
+
+@-webkit-keyframes splashText{
+   0%{opacity: 0;}
+   30%{opacity:100;
    z-index: 2;}
    50%{opacity:100;
    z-index: 2;}

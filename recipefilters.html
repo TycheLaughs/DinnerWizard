@@ -8,7 +8,7 @@ Modified: 2/25/2015 by Susan Souza to add interactivity and 'Clear Filters' butt
 <div class="col-xs-10 col-sm-5 contentContainer" ><p>{{ message }} Selection:</p> 
 <!-- AngularUI Bootstrap Accordion found here, with some modifications:
 http://angular-ui.github.io/bootstrap/ -->
-   <accordion close-others="oneAtATime"><!--captured click from examples found here: http://stackoverflow.com/questions/15642082/handle-open-collapse-events-of-accordion-in-angular/15642577#15642577
+   <accordion close-others="oneAtATime" class = "filt"><!--captured click from examples found here: http://stackoverflow.com/questions/15642082/handle-open-collapse-events-of-accordion-in-angular/15642577#15642577
    -->
       <accordion-group heading="{{cat.Category}}" ng-repeat ="cat in filterList">
          <ul ng-repeat="content in cat.Contents" >

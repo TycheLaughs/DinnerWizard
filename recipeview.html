@@ -12,9 +12,9 @@ Modified: 2/25/2015 by Susan Souza to tweak Angular expressions in compliance wi
    <p>Recipes Found:</p>
 
 <!-- AngularUI Bootstrap Accordion found here, with some modifications: http://angular-ui.github.io/bootstrap/ -->
-   <accordion close-others="oneAtATime"><!--captured click from examples found here: http://stackoverflow.com/questions/15642082/handle-open-collapse-events-of-accordion-in-angular/15642577#15642577
+   <accordion class = "rec" close-others="oneAtATime"><!--captured click from examples found here: http://stackoverflow.com/questions/15642082/handle-open-collapse-events-of-accordion-in-angular/15642577#15642577
    -->
-      <accordion-group ng-repeat="recipe in recipes" heading="{{recipe.recipeName}}" ng-click="showRecipe(recipe.recipeName)">
+      <accordion-group ng-repeat="recipe in recipes track by $index"  heading="{{recipe.recipeName}}"  ng-click="showRecipe(recipe.recipeName)"  is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled" >
          <ul ng-repeat="ingredient in recipe.ingredients" >
             <li style="list-style-type: none" >{{ingredient.name}}</li>
          </ul>

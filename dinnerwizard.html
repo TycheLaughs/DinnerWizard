@@ -36,25 +36,25 @@
   <body>
   <!--splash screen-->
     <div id="splash" class ="splash col-xs-12">
-      <p>Dinner Wizard is summoning chefs from the nether realm to combine the contents of your fridge...</p>
+      <p>Just a moment while Dinner Wizard summons chefs from the nether realm to combine the contents of your fridge...</p>
     </div>  
   <!-- end splash screen-->
     <div ng-controller="inventoryController">
   
      <div id="headerRow"class="container-fluid">
-         <a class = "col-xs-2" href="#inventory">
+         <a class = "col-xs-3" href="#inventory">
            <div id = "logoMin">DW</div>
            <div id = "logoText" class = "hidden-xs">Dinner Wizard</div>
          </a><!-- end logo-->
         
-            <div class="col-xs-7 col-sm-7 col-lg-7"></div>
-            <a class="col-xs-2 col-md-2"href="#recipes"><span class= "roundEdges">{{recipes.length}} Recipes</span></a>
+            <div class="col-xs-5 col-sm-6"></div>
+            <a class="col-xs-3 col-md-2"href="#recipes"><span class= "roundEdges">{{recipes.length}} Recipes</span></a>
             <div class="col-xs-1"></div>
          <!-- end dishes button placement -->
         
      </div><!-- end headerRow -->
    <div class="col-xs-12" style="height:4px"></div><!--hacked-in spacer-->
-   <div id="randomAndFilterButtonsRow"class="container-fluid">   
+   <div id="ButtonsRow"class="container-fluid">   
       <a class="col-sm-2 hidden-xs"href="#recipes"><span class= "roundEdges hidden-xs hidden-sm hidden-md hidden-lg">Random Recipe</span></a> 
       <div class="col-sm-7 col-lg-7"></div>
       <!-- Filter recipes needs logic to not appear on certain screens.-->
@@ -65,6 +65,7 @@
    <div id= "contentRow" class="container-fluid"> 
       <div class="col-xs-12" style="height:7px"></div><!--hacked-in spacer-->
       <div class="col-xs-2 col-sm-3 col-md-2" >
+      <div class="col-xs-12" style="height:12px"></div><!--hacked-in spacer-->
          <a class="hidden-xs col-xs-12"href="#inventory"><span class= "roundEdges">Inventory</span></a>
          <div class="col-xs-12" style="height:7px"></div><!--hacked-in spacer-->
          <a class="hidden-xs col-xs-12" href="#filter"><span class= "roundEdges">Recipe Filters</span></a> 
