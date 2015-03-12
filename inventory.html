@@ -11,7 +11,7 @@ from 'ingredientName' to 'name'
 
 -->
 
-<div class="col-xs-11 col-sm-6 contentContainer" ><p>{{ message }} Selection:</p> 
+<div class="col-xs-10 col-sm-5 contentContainer" ><p>{{ message }} Selection:</p> 
 <!-- AngularUI Bootstrap Accordion found here, with some modifications:
 http://angular-ui.github.io/bootstrap/ -->
    <accordion close-others="oneAtATime"><!--captured click from examples found here: http://stackoverflow.com/questions/15642082/handle-open-collapse-events-of-accordion-in-angular/15642577#15642577
@@ -44,17 +44,18 @@ http://angular-ui.github.io/bootstrap/ -->
    </accordion>
 </div>
 <div class="col-xs-0 col-sm-1"></div>  
-<div class="col-xs-11 col-sm-5 contentContainer ">
+<div class="col-xs-10 col-sm-6 contentContainer ">
    <div class = "rightColumn contentContainer">
       <p>Your Inventory:</p>
       <ul>
          <li ng-repeat="item in list track by $index" style="list-style-type: none" ng-click="clickedFromInventory(item)">{{item}}</li>
       </ul><!-- Resolved error with using ng-repeat and adding items to an array dynamically here: https://docs.angularjs.org/error/ngRepeat/dupes -->
    </div>
-   <div class="col-xs-2"></div>
-      <div class="col-xs-5 "><a class="roundEdges" ng-click="search()">Find Recipes</a></div>
-      <div class="col-xs-5 "><a class="roundEdges" ng-click="clearInv()">Clear Inventory</a></div> 
-    <div class="col-xs-2"></div>
+   <div class="col-xs-0 col-sm-1"></div>  
+  
+      <div class="col-xs-5"><a class="roundEdges" ng-click="search()">Find Recipes</a></div>
+      <div class="col-xs-6 "><a class="roundEdges" ng-click="clearInv()">Clear Inventory</a></div> 
+    
 </div>
 
 

@@ -24,7 +24,7 @@
 
 body { 
    padding-top:5px;
-  
+  font-family: serif;
 }
 
 .container-fluid{
@@ -92,6 +92,97 @@ a:hover{
 }
 
 
+/* styling accordions, overriding bootstrap css */
+.panel-default > .panel-heading{
+   /*colors currently disabled for consistency for presentation tomorrow. dummy values directly below:*/ 
+   background-color: white;
+   border: 1px solid gray;
+  /* background-color: #8d1801; /*dark red /*#99b9f4; medium light blue    #f8b30e; /* dark yellow */
+   border-radius:19px;
+   /*color: white;*/
+   /*border: none;*/
+   background-image: none;
+   text-align: center;
+   font-size: 3em;
+}
 
+.panel-group .panel{
+   border-radius: 19px;
+   margin-top:2px;
+   border: none;
+   
+}
+
+.panel-group .panel-heading + .panel-collapse > .panel-body {
+    border: none;
+    font-family: sans-serif;
+}
+/* end styling accordions*/
+
+
+.splash {
+  background: white;
+  background-image:url("DWLogo05.png");
+  background-repeat: no-repeat;
+  background-position: center; 
+  -webkit-animation: splash 7s 1;
+  animation: splash 7s 1;
+  animation-fill-mode:forwards;
+  z-index: 2;
+  position: absolute;
+  height: 101%;
+  top:-2px;
+
+}
+
+
+
+
+
+/* splash screen styling follows */
+.splash p {
+  font-size: 1.5em;
+  font-family: serif;
+  position: absolute;
+  top:85%;
+  left: 25%;
+}
+@media (max-width: 1200px){
+   .splash p {
+      top:85%;
+      left:17%;
+   }
+}
+@media (max-width: 700px) {
+   .splash {
+   background-image:url("DWLogo06.png");
+   }
+   .splash p {
+      top:65%;
+      left: 3%;
+  }
+}
+@keyframes splash{
+   0%{opacity: 10;}
+   40%{opacity:100;
+   z-index: 2;}
+   50%{opacity:100;
+   z-index: 2;}
+   100%{opacity: 0;
+   z-index: -1;}
+}
+
+@-webkit-keyframes splash{
+   0%{opacity: 10;}
+   40%{opacity:100;
+   z-index: 2;}
+   50%{opacity:100;
+   z-index: 2;}
+   100%{opacity: 0;
+   z-index: -1;}
+}
+#splashImage{
+ 
+}
 
 

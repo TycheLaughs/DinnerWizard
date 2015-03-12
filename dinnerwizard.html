@@ -32,7 +32,14 @@
    <script src="js/dwScript.js"></script>
 
   </head>
-  <body ng-controller="inventoryController">
+  
+  <body>
+  <!--splash screen-->
+    <div id="splash" class ="splash col-xs-12">
+      <p>Dinner Wizard is summoning chefs from the nether realm to combine the contents of your fridge...</p>
+    </div>  
+  <!-- end splash screen-->
+    <div ng-controller="inventoryController">
   
      <div id="headerRow"class="container-fluid">
          <a class = "col-xs-2" href="#inventory">
@@ -57,10 +64,10 @@
   
    <div id= "contentRow" class="container-fluid"> 
       <div class="col-xs-12" style="height:7px"></div><!--hacked-in spacer-->
-      <div class="col-xs-1 col-sm-1 col-md-1" >
-         <a class="hidden-xs"href="#inventory"><span class= "roundEdges">Inventory</span></a>
+      <div class="col-xs-2 col-sm-3 col-md-2" >
+         <a class="hidden-xs col-xs-12"href="#inventory"><span class= "roundEdges">Inventory</span></a>
          <div class="col-xs-12" style="height:7px"></div><!--hacked-in spacer-->
-         <a class="hidden-xs" href="#filter"><span class= "roundEdges">Recipe Filters</span></a> 
+         <a class="hidden-xs col-xs-12" href="#filter"><span class= "roundEdges">Recipe Filters</span></a> 
       </div>
       <div class="col-xs-10 col-md-9 contentContainer">
 
@@ -74,10 +81,10 @@
    Need logic to swap them for appropriate ones(with appropriate navigation) 
    depending on screen.-->
    <div id = "hiddenFootButtons" class ="hidden-sm hidden-md hidden-lg hidden-xl col-xs-10">
-      <div class="col-xs-1"></div>
-      <a class="col-xs-5" href="#filter"><span class= "roundEdges">Recipe Filters</span></a> 
-      <a class="col-xs-4 col-sm-3 pull-right"href="#inventory"><span class= "roundEdges">Inventory</span></a>
+      <div class="col-xs-6"></div>
+      <a class="col-xs-4 hidden-xs"href="#recipes"><span class= "roundEdges">Random Recipe</span></a> 
+      <a class="col-xs-4 col-sm-3" href="#inventory"><span class= "roundEdges">Inventory</span></a><!--pull-right-->
       </div>
-
+   </div>
   </body>
 </html>
