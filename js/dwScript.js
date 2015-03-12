@@ -66,6 +66,7 @@ http://jsfiddle.net/b2fCE/1/
 DinnerWizardApp.service('persistentService', function($http){
    var list = ['Click ingredients to add them to your inventory'];
    var tagsList = ['No Search Filters Selected'];
+   var response ;
    return{
    
    /**
@@ -196,7 +197,7 @@ DinnerWizardApp.service('persistentService', function($http){
       * http://www.keyboardninja.eu/webdevelopment/a-simple-search-with-angularjs-and-php
       * http://stackoverflow.com/questions/19970301/convert-javascript-object-or-array-to-json-for-ajax-data
       */
-      filtering:function(ingredients, tags)
+      filtering:function(ingredients, tags, temp)
       {
 
           var filter = {};
@@ -240,21 +241,23 @@ DinnerWizardApp.service('persistentService', function($http){
                filter.recipeTags.push(rec);
             }
          }
+
           //test print to see what we built
-          console.log( JSON.stringify( filter ) )
+          console.log( "HERE" + JSON.stringify( filter ) )
 
           //Tommy Leedberg - 3/10/2015 - Added steps for doing an http post. not sure if this will work or not well need to test/debug
           //based on code from http://codeforgeek.com/2014/07/angular-post-request-php/
-          var request = $http( {
-                                   method:  "post",
-                                   url:     window.location.href + "php/db_lib.php",
-                                   data:    {
-                                       filter: filter
-                                   },
-                                   headers: {'Content-Type': 'application/x-www-form-urlencoded'}
-                               }
-          );
-          console.log( request );
+            $http.post( "/dinnerwizard/php/request_filter.php", { 'filter': filter } ).
+            success( function( data )
+            {
+
+                console.log( data ) ;
+
+            }).error( function( error )
+            {
+               console.log( error ) ;
+            });
+
       }
    };
 });
@@ -269,6 +272,7 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
       $scope.list = persistentService.List();
       $scope.oneAtATime = true;
       $scope.message = 'Inventory';
+    $scope.temp = '' ;
      $http.get("data/recipesTest2.json").success(function(data){
          $scope.recipes = data.RECIPES; //assign the array of objects called
        //RECIPES in the json file to a variable named recipes
@@ -292,8 +296,8 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
       
      
        $scope.search = function(){
-       
-         persistentService.filtering($scope.ingredients, $scope.tags);
+
+           persistentService.filtering($scope.ingredients, $scope.tags, $scope.temp ) ;
        };
       
          
