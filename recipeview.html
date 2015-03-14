@@ -8,13 +8,18 @@ Modified: 2/22/2015 by Susan Souza to drop in the AngularJS for the display of r
 Modified: 2/25/2015 by Susan Souza to tweak Angular expressions in compliance with new JSON
 
 -->
-<div class="col-xs-11 col-sm-5 contentContainer"><!--left-hand column. Contains recipe selection accordion (with ingredients)-->
+<div class="col-xs-11 col-sm-5"><!--left-hand column. Contains recipe selection accordion (with ingredients) -->
    <p>Recipes Found:</p>
 
 <!-- AngularUI Bootstrap Accordion found here, with some modifications: http://angular-ui.github.io/bootstrap/ -->
    <accordion class = "rec" close-others="oneAtATime"><!--captured click from examples found here: http://stackoverflow.com/questions/15642082/handle-open-collapse-events-of-accordion-in-angular/15642577#15642577
    -->
-      <accordion-group ng-repeat="recipe in recipes track by $index"  heading="{{recipe.recipeName}}"  ng-click="showRecipe(recipe.recipeName)"  is-open="status.isFirstOpen" is-disabled="status.isFirstDisabled" >
+      <accordion-group ng-repeat="recipe in recipes track by $index">
+         <accordion-heading>
+         <div ng-click="showRecipe(recipe.recipeName)">
+            {{recipe.recipeName}} 
+         </div>
+         </accordion-heading>
          <ul ng-repeat="ingredient in recipe.ingredients" >
             <li style="list-style-type: none" >{{ingredient.name}}</li>
          </ul>
@@ -22,7 +27,7 @@ Modified: 2/25/2015 by Susan Souza to tweak Angular expressions in compliance wi
    </accordion>
 </div><!--end left-hand column-->
 <div class="col-xs-0 col-sm-1"></div><!--spacer column; hidden on smaller screens-->
-<div class="col-xs-11 col-sm-6 contentContainer rightColumn">
+<div class="col-xs-11 col-sm-6 rightColumn">
    <div class="col-xs-11 contentContainer"><!--container for positioning of the right-hand column's content -->
       <div class="col-xs-6 contentContainer infoBox"><p>Tips, Substitutions, Ratio Chart or Component Mini Recipes</p></div>
       <div class="col-xs-0 col-sm-1"></div><!--spacer column; hidden on smaller screens-->

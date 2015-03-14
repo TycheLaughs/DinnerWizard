@@ -5,12 +5,17 @@ Created:  2/09/2015 by Susan Souza for use in the Dinner Wizard application
 Modified: 2/25/2015 by Susan Souza to add interactivity and 'Clear Filters' button
 
 -->
-<div class="col-xs-10 col-sm-5 contentContainer" ><p>{{ message }} Selection:</p> 
+<div class="col-xs-10 col-sm-5" ><p>{{ message }} Selection:</p> 
 <!-- AngularUI Bootstrap Accordion found here, with some modifications:
 http://angular-ui.github.io/bootstrap/ -->
    <accordion close-others="oneAtATime" class = "filt"><!--captured click from examples found here: http://stackoverflow.com/questions/15642082/handle-open-collapse-events-of-accordion-in-angular/15642577#15642577
    -->
-      <accordion-group heading="{{cat.Category}}" ng-repeat ="cat in filterList">
+      <accordion-group ng-repeat ="cat in filterList">
+         <accordion-heading>
+            <div>
+               {{cat.Category}}
+            </div>
+         </accordion-heading>
          <ul ng-repeat="content in cat.Contents" >
             <li style="list-style-type: none" ><a ng-click="clickedFromTagListing(content)">{{content}}</a></li>
          </ul><!-- note to self: need to get to the sub-categories in this... accordion nesting, GO! -->
@@ -18,7 +23,7 @@ http://angular-ui.github.io/bootstrap/ -->
    </accordion>
 </div>
 <div class="col-xs-0 col-sm-1"></div>  
-<div class="col-xs-11 col-sm-6 contentContainer ">
+<div class="col-xs-11 col-sm-6">
    <div class = "rightColumn contentContainer"><!--<p>Selected Recipe Filters:</p>-->
    Your Search Filter Selections:
       <ul >

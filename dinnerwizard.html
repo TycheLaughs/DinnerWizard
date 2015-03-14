@@ -22,9 +22,15 @@
    <script src="//cdnjs.cloudflare.com/ajax/libs/angular-ui-bootstrap/0.12.0/ui-bootstrap-tpls.min.js"></script>
    <!-- Bootstrap Style Sheet -->
    <!--<link href="css/bootstrap.css" rel="stylesheet">-->
+
    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap.min.css">
    <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/css/bootstrap-theme.min.css">
 
+   <!-- Google Fonts -->
+   <link href='http://fonts.googleapis.com/css?family=Bitter' rel='stylesheet' type='text/css'>
+   <link href='http://fonts.googleapis.com/css?family=Vollkorn:400,700,400italic' rel='stylesheet' type='text/css'>
+   
+   
    <!--Dinner Wizard's style sheet -->
    <link href="css/dwStyles.css" rel="stylesheet">
    <!--Routing script here-->
@@ -48,7 +54,7 @@
          </a><!-- end logo-->
         
             <div class="col-xs-5 col-sm-6"></div>
-            <a class="col-xs-3 col-md-2"href="#recipes"><span class= "roundEdges">{{recipes.length}} Recipes</span></a>
+            <a class="col-xs-3 col-md-2"href="#recipes"><span class= "roundEdges"><badge>{{recipes.length}} </badge>Recipes</span></a>
             <div class="col-xs-1"></div>
          <!-- end dishes button placement -->
         
@@ -65,17 +71,17 @@
    <div id= "contentRow" class="container-fluid"> 
       <div class="col-xs-12" style="height:7px"></div><!--hacked-in spacer-->
       <div class="col-xs-2 col-sm-3 col-md-2" >
-      <div class="col-xs-12" style="height:12px"></div><!--hacked-in spacer-->
+         <div class="col-xs-12" style="height:18px"></div><!--hacked-in spacer-->
          <a class="hidden-xs col-xs-12"href="#inventory"><span class= "roundEdges">Inventory</span></a>
-         <div class="col-xs-12" style="height:7px"></div><!--hacked-in spacer-->
-         <a class="hidden-xs col-xs-12" href="#filter"><span class= "roundEdges">Recipe Filters</span></a> 
+         <div class="col-xs-12" style="height:10px"></div><!--hacked-in spacer-->
+         <a class="hidden-xs col-xs-12" href="#filter"><span class= "roundEdges">Recipe Filters</span></a>
+         <div class="col-xs-12" style="height:7px"></div><!--hacked-in spacer--> 
       </div>
       <div class="col-xs-10 col-md-9 contentContainer">
-
           <!-- angular templating -->
-		<!-- this is where content will be injected -->
-    <div ng-view></div>
-         
+         <!-- this is where content will be injected -->
+         <div ng-view></div>
+         <div class="col-xs-12" style="height:7px"></div><!--hacked-in spacer-->   
       </div>
    </div>
    <!-- These are the two buttons at the bottom of the mobile layout.  

@@ -32,8 +32,19 @@
    margin-bottom: 3px;
 
 }
-
-
+li:hover{
+   font-weight: bold;
+}
+.inv li:hover, .filt li:hover{
+   cursor: pointer;
+}
+.rec li:hover, .procedureBox li:hover{
+   font-weight:normal;
+}
+.inv li a:hover, .filt li a:hover{
+   text-decoration: none;
+   font-weight: bold;
+}
 body { 
    padding-top:5px;
    font-family: serif;
@@ -52,14 +63,13 @@ body {
 }
 .roundEdges{
    border: 1px solid black;
-   border-radius: 8px;
+   border-radius: 11px;
    font-size: 1.1em;
    text-align: center;
    margin-top: 7px;
    margin-bottom:7px;
    padding: 4px;
-   
-  
+   font-family: 'Bitter', serif;
 }
 
 .rightColumn{
@@ -123,8 +133,16 @@ a:hover{
    /*border: none;*/
    background-image: none;
    text-align: center;
-   font-size: 3em;
+   height: 40px;
+   width: 320px;
+}
 
+a.accordion-toggle:hover{
+   text-decoration:none;
+}
+h4.panel-title{
+ font-size: 1.7em;
+ font-family: 'Vollkorn', serif;
 }
 
 .panel-group .panel{
@@ -179,10 +197,11 @@ a:hover{
 .splash p {
    opacity: 0;
    font-size: 1em;
-   font-family: serif;
-   position: absolute;
+   font-family: 'Bitter', serif;
+   position: relative;
    top:85%;
-   left: 20%;
+   /*left: 20%;*/
+   text-align: center;
    -webkit-animation: splashText 6s ease  2s 1;
    animation: splashText 6s ease 2s 1;
    animation-fill-mode:forwards;
@@ -192,7 +211,7 @@ a:hover{
 @media (max-width: 1200px){
    .splash p {
       top:87%;
-      left:17%;
+     
    }
 }
 @media (max-width: 700px) {
@@ -201,7 +220,6 @@ a:hover{
    }
    .splash p {
       top:68%;
-      left: 3%;
   }
 }
 @keyframes splash{
