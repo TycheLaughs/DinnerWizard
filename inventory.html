@@ -8,12 +8,28 @@ Modified: 2/25/2015 by Susan Souza to change implementation of accordion section
 with new JSON and to add interactvity to 'Clear Invenory' button.
 Modified: 3/10/2015 by susan Souza to change the attribute accessed to generate ingredient lists 
 from 'ingredientName' to 'name'
+Modified: 3/13/2015 by Susan Souza to make accordion headers fully clickable-- toggle on a click anywhere in the header
+-- rather than the text only.
+Modified: 3/14/2015 by Susan Souza to add  a typeahead search bar with glyphicon magnifying glass.
+Modified: 3/15/2015 by Susan Souza to limit typeahead results to the correct object field rather than all of them
 
 -->
 
-<div class="col-xs-10 col-sm-5" ><p>{{ message }} Selection:</p> 
-<!-- AngularUI Bootstrap Accordion found here, with some modifications:
-http://angular-ui.github.io/bootstrap/ -->
+<div class="col-xs-10 col-sm-5" >
+    <p><div>Ingredient Selection: 
+      <!--searchbar with typeahead found here:
+      http://angular-ui.github.io/bootstrap/
+      Restriction of typeahead suggestions to only the name property of ingredient objects found here:
+      http://stackoverflow.com/questions/16045069/limit-angular-ui-bootstrap-typeahead-to-specific-object-property
+      -->
+         <div id="searchAdd">
+            <input id ="ingredientSearch" type="text" ng-model="selected" typeahead="ingredient.name for ingredient in ingredients | filter:{name:$viewValue} | limitTo:7" typeahead-editable="ingredients" typeahead-on-select="clickedFromListing(selected)" typeahead-wait-ms="30"class="form-control"><span class="glyphicon glyphicon-search" id="searchIcon"></span>
+         </div>
+         </div>
+      </p>
+ 
+   <!-- AngularUI Bootstrap Accordion found here, with some modifications:
+   http://angular-ui.github.io/bootstrap/ -->
    <accordion close-others="oneAtATime"class="inv"><!--captured click from examples found here: http://stackoverflow.com/questions/15642082/handle-open-collapse-events-of-accordion-in-angular/15642577#15642577
    -->
       <accordion-group>
@@ -79,7 +95,7 @@ http://angular-ui.github.io/bootstrap/ -->
    </div>
    <div class="col-xs-2"></div>
       <div class="col-xs-5 "><a class="roundEdges" ng-click="search()">Filter Recipes</a></div>
-       <div class="col-xs-5 "><a class="roundEdges" ng-click="clearList()">Clear Filters</a></div> 
+       <div class="col-xs-5 "><a class="roundEdges" ng-click="clearInv()">Clear Filters</a></div> 
     <div class="col-xs-2"></div>
 </div>
 

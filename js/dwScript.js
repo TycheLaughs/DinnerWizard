@@ -64,7 +64,7 @@ and
 http://jsfiddle.net/b2fCE/1/
 */
 DinnerWizardApp.service('persistentService', function($http){
-   var list = ['Click ingredients to add them to your inventory'];
+   var list = ['Click ingredients to add them to your inventory, or search for them by name.'];
    var tagsList = ['No Search Filters Selected'];
    var response ;
    return{
@@ -88,7 +88,7 @@ DinnerWizardApp.service('persistentService', function($http){
       */
       addIngredient:function(clicked){
          console.log('Clicked '+ clicked);
-         if(list[0] == 'Click ingredients to add them to your inventory'){
+         if(list[0] == 'Click ingredients to add them to your inventory, or search for them by name.'){
             list.splice(0, 1);//an ingredient was clicked to add, so remove the user 
             //prompt before adding the item
          }
@@ -118,7 +118,7 @@ DinnerWizardApp.service('persistentService', function($http){
          console.log('Clicked '+ clicked +' in contructed inventory.');
             list.splice(itemIndex, 1); 
             if(list.length === 0){//if array is empty, print user prompt
-               list.push('Click ingredients to add them to your inventory');
+               list.push('Click ingredients to add them to your inventory, or search for them by name.');
             }
       },
       /** clearInventory
@@ -126,8 +126,9 @@ DinnerWizardApp.service('persistentService', function($http){
       * @return nothing.  list should now have only the prompt.
       */
       clearInventory:function(){
+       
          list.length = 0;
-         list.push('Click ingredients to add them to your inventory');
+         list.push('Click ingredients to add them to your inventory, or search for them by name.');
       },
       /**
       * constructs an array called tagsList to store search filters selected by one user at a time
@@ -208,7 +209,7 @@ DinnerWizardApp.service('persistentService', function($http){
           filter.recipeTags = [];
           //test print to see that we are in fact getting the right thing from ingredients param
           //console.log(JSON.stringify(ingredients));
-         if ( list[0] !== 'Click ingredients to add them to your inventory' )
+         if ( list[0] !== 'Click ingredients to add them to your inventory, or search for them by name.' )
          {
             for ( var i = 0; i < list.length; i++ )
             { //iterate through array for inventory
@@ -268,12 +269,13 @@ DinnerWizardApp.service('persistentService', function($http){
 
 //Inventory Builder
 DinnerWizardApp.controller('inventoryController',function($scope, $http, persistentService) {
-
+      
       $scope.list = persistentService.List();
       $scope.oneAtATime = true;
       $scope.message = 'Inventory';
-    $scope.temp = '' ;
-     $http.get("data/recipesTest2.json").success(function(data){
+      $scope.temp = '' ;
+      $scope.selected = undefined;
+      $http.get("data/recipesTest2.json").success(function(data){
          $scope.recipes = data.RECIPES; //assign the array of objects called
        //RECIPES in the json file to a variable named recipes
          $scope.ingredients = data.INGREDIENTS; //assign the array of objects called
@@ -297,7 +299,7 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
      
        $scope.search = function(){
 
-           persistentService.filtering($scope.ingredients, $scope.tags, $scope.temp ) ;
+           persistentService.filtering($scope.ingredients, persistentService.Tags(), $scope.temp ) ;
        };
       
          
@@ -331,7 +333,7 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
          persistentService.clearTags();
       };
       $scope.search = function(){
-         persistentService.filtering($scope.ingredients, $scope.tags);
+         persistentService.filtering($scope.ingredients, persistentService.Tags());
        };
 	});
    

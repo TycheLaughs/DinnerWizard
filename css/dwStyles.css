@@ -1,3 +1,8 @@
+/**File: dinnerwizard.html
+   91.462 GUI Programming II, Prof. Heines, University of Massachusetts Lowell
+   Created:  2/07/2015 by Susan Souza, for use in the Dinner Wizard Application.
+   
+*/
 #logoMin{
    /*background-color: "#ffff33";*/
    /*border: 1px solid black;*/
@@ -26,20 +31,42 @@
    top: -2px;
    left: 52px;
 }
+
+#ingredientSearch{
+   display:inline-block;
+   border: none;
+   width: 240px;
+   height: 28px;
+   border: 1px solid lavender;
+   border-radius: 8px; 
+}
+
+#searchAdd{
+   display:inline-block;
+}
+.glyphicon-search{
+   color: powderblue;
+   cursor:default;
+   right: 20px;
+}
 .contentContainer{
    border: 1px dashed black;
+}
+div{
    margin-top: 2px;
    margin-bottom: 3px;
-
 }
+
 li:hover{
    font-weight: bold;
+   cursor: pointer;
 }
 .inv li:hover, .filt li:hover{
    cursor: pointer;
 }
 .rec li:hover, .procedureBox li:hover{
    font-weight:normal;
+   cursor: default;
 }
 .inv li a:hover, .filt li a:hover{
    text-decoration: none;
@@ -48,6 +75,7 @@ li:hover{
 body { 
    padding-top:5px;
    font-family: serif;
+   background-color: white;
    /*font-size: 1.1em;*/
   
 }
@@ -56,6 +84,7 @@ body {
       overflow-y:hidden;
    }
 }
+
 
 .container-fluid{
    padding-left: 5px;
@@ -74,6 +103,7 @@ body {
 
 .rightColumn{
    height: 550px;
+   padding-right: 5px;
 }
 @media (max-width: 500px) {
    body{
@@ -124,8 +154,6 @@ a:hover{
 
 /* styling accordions, overriding bootstrap css */
 .panel-default > .panel-heading{
-   /*colors currently disabled for consistency for presentation tomorrow. dummy values directly below:*/ 
-  /* background-color: white;*/
    /*border: 1px solid gray;*/
   /* background-color: #8d1801; /*dark red /*#99b9f4; medium light blue    #f8b30e; /* dark yellow */
    border-radius:19px;
@@ -135,44 +163,83 @@ a:hover{
    text-align: center;
    height: 40px;
    width: 320px;
-}
-
-a.accordion-toggle:hover{
    text-decoration:none;
 }
-h4.panel-title{
- font-size: 1.7em;
- font-family: 'Vollkorn', serif;
+a:link{
+   text-decoration:none;
+   outline: none;
 }
 
+a:hover, a:focus{
+   text-decoration:none;
+   outline: none;
+   font-weight: bold;
+}
+a:visited{
+   text-decoration:none;
+   outline: none;
+}
+
+a:active{
+   text-decoration:none;
+   outline: none;
+
+}
+div a.accordion-toggle:link, div a.accordion-toggle:hover, div a.accordion-toggle:visited, div a.accordion-toggle:active,  a.accordion-toggle:link,  a.accordion-toggle:hover, a.accordion-toggle:visited, a.accordion-toggle:active{
+   text-decoration:none;
+   outline: none;
+   font-weight: normal;
+}
+
+
+h4.panel-title{
+   font-size: 1.7em;
+   font-family: 'Vollkorn', serif;
+   outline: none;
+}
+.rec h4.panel-title{
+   font-size: 1.5em;
+}
+.rec h4.panel-title ul{
+   padding-left: 0px;
+}
+.rec h4.panel-title li{
+   margin-right: 5px;
+}
 .panel-group .panel{
    border-radius: 19px;
    margin-top:2px;
    border: none;
+   text-decoration:none;
    
 }
 
 .panel-group .panel-heading + .panel-collapse > .panel-body {
     border: none;
     font-family: sans-serif;
+    text-decoration:none;
 }
 
 .inv >.panel-group >.panel-default >.panel-heading{
-   background-color: #f8b30e !important; /* dark yellow */
+   background-color: #f8b30e; /* dark yellow */
    color: white;
    border: none;
+   text-decoration:none;
 }
 
 .filt >.panel-group >.panel-default >.panel-heading{
    background-color: #8d1801; /*dark red */
    color: white;
    border: none;
+   text-decoration:none;
 }
 
 .rec >.panel-group >.panel-default >.panel-heading{
    background-color: #99b9f4; /*medium light blue*/
    color: white;
    border: none;
+   text-decoration:none;
+   font-size: 1em;
 }
 /* end styling accordions*/
 
@@ -182,17 +249,17 @@ h4.panel-title{
   background-image:url("DWLogo05.png");
   background-repeat: no-repeat;
   background-position: center; 
-  -webkit-animation: splash 10s linear 1s 1;
-  animation: splash 10s linear 1s 1;
+  -webkit-animation: splash 10s linear 0s 1;
+  animation: splash 10s linear 0s 1;
   animation-fill-mode:forwards;
   -webkit-animation-fill-mode:forwards;
-
-  z-index: 2;
   position: absolute;
   height: 101%;
   top:-5px;
 
+  cursor: none;
 }
+
 
 .splash p {
    opacity: 0;
@@ -206,14 +273,20 @@ h4.panel-title{
    animation: splashText 6s ease 2s 1;
    animation-fill-mode:forwards;
    -webkit-animation-fill-mode:forwards;
-   z-index: 2;
+   
 }
+@media(max-width: 1400px){
+   #ingredientSearch{
+      width: 160px;
+   }
+}
+
 @media (max-width: 1200px){
    .splash p {
       top:87%;
-     
-   }
+   }  
 }
+
 @media (max-width: 700px) {
    .splash {
    background-image:url("DWLogo06.png");
@@ -221,9 +294,13 @@ h4.panel-title{
    .splash p {
       top:68%;
   }
+
 }
+
+
 @keyframes splash{
-   0%{opacity: 10;}
+   0%{opacity: 10;
+   z-index: 2;}
    40%{opacity:100;
    z-index: 2;}
    50%{opacity:100;
@@ -246,7 +323,8 @@ h4.panel-title{
 }
 
 @keyframes splashText{
-   0%{opacity: 0;}
+   0%{opacity: 0;
+   z-index: 2;}
    30%{opacity:100;
    z-index: 2;}
    50%{opacity:100;
@@ -264,8 +342,8 @@ h4.panel-title{
    100%{opacity: 0;
    z-index: -1;}
 }
-#splashImage{
- 
-}
+
+
+
 
 
