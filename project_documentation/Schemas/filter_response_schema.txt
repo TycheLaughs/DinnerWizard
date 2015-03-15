@@ -1,32 +1,34 @@
-"filter_request":
+"filter_response":
 {
-    "recipes" : [{ id, name}],
-    "without" : [{ id, name }]
+    "recipes" :
+    [{
+        "id"          : id,
+        "name"        : name,
+        "prepInst"    : inst,
+        "categories"  : [{ tags: [ id, name, isFilterable ]}],
+        "equipment"   : [ id, name ],
+        "ingredients" : [{ id, name, isOptional, "replaceableWith": [ name ] }],
+    }],
 }
 
 "filter_response":
 {
 
-    "filters":
-    [
-        {
-            "id": id,
-            "name": name,
-        },
-        {
-            "id": id,
-            "name": name,
-        }
-    ]
-    "without":
-    [
-        {
-            "id": id,
-            "name": name
-        },
-        {
-            "id": id,
-            "name": name
-        }
-    ],
+    "recipes" :
+    [{
+        "id"          : id,
+        "name"        : name,
+        "prepInst"    : inst,
+        "categories"  : [{ tags: [ id, name, isFilterable ]}],
+        "equipment"   : [ id, name ],
+        "ingredients" : [{ id, name, isOptional, "replaceableWith": [ name ] }],
+    },
+    {
+        "id"          : id,
+        "name"        : name,
+        "prepInst"    : inst,
+        "categories"  : [{ tags: [ id, name, isFilterable ]}],
+        "equipment"   : [ id, name ],
+        "ingredients" : [{ id, name, isOptional, "replaceableWith": [ name ] }],
+    }],
 }

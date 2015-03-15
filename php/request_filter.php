@@ -9,7 +9,7 @@
 
     $temp = new db_lib;
     //$temp->getTables();
-    print_r( json_encode( $temp->buildFilterObjects(  ) ));
+    print_r( json_encode( $temp->buildFilterObjects( $request ) ));
 
 
     //$temp->closeConnection();
