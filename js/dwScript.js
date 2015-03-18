@@ -162,6 +162,44 @@ DinnerWizardApp.service('persistentService', function($http){
             tagsList.push(clicked);
          }
       },
+      
+      addWithoutTag: function(clicked){
+         console.log('Selected "Without '+ clicked +'"');
+         var item = "NO ";
+         item = item.concat(clicked);
+         if(tagsList[0] == 'No Search Filters Selected'){
+            tagsList.splice(0, 1);//a tag was clicked to add, so remove the user 
+            //prompt before adding the item
+         }
+         var isPresent = tagsList.indexOf(item);/* check if the item is already in 
+         the constructed list  */
+        if(isPresent >= 0){
+            console.log('"Without '+ clicked + '" already selected.');
+         }
+         else{
+            tagsList.push(item);
+         }
+         
+      },
+      
+      addEquipTag: function(clicked){
+         console.log('Selected "Equipment '+ clicked +'"');
+         var item = "Use ";
+         item = item.concat(clicked);
+         if(tagsList[0] == 'No Search Filters Selected'){
+            tagsList.splice(0, 1);//a tag was clicked to add, so remove the user 
+            //prompt before adding the item
+         }
+         var isPresent = tagsList.indexOf(item);/* check if the item is already in 
+         the constructed list  */
+        if(isPresent >= 0){
+            console.log('"Equipment '+ clicked + '" already selected.');
+         }
+         else{
+            tagsList.push(item);
+         }
+         
+      },
       /** removeTag
       * Function that reports click to console and removes the clicked item from the 
       * search filters
@@ -204,9 +242,13 @@ DinnerWizardApp.service('persistentService', function($http){
           var filter = {};
           var ing = {};
           var rec = {};
+          var wo = {};
+          var equip = {};
           var idFinder = '';
           filter.ingredientTags = [];
           filter.recipeTags = [];
+          filter.equipment = [];
+          filter.without = [];
           //test print to see that we are in fact getting the right thing from ingredients param
           //console.log(JSON.stringify(ingredients));
          if ( list[0] !== 'Click ingredients to add them to your inventory, or search for them by name.' )
@@ -229,17 +271,37 @@ DinnerWizardApp.service('persistentService', function($http){
          if ( tagsList[0] !== 'No Search Filters Selected' )
          {//iterate through array for tags
             for ( var i = 0; i < tagsList.length; i++ )
-            {
-              for(var k = 0; k < tags.length; k++){
-                 if(tags[k].name === list[i]){
-                     idFinder = tags[k].id;
-                     //console.log(idFinder);
+            { 
+               //console.log(tagsList[i].substr(0, 3));
+               if((tagsList[i]).substr(0, 3) !== 'NO ' && (tagsList[i]).substr(0, 4) !== 'Use '){
+                  for(var k = 0; k < tags.length; k++){
+                     if(tags[k].name === tagsList[i]){
+                        idFinder = tags[k].id;
+                        //console.log(idFinder);
+                     }
                   }
+                  var rec = {};
+                  rec.id = idFinder;
+                  rec.name = tagsList[i];
+                  filter.recipeTags.push(rec);
                }
-               var rec = {};
-               rec.id = idFinder;
-               rec.name = tagsList[i];
-               filter.recipeTags.push(rec);
+               else if((tagsList[i]).substr(0, 3) !== 'NO '){
+                  console.log('Found a Without tag to process into JSON');
+                    //is it an ingredient or equipment item?
+                    //determine which and find id
+                     var wo = {};
+                     wo.name = tagsList[i].substr(3); //remove the 'NO '
+                     //wo.id = idFinder;
+                     //filter.without.push(wo);
+                     
+                  }
+                  else{//we found an equipment tag
+                     //find id
+                     var equip = {};
+                     equip.name = tagsList[i].substr(4);//trim off the first four characters that spell out 'Use '
+                     //equip.id=idFinder;
+                     //filter.equipment.push(equip);
+                  }
             }
          }
 
@@ -308,7 +370,7 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
    
 //Recipe Filtering
 	DinnerWizardApp.controller('filterController', function($scope, $http, persistentService) {
-        console.log( "filterController") ;
+        //console.log( "filterController") ;
 		$scope.message = 'Recipe Search Filters';
       $scope.tags = persistentService.Tags();
       $scope.oneAtATime = true;
@@ -325,7 +387,12 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
       $scope.clickedFromTagListing = function(item){
          persistentService.addTag(item);    
       };
-      
+      $scope.clickedFromWithout= function(item){
+         persistentService.addWithoutTag(item);  
+      };
+      $scope.clickedFromEquip = function(item){
+         persistentService.addEquipTag(item);
+      }
       $scope.clickedFromSelectedTags = function(item){
          persistentService.removeTag(item);
       }; 
@@ -346,7 +413,7 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
         $scope.showMeRecipe = '';
 
         $scope.tags = persistentService.Tags()
-        console.log()
+        //console.log()
         $http.get("data/recipesTest2.json").success(function(data) {
             $scope.recipes = data.RECIPES; //assign the array of objects called
             //RECIPES in the json file to a variable named recipes

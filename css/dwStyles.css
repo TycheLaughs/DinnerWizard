@@ -4,7 +4,6 @@
    
 */
 #logoMin{
-   /*background-color: "#ffff33";*/
    /*border: 1px solid black;*/
    background-image: url("../images/dinnerWizardSmall_02.png");
    background-repeat: no-repeat;
@@ -152,19 +151,6 @@ a:hover{
 }
 
 
-/* styling accordions, overriding bootstrap css */
-.panel-default > .panel-heading{
-   /*border: 1px solid gray;*/
-  /* background-color: #8d1801; /*dark red /*#99b9f4; medium light blue    #f8b30e; /* dark yellow */
-   border-radius:19px;
-   /*color: white;*/
-   /*border: none;*/
-   background-image: none;
-   text-align: center;
-   height: 40px;
-   width: 320px;
-   text-decoration:none;
-}
 a:link{
    text-decoration:none;
    outline: none;
@@ -185,6 +171,22 @@ a:active{
    outline: none;
 
 }
+
+
+/* styling accordions, overriding bootstrap css */
+.panel-default > .panel-heading{
+   /*border: 1px solid gray;*/
+  /* background-color: #8d1801; /*dark red /*#99b9f4; medium light blue    #f8b30e; /* dark yellow */
+   border-radius:19px;
+   /*color: white;*/
+   /*border: none;*/
+   background-image: none;
+   text-align: center;
+   height: 40px;
+   width: 320px;
+   text-decoration:none;
+}
+
 div a.accordion-toggle:link, div a.accordion-toggle:hover, div a.accordion-toggle:visited, div a.accordion-toggle:active,  a.accordion-toggle:link,  a.accordion-toggle:hover, a.accordion-toggle:visited, a.accordion-toggle:active{
    text-decoration:none;
    outline: none;
@@ -240,6 +242,14 @@ h4.panel-title{
    border: none;
    text-decoration:none;
    font-size: 1em;
+}
+
+div.panel-group{
+   margin-bottom: 2px;
+}
+div.panel-body{
+   padding: 2px;
+   padding-left: 15px;
 }
 /* end styling accordions*/
 

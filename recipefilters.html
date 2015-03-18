@@ -18,9 +18,82 @@ http://angular-ui.github.io/bootstrap/ -->
             </div>
          </accordion-heading>
          <ul ng-repeat="content in cat.Contents" >
-            <li style="list-style-type: none" ><a ng-click="clickedFromTagListing(content)">{{content}}</a></li>
-         </ul><!-- note to self: need to get to the sub-categories in this... accordion nesting, GO! -->
-      </accordion-group>
+            <li style="list-style-type: none" ><a ng-click="clickedFromTagListing(content)" ng-if="cat.Category !== 'Equipment'">{{content}}</a></li>
+            <li style="list-style-type: none" ><a ng-click="clickedFromEquip(content)" ng-if="cat.Category === 'Equipment'">{{content}}</a></li>
+         </ul>
+          <accordion close-others="oneAtATime" class="rec" ng-if="cat.Category=== 'Without'"><!--begin Without nested Accordions-->
+            <accordion-group>
+               <accordion-heading>
+                  <div>
+                     Ingredients
+                  </div>
+               </accordion-heading>
+                <accordion close-others="oneAtATime"class="inv">
+                  <accordion-group>
+                     <accordion-heading>
+                        <div>
+                        Alternate Protein
+                        </div>
+                     </accordion-heading>
+                     <ul>
+                        <li ng-repeat="content in ingredients" ng-if="content.tags[0]==='Alternate Protein'"style="list-style-type: none" ><a ng-click="clickedFromWithout(content.name)">{{content.name}}</a></li>
+                     </ul>
+                  </accordion-group>
+                  <accordion-group>
+                     <accordion-heading>
+                        <div>
+                           Meat
+                        </div>
+                     </accordion-heading>
+                     <ul>
+                        <li ng-repeat="content in ingredients" ng-if="content.tags[0]==='Meat'"style="list-style-type: none"style="list-style-type: none" ><a ng-click="clickedFromWithout(content.name)">{{content.name}}</a></li>
+                     </ul>
+                  </accordion-group>
+                  <accordion-group>
+                     <accordion-heading>
+                        <div>
+                           Seafood
+                        </div>
+                     </accordion-heading>
+                     <ul>
+                        <li ng-repeat="content in ingredients" ng-if="content.tags[0]==='Seafood'"style="list-style-type: none"style="list-style-type: none" ><a ng-click="clickedFromWithout(content.name)">{{content.name}}</a></li>
+                     </ul>
+                  </accordion-group>
+                  <accordion-group>
+                     <accordion-heading>
+                        <div>
+                           Starch
+                        </div>
+                     </accordion-heading>
+                     <ul>
+                        <li ng-repeat="content in ingredients" ng-if="content.tags[0]==='Starch'"style="list-style-type: none"style="list-style-type: none" ><a ng-click="clickedFromWithout(content.name)">{{content.name}}</a></li>
+                     </ul>
+                  </accordion-group>
+                  <accordion-group>
+                     <accordion-heading>
+                        <div>
+                           Vegetables
+                        </div>
+                     </accordion-heading>
+                     <ul>
+                        <li ng-repeat="content in ingredients" ng-if="content.tags[0]==='Vegetables'"style="list-style-type: none"style="list-style-type: none" ><a ng-click="clickedFromWithout(content.name)">{{content.name}}</a></li>
+                     </ul>
+                  </accordion-group>
+               </accordion>
+            </accordion-group>
+            <!-- end Without Ingredients-->
+            <accordion-group ng-repeat="cat in filterList" ng-if="cat.Category ==='Equipment'" >
+               <accordion-heading>
+                  <div>
+                     Equipment
+                  </div>
+               </accordion-heading>
+               <ul ng-repeat="content in cat.Contents" ng-if="cat.Category ==='Equipment'" >
+                  <li style="list-style-type: none" ><a ng-click="clickedFromWithout(content)">{{content}}</a></li>
+               </ul>
+            </accordion-group>
+            <!--end Without Equipment-->
+   </accordion>
    </accordion>
 </div>
 <div class="col-xs-0 col-sm-1"></div>  
