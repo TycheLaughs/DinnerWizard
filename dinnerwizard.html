@@ -38,6 +38,10 @@
    <!--Routing script here-->
    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
    <script src="js/dwScript.js"></script>
+   <script src="js/dwService.js"></script>
+   <script src="js/dwInventoryCtrl.js"></script>
+   <script src="js/dwFilterCtrl.js"></script>
+   <script src="js/dwRecipeCtrl.js"></script>
 
   </head>
   
@@ -56,7 +60,7 @@
          </a><!-- end logo-->
         
             <div class="col-xs-5 col-sm-6"></div>
-            <a class="col-xs-3 col-md-2"href="#recipes"><span class= "roundEdges"><badge>{{recipes.length}} </badge>Recipes</span></a>
+            <a class="col-xs-3 col-md-2"href="#recipes"><span class= "roundEdges" ng-click="search()"><badge>{{recipes.length}} </badge>Recipes</span></a>
             <div class="col-xs-1"></div>
          <!-- end dishes button placement -->
         

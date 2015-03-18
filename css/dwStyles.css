@@ -204,10 +204,16 @@ h4.panel-title{
 }
 .rec h4.panel-title ul{
    padding-left: 0px;
+   margin-left: -5px;
+   cursor:pointer;
+   
 }
 .rec h4.panel-title li{
    margin-right: 5px;
+   cursor:pointer;
+  
 }
+
 .panel-group .panel{
    border-radius: 19px;
    margin-top:2px;
@@ -217,9 +223,9 @@ h4.panel-title{
 }
 
 .panel-group .panel-heading + .panel-collapse > .panel-body {
-    border: none;
-    font-family: sans-serif;
-    text-decoration:none;
+   border: none;
+   font-family: sans-serif;
+   text-decoration:none;
 }
 
 .inv >.panel-group >.panel-default >.panel-heading{

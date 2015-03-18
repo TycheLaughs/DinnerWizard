@@ -10,6 +10,7 @@ Modified: 3/13/2015 by Susan Souza to make accordion headers fully clickable-- t
 anywhere in the header-- rather than the text only.
 Modified: 3/15/2015 by Susan Souza to make accordion headings for recipes show the first three (major) 
 tags/search filters rather than names, as described in original documentation. Added a div to display all search filters/tags associated with each recipe above procedure box.
+Modified: 3/18/2015 by Susan Souza to add a pipe in between recipe tags in each header
 
 
 -->
@@ -23,8 +24,8 @@ tags/search filters rather than names, as described in original documentation. A
          <accordion-heading>
          <div ng-click="showRecipe(recipe.recipeName)">
             <ul style="margin-bottom:1px" >
-         <li ng-repeat="item in recipe.tags track by $index" ng-if="$index < 3"style="display: inline-block; left:-50px; font-size:1em">{{item}}</li>
-      </ul>
+               <li ng-repeat="item in recipe.tags track by $index" ng-if="$index < 3" style="display: inline-block; left:-50px; font-size:1em"><span ng-if="($index === 1) || ($index === 2)">| </span>{{item}}</li>
+            </ul>
          </div>
          </accordion-heading>
          <ul ng-repeat="ingredient in recipe.ingredients" >
