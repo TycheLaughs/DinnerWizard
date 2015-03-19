@@ -1,168 +1,83 @@
+-- phpMyAdmin SQL Dump
+-- version 4.2.7.1
+-- http://www.phpmyadmin.net
 --
--- Database: dinnerwizard
+-- Host: 127.0.0.1
+-- Generation Time: Mar 19, 2015 at 01:03 PM
+-- Server version: 5.6.20
+-- PHP Version: 5.5.15
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8 */;
+
 --
-
-CREATE DATABASE IF NOT EXISTS dinnerwizard
-  DEFAULT CHARACTER SET utf8
-  DEFAULT COLLATE utf8_general_ci;
-
-  USE dinnerwizard;
+-- Database: `dinnerwizard`
+--
 
 -- --------------------------------------------------------
 
 --
--- Table structure for table ingredients
+-- Table structure for table `ingredient_tag_map`
 --
 
-CREATE TABLE IF NOT EXISTS ingredients
-(
-  id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name varchar(255) DEFAULT NULL
-);
-
--- --------------------------------------------------------
+CREATE TABLE IF NOT EXISTS `ingredient_tag_map` (
+`mapID` int(11) NOT NULL,
+  `ingredientID` int(11) NOT NULL,
+  `tagID` int(11) DEFAULT NULL
+) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COMMENT='Details what any given ingredient is tagged with' AUTO_INCREMENT=11 ;
 
 --
--- Table structure for table tags
+-- Dumping data for table `ingredient_tag_map`
 --
 
-CREATE TABLE IF NOT EXISTS tags
-(
-  id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name varchar(255) DEFAULT NULL,
-  isFilterable bool
-);
-
--- --------------------------------------------------------
-
---
--- Table structure for table recipes
---
-
-CREATE TABLE IF NOT EXISTS recipes
-(
-  id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name varchar(255) NOT NULL,
-  prepInst text
-);
-
--- --------------------------------------------------------
+INSERT INTO `ingredient_tag_map` (`mapID`, `ingredientID`, `tagID`) VALUES
+(1, 1, 4),
+(2, 1, 5),
+(3, 2, 1),
+(4, 3, 3),
+(5, 4, 5),
+(6, 5, NULL),
+(7, 6, 4),
+(8, 7, 2),
+(9, 8, 4),
+(10, 9, 2);
 
 --
--- Table structure for table equipment
+-- Indexes for dumped tables
 --
 
-CREATE TABLE IF NOT EXISTS equipment
-(
-  id int(11) NOT NULL AUTO_INCREMENT PRIMARY KEY,
-  name varchar(255) NOT NULL
-);
-
--- --------------------------------------------------------
+--
+-- Indexes for table `ingredient_tag_map`
+--
+ALTER TABLE `ingredient_tag_map`
+ ADD PRIMARY KEY (`mapID`), ADD KEY `ingredientID` (`ingredientID`), ADD KEY `categoryID` (`tagID`);
 
 --
--- Table structure for table recipe_equipment_map
+-- AUTO_INCREMENT for dumped tables
 --
 
-CREATE TABLE IF NOT EXISTS recipe_equipment_map
-(
-  recipeID int(11) NOT NULL,
-  equipmentID int(11) NOT NULL,
-  INDEX (equipmentID),
-  INDEX (recipeID),
-  FOREIGN KEY (recipeID) REFERENCES recipes(id)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  FOREIGN KEY (equipmentID) REFERENCES equipment(id)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-);
-
--- --------------------------------------------------------
-
 --
--- Table structure for table ingredient_recipe_map
+-- AUTO_INCREMENT for table `ingredient_tag_map`
+--
+ALTER TABLE `ingredient_tag_map`
+MODIFY `mapID` int(11) NOT NULL AUTO_INCREMENT,AUTO_INCREMENT=11;
+--
+-- Constraints for dumped tables
 --
 
-CREATE TABLE IF NOT EXISTS ingredient_recipe_map
-(
-  ingredientID int(11) NOT NULL,
-  recipeID int(11) NOT NULL,
-  isOptional bool,
-  replaceableCategory int(11),
-  INDEX (ingredientID),
-  INDEX (recipeID),
-  FOREIGN KEY (ingredientID) REFERENCES ingredients(id)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  FOREIGN KEY (recipeID) REFERENCES recipes(id)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-);
-
--- --------------------------------------------------------
-
 --
--- Table structure for table ingredient_tag_map
+-- Constraints for table `ingredient_tag_map`
 --
+ALTER TABLE `ingredient_tag_map`
+ADD CONSTRAINT `ingredient_tag_map_ibfk_1` FOREIGN KEY (`ingredientID`) REFERENCES `ingredients` (`ingredientID`) ON DELETE CASCADE ON UPDATE CASCADE,
+ADD CONSTRAINT `ingredient_tag_map_ibfk_2` FOREIGN KEY (`tagID`) REFERENCES `ingredient_tags` (`tagID`) ON DELETE CASCADE ON UPDATE CASCADE;
 
-CREATE TABLE IF NOT EXISTS ingredient_tag_map
-(
-  ingredientID int(11) NOT NULL,
-  tagID int(11) NOT NULL,
-  categoryID int(11) NOT NULL,
-  INDEX (ingredientID),
-  INDEX (tagID),
-  INDEX (categoryID),
-  FOREIGN KEY (ingredientID) REFERENCES ingredients(id)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  FOREIGN KEY (tagID) REFERENCES tags(id)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  FOREIGN KEY (categoryID) REFERENCES tags(id)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-);
-
--- --------------------------------------------------------
-
---
--- Table structure for table recipe_tag_map
---
-
-CREATE TABLE IF NOT EXISTS recipe_tag_map
-(
-  recipeID int(11) NOT NULL,
-  tagID int(11) NOT NULL,
-  categoryID int(11) NOT NULL,
-  INDEX (recipeID),
-  INDEX (tagID),
-  INDEX (categoryID),
-  FOREIGN KEY (recipeID) REFERENCES recipes(id)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  FOREIGN KEY (tagID) REFERENCES tags(id)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE,
-  FOREIGN KEY (categoryID) REFERENCES tags(id)
-    ON DELETE CASCADE
-    ON UPDATE CASCADE
-);
-
--- --------------------------------------------------------
-
---
--- Table structure for table error_log
---
-
-CREATE TABLE IF NOT EXISTS error_log
-(
-  id int(11) NOT NULL AUTO_INCREMENT,
-  timestamp DATETIME NOT NULL,
-  level varchar(20) NOT NULL,
-  description text NOT NULL,
-  INDEX (id),
-  INDEX (level)
-
-);
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
