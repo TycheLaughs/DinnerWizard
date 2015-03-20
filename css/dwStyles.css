@@ -36,12 +36,18 @@
    border: none;
    width: 240px;
    height: 28px;
-   border: 1px solid lavender;
+   border: 1px solid lightgray;
    border-radius: 8px; 
 }
 
 #searchAdd{
    display:inline-block;
+}
+
+@media(max-width: 1400px){
+   #ingredientSearch{
+      width: 160px;
+   }
 }
 .glyphicon-search{
    color: powderblue;
@@ -84,20 +90,30 @@ body {
    }
 }
 
+.filtStyle{
+   color: #f8b30e; /* dark yellow */
+}
+.recStyle{
+   color: #8d1801; /*dark red */
+}
+.invStyle{
+   color: #065195; /* dark blue*/
+}
 
 .container-fluid{
    padding-left: 5px;
    padding-right: 5px;
 }
 .roundEdges{
-   border: 1px solid black;
-   border-radius: 11px;
+   border: 1px solid lightgray;
+   border-radius: 12px;
    font-size: 1.1em;
    text-align: center;
    margin-top: 7px;
    margin-bottom:7px;
    padding: 4px;
    font-family: 'Bitter', serif;
+   background-color: #ebebfb;
 }
 
 .rightColumn{
@@ -126,30 +142,84 @@ a:hover{
 }
 .tagsList{
    height: 200px;
-   font-size:.7em;
+   font-size:.85em;
+   padding-left: 0px;
    
+   /*
    -webkit-column-count: 2; /* Chrome, Safari, Opera */
-   -moz-column-count: 2; /* Firefox */
-   column-count: 2;
+   /*-moz-column-count: 2; /* Firefox */
+   /*column-count: 2;
    -webkit-column-gap: 4px; /* Chrome, Safari, Opera */
-   -moz-column-gap: 4px; /* Firefox */
-   column-gap: 4px;
+  /* -moz-column-gap: 4px; /* Firefox */
+  /* column-gap: 4px;
+   */
 } 
 
 .actualTagsList{
-   padding-left:0px;
+   padding-left:0px; 
 }
 
+.hScroll{
+   overflow-x: auto;
+   max-height: 25px;
+}
 
 .infoBox{
    height: 200px;
+   border: 4px dashed #f8b30e; /* dark yellow */
+   border-radius: 9px;
 }
 
 .procedureBox{
    height: 325px;
-   overflow-y: scroll;
+   overflow-y: auto;
 }
 
+.actualTagsList li{
+   margin: 2px;
+}
+.tags{
+   padding-left: 2px;
+   padding-right: 2px;
+   padding-top: 0px;
+   padding-bottom: 0px;
+   border-radius: 8px;
+   color: #065195; /* dark blue*/
+   border: 1px solid #065195; 
+   background-color: #d9ffff; /*pale blue*/
+   font-size: 1.1em;
+}
+.flavor{
+   color: #be6201; /*orange*/
+   border: 1px solid #be6201;
+   background-color: #fee7cb; /*fed6ab; /*pale orange*/
+   
+}
+.equip{
+   color: #217603;/* medium dark green*/
+   border: 1px solid #217603;
+   background-color: #e7f2e3; /*d4e2cf; /*pale green*/
+}
+.dish{
+   color: #065195; /* dark blue*/
+   border: 1px solid #065195; 
+   background-color: #d9ffff; /*pale blue*/
+}
+.other{
+   color: #5a0799;/*purple*/
+   border: 1px solid #5a0799;
+   background-color: #eadcf4; /*pale purple*/
+}
+.without{
+   color: #8d1801; /*dark red*/
+   border: 1px solid #8d1801; 
+   background-color: #ebebfb; /*very pale bluish gray*/ #e6ebef; /* pale gray*/
+}
+.noStyle{
+   border: none;
+   color: black;
+   background-color: #fff;
+}
 
 a:link{
    text-decoration:none;
@@ -221,6 +291,9 @@ h4.panel-title{
    text-decoration:none;
    
 }
+.panel-collapse > .panel-body ul{
+   margin-bottom:1px;
+}
 
 .panel-group .panel-heading + .panel-collapse > .panel-body {
    border: none;
@@ -291,11 +364,7 @@ div.panel-body{
    -webkit-animation-fill-mode:forwards;
    
 }
-@media(max-width: 1400px){
-   #ingredientSearch{
-      width: 160px;
-   }
-}
+
 
 @media (max-width: 1200px){
    .splash p {

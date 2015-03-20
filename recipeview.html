@@ -37,20 +37,23 @@ Modified: 3/18/2015 by Susan Souza to add a pipe in between recipe tags in each 
 <div class="col-xs-0 col-sm-1"></div><!--spacer column; hidden on smaller screens-->
 <div class="col-xs-11 col-sm-6 rightColumn"><!--container for positioning of the right-hand column's content -->
    <div class="col-xs-11">
-      <div class="col-xs-6 contentContainer infoBox">
+      <div class="col-xs-6 infoBox">
          <p>Tips, Substitutions, Ratio Chart or Component Mini Recipes</p>
       </div>
       <div class="col-xs-0 col-sm-1"></div><!--spacer column; hidden on smaller screens-->
-      <div class="col-xs-5 contentContainer tagsList">
+      <div class="col-xs-5  tagsList">Your search:
        <ul class = "actualTagsList">
-         <li ng-repeat= "tag in tags"style="list-style-type: none">{{tag}}</li>
+         <li ng-repeat= "tag in tags" style="list-style-type: none" ><span class ="tags" ng-class="{'without': tag.substr(0,3)=== 'NO ', 'equip': tag.substr(0,4)== 'Use ', 'flavor': tag == 'Mexican' || tag == 'Chinese' || tag == 'Italian' ||tag == 'Southeast Asian' || tag == 'Western' || tag == 'Mediterranean', 'other': tag =='Vegetarian' || tag =='Under 30 Minutes' || tag == 'Cost Cutter', 'noStyle': tag === 'No Search Filters Selected'}">{{tag}}</span></li>
        </ul>
       </div>
    </div>
-   <div class="col-xs-11" style="padding: 1px">
+   <div class="col-xs-11 hScroll" style="padding: 1px">
+
       <ul ng-repeat="rec in recipes| filter: {recipeName:showMeRecipe}:true" style="margin-bottom:1px" >
-         <li ng-repeat="selected in rec.tags" style="list-style-type: none; position: relative; margin-right: 9px; left: -25px;display: inline-block">{{selected}}</li>
+      <!-- recipe tags for each recipe when procedure is showing-->
+         <li ng-repeat="selected in rec.tags" style="list-style-type: none; position: relative; margin-right: 9px; left: -25px;display: inline-block" ><span class ="tags" ng-class="{ 'tags': selected, 'without': selected.substr(0,3)=== 'NO ', 'equip': selected.substr(0,4)== 'Use ', 'flavor': selected == 'Mexican' || selected == 'Chinese' || selected == 'Italian' ||selected == 'Southeast Asian' || selected == 'Western' || selected == 'Mediterranean', 'other': selected =='Vegetarian' || selected =='Under 30 Minutes' || selected == 'Cost Cutter', 'noStyle': selected === 'No Search Filters Selected'}">{{selected}}</span></li>
       </ul>
+
    </div>
    <div class="col-xs-11 procedureBox"><p><!--{{showMeRecipe}} -->Procedure:</p>
       <ol ng-repeat="rec in recipes| filter: {recipeName:showMeRecipe}:true">

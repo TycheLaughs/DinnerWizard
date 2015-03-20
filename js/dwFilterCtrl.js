@@ -10,6 +10,9 @@ DinnerWizardApp.controller('filterController', function($scope, $http, persisten
 		$scope.message = 'Recipe Search Filters';
       $scope.tags = persistentService.Tags();
       $scope.oneAtATime = true;
+
+      $scope.buttonClass = "filtStyle";
+    
       $scope.temp = '' ;
        $http.get("data/recipesTest2.json").success(function(data){
          $scope.recipes = data.RECIPES; //assign the array of objects called

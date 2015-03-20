@@ -11,6 +11,8 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
       $scope.oneAtATime = true;
       $scope.message = 'Inventory';
       $scope.temp = '' ;
+  
+      $scope.buttonClass = "invStyle";
       $scope.selected = undefined;
       $http.get("data/recipesTest2.json").success(function(data){
          $scope.recipes = data.RECIPES; //assign the array of objects called

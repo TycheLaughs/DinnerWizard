@@ -41,7 +41,8 @@ DinnerWizardApp.service('persistentService', function($http){
          }
          var isPresent = list.indexOf(clicked);/* check if the item is already in 
          the constructed list  */
-        if(isPresent >= 0){
+        
+        if(isPresent >= 0 ){
             console.log(clicked + ' already in list.');
          }
          else{
@@ -102,6 +103,7 @@ DinnerWizardApp.service('persistentService', function($http){
          }
          var isPresent = tagsList.indexOf(clicked);/* check if the item is already in 
          the constructed list  */
+         
         if(isPresent >= 0){
             console.log(clicked + ' already selected.');
          }
@@ -119,17 +121,20 @@ DinnerWizardApp.service('persistentService', function($http){
       * by the ng-repeat directive in the list column of the inventory view should reflect that
       */
       addWithoutTag: function(clicked){
-         console.log('Selected "Without '+ clicked +'"');
+         console.log('Selected Without "'+ clicked +'"');
          var item = "NO ";
          item = item.concat(clicked);
          if(tagsList[0] == 'No Search Filters Selected'){
             tagsList.splice(0, 1);//a tag was clicked to add, so remove the user 
             //prompt before adding the item
          }
-         var isPresent = tagsList.indexOf(item);/* check if the item is already in 
+         var isPresent = tagsList.indexOf(clicked);/* check if the item is already in 
          the constructed list  */
-        if(isPresent >= 0){
-            console.log('"Without '+ clicked + '" already selected.');
+         var isEquipSelect = tagsList.indexOf('Use '+ clicked);
+         var isWithout = tagsList.indexOf(item);/* check if the item is already in 
+         the constructed list  */
+        if(isPresent >= 0 || isWithout >=0 || isEquipSelect >=0){
+            console.log('"' +clicked + '" already selected.');
          }
          else{
             tagsList.push(item);
@@ -145,17 +150,20 @@ DinnerWizardApp.service('persistentService', function($http){
       * by the ng-repeat directive in the list column of the inventory view should reflect that
       */
       addEquipTag: function(clicked){
-         console.log('Selected "Equipment '+ clicked +'"');
+         console.log('Selected Equipment '+ clicked);
          var item = "Use ";
          item = item.concat(clicked);
          if(tagsList[0] == 'No Search Filters Selected'){
             tagsList.splice(0, 1);//a tag was clicked to add, so remove the user 
             //prompt before adding the item
          }
-         var isPresent = tagsList.indexOf(item);/* check if the item is already in 
+         
+         var isPresent = tagsList.indexOf('Use' + clicked);/* check if the item is already in 
          the constructed list  */
-        if(isPresent >= 0){
-            console.log('"Equipment '+ clicked + '" already selected.');
+         var isWithout = tagsList.indexOf('NO ' + clicked);/* check if the item is already in 
+         the constructed list  */
+        if(isPresent >= 0 || isWithout>=0){
+            console.log('Equipment "'+ clicked + '" already selected.');
          }
          else{
             tagsList.push(item);
@@ -175,7 +183,7 @@ DinnerWizardApp.service('persistentService', function($http){
       removeTag:function(clicked){
       var itemIndex = tagsList.indexOf(clicked);/*index found this way to avoid an issue found that removed 
          items starting at index zero regardless of which item was clicked.*/
-         console.log('Clicked '+ clicked +' in selected search tags.');
+         console.log('Clicked "'+ clicked +'" in selected search tags.');
             tagsList.splice(itemIndex, 1); 
             if(tagsList.length === 0){//if array is empty, print user prompt
                tagsList.push('No Search Filters Selected');
