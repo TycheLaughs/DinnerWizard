@@ -1,0 +1,353 @@
+"recipes" :
+   [
+      {
+         "name"        : "Quick Pasta 1",
+         "prepInst"    : [ 
+            "Cook pasta according to package instructions, drain and set aside.",
+            "While the pasta is cooking, heat the oil in a large, flat pan on medium-high, and sear or brown the vegetables (in slices or pieces no thicker than a finger), if using any.  Then reduce the heat and allow the vegetables to cook, at most ten minutes.",
+            "Add garlic, chopped fine.  This should be about when the pasta is ready and just as the vegetables still have some bite.  Stir fry briefly with herbs and chili flakes if using them.",
+            "Remove from heat and toss with pasta, adding lemon juice or zest if desired.",
+            "Serve with grated cheese.",
+            "Adapted from recipes by Mark Bittman in The New York Times"],
+         "categories"  : [
+            {"name": "Vegetarian"}, 
+            {"name": "Pasta"}, 
+            {"name": "Under 30 Minutes"}, 
+            {"name": "Western"}, 
+            {"name": "Italian"}, 
+            {"name": "Mediterranean"}],
+         "equipment"   : ["Stove", "Large Pan", "Stock Pot", "Colander or Strainer"],
+         "ingredients" : [
+            {"name": "Pasta", "isOptional":"false", "replaceableWith": ""}, 
+            {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Butter", "Canola Oil", "Vegetable Oil" ] }, 
+            {"name": "Garlic", "isOptional":"false", "replaceableWith": ""}, 
+            {"name": "Cauliflower", "isOptional":"true", "replaceableWith": [ "Broccoli","Brussels Sprouts", "Asparagus", "Zucchini", "Mushrooms", "Roasted Mushrooms" ] },
+            {"name": "Chili Flakes", "isOptional":"true", "replaceableWith": "" }]
+      },
+      {
+         "name"        : "Quick Pasta 2",
+         "prepInst"    : [ 
+            "Cook pasta according to package instructions, drain and set aside.",
+            "When the pasta is about halfway done, heat the oil in a large, flat pan on medium, and add garlic, chopped fine.", 
+            "When the garlic is nearly cooked, add breadcrumbs, and the vegetable, stirring to coat them with the garlic-floavored oil and continuing to stir-fry until it is a very vivid green and just wilted.",
+            "Toss briefly with chili flakes if using them.",
+            "Remove from heat and toss with pasta, adding lemon juice or zest if desired.",
+            "Serve with grated cheese.",
+            "Adapted from recipes by Mark Bittman in The New York Times"],
+         "categories"  : [
+            {"name": "Vegetarian"}, 
+            {"name": "Pasta"}, 
+            {"name": "Under 30 Minutes"}, 
+            {"name": "Western"}, 
+            {"name": "Italian"}, 
+            ],
+         "equipment"   : ["Stove", "Large Pan", "Stock Pot", "Colander or Strainer"],
+         "ingredients" : [
+            {"name": "Pasta", "isOptional":"false", "replaceableWith": ""}, 
+            {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Butter", "Canola Oil", "Vegetable Oil" ] }, 
+            {"name": "Garlic", "isOptional":"false", "replaceableWith": ""}, 
+            {"name": "Kale", "isOptional":"false", "replaceableWith": [ "Spinach","Escarole"] },
+            {"name": "Chili Flakes", "isOptional":"true", "replaceableWith": "" },
+            {"name": "Breadcrumbs", "isOptional: "true", "replacableWith":""}]
+      },
+      {
+         "name"        : "Quick Pasta 3",
+         "prepInst"    : [ 
+            "Boil water.  While it is not yet boiling, cut your vegetables to manageable size.",
+            "Dip your vegetables in the boiling water for a minute or so in small batches, removing them to a colander with a slotted spoon.",
+            "Cook pasta according to package instructions, drain and set aside.",
+            "When the pasta is about halfway done, heat the oil in a large, flat pan on medium, and add garlic, chopped fine.", 
+            "When the garlic is nearly cooked, add breadcrumbs, and the vegetable, stirring to coat them with the garlic-floavored oil.",
+            "Toss briefly with chili flakes if using them.",
+            "Remove from heat and toss with pasta, adding lemon juice or zest if desired.",
+            "Serve with grated cheese.",
+            "Adapted from recipes by Mark Bittman in The New York Times"],
+         "categories"  : [
+            {"name": "Vegetarian"}, 
+            {"name": "Pasta"}, 
+            {"name": "Under 30 Minutes"}, 
+            {"name": "Western"}, 
+            {"name": "Italian"}, 
+            ],
+         "equipment"   : ["Stove", "Large Pan", "Stock Pot", "Colander or Strainer"],
+         "ingredients" : [
+            {"name": "Pasta", "isOptional":"false", "replaceableWith": ""}, 
+            {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Butter", "Canola Oil", "Vegetable Oil" ] }, 
+            {"name": "Garlic", "isOptional":"false", "replaceableWith": ""}, 
+            {"name": "Broccoli Rabe", "isOptional":"false", "replaceableWith": ""},
+            {"name": "Chili Flakes", "isOptional":"true", "replaceableWith": "" },
+            {"name": "Breadcrumbs", "isOptional: "false", "replacableWith":""}]
+      },
+      {
+         "name"        : "Quick Pasta 4",
+         "prepInst"    : [ 
+            "Peel, then chop, shred or grate your vegetables to the approximate size of matchsticks, or perhaps a bit larger.",
+            "Cook pasta according to package instructions, drain and set aside, reserving some of the water from cooking.",
+            "While the pasta is cooking, heat your large, flat pan and add your vegetable with just barely enough oil to prevent it from burning.", 
+            "When the vegetable begins to soften, add some of the pasta water and continue to cook, adding nutmeg and black pepper",
+            "Stir in the pasta, adding more pasta water if the 'sauce' you've been making isn't coating the pasta easily enough.",
+            "Serve with grated cheese.",
+            "Adapted from recipes by Mark Bittman in The New York Times"],
+         "categories"  : [
+            {"name": "Vegetarian"}, 
+            {"name": "Pasta"}, 
+            {"name": "Under 30 Minutes"}, 
+            {"name": "Western"} 
+            ],
+         "equipment"   : ["Stove", "Large Pan", "Stock Pot", "Colander or Strainer", "Grater"],
+         "ingredients" : [
+            {"name": "Pasta", "isOptional":"false", "replaceableWith": ""}, 
+            {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Butter", "Canola Oil", "Vegetable Oil" ] }, 
+            {"name": "Butternut Squash", "isOptional":"false", "replaceableWith": "["Acorn Squash","Hubbard Squash", "Pumpkin", "Beets", "Turnips", "Parsnips", "Carrots"]"}, 
+            {"name": "Nutmeg", "isOptional":"true", "replaceableWith": ""},
+            {"name":"Black Pepper", "isOptional":"true", "replaceableWith":""}
+           ]
+      },
+      {
+        
+         "name"        : "Lentils and Rice",
+         "prepInst"    : [ 
+            "Heat oil in medium pot or high-sided pan on medium heat.",
+            "Add the onion, if using, and gook gently until translucent.  If using garlic, add this also.",
+            "Pour the uncooked rice and lentils into pan and stir its contents gently to coat.  Add any herbs and paper now, as well.",
+            "Add water or broth to cover the rice and reduce heat to medium-low once it bubbles.",
+            "Let it cook for approximately fifteen minutes, stirring occasionally.",
+            "Add salt to taste, and lemon juice or zest if desired.",
+            "Serve immediately."
+            ],
+         "categories"  : [
+            {"name": "Vegetarian"}, 
+            {"name": "Rice Dish"}, 
+            {"name": "Under 30 Minutes"},
+            {"name":"Mediterranean"}            
+            ],
+         "equipment"   : ["Stove", "Medium Pot"],
+         "ingredients" : [
+            {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Butter", "Canola Oil", "Vegetable Oil" ] }, 
+            {"name": "Onion", "isOptional":"true", "replaceableWith": ["Scallion","Shallot", "Leek"]},
+            {"name": "Garlic", "isOptional":"true", "replaceableWith": ""}, 
+            {"name": "Rosemary", "isOptional":"true", "replaceableWith": ["Oregano", "Thyme"]},
+            {"name": "Rice", "isOptional":"false", "replaceableWith": ["Couscous"]},
+            {"name": "Lentils", "isOptional":"false", "replaceableWith": ["Beans"]},
+            {"name":"Broth", "isOptional":"false", "replaceableWith": ["Water"]}
+            {"name": "Black Pepper", "isOptional":"true", "replaceableWith": ""},
+            {"name": "Salt", "isOptional":"true", "replaceableWith": ""} 
+         ],
+      },
+      {
+         "name"        : "Makeshift Casserole",
+         "prepInst"    : [ 
+            "Heat the oven to 375&deg;F.",
+            "Brush a baking dish with oil.",
+            "Whisk together eggs, milk, herbs, salt and pepper.",
+            "Layer bread torn into chunks, vegetables and cheese until the baking dish is 3/4 of the way full.",
+            "Gently pour the egg mixture over the layers and top with any remaining cheese.",
+            "Bake for approximately 40 minutes, or until a fork inserved at the center can be removed cleanly.",
+            "Once removed from the oven, let the casserole rest for 10 minutes before serving.", "Note: This recipe is untested and may require adjustments outside of what is listed here." ],
+         "categories"  : [
+            {"name": "Western"},
+            {"name": "Vegetarian"}, 
+            {"name": "Casserole"} ],
+         "equipment"   : ["Oven", "Baking Dish" ],
+         "ingredients" : [
+            {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Butter", "Canola Oil", "Vegetable Oil" ] },
+            {"name": "Bread", "isOptional":"false", "replaceableWith": [ "Rice", "Potatoes", "Pasta", "Couscous" ] },
+            {"name": "Milk", "isOptional":"false", "replaceableWith": "" },
+            {"name": "Eggs", "isOptional":"false", "replaceableWith": "" },
+            {"name": "Cheese", "isOptional":"true", "replaceableWith": "" },
+            {"name": "Black Pepper", "isOptional":"true", "replaceableWith": ""},
+            {"name": "Salt", "isOptional":"true", "replaceableWith": ""}, 
+            {"name": "Roasted Mushrooms", "isOptional":"false", "replaceableWith": [ "Mushrooms", "Roasted Peppers", "Bell Peppers", "Spinach", "Turnips" ] },
+            {"name": "Bell Peppers", "isOptional":"true", "replaceableWith": [ "Mushrooms", "Roasted Peppers", "Tomatoes", "Spinach", "Turnips"] },
+            {"name": "Onion", "isOptional":"true", "replaceableWith": ["Scallion","Shallot", "Leek"]},
+            {"name": "Garlic", "isOptional":"true", "replaceableWith": ""},
+            {"name": "Rosemary", "isOptional":"true", "replaceableWith": ["Oregano", "Thyme"]},
+            {"name": "Chili Flakes", "isOptional":"true", "replaceableWith": ""}
+            ],
+      },
+      {
+         "name"        : "Red Sauce Pasta Casserole",
+         "prepInst"    : [ "Heat the oven to 400&deg;F.",
+            "Brush a baking dish with oil.",
+            "",
+            "",
+            ""
+            ],
+         "categories"  : [
+            {"name": "Italian"},{"name": "Casserole"},{"name":"Other"}, {"name": "Western"}
+            ],
+         "equipment"   : ["Oven", "Baking Dish", "Stock Pot", "Frying Pan"],
+         "ingredients" : [ 
+            {"name":"Olive Oil", "isOptional":"false", "replaceableWith": ["Butter","Canola Oil","Vegetable Oil"]},         
+            {"name": "Onion", "isOptional":"true", "replaceableWith": ["Scallion","Shallot", "Leek"]},
+            {"name": "Garlic", "isOptional":"false", "replaceableWith": ""},
+            {"name": "Ground Beef", "isOptional":"true", "replaceableWith": [ "Ground Pork", "Ground Lamb", "Ground Turkey"] },
+            {"name": "Tomatoes", "isOptional":"false", "replaceableWith": [ "Tomato Sauce"] },
+            {"name": "Roasted Mushrooms", "isOptional":"true", "replaceableWith": [ "Mushrooms", "Roasted Peppers", "Tomatoes", "Spinach"] },
+            {"name": "Bell Peppers", "isOptional":"true", "replaceableWith": [ "Mushrooms", "Roasted Peppers"] },
+            {"name": "Cheese", "isOptional":"true", "replaceableWith": "" },
+            {"name": "Oregano", "isOptional":"true", "replaceableWith": ["Rosemary", "Thyme"]},
+            {"name": "Chili Flakes", "isOptional":"true", "replaceableWith": ""},
+            {"name": "Breadcrumbs", "isOptional: "false", "replacableWith":""}],
+      },
+      {
+         "name"        : "White Sauce Pasta Casserole",
+         "prepInst"    : [ "Heat the oven to 400&deg;F.",
+            "Brush a baking dish with oil.",
+            "",
+            "",
+            ""
+            ],
+         "categories"  : [{"name": "Italian"},{"name": "Casserole"},{"name":"Other"}, {"name": "Western"}],
+         "equipment"   : ["Oven", "Baking Dish", "Stock Pot" ],
+         "ingredients" : [
+            {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Butter", "Canola Oil", "Vegetable Oil" ] },
+            {"name": "Onion", "isOptional":"true", "replaceableWith": ["Scallion","Shallot", "Leek"]},
+            {"name": "Garlic", "isOptional":"false", "replaceableWith": ""},
+            {"name": "Chicken", "isOptional":"true", "replaceableWith": [ "Roasted Mushrooms", "Mushrooms", "Spinach"] },
+            {"name": "Cheese", "isOptional":"true", "replaceableWith": "" },
+            {"name": "Rosemary", "isOptional":"true", "replaceableWith": ["Oregano", "Thyme"]},
+            {"name": "Chili Flakes", "isOptional":"true", "replaceableWith": ""},
+            {"name": "Breadcrumbs", "isOptional: "true", "replacableWith":""},
+            {"name": "Cream Sauce", "isOptional: "false", "replacableWith":["Cream of Mushroom Soup", "Cream of Celery Soup"]}],
+      },
+      {
+         "name"        : "Creamy Vegetable Pasta Casserole",
+         "prepInst"    : [ "Heat the oven to 400&deg;F.",
+            "Brush a baking dish with oil.",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "",
+            "Serve with grated cheese.",
+            "Adapted from recipes by Mark Bittman in The New York Times"],
+         "categories"  : [{"name": "Vegetarian"},{"name": "Casserole"},{"name":"Other"}, {"name": "Western"}],
+         "equipment"   : ["Oven", "Baking Dish", "Stock Pot", "Food Processor" ],
+         "ingredients" : [
+            {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Butter", "Canola Oil", "Vegetable Oil" ] },
+            {"name": "Garlic", "isOptional":"true", "replaceableWith": ""},
+            {"name": "Cauliflower", "isOptional":"false", "replaceableWith": [""]},
+            {"name": "Cheese", "isOptional":"false", "replaceableWith": "" },
+            {"name": "Nutmeg", "isOptional":"true", "replaceableWith": ["Oregano", "Thyme", "Rosemary"]},
+            {"name": "Chili Flakes", "isOptional":"true", "replaceableWith": ""},
+            {"name": "Breadcrumbs", "isOptional: "true", "replacableWith":""},
+            
+            ],
+      },
+      {
+         "name"        : "Baked Falafel",
+         "prepInst"    : [""],
+         "categories"  : [{"name": "Vegetarian"},{"name": "Mediterranean"},{"name":"Under 30 Minutes"}, {"name":"Other"}, {"name": "Snack"}],
+         "equipment"   : ["Oven", "Baking Sheet", "Food Processor"],
+         "ingredients" : [
+            {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Butter", "Canola Oil", "Vegetable Oil" ] },
+         
+         
+         ],
+      },
+      {
+         "name"        : "Hummus",
+         "prepInst"    : [ ""],
+         "categories"  : [{"name": "Vegetarian"},{"name": "Mediterranean"},{"name":"Under 30 Minutes"},{"name":"Other"}, {"name": "Snack"}],
+         "equipment"   : ["Food Processor" ],
+         "ingredients" : [{ name, isOptional, "replaceableWith": [ name ] }],
+      },
+      {
+        
+         "name"        : "Veggie Stir Fry",
+         "prepInst"    : [ "Cook the rice.",
+            "When the rice is about halfway done, heat the oil in a large, rounded pan on medium-high, and add the scallions and ginger, if using, stirring lightly so they do not burn.",
+            "Add vegetables(sliced) and garlic, chopped fine, keeping them moving lightly around the pan so as to keep them in contact with the bottom of the pan for as brief a moment at a time as you can.",
+            "If you're using it, mix some broth with a spoonful of soy sauce and a spoonful of cornstarch and add to the pan, stirring to incorporate this sauce.  Remove from heat within the minute, and serve immediately over rice." ],
+         "categories"  : [{"name": "Vegetarian"},{"name":"Stir Fry"},{"name":"Under 30 Minutes"},{"name": "Chinese"},{"name":"Rice Dish"}],
+         "equipment"   : ["Large Round Pan", "Stove" ],
+         "ingredients" : [{name, isOptional, "replaceableWith": [ name ] }],
+      },
+      {
+         "name"        : "Stir Fry with Meat or Tofu",
+         "prepInst"    : [ "Cook the rice.",
+            "When the rice is about halfway done, heat the oil in a large, rounded pan on medium-high, and add the scallions and ginger, if using, stirring lightly so they do not burn.",
+            "Add your favored protein, keeping it moving lightly around the pan, until it seems to be mostly cooked, about a minute, longer if using tofu.",
+            "Add the vegetables(sliced) and garlic, chopped fine, continuing to keep the mixture in contact with the bottom of the pan for as brief a moment at a time as you can.",
+            "If you're using it, mix some broth with a spoonful of soy sauce and a spoonful of cornstarch and add to the pan, stirring to incorporate this sauce.  Remove from heat within the minute, and serve immediately over rice." ],
+         "categories"  : [{"name": "Chinese"},{"name":"Stir Fry"},{"name":"Under 30 Minutes"},{"name":"Rice Dish"}],
+         "equipment"   : ["Large Round Pan", "Stove"  ],
+         "ingredients" : [{ name, isOptional, "replaceableWith": [ name ] }],
+      },
+      {
+         "name"        : "Stir Fry with Seafood",
+         "prepInst"    : [ "Cook the rice.",
+            "When the rice is about halfway done, heat the oil in a large, rounded pan on medium-high, and add the scallions and ginger, if using, stirring lightly so they do not burn.",
+            "Add your chosen seafood, keeping it moving lightly around the pan, until it seems to be mostly cooked, two or three minutes.",
+            "Add the vegetables(sliced) and garlic, chopped fine, continuing to keep the mixture in contact with the bottom of the pan for as brief a moment at a time as you can.",
+            "If you're using it, mix some broth with a spoonful of soy sauce and a spoonful of cornstarch and add to the pan, stirring to incorporate this sauce.  Remove from heat within the minute, and serve immediately over rice." ],
+         "categories"  : [{"name": "Seafood"},{"name":"Under 30 Minutes"}, {"name":"Stir Fry"},{"name": "Chinese"},{"name":"Rice Dish"}],
+         "equipment"   : ["Large Round Pan", "Stove"  ],
+         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": [ "" ] }],
+      },
+      {
+         "name"        : "Peanut Noodles",
+         "prepInst"    : [ "" ],
+         "categories"  : [{"name":"Southeast Asian"},{"name":"Pasta"}, {"name":"Under 30 Minutes"}],
+         "equipment"   : ["Stock Pot", "Stove" ],
+         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": [ "" ] }],
+      },
+      {
+         "name"        : "Essential Tagine",
+         "prepInst"    : [ "" ],
+         "categories"  : [{"name":"Mediterranean"},{"name":"Stew"},{"name":"Meat and Starch"}, {"name":"Western"}],
+         "equipment"   : ["Large Round Pan", "Stove"  ],
+         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": [ "" ] }],
+      },
+      {
+         "name"        : "Malay Style Curry",
+         "prepInst"    : [ "" ],
+         "categories"  : [{"name":"Southeast Asian"}, {"name":"Stew"}, {"name":"Rice Dish"}],
+         "equipment"   : ["Large Round Pan", "Stove"  ],
+         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": [ "" ] }],
+      },
+      {
+         "name"        : "Thai Style Curry",
+         "prepInst"    : [ "" ],
+         "categories"  : [{"name":"Southeast Asian"}, {"name":"Stew"}, {"name":"Rice Dish"}],
+         "equipment"   : ["Large Round Pan", "Stove"  ],
+         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": [ "" ] }],
+      },
+      {
+         "name"        : "Misc. Curry",
+         "prepInst"    : [ "" ],
+         "categories"  : [{"name":"Southeast Asian"}, {"name":"Stew"}, {"name":"Rice Dish"}],
+         "equipment"   : ["Large Round Pan", "Stove" ],
+         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": [ "" ] }],
+      },
+            {
+         "name"        : "Breaded Chicken Dinner",
+         "prepInst"    : [ "" ],
+         "categories"  : [{"name":"Western"}, {"name":"Meat and Starch"}, {"name":"Under 30 Minutes"}, {"name":"Other"}],
+         "equipment"   : ["Oven", "Gallon Plastic Bag", "Baking Dish", "Baking Sheet" ],
+         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": [ "" ] }],
+      },
+      {
+         "name"        : "Spiced Couscous",
+         "prepInst"    : [ "" ],
+         "categories"  : [{"name":"Mediterranean"}, {"name":"Rice Dish"}, {"name":"Under 30 Minutes"}],
+         "equipment"   : ["Large Round Pan", "Stove", "Baking Dish", "Oven"],
+         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": [ "" ] }],
+      },
+      {
+         "name"        : "Makeshift 'Mexican' Rice",
+         "prepInst"    : [ "" ],
+         "categories"  : [{"name":"Vegetarian"},{"name":"Mexican"}, {"name":"Rice Dish"}, {"name":"Under 30 Minutes"}, {"name":"Western"}],
+         "equipment"   : ["Stock Pot", "Stove"],
+         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": [ "" ] }],
+      },
+      {
+         "name"        : "",
+         "prepInst"    : [ "" ],
+         "categories"  : [{"name":""}],
+         "equipment"   : ["" ],
+         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": [ "" ] }],
+      }
+   ]
