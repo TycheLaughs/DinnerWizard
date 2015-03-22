@@ -66,6 +66,12 @@ li:hover{
    font-weight: bold;
    cursor: pointer;
 }
+#recListing{
+   overflow-y: auto;
+   height: 600px;
+   min-width: 350px;
+   max-width: 380px;
+}
 .inv li:hover, .filt li:hover{
    cursor: pointer;
 }
@@ -76,6 +82,9 @@ li:hover{
 .inv li a:hover, .filt li a:hover{
    text-decoration: none;
    font-weight: bold;
+}
+.optional{
+    cursor: pointer;
 }
 body { 
    padding-top:5px;
@@ -239,9 +248,16 @@ a:visited{
 a:active{
    text-decoration:none;
    outline: none;
-
+   
 }
 
+
+.optional{
+    cursor: pointer;
+}
+.optional:hover{
+   font-weight: bold;
+}
 
 /* styling accordions, overriding bootstrap css */
 .panel-default > .panel-heading{
@@ -270,16 +286,16 @@ h4.panel-title{
    outline: none;
 }
 .rec h4.panel-title{
-   font-size: 1.5em;
+   font-size: 1.3em;
 }
 .rec h4.panel-title ul{
    padding-left: 0px;
-   margin-left: -5px;
+   margin-left: -8px;
    cursor:pointer;
    
 }
 .rec h4.panel-title li{
-   margin-right: 5px;
+   margin-right: 0px;
    cursor:pointer;
   
 }

@@ -18,15 +18,17 @@ DinnerWizardApp.controller('recipesController', function($scope, $http, persiste
 
       $scope.tags = persistentService.Tags()
       //console.log()
-      $http.get("data/recipesTest2.json").success(function(data) {
-         $scope.recipes = data.RECIPES; //assign the array of objects called
+      $http.get("data/recipes.json").success(function(data) {
+         $scope.recipes = data.recipes; //assign the array of objects called
          //RECIPES in the json file to a variable named recipes
-         $scope.ingredients = data.INGREDIENTS; //assign the array of objects called
+        
+      });
+       $http.get("data/recipesTest2.json").success(function(data) {
+       $scope.ingredients = data.INGREDIENTS; //assign the array of objects called
          //INGREDIENTS in the json file to a variable named ingredients
          $scope.filterList = data.TAGS; //assign the array of objects called
          //Tags in the json file to a variable named ingredients
       });
-
       /**showRecipe
       * Determines which JSON object to be using based on parameters (gotten via click)
       * and stores this information in a variable for use outside of the accordion's scope

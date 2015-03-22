@@ -14,13 +14,16 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
   
       $scope.buttonClass = "invStyle";
       $scope.selected = undefined;
-      $http.get("data/recipesTest2.json").success(function(data){
-         $scope.recipes = data.RECIPES; //assign the array of objects called
-       //RECIPES in the json file to a variable named recipes
-         $scope.ingredients = data.INGREDIENTS; //assign the array of objects called
-       //INGREDIENTS in the json file to a variable named ingredients
-        $scope.filterList = data.TAGS; //assign the array of objects called
-       //Tags in the json file to a variable named ingredients
+            $http.get("data/recipes.json").success(function(data) {
+         $scope.recipes = data.recipes; //assign the array of objects called
+         //RECIPES in the json file to a variable named recipes
+        
+      });
+       $http.get("data/recipesTest2.json").success(function(data) {
+       $scope.ingredients = data.INGREDIENTS; //assign the array of objects called
+         //INGREDIENTS in the json file to a variable named ingredients
+         $scope.filterList = data.TAGS; //assign the array of objects called
+         //Tags in the json file to a variable named ingredients
       });
       /* call mutators for the arrays stored 'globally' in a service*/
      $scope.clickedFromListing = function(content){

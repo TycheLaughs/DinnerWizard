@@ -1,4 +1,4 @@
-"recipes" :
+{"recipes" :
    [
       {
          "name"        : "Quick Pasta 1",
@@ -12,17 +12,19 @@
          "categories"  : [
             {"name": "Vegetarian"}, 
             {"name": "Pasta"}, 
-            {"name": "Under 30 Minutes"}, 
+            {"name": "Under 30"}, 
             {"name": "Western"}, 
             {"name": "Italian"}, 
-            {"name": "Mediterranean"}],
+            {"name": "Mediterranean"}
+            ],
          "equipment"   : ["Stove", "Large Pan", "Stock Pot", "Colander or Strainer"],
          "ingredients" : [
             {"name": "Pasta", "isOptional":"false", "replaceableWith": "", "ratio":"40"}, 
             {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Butter", "Canola Oil", "Vegetable Oil" ], "ratio":"12" }, 
             {"name": "Garlic", "isOptional":"false", "replaceableWith": "", "ratio":"8"}, 
             {"name": "Cauliflower", "isOptional":"true", "replaceableWith": [ "Broccoli","Brussels Sprouts", "Asparagus", "Zucchini", "Mushrooms", "Roasted Mushrooms" ] , "ratio":"40"},
-            {"name": "Chili Flakes", "isOptional":"true", "replaceableWith": "" , "ratio":""}],
+            {"name": "Chili Flakes", "isOptional":"true", "replaceableWith": "" , "ratio":""}
+            ]
       },
       {
          "name"        : "Quick Pasta 2",
@@ -37,18 +39,18 @@
          "categories"  : [
             {"name": "Vegetarian"}, 
             {"name": "Pasta"}, 
-            {"name": "Under 30 Minutes"}, 
+            {"name": "Under 30"}, 
             {"name": "Western"}, 
-            {"name": "Italian"}, 
+            {"name": "Italian"}
             ],
          "equipment"   : ["Stove", "Large Pan", "Stock Pot", "Colander or Strainer"],
          "ingredients" : [
             {"name": "Pasta", "isOptional":"false", "replaceableWith": "", "ratio":"35"}, 
             {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Butter", "Canola Oil", "Vegetable Oil" ], "ratio":"5" }, 
             {"name": "Garlic", "isOptional":"false", "replaceableWith": "", "ratio":"5"}, 
-            {"name": "Kale", "isOptional":"false", "replaceableWith": [ "Spinach","Escarole"] , "ratio":"40"},
+            {"name": "Kale", "isOptional":"false", "replaceableWith": ["Spinach", "Escarole"] , "ratio":"40"},
             {"name": "Chili Flakes", "isOptional":"true", "replaceableWith": "" , "ratio":""},
-            {"name": "Breadcrumbs", "isOptional: "true", "replacableWith":""}, "ratio":"15"]
+            {"name": "Breadcrumbs", "isOptional": "true", "replacableWith":"", "ratio":"15"}]
       },
       {
          "name"        : "Quick Pasta 3",
@@ -65,9 +67,9 @@
          "categories"  : [
             {"name": "Vegetarian"}, 
             {"name": "Pasta"}, 
-            {"name": "Under 30 Minutes"}, 
+            {"name": "Under 30"}, 
             {"name": "Western"}, 
-            {"name": "Italian"}, 
+            {"name": "Italian"}
             ],
          "equipment"   : ["Stove", "Large Pan", "Stock Pot", "Colander or Strainer"],
          "ingredients" : [
@@ -76,7 +78,7 @@
             {"name": "Garlic", "isOptional":"false", "replaceableWith": "", "ratio":"9"}, 
             {"name": "Broccoli Rabe", "isOptional":"false", "replaceableWith": "", "ratio":"35"},
             {"name": "Chili Flakes", "isOptional":"true", "replaceableWith": "", "ratio":"" },
-            {"name": "Breadcrumbs", "isOptional: "false", "replacableWith":"", "ratio":"12"}]
+            {"name": "Breadcrumbs", "isOptional": "false", "replacableWith":"", "ratio":"12"}]
       },
       {
          "name"        : "Quick Pasta 4",
@@ -91,7 +93,7 @@
          "categories"  : [
             {"name": "Vegetarian"}, 
             {"name": "Pasta"}, 
-            {"name": "Under 30 Minutes"}, 
+            {"name": "Under 30"}, 
             {"name": "Western"} 
             ],
          "equipment"   : ["Stove", "Large Pan", "Stock Pot", "Colander or Strainer", "Grater"],
@@ -118,7 +120,7 @@
          "categories"  : [
             {"name": "Vegetarian"}, 
             {"name": "Rice Dish"}, 
-            {"name": "Under 30 Minutes"},
+            {"name": "Under 30"},
             {"name":"Mediterranean"}            
             ],
          "equipment"   : ["Stove", "Medium Pot"],
@@ -129,10 +131,10 @@
             {"name": "Rosemary", "isOptional":"true", "replaceableWith": ["Oregano", "Thyme"], "ratio":"1"},
             {"name": "Rice", "isOptional":"false", "replaceableWith": ["Couscous"], "ratio":"30"},
             {"name": "Lentils", "isOptional":"false", "replaceableWith": ["Beans"], "ratio":"10"},
-            {"name":"Broth", "isOptional":"false", "replaceableWith": ["Water"], "ratio":"56"}
+            {"name":"Broth", "isOptional":"false", "replaceableWith": ["Water"], "ratio":"56"},
             {"name": "Black Pepper", "isOptional":"true", "replaceableWith": "", "ratio":"1"},
             {"name": "Salt", "isOptional":"true", "replaceableWith": "", "ratio":"1"} 
-         ],
+         ]
       },
       {
          "name"        : "Makeshift Casserole",
@@ -163,7 +165,7 @@
             {"name": "Garlic", "isOptional":"true", "replaceableWith": "", "ratio":"1"},
             {"name": "Rosemary", "isOptional":"true", "replaceableWith": ["Oregano", "Thyme"], "ratio":""},
             {"name": "Chili Flakes", "isOptional":"true", "replaceableWith": "", "ratio":""}
-            ],
+            ]
       },
       {
          "name"        : "Red Sauce Pasta Casserole",
@@ -189,11 +191,12 @@
             {"name": "Cheese", "isOptional":"true", "replaceableWith": "", "ratio":"" },
             {"name": "Oregano", "isOptional":"true", "replaceableWith": ["Rosemary", "Thyme"], "ratio":""},
             {"name": "Chili Flakes", "isOptional":"true", "replaceableWith": "", "ratio":""},
-            {"name": "Breadcrumbs", "isOptional: "false", "replacableWith":"", "ratio":""}],
+            {"name": "Breadcrumbs", "isOptional": "false", "replacableWith":"", "ratio":""}]
       },
       {
          "name"        : "White Sauce Pasta Casserole",
-         "prepInst"    : [ "Heat the oven to 400&deg;F.",
+         "prepInst"    : [ 
+            "Heat the oven to 400&deg;F.",
             "Brush a baking dish with oil.",
             "",
             "",
@@ -210,12 +213,13 @@
             {"name": "Cheese", "isOptional":"true", "replaceableWith": "" , "ratio":"12"},
             {"name": "Rosemary", "isOptional":"true", "replaceableWith": ["Oregano", "Thyme"], "ratio":""},
             {"name": "Chili Flakes", "isOptional":"true", "replaceableWith": "", "ratio":""},
-            {"name": "Breadcrumbs", "isOptional: "true", "replacableWith":"", "ratio":""},
-            {"name": "Cream Sauce", "isOptional: "false", "replacableWith":["Cream of Mushroom Soup", "Cream of Celery Soup"], "ratio":"20"}],
+            {"name": "Breadcrumbs", "isOptional": "true", "replacableWith":"", "ratio":""},
+            {"name": "Cream Sauce", "isOptional": "false", "replacableWith":["Cream of Mushroom Soup", "Cream of Celery Soup"], "ratio":"20"}]
       },
       {
          "name"        : "Creamy Vegetable Pasta Casserole",
-         "prepInst"    : [ "Heat the oven to 400&deg;F.",
+         "prepInst"    : [ 
+            "Heat the oven to 400&deg;F.",
             "Brush a baking dish with oil.",
             "",
             "",
@@ -231,13 +235,12 @@
             {"name": "Pasta", "isOptional":"false", "replaceableWith": "", "ratio":"50"}, 
             {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Butter", "Canola Oil", "Vegetable Oil" ], "ratio":"1" },
             {"name": "Garlic", "isOptional":"true", "replaceableWith": "", "ratio":"2"},
-            {"name": "Cauliflower", "isOptional":"false", "replaceableWith": [""], "ratio":"40"},
+            {"name": "Cauliflower", "isOptional":"false", "replaceableWith": "", "ratio":"40"},
             {"name": "Cheese", "isOptional":"false", "replaceableWith": "", "ratio":"5" },
             {"name": "Nutmeg", "isOptional":"true", "replaceableWith": ["Oregano", "Thyme", "Rosemary"], "ratio":""},
             {"name": "Chili Flakes", "isOptional":"true", "replaceableWith": "", "ratio":""},
-            {"name": "Breadcrumbs", "isOptional: "true", "replacableWith":"", "ratio":"2"},
-            
-            ],
+            {"name": "Breadcrumbs", "isOptional": "true", "replacableWith":"", "ratio":"2"}
+            ]
       },
       {
          "name"        : "Baked Falafel",
@@ -248,7 +251,7 @@
             "",
             ""
          ],
-         "categories"  : [{"name": "Vegetarian"},{"name": "Mediterranean"},{"name":"Under 30 Minutes"}, {"name":"Other"}, {"name": "Snack"}],
+         "categories"  : [{"name": "Vegetarian"},{"name": "Mediterranean"},{"name":"Under 30"}, {"name":"Other"}, {"name": "Snack"}],
          "equipment"   : ["Oven", "Baking Sheet", "Food Processor"],
          "ingredients" : [
             {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Canola Oil", "Vegetable Oil" ], "ratio":"2" },
@@ -261,12 +264,12 @@
             {"name": "Salt", "isOptional":"true", "replaceableWith": "" , "ratio":""},
             {"name": "Cumin", "isOptional":"true", "replaceableWith": "" , "ratio":""},
             {"name": "Coriander", "isOptional":"true", "replaceableWith": "" , "ratio":""}
-         ],
+         ]
       },
       {
          "name"        : "Hummus",
          "prepInst"    : [ ""],
-         "categories"  : [{"name": "Vegetarian"},{"name": "Mediterranean"},{"name":"Under 30 Minutes"},{"name":"Other"}, {"name": "Snack"}],
+         "categories"  : [{"name": "Vegetarian"},{"name": "Mediterranean"},{"name":"Under 30"},{"name":"Other"}, {"name": "Snack"}],
          "equipment"   : ["Food Processor" ],
          "ingredients" : [
             {"name": "Olive Oil", "isOptional":"true", "replaceableWith": [ "Canola Oil", "Vegetable Oil" ], "ratio":"2" },
@@ -275,7 +278,7 @@
             {"name": "Salt", "isOptional":"true", "replaceableWith": "" , "ratio":""},
             {"name": "Lemon", "isOptional":"true", "replaceableWith": "" , "ratio":"5"},
             {"name": "Tahini Paste", "isOptional":"true", "replaceableWith": "" , "ratio":"2"},
-            {"name": "Hot Peppers", "isOptional":"true", "replaceableWith": "" , "ratio":"5"}],
+            {"name": "Hot Peppers", "isOptional":"true", "replaceableWith": "" , "ratio":"5"}]
       },
       {
         
@@ -284,9 +287,9 @@
             "When the rice is about halfway done, heat the oil in a large, rounded pan on medium-high, and add the scallions and ginger, if using, stirring lightly so they do not burn.",
             "Add vegetables(sliced) and garlic, chopped fine, keeping them moving lightly around the pan so as to keep them in contact with the bottom of the pan for as brief a moment at a time as you can.",
             "If you're using it, mix some broth with a spoonful of soy sauce and a spoonful of cornstarch and add to the pan, stirring to incorporate this sauce.  Remove from heat within the minute, and serve immediately over rice." ],
-         "categories"  : [{"name": "Vegetarian"},{"name":"Stir Fry"},{"name":"Under 30 Minutes"},{"name": "Chinese"},{"name":"Rice Dish"}],
+         "categories"  : [{"name": "Vegetarian"},{"name":"Stir Fry"},{"name":"Under 30"},{"name": "Chinese"},{"name":"Rice Dish"}],
          "equipment"   : ["Large Round Pan", "Stove" ],
-         "ingredients" : [{name, isOptional, "replaceableWith": [ "" ] , "ratio":"" }],
+         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": "", "ratio":"" }]
       },
       {
          "name"        : "Stir Fry with Meat or Tofu",
@@ -295,9 +298,9 @@
             "Add your favored protein, keeping it moving lightly around the pan, until it seems to be mostly cooked, about a minute, longer if using tofu.",
             "Add the vegetables(sliced) and garlic, chopped fine, continuing to keep the mixture in contact with the bottom of the pan for as brief a moment at a time as you can.",
             "If you're using it, mix some broth with a spoonful of soy sauce and a spoonful of cornstarch and add to the pan, stirring to incorporate this sauce.  Remove from heat within the minute, and serve immediately over rice." ],
-         "categories"  : [{"name": "Chinese"},{"name":"Stir Fry"},{"name":"Under 30 Minutes"},{"name":"Rice Dish"}],
+         "categories"  : [{"name": "Chinese"},{"name":"Stir Fry"},{"name":"Under 30"},{"name":"Rice Dish"}],
          "equipment"   : ["Large Round Pan", "Stove"  ],
-         "ingredients" : [{ name, isOptional, "replaceableWith": [ "" ] , "ratio":""}],
+         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": "", "ratio":"" }]
       },
       {
          "name"        : "Stir Fry with Seafood",
@@ -306,95 +309,107 @@
             "Add your chosen seafood, keeping it moving lightly around the pan, until it seems to be mostly cooked, two or three minutes.",
             "Add the vegetables(sliced) and garlic, chopped fine, continuing to keep the mixture in contact with the bottom of the pan for as brief a moment at a time as you can.",
             "If you're using it, mix some broth with a spoonful of soy sauce and a spoonful of cornstarch and add to the pan, stirring to incorporate this sauce.  Remove from heat within the minute, and serve immediately over rice." ],
-         "categories"  : [{"name": "Seafood"},{"name":"Under 30 Minutes"}, {"name":"Stir Fry"},{"name": "Chinese"},{"name":"Rice Dish"}],
+         "categories"  : [{"name": "Seafood"},{"name":"Under 30"}, {"name":"Stir Fry"},{"name": "Chinese"},{"name":"Rice Dish"}],
          "equipment"   : ["Large Round Pan", "Stove"  ],
-         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": [ "" ] , "ratio":""}],
+         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": "", "ratio":"" }]
       },
       {
          "name"        : "Peanut Noodles",
-         "prepInst"    : [ "" ],
-         "categories"  : [{"name":"Southeast Asian"},{"name":"Vegetarian"}{"name":"Pasta"}, {"name":"Under 30 Minutes"}],
+         "prepInst"    : "",
+         "categories"  : [{"name":"Southeast Asian"},{"name":"Vegetarian"},{"name":"Pasta"}, {"name":"Under 30"}],
          "equipment"   : ["Stock Pot", "Stove", "Food Processor"],
-         "ingredients" : [{"name": "Pasta", "isOptional":"false", "replaceableWith": "", "ratio":"80"}, 
+         "ingredients" : [
+            {"name": "Pasta", "isOptional":"false", "replaceableWith": "", "ratio":"80"}, 
             {"name": "Sesame Oil", "isOptional":"true", "replaceableWith": [ "Peanut Oil", "Canola Oil" ] , "ratio":"5"},
             {"name": "Ginger", "isOptional":"false", "replaceableWith": "", "ratio":"2"}, 
             {"name": "Garlic", "isOptional":"false", "replaceableWith": "", "ratio":"2"}, 
             {"name": "Peanut Butter", "isOptional":"false", "replaceableWith": "", "ratio":"5"}, 
             {"name": "Soy Sauce", "isOptional":"false", "replaceableWith": "", "ratio":"1"},
-            {"name": "Peanuts", "isOptional":"false", "replaceableWith": "", "ratio":"1"}, 
+            {"name": "Peanuts", "isOptional":"true", "replaceableWith": "", "ratio":"1"}, 
             {"name": "Hot Peppers", "isOptional":"true", "replaceableWith": ["Chili Flakes"], "ratio":"2"}, 
             {"name": "Sugar", "isOptional":"true", "replaceableWith": "", "ratio":".5"}, 
             {"name": "Fish Sauce", "isOptional":"true", "replaceableWith": "", "ratio":"1"},
-            {"name": "Pineapple", "isOptional":"true", "replaceableWith": "", "ratio":"2"}],
+            {"name": "Pineapple", "isOptional":"true", "replaceableWith": "", "ratio":"2"}
+         ]
       },
       {
          "name"        : "Essential Tagine",
-         "prepInst"    : [ "" ],
-         "categories"  : [{"name":"Mediterranean"},{"name":"Stew"},{"name":"Meat and Starch"}],
+         "prepInst"    : "",
+         "categories"  : [{"name":"Mediterranean"},{"name":"Stew"},{"name":"Meat & Starch"}],
          "equipment"   : ["Large Round Pan", "Stove"  ],
-         "ingredients" : [{ "name":"Lamb", "isOptional":"false", "replaceableWith": [ "Chicken", "Beef" ] , "ratio":"30"},
-         { "name":"Onion", "isOptional":"false", "replaceableWith": [ "Shallot" ] , "ratio":"4"},
-         {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Canola Oil", "Vegetable Oil" ], "ratio":"2" },
-         { "name":"Garlic", "isOptional":"false", "replaceableWith": [ "" ] , "ratio":"3"},
-         { "name":"Cumin", "isOptional":"false", "replaceableWith": [ "" ] , "ratio":".75"},
-         { "name":"Cayenne", "isOptional":"false", "replaceableWith": [ "" ] , "ratio":".25"},
-         { "name":"Caraway Seeds", "isOptional":"true", "replaceableWith": [ "" ] , "ratio":".75"},
-         { "name":"Cinnamon", "isOptional":"false", "replaceableWith": [ "Chicken", "Beef" ] , "ratio":"1.5"},
-         { "name":"Coriander", "isOptional":"false", "replaceableWith": [ "Chicken", "Beef" ] , "ratio":".75"},
-         { "name":"Dried Figs", "isOptional":"false", "replaceableWith": [ "Dried Apricots", "Dried Dates", "Greek Olives", "Golden Raisins" ] , "ratio":"5"},
-         { "name":"Couscous", "isOptional":"false", "replaceableWith": [ "Rice" ] , "ratio":"40"},
-         { "name":"Tomato Sauce", "isOptional":"true", "replaceableWith": [ "" ] , "ratio":"4"},
-         { "name":"Water", "isOptional":"false", "replaceableWith": [ "Broth" ] , "ratio":"8"},
+         "ingredients" : [
+            { "name":"Lamb", "isOptional":"false", "replaceableWith": [ "Chicken", "Beef" ] , "ratio":"30"},
+            { "name":"Onion", "isOptional":"false", "replaceableWith": [ "Shallot" ] , "ratio":"4"},
+            {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Canola Oil", "Vegetable Oil" ], "ratio":"2" },
+            { "name":"Garlic", "isOptional":"false", "replaceableWith": "" , "ratio":"3"},
+            { "name":"Cumin", "isOptional":"false", "replaceableWith": "" , "ratio":".75"},
+            { "name":"Cayenne", "isOptional":"false", "replaceableWith": "" , "ratio":".25"},
+            { "name":"Caraway Seeds", "isOptional":"true", "replaceableWith": "" , "ratio":".75"},
+            { "name":"Cinnamon", "isOptional":"false", "replaceableWith": [ "Chicken", "Beef" ] , "ratio":"1.5"},
+            { "name":"Coriander", "isOptional":"false", "replaceableWith": [ "Chicken", "Beef" ] , "ratio":".75"},
+            { "name":"Dried Figs", "isOptional":"false", "replaceableWith": [ "Dried Apricots", "Dried Dates", "Greek Olives", "Golden Raisins" ] , "ratio":"5"},
+            { "name":"Couscous", "isOptional":"false", "replaceableWith": [ "Rice" ] , "ratio":"40"},
+            { "name":"Tomato Sauce", "isOptional":"true", "replaceableWith": "" , "ratio":"4"},
+            { "name":"Water", "isOptional":"false", "replaceableWith": [ "Broth" ] , "ratio":"8"}
          
-         ],
+         ]
       },
       {
          "name"        : "Malay Style Curry",
-         "prepInst"    : [ "" ],
+         "prepInst"    : "",
          "categories"  : [{"name":"Southeast Asian"}, {"name":"Stew"}, {"name":"Rice Dish"}],
          "equipment"   : ["Large Round Pan", "Stove"  ],
-         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": [ "" ] , "ratio":""}],
+         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": "" , "ratio":""}]
       },
       {
          "name"        : "Thai Style Curry",
-         "prepInst"    : [ "" ],
+         "prepInst"    : "",
          "categories"  : [{"name":"Southeast Asian"}, {"name":"Stew"}, {"name":"Rice Dish"}],
          "equipment"   : ["Large Round Pan", "Stove"],
-         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": [ "" ] , "ratio":""}],
+         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": "" , "ratio":""}]
       },
       {
          "name"        : "Misc. Curry",
-         "prepInst"    : [ "" ],
+         "prepInst"    : "",
          "categories"  : [{"name":"Southeast Asian"}, {"name":"Stew"}, {"name":"Rice Dish"}],
          "equipment"   : ["Large Round Pan", "Stove" ],
-         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": [ "" ] , "ratio":""}],
+         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": "" , "ratio":""}]
       },
             {
-         "name"        : "Breaded Chicken Dinner",
-         "prepInst"    : [ "" ],
-         "categories"  : [{"name":"Western"}, {"name":"Meat and Starch"}, {"name":"Under 30 Minutes"}, {"name":"Other"}],
-         "equipment"   : ["Oven", "Gallon Plastic Bag", "Baking Dish", "Baking Sheet" ],
-         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": [ "" ] , "ratio":""}],
+         "name"        : "Breaded Chicken",
+         "prepInst"    : "",
+         "categories"  : [{"name":"Western"}, {"name":"Meat & Starch"}, {"name":"Under 30"}, {"name":"Other"}],
+         "equipment"   : ["Oven", "Gallon Plastic Bag", "Baking Dish" ],
+         "ingredients" : [{ "name":"Chicken", "isOptional":"false", "replaceableWith": "" , "ratio":"60"},
+          {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Peanut Oil", "Canola Oil", "Vegetable Oil" ], "ratio":"10" },
+         { "name":"Breadcrumbs", "isOptional":"false", "replaceableWith": "" , "ratio":"30"},
+         { "name":"Garlic", "isOptional":"true", "replaceableWith": "" , "ratio":""},
+         { "name":"Paprika", "isOptional":"true", "replaceableWith": [ "Cayenne" ] , "ratio":""},
+         { "name":"Oregano", "isOptional":"true", "replaceableWith": [ "Rosemary", "Thyme" ] , "ratio":""},
+         { "name":"Black Pepper", "isOptional":"true", "replaceableWith": "" , "ratio":""},
+         { "name":"Salt", "isOptional":"true", "replaceableWith": "" , "ratio":""}
+         ]
       },
       {
          "name"        : "Spiced Couscous",
-         "prepInst"    : [ "" ],
-         "categories"  : [{"name":"Mediterranean"}, {"name":"Rice Dish"}, {"name":"Under 30 Minutes"}],
+         "prepInst"    : "",
+         "categories"  : [{"name":"Mediterranean"}, {"name":"Rice Dish"}, {"name":"Under 30"}],
          "equipment"   : ["Large Round Pan", "Stove", "Baking Dish", "Oven"],
-         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": [ "" ], "ratio":"" }],
+         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": "", "ratio":"" }]
       },
       {
          "name"        : "Makeshift 'Mexican' Rice",
-         "prepInst"    : [ "" ],
-         "categories"  : [{"name":"Vegetarian"},{"name":"Mexican"}, {"name":"Rice Dish"}, {"name":"Under 30 Minutes"}, {"name":"Western"}],
+         "prepInst"    : "",
+         "categories"  : [{"name":"Vegetarian"},{"name":"Mexican"}, {"name":"Rice Dish"}, {"name":"Under 30"}, {"name":"Western"}],
          "equipment"   : ["Stock Pot", "Stove"],
-         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": [ "" ], "ratio":"" }],
+         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": "", "ratio":"" }]
       },
       {
          "name"        : "",
-         "prepInst"    : [ "" ],
+         "prepInst"    : "",
          "categories"  : [{"name":""}],
          "equipment"   : ["" ],
-         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": [ "" ], "ratio":"" }],
+         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": "", "ratio":"" }]
       }
    ]
+   }

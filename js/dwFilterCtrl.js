@@ -14,13 +14,16 @@ DinnerWizardApp.controller('filterController', function($scope, $http, persisten
       $scope.buttonClass = "filtStyle";
     
       $scope.temp = '' ;
-       $http.get("data/recipesTest2.json").success(function(data){
-         $scope.recipes = data.RECIPES; //assign the array of objects called
-       //RECIPES in the json file to a variable named recipes
+      $http.get("data/recipes.json").success(function(data) {
+         $scope.recipes = data.recipes; //assign the array of objects called
+         //RECIPES in the json file to a variable named recipes
+        
+      });
+      $http.get("data/recipesTest2.json").success(function(data) {
          $scope.ingredients = data.INGREDIENTS; //assign the array of objects called
-       //INGREDIENTS in the json file to a variable named ingredients
-        $scope.filterList = data.TAGS; //assign the array of objects called
-       //Tags in the json file to a variable named ingredients
+         //INGREDIENTS in the json file to a variable named ingredients
+         $scope.filterList = data.TAGS; //assign the array of objects called
+         //Tags in the json file to a variable named ingredients
       });
      
       /* call mutators for the arrays stored 'globally' in a service*/
