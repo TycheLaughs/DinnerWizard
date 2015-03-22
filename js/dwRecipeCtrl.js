@@ -4,6 +4,8 @@
 * 91.462 GUI Programming II, Prof. Heines, University of Massachusetts Lowell
 * Created:  3/18/2015 by Susan Souza for use in the Dinner Wizard application
 * Re-factored into separate files 3/18/2015. See dwScript.js for earlier revision notes.
+* Modified: 3/22/2015 by Susan Souza to add a quick little variable to reflect display changes 
+* to the box above Procedure when a recipe is selected from the accordion.
 */
 DinnerWizardApp.controller('recipesController', function($scope, $http, persistentService)
    {
@@ -34,6 +36,11 @@ DinnerWizardApp.controller('recipesController', function($scope, $http, persiste
      $scope.showRecipe = function(recipe){
          console.log( recipe +' clicked.');
          $scope.showMeRecipe = recipe;
-
+         $scope.insert = recipe + " Ratio chart here";
+      };
+      
+      $scope.substitutions = function(clicked){
+      
+      
       };
 	});
