@@ -529,7 +529,6 @@
         private function exists( $strValue, $strTable, $strIdentifier = "id" )
         {
 
-
             if( $strIdentifier == 'id' )
             {
                 //SELECT * from $strTable WHERE id = '$strValue'
@@ -550,7 +549,11 @@
             {
                 return FALSE;
             }
+
         }
+
     }
+
+
 
 ?>
