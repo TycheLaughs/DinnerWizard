@@ -6,13 +6,40 @@ Update date:
         Tommy Leedberg - 3/03/2015 - Updated tables in accordance to Matts suggestions.
         Tommy Leedberg - 3/12/2015 - Updated tables to include the categoryID in the map tables and added an error
                                      table.
+	Matthew Szekely- 3/18/2015 - Updated tables to include mapIDs where necessary as well as ingredient_tags,
+                                     recipe_filter_categories, recipe_filter_category_tag_map, and recipe_tags.
+                                     Removed tags; split it into recipe_tags and ingredient_tags.
 
 ingredients( id, name )
-tags( id, name, isFilterable )
 recipes( id, name, prepInst )
 equipment( id, name )
-recipe_equipment_map( recipeID, equipmentID )
-ingredient_recipe_map( ingredientID, recipeID, isOptional, replaceableCategory )
-ingredient_tag_map( ingredientID, tagID, categoryID )
-recipe_tag_map( recipeID, tagID, categoryID )
-error_log( id, timestamp, level, description ) ;
+recipe_equipment_map( mapID, recipeID, equipmentID )
+recipe_ingredient_map( mapID, recipeID, ingredientID, isOptional, replaceableCategory )
+ingredient_tag_map( mapID, ingredientID, tagID, categoryID )
+recipe_tag_map( mapID, recipeID, tagID, categoryID )
+error_log( id, timestamp, level, description )
+ingredient_tags( tagID, tagName, isFilterable )
+recipe_filter_categories( categoryID, categoryName)
+recipe_filter_category_tag_map( mapID, categoryID, tagID )
+recipe_tags( tagID, tagName )
+
+
+
+
+Notes about various tables:
+
+ingredient_tags: Shows what broad categories an ingredient can fall under.  For example, spinach can fall under "vegetable" and "green vegetable". Ingredient tags are used both to determine appropriate ingredient substitutions for recipes that use them, and, if the tag has isFilterable set to true, used to create categories on the main page from which to choose ingredients.  A separate ingredient_categories table was not made because in this case, unlike with recipes, categores are just a subset of tags.  In the case of recipes, categories are completely different from tags.
+
+ingredient_tag_map: Shows which ingredients use which tags. 
+
+recipe_equipment_map: Shows which recipes use which equipment.
+
+recipe_filter_categories: A list of all recipe filters "types" that appear on the recipe filter page.  For example, "flavors", "dishes", etc.
+
+recipe_filter_category_tag_map: Shows which categories contain which tags.  For example, category "other" contains tag "under 30 minutes".  Category "dishes" contains "casserole".  And so on.
+
+recipe_ingredient_map: Shows which recipes use which ingredients. isOptional notes whether or not the ingredient can be ignored. replaceableTagID, if it is not null, shows which broad category of ingredients this ingredient can be replaced with.
+
+recipe_tags: All tags that can be applied to a recipe, such as "Mexican" or "Under 30 Minutes"
+
+recipe_tag_map: Shows which recipes use which tags

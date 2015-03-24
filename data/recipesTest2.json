@@ -477,6 +477,30 @@
          ]
       },
       {
+         "Category":"Equipment",
+         "Contents": [
+            "Blender",
+            "Food Processor",
+            "Stovetop",
+            "Flamethrower",
+            "Oven",
+            "Knives and Cutting Board",
+            "Bowl",
+            "Large Frying Pan",
+            "Large Rounded Pan/Wok",
+            "Saucepan",
+            "Spatula (Flat)",
+            "Spatula (Offset)",
+            "Spoon",
+            "Toaster",
+            "Toaster Oven",
+            "Microwave Oven",
+            "Freezer",
+            "Egg Beater"
+            ]
+      },
+      
+      {
          "Category":"Other",
          "Contents": [
             "Vegetarian",
