@@ -1,31 +1,44 @@
 <?php
 
+    namespace db_lib ;
+    use mysqli ; //import the mysqli class
+
+    //DATABASE INFORMATION
+    define( "_HOST",     "localhost" );
+    define( "_USERNAME", "root" );
+    define( "_PASSWORD", "" );
+    define( "_DATABASE", "dinnerwizard" ) ;
+
+    //TABLE DEFINES
+    define( "TABLE_EQUIPMENT",             "equipment" )  ;
+    define( "TABLE_ERROR_LOG",             "error_log" );
+    define( "TABLE_INGREDIENT_TAG_MAP",    "ingredient_tag_map" );
+    define( "TABLE_INGREDIENT_TAGS",       "ingredient_tags" );
+    define( "TABLE_INGREDIENTS",           "ingredients" );
+    define( "TABLE_RECIPE_EQUIPMENT_MAP",  "recipe_equipment_map" );
+    define( "TABLE_RECIPE_CATEGORIES",     "recipe_filter_categories" );
+    define( "TABLE_CATEGPRY_TAG_MAP",      "recipe_filter_category_tag_map" );
+    define( "TABLE_RECIPE_INGREDIENT_MAP", "recipe_ingredient_map" );
+    define( "TABLE_RECIPE_TAG_MAP",        "recipe_tag_map" );
+    define( "TABLE_RECIPE_TAGS",           "recipe_tags" );
+    define( "TABLE_RECIPES",               "recipes" ) ;
+
+    //ERROR LEVEL DEFINES
+    define( "ERROR", "error" ) ;
+    define( "INFO",  "information" ) ;
+    define( "WARN",  "warning" ) ;
+
     class db_lib
     {
 
         //database connection information
         private $conn = NULL;
-        private $_HOST = 'localhost';
-        private $_USERNAME = 'tommy';
-        private $_PASSWORD = 'p@ssw0rd';
-        private $_DATABASE = 'dinnerwizard';
 
         //variable to let us know if we have a connection or not
         private $connected = false ;
 
-        //table defines
-        private $mTable_Equipment = "equipment";
-        private $mTable_ErrorLog = "error_log";
-        private $mTable_IngredientTagMap = "ingredient_tag_map";
-        private $mTable_IngredientTags = "ingredient_tags";
-        private $mTable_Ingredients = "ingredients";
-        private $mTable_RecipeEquipmentMap = "recipe_equipment_map";
-        private $mTable_RecipeCategories = "recipe_filter_categories";
-        private $mTable_CategoryTagMap = "recipe_filter_category_tag_map";
-        private $mTable_RecipeIngredientMap = "recipe_ingredient_map";
-        private $mTable_RecipeTagMap = "recipe_tag_map";
-        private $mTable_RecipeTags = "recipe_tags";
-        private $mTable_Recipes = "recipes";
+        //member variable containing the path to the allRecipes.json file
+        private $mPath_AllRecipesJSON = "../data/allRecipes.json" ;
 
         //The most used queries for sustainability and easy formatting
         private $mQuery_SelectAll = "SELECT * FROM %s";                                                       //SELECT * FROM <tableName>
@@ -39,6 +52,9 @@
         //Going to use these data members at some point
         //private $filterObj = [] ;
         //private $updateObj = [] ;
+
+        //An array that will hold all of the recipes in the database -- NOTE: this may be removed after refactoring
+        private $mJSON_AllRecipes = [] ;
 
         /**
          * Summary:
@@ -69,13 +85,15 @@
             //if we arent already connected then lets get a database connection going
             if( !$this->connected )
             {
-                $this->conn = new mysqli( $this->_HOST, $this->_USERNAME, $this->_PASSWORD, $this->_DATABASE );
+                $this->conn = new mysqli( _HOST, _USERNAME, _PASSWORD, _DATABASE );
 
                 //Create any connection error warnings
                 if( $this->conn->connect_error )
                 {
-                    //set error information for debugging if we fail to connect
-                    die( "Failed to connect to server with error: " . $this->conn->connect_error );
+                    $errorMsg = "Failed to connect to the server with the following error: " . $this->conn->connect_error ;
+                    //Print the error to the screen and then log it
+                    echo $errorMsg ;
+                    $this->logError( $errorMsg, ERROR ) ;
                 }
 
                 $this->connected = true;
@@ -152,7 +170,7 @@
 
             print_r( $recipeList ) ;
 
-            //json_encode( getFilterResponse( $recipeList ) );
+            $this->buildFilterResponse( $recipeList ) ;
             return $recipeList;
 
         }
@@ -180,7 +198,7 @@
             {
                 case "ingredientTags":
                 {
-                    $mapTable = $this->mTable_RecipeIngredientMap;
+                    $mapTable = TABLE_RECIPE_INGREDIENT_MAP ;
                     $mapAttribute = "ingredientID";
                     break;
                 }
@@ -191,7 +209,7 @@
                 }
                 case "equipment":
                 {
-                    $mapTable = $this->mTable_RecipeEquipmentMap;
+                    $mapTable = TABLE_RECIPE_EQUIPMENT_MAP ;
                     $mapAttribute = "equipmentID";
                     break;
                 }
@@ -310,9 +328,24 @@
             }
         }
 
-        function getFilterResponse( $filterList )
+        /**
+         * Summary:
+         *      This method will take in a filterList that contains recipe id's and then from there get all of the
+         *      recipes that are in the database that match those ids.
+         * @param $filterList
+         *      The list of recipe ID's we are going to use in order to build the response json
+         * @return array
+         *      A json encoded array of all the recipes we found based on the filter
+         */
+        function buildFilterResponse( $filterList )
         {
 
+            $recipeList = [] ;
+            $this->getRecipes() ;
+
+            print_r( $this->mJSON_AllRecipes ) ;
+
+            return json_encode($recipeList, JSON_PRETTY_PRINT ) ;
         }
 
         function buildFullRecipeList()
@@ -452,7 +485,7 @@
 
             // And we're done.
             echo json_encode($result, JSON_PRETTY_PRINT);
-            storeRecipes( json_encode( $result, JSON_PRETTY_PRINT ) ) ;
+            $this->storeRecipes( json_encode( $result, JSON_PRETTY_PRINT ) ) ;
 
         }
 
@@ -465,9 +498,52 @@
         private function storeRecipes( $recipeJSON )
         {
 
-            $recipeJsonFile = fopen("../data/allRecipes.json", "w") or die("Unable to open file!");
-            fwrite($recipeJsonFile, $recipeJSON);
-            fclose($recipeJsonFile);
+            if( ( $recipeJsonFile = fopen( $this->mPath_AllRecipesJSON, "w" ) ) != FALSE )
+            {
+                fwrite( $recipeJsonFile, $recipeJSON );
+                fclose( $recipeJsonFile );
+            }
+            else
+            {
+                //Log an Error.
+            }
+
+        }
+
+        /**
+         * Summary:
+         *      This method is called when we want to read and store all of the recipes that live in the allRecipes.json
+         *      file.
+         */
+        private function getRecipes()
+        {
+
+            if( ( $recipeJsonFile = fopen( $this->mPath_AllRecipesJSON, "r" ) ) != FALSE )
+            {
+                $this->mJSON_AllRecipes = fread( $recipeJsonFile, filesize( $this->mPath_AllRecipesJSON ) );
+                fclose( $recipeJsonFile );
+            }
+            else
+            {
+                $this->logError( "Failed to read allRecipes.json", ERROR ) ;
+            }
+
+        }
+
+        /**
+         * Summary:
+         *          Get the current timestamp and then insert the error into the database for logging purposes
+         * @param $description
+         *          A description of the error
+         * @param $level
+         *          The error type, either Error, Warn, or Information
+         */
+        private function logError( $description, $level )
+        {
+
+            $currentTime = date("Y-m-d H:i:s"); //set the timestamp to the current time, use the mySQL format
+            $logQuery = "INSERT INTO error_log( timestamp, level, description ) VALUES( %s %s %s)" ;
+            $this->conn->query( sprintf( $logQuery, $currentTime, $level, $description ) ) ;
 
         }
 

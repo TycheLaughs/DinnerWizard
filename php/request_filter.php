@@ -1,5 +1,7 @@
 <?php
+    //This file is probably going to be temporary when i create a get/post response functions in the db_lib class
 
+    namespace db_lib ;
     include 'db_lib.php';
 
     //$data = json_decode(file_get_contents("php://input"));

@@ -18,7 +18,7 @@ SET time_zone = "+00:00";
 --
 
 CREATE TABLE IF NOT EXISTS `error_log` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL PRIMARY KEY AUTO_INCREMENT,
   `timestamp` DATETIME NOT NULL,
   `level` varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,
   `description` text NOT NULL
