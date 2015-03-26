@@ -13,7 +13,8 @@ DinnerWizardApp.controller('recipesController', function($scope, $http, persiste
       $scope.message = 'Recipe View';
       $scope.oneAtATime = true;
       $scope.showMeRecipe = '';
-
+      $scope.subs = false;
+     
       $scope.buttonClass = "recStyle";
 
       $scope.tags = persistentService.Tags()
@@ -39,10 +40,15 @@ DinnerWizardApp.controller('recipesController', function($scope, $http, persiste
          console.log( recipe +' clicked.');
          $scope.showMeRecipe = recipe;
          $scope.insert = recipe + " Ratio chart here";
+         $scope.subs = false;
       };
       
-      $scope.substitutions = function(clicked){
-      
-      
+      $scope.substitutions = function(clickedI){
+         $scope.subs = true;
+         console.log('clicked ' + clickedI +' in ' + $scope.showMeRecipe + $scope.subs);
+         $scope.clickedIngr = clickedI;
+         
+        //$scope.insert = '<div ng-repeat="rec in recipes| filter: {name:showMeRecipe}:true"><ul ng-repeat="ingr in rec.ingredients"><li class ="rec" ng-repeat="item in ingr.replaceableWith">{{item}}</li></ul></div>';
       };
+      
 	});

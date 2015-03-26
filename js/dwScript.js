@@ -61,7 +61,11 @@ DinnerWizardApp.config(function($routeProvider) {
       });
 })
 
-
+.filter("magic", ['$sce', function($sce) {
+        return function(htmlCode){
+            return $sce.trustAsHtml(htmlCode);
+        }
+}]);
 
 
 // create each controller and inject Angular's $scope

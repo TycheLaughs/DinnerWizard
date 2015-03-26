@@ -37,3 +37,4 @@ Equipment
 Other
    Under 30
    Vegetarian
+   Spicy
