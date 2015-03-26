@@ -65,7 +65,7 @@ Modified: 3/18/2015 by Susan Souza to add a pipe in between recipe tags in each 
       <div class="col-xs-0 col-sm-1"></div><!--spacer column; hidden on smaller screens-->
       <div class="col-xs-5  tagsList">Your search:
        <ul class = "actualTagsList">
-         <li ng-repeat= "tag in tags" style="list-style-type: none" ><span class ="tags" ng-class="{'without': tag.substr(0,3)=== 'NO ', 'equip': tag.substr(0,4)== 'Use ', 'flavor': tag == 'Mexican' || tag == 'Chinese' || tag == 'Italian' ||tag == 'Southeast Asian' || tag == 'Western' || tag == 'Mediterranean', 'other': tag =='Vegetarian' || tag =='Under 30 Minutes' || tag == 'Cost Cutter', 'noStyle': tag === 'No Search Filters Selected'}">{{tag.name}}</span></li>
+         <li ng-repeat= "tag in tags" style="list-style-type: none" ><span class ="tags" ng-class="{'without': tag.substr(0,3)=== 'NO ', 'equip': tag.substr(0,4)== 'Use ', 'flavor': tag == 'Mexican' || tag == 'Chinese' || tag == 'Italian' ||tag == 'Southeast Asian' || tag == 'Western' || tag == 'Mediterranean', 'other': tag =='Vegetarian' || tag =='Under 30 Minutes' || tag == 'Cost Cutter', 'noStyle': tag === 'No Search Filters Selected'}">{{tag}}</span></li>
        </ul>
       </div>
    </div>
