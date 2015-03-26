@@ -31,7 +31,7 @@
    left: 52px;
 }
 
-#ingredientSearch{
+#ingredientSearch{ /* this styles the input block for the searchbar*/
    display:inline-block;
    border: none;
    width: 240px;
@@ -40,51 +40,55 @@
    border-radius: 8px; 
 }
 
-#searchAdd{
+#searchAdd{ /* div containing both the search bar and the glyphicon*/
    display:inline-block;
 }
 
-@media(max-width: 1400px){
+@media(max-width: 1400px){ /* this to correct weird shifting */
    #ingredientSearch{
       width: 160px;
    }
 }
-.glyphicon-search{
+.glyphicon-search{ /*style the magnifying glass glyphicon*/
    color: powderblue;
    cursor:default;
    right: 20px;
 }
-.contentContainer{
+.contentContainer{ /*a general dashed-line container to show positioning while working on styling and layout*/
    border: 1px dashed black;
 }
+
 div{
    margin-top: 2px;
    margin-bottom: 3px;
 }
 
-li:hover{
+li:hover{   /*most list items are interactive, so here's something to show that without the ugly underline*/
    font-weight: bold;
    cursor: pointer;
 }
-#recListing{
+
+#recListing{ /*a box to which we add a scrollbar if there are too many recipes to fit nicely on the page*/
    overflow-y: auto;
    height: 600px;
    min-width: 350px;
    max-width: 380px;
 }
 .inv li:hover, .filt li:hover{
-   cursor: pointer;
+   cursor: pointer; /* re-emphasising interactivity on these specific list items in filter and inventory view*/
 }
 .rec li:hover, .procedureBox li:hover{
    font-weight:normal;
-   cursor: default;
+   cursor: default;  /* list items in recipe procedure are not interactive, so we get rid of special list styling for those */
 }
 .inv li a:hover, .filt li a:hover{
    text-decoration: none;
    font-weight: bold;
+   /* here we make sure that that link underline doesn't show up*/
 }
 .optional{
-    cursor: pointer;
+   cursor: pointer;
+    /*temporary styling for optional ingredients*/
 }
 body { 
    padding-top:5px;
@@ -99,6 +103,7 @@ body {
    }
 }
 
+/*slightly temporary rules for an attempt at different color #recipes button on each view. Under construction.*/
 .filtStyle{
    color: #f8b30e; /* dark yellow */
 }
@@ -109,10 +114,12 @@ body {
    color: #065195; /* dark blue*/
 }
 
+/*some extra overrides for bootstrap's container-fluid to sit properly in this particular layout*/
 .container-fluid{
    padding-left: 5px;
    padding-right: 5px;
 }
+/*initial styling for all buttons. needs review*/
 .roundEdges{
    border: 1px solid lightgray;
    border-radius: 12px;
@@ -125,13 +132,15 @@ body {
    background-color: #ebebfb;
 }
 
+/*styling for the right-hand column of each view.  */
 .rightColumn{
    height: 550px;
    padding-right: 5px;
 }
+
+/*some adjustments to follow depending on screen width*/
 @media (max-width: 500px) {
    body{
-
     font-size: 1em;
     }
 
@@ -145,11 +154,14 @@ body {
    }
 }
 
+/*again re-interating that we want a pointer over links */
 a:hover{
    cursor: pointer;
 
 }
-.tagsList{
+
+
+.tagsList{ /* style the container around the list of user-selected filters in the recipe view*/
    height: 200px;
    font-size:.85em;
    padding-left: 0px;
@@ -164,29 +176,34 @@ a:hover{
    */
 } 
 
+/*style the list items for the user-selected filters in the recipe view*/
 .actualTagsList{
    padding-left:0px; 
 }
-
+/*style for the list of tags associated with a selected recipe, displayed above procedure*/
 .hScroll{
    overflow-x: auto;
    max-height: 25px;
 }
-
+/*add a curved-corner, thick, darker yellow dashed line to the box that displays all sorts of information (like ratio charts) above procedure*/
 .infoBox{
    height: 200px;
    border: 4px dashed #f8b30e; /* dark yellow */
    border-radius: 9px;
 }
 
+/*make the box in which recipe procedure sits have a fixed height and scroll when the procedure is too large to fit.*/
 .procedureBox{
    height: 325px;
    overflow-y: auto;
 }
 
+/*some minor spacing adjustments for the list of user-selected filters in the recipe view*/
 .actualTagsList li{
    margin: 2px;
 }
+
+/* 'default' styling for tags. color selection actually matches that of 'Dish' tags.*/
 .tags{
    padding-left: 2px;
    padding-right: 2px;
@@ -198,6 +215,7 @@ a:hover{
    background-color: #d9ffff; /*pale blue*/
    font-size: 1.1em;
 }
+/* change colors to orange for Flavor*/
 .flavor{
    color: #be6201; /*orange*/
    border: 1px solid #be6201;
@@ -224,14 +242,16 @@ a:hover{
    border: 1px solid #8d1801; 
    background-color: #ebebfb; /*very pale bluish gray*/ #e6ebef; /* pale gray*/
 }
+/*if, instead of a tag, this is something else displayed in any of the tag lists, remove all the relevant 'tag' styling.*/
 .noStyle{
    border: none;
    color: black;
    background-color: #fff;
 }
 
+/* more link styling.  Could possibly combine some of this with earlier rules.  Next pass.*/
 a:link{
-   text-decoration:none;
+   text-decoration:none;/*remove the dashed line box around clicked areas*/
    outline: none;
 }
 
@@ -252,7 +272,7 @@ a:active{
 }
 
 
-.optional{
+.optional{/* this needs combination with earlier .optional rules. */
     cursor: pointer;
 }
 .optional:hover{
@@ -287,7 +307,7 @@ h4.panel-title{
 }
 .rec h4.panel-title{
    font-size: 1.3em;
-}
+}/* make sure three full tags can fit in an accordion header, above and below*/
 .rec h4.panel-title ul{
    padding-left: 0px;
    margin-left: -8px;
@@ -316,7 +336,7 @@ h4.panel-title{
    font-family: sans-serif;
    text-decoration:none;
 }
-
+/* set color choices for each accordion header*/
 .inv >.panel-group >.panel-default >.panel-heading{
    background-color: #f8b30e; /* dark yellow */
    color: white;
@@ -346,7 +366,7 @@ div.panel-body{
    padding: 2px;
    padding-left: 15px;
 }
-/* end styling accordions*/
+/***** end styling accordions*******/
 
 /* splash screen and its fade in/out animations*/
 .splash {

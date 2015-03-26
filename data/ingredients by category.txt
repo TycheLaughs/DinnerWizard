@@ -1,0 +1,124 @@
+Alternate Protein:
+   Beans
+   Cheese
+   Eggs
+   Lentils
+   Tofu
+   Peanuts
+   Peanut Butter
+   Slivered Almonds
+   Chickpeas
+
+Meat:
+   Chicken
+   Beef
+   Ground Beef
+   Ground Lamb
+   Ground Pork
+   Ground Turkey
+   Lamb
+   Pork
+   
+   
+Seafood:
+   Fish
+   Imitation Crabmeat
+   Scallops
+   Shrimp
+   
+Starch:
+   Bread
+   Couscous
+   Rice
+   Potatoes
+   Pitas
+   Corn
+
+Vegetables:
+   Brussels Sprouts
+   Onion
+   Leek
+   Scallion
+   Shallot
+   Spinach
+   Asparagus
+   Broccoli
+   Cauliflower
+   Zucchini
+   Mushrooms
+   Bell Peppers
+   Green Beans
+   Pea Pods
+   Bean Sprouts
+   Bok Choy
+   Napa Cabbage
+   Cabbage
+   Hot Peppers
+   Kale
+   Escarole
+   Broccoli Rabe
+   Tomatoes
+   Acorn Squash
+   Hubbard Squash
+   Pumpkin
+   Beets
+   Turnips
+   Parsnips
+   Carrots
+
+Spices and Herbs:
+   Garlic
+   Caraway Seeds
+   Cayenne
+   Chipotle Powder
+   Coriander
+   Cilantro
+   Parsley
+   Salt
+   Black Pepper
+   Cumin
+   Cinnamon
+   Rosemary
+   Oregano
+   Thyme
+   Paprika
+   Nutmeg
+
+Odds and Ends:
+   Butter
+   Cornstarch
+   Flour
+   Milk
+   Sugar
+   Water
+   Breadcrumbs
+
+   Olive Oil
+   Vegetable Oil
+   Canola Oil
+   Peanut Oil
+   Sesame Oil
+   Sunflower Oil
+   Soy Sauce
+   Fish Sauce
+   Oyster Sauce
+   
+   Dates
+   Dried Figs
+   Dried Apricots
+   Golden Raisins
+   Greek Olives
+   Oranges
+   Pineapple
+   Lemon
+
+Pre-Made:
+   Tomato Sauce
+   Broth
+   Velveted Meat
+   Pressed Tofu
+   Cream Sauce
+   Roasted Mushrooms
+   Roasted Peppers
+   Roasted Eggplant
+   

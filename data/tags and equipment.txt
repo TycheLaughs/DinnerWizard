@@ -1,0 +1,39 @@
+Flavor
+   Chinese
+   Italian
+   Western
+   Italian
+   Mediterranean
+   Southeast Asian
+   
+
+Dishes
+   Casserole
+   Pasta
+   Rice Dish
+   Meat and Starch
+   Soup
+   Stew
+   Stir Fry
+   Snack
+   Other
+
+Equipment
+   Colander
+   Baking Dish
+   Baking Sheet
+   Food Processor
+   Stock Pot
+   Medium Pot
+   Frying Pan
+   Large Round Pan
+   Slotted Spoon
+   Stove
+   Oven
+   Grater
+   Gallon Plastic Bag
+   
+
+Other
+   Under 30
+   Vegetarian
