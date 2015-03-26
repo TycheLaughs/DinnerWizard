@@ -33,9 +33,9 @@
         private $mQuery_InsRecipesTable    = "INSERT INTO recipes( id, name, prepInst ) VALUES ( '%d', '%s', '%s' ) "; //INSERT INTO recipes( id, name, prepInst ) VALUES( <id>, <name>, <prepInst> )
         private $mQuery_InsMapTable        = "INSERT INTO %s( id, id) VALUES( '%d', '%d')";                            //INSERT INTO <table>( id, id ) VALUES( <id>, <id> ) ;
 
-        private $filterObj = [] ;
-        private $updateObj = [] ;
-
+        //Going to use these data members at some point
+        //private $filterObj = [] ;
+        //private $updateObj = [] ;
 
         /**
          * Summary:
@@ -54,13 +54,40 @@
 
         }
 
+        /**
+         * Summary:
+         *      The only thing the destructor really needs to do is close the connection to make sure we are
+         *      being clean.
+         */
+        function  __destruct()
+        {
+            $this->closeConnection() ;
+        }
+
+        /**
+         * Summary:
+         *      Close the connection that was opened.
+         */
         public function closeConnection()
         {
             $this->conn->close();
         }
 
+        /**
+         * Summary:
+         *      This method will call the filter method to build an array of objects that can be passed to the
+         *      create JSON method so we can return the correct recipes
+         * @param $request
+         *      The request containing the filter parameters that should be in the JSON format that is specified in
+         *      the filter_request_schema file in project_documentation/schemas
+         * @return array
+         *      This is going to be a JSON encoded array that will match the required filter_response_schema that is
+         *      provided in project_documentation/schemas
+         */
         public function buildFilterObjects( $request )
         {
+
+            //Test Filter request to be removed when we get the request working from the front end
             $testFilter = ["ingredientTags" => [["id" => 4, "name" => "eggs"]],
                            "recipeTags" => "",
                            "equipment" => [["id" => 9, "name" => "frying pan"]],
@@ -73,43 +100,26 @@
             $withoutFilter = $testFilter["without"] ;
 
 
-            if( $ingredientFilter != "")
+            //If we have there has been a filter provided in each of the fields try to generate an array of the correct
+            //recipes, if you can then add that array to the recipeList.
+            if( $ingredientFilter != "" AND ( $result = $this->filter( $ingredientFilter, "ingredientTags" ) ) != NULL )
             {
-
-                if( ( $result = $this->filter( $ingredientFilter, "ingredientTags" ) ) != "" )
-                {
                     array_push( $recipeList, $result );
-                }
-
             }
-            if( $recipeFilter != "" )
+            if( $recipeFilter != "" AND ( $result = $this->filter( $recipeFilter, "recipeTags" ) ) != NULL)
             {
-
-                if( ( $result = $this->filter( $recipeFilter, "recipeTags" ) ) != "" )
-                {
-                    array_push( $recipeList, $result );
-                }
-
+                array_push( $recipeList, $result );
             }
-            if($equipmentFilter != "" )
+            if( $equipmentFilter != "" AND ( $result = $this->filter( $equipmentFilter, "equipment" ) ) != NULL )
             {
-
-                if( ( $result = $this->filter( $equipmentFilter, "equipment" ) ) != "" )
-                {
-                    array_push( $recipeList, $result );
-                }
-
+                array_push( $recipeList, $result );
             }
-/*if( count($withoutFilter) > 0 )
+            if( $withoutFilter != "" AND ( $result = $this->filter( $withoutFilter, "without" ) ) != NULL )
             {
-                if( ( $result = $this->filter( $withoutFilter, "without" ) ) != "" )
-                {
-                    array_push( $recipeList, $result );
-                }
-            }*/
+                array_push( $recipeList, $result );
+            }
 
-            return $recipeList ;
-
+            return json_encode( $recipeList ) ;
 
         }
 
@@ -129,7 +139,7 @@
             {
                 case "ingredientTags":
                 {
-                    $mapTable = $this->mTable_IngredientRecipeMap ;
+                    $mapTable = $this->mTable_RecipeIngredientMap ;
                     $mapAttribute = "ingredientID" ;
                     break ;
                 }
@@ -222,7 +232,7 @@
          *      An identifier telling us if we are checking for an id or a name.
          *
          * @return bool
-         *      True if we found the value and false if we didn't
+         *      True if we found the value and false if we did not
          */
         private function exists( $strValue, $strTable, $strIdentifier = "id" )
         {

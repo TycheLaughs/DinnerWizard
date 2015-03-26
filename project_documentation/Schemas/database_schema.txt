@@ -10,6 +10,7 @@ Update date:
                                      recipe_filter_categories, recipe_filter_category_tag_map, and recipe_tags.
                                      Removed tags; split it into recipe_tags and ingredient_tags.
 
+
 ingredients( id, name )
 recipes( id, name, prepInst )
 equipment( id, name )
@@ -18,12 +19,10 @@ recipe_ingredient_map( recipeID, ingredientID, isOptional, replaceableCategory )
 ingredient_tag_map( ingredientID, tagID, categoryID )
 recipe_tag_map( recipeID, tagID, categoryID )
 error_log( id, timestamp, level, description )
-ingredient_tags( tagID, tagName, isFilterable )
-recipe_filter_categories( categoryID, categoryName)
+ingredient_tags( id, name, isFilterable )
+recipe_filter_categories( id, categoryName)
 recipe_filter_category_tag_map( categoryID, tagID )
-recipe_tags( tagID, tagName )
-
-
+recipe_tags( id, name )
 
 
 Notes about various tables:
