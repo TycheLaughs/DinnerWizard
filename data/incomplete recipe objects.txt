@@ -1,0 +1,48 @@
+      
+      various fragments that need a little extra thought
+      
+      {
+         "name"        : "Spiced Couscous",
+         "prepInst"    : "",
+         "categories"  : [{"name":"Mediterranean"}, {"name":"Rice Dish"}, {"name":"Under 30"}],
+         "equipment"   : ["Large Round Pan", "Stove", "Baking Dish", "Oven"],
+         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": "", "ratio":"" }]
+      },
+      {
+         "name"        : "Malay Style Curry",
+         "prepInst"    : "",
+         "categories"  : [{"name":"Southeast Asian"}, {"name":"Stew"}, {"name":"Rice Dish"}],
+         "equipment"   : ["Large Round Pan", "Stove"  ],
+         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": "" , "ratio":""}]
+      },
+      {
+         "name"        : "Thai Style Curry",
+         "prepInst"    : "",
+         "categories"  : [{"name":"Southeast Asian"}, {"name":"Stew"}, {"name":"Rice Dish"}],
+         "equipment"   : ["Large Round Pan", "Stove"],
+         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": "" , "ratio":""}]
+      },
+      {
+         "name"        : "Misc. Curry",
+         "prepInst"    : "",
+         "categories"  : [{"name":"Southeast Asian"}, {"name":"Stew"}, {"name":"Rice Dish"}],
+         "equipment"   : ["Large Round Pan", "Stove" ],
+         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": "" , "ratio":""}]
+      },
+      
+    ,
+      {
+         "name"        : "Makeshift 'Mexican' Rice",
+         "prepInst"    : "",
+         "categories"  : [{"name":"Vegetarian"},{"name":"Mexican"}, {"name":"Rice Dish"}, {"name":"Under 30"}, {"name":"Western"}],
+         "equipment"   : ["Stock Pot", "Stove"],
+         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": "", "ratio":"" }]
+      }  
+      
+      {
+         "name"        : "",
+         "prepInst"    : "",
+         "categories"  : [{"name":""}],
+         "equipment"   : ["" ],
+         "ingredients" : [{ "name":"", "isOptional":"", "replaceableWith": "", "ratio":"" }]
+      }
