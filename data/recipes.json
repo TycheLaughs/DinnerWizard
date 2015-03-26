@@ -19,10 +19,10 @@
             ],
          "equipment"   : ["Stove", "Large Pan", "Stock Pot", "Colander"],
          "ingredients" : [
-            {"name": "Pasta", "isOptional":"false", "replaceableWith": "", "ratio":40}, 
-            {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Butter", "Canola Oil", "Vegetable Oil" ], "ratio":12}, 
-            {"name": "Garlic", "isOptional":"false", "replaceableWith": "", "ratio":8}, 
-            {"name": "Cauliflower", "isOptional":"true", "replaceableWith": [ "Broccoli","Brussels Sprouts", "Asparagus", "Zucchini", "Mushrooms", "Roasted Mushrooms" ] , "ratio":40},
+            {"name": "Pasta", "isOptional":"false", "replaceableWith": "", "ratio":"40"}, 
+            {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Butter", "Canola Oil", "Vegetable Oil" ], "ratio":"12"}, 
+            {"name": "Garlic", "isOptional":"false", "replaceableWith": "", "ratio":"8"}, 
+            {"name": "Cauliflower", "isOptional":"true", "replaceableWith": [ "Broccoli","Brussels Sprouts", "Asparagus", "Zucchini", "Mushrooms", "Roasted Mushrooms" ] , "ratio":"40"},
             {"name": "Chili Flakes", "isOptional":"true", "replaceableWith": "" , "ratio":""}
             ]
       },
@@ -45,12 +45,12 @@
             ],
          "equipment"   : ["Stove", "Large Round Pan", "Stock Pot", "Colander"],
          "ingredients" : [
-            {"name": "Pasta", "isOptional":"false", "replaceableWith": "", "ratio":35}, 
-            {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Butter", "Canola Oil", "Vegetable Oil" ], "ratio": 5}, 
-            {"name": "Garlic", "isOptional":"false", "replaceableWith": "", "ratio":5}, 
-            {"name": "Kale", "isOptional":"false", "replaceableWith": ["Spinach", "Escarole"] , "ratio":40},
+            {"name": "Pasta", "isOptional":"false", "replaceableWith": "", "ratio":"35"}, 
+            {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Butter", "Canola Oil", "Vegetable Oil" ], "ratio": "5"}, 
+            {"name": "Garlic", "isOptional":"false", "replaceableWith": "", "ratio":"5"}, 
+            {"name": "Kale", "isOptional":"false", "replaceableWith": ["Spinach", "Escarole"] , "ratio":"40"},
             {"name": "Chili Flakes", "isOptional":"true", "replaceableWith": "" , "ratio":""},
-            {"name": "Breadcrumbs", "isOptional": "true", "replacableWith":"", "ratio":15}]
+            {"name": "Breadcrumbs", "isOptional": "true", "replacableWith":"", "ratio":"15"}]
       },
       {
          "name"        : "Quick Pasta 3",
@@ -75,8 +75,8 @@
          "ingredients" : [
             {"name": "Pasta", "isOptional":"false", "replaceableWith": "", "ratio":35}, 
             {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Butter", "Canola Oil", "Vegetable Oil" ] , "ratio":9}, 
-            {"name": "Garlic", "isOptional":"false", "replaceableWith": "", "ratio":9}, 
-            {"name": "Broccoli Rabe", "isOptional":"false", "replaceableWith": "", "ratio":35},
+            {"name": "Garlic", "isOptional":"false", "replaceableWith": "", "ratio":"9"}, 
+            {"name": "Broccoli Rabe", "isOptional":"false", "replaceableWith": "", "ratio":"35"},
             {"name": "Chili Flakes", "isOptional":"true", "replaceableWith": "", "ratio":"" },
             {"name": "Breadcrumbs", "isOptional": "false", "replacableWith":"", "ratio":"12"}]
       },
@@ -98,9 +98,9 @@
             ],
          "equipment"   : ["Stove", "Large Round Pan", "Stock Pot", "Colander", "Grater"],
          "ingredients" : [
-            {"name": "Pasta", "isOptional":"false", "replaceableWith": "", "ratio":45}, 
+            {"name": "Pasta", "isOptional":"false", "replaceableWith": "", "ratio":"45"}, 
             {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Butter", "Canola Oil", "Vegetable Oil" ] , "ratio":""}, 
-            {"name": "Butternut Squash", "isOptional":"false", "replaceableWith":["Acorn Squash","Hubbard Squash", "Pumpkin", "Beets", "Turnips", "Parsnips", "Carrots"], "ratio":55}, 
+            {"name": "Butternut Squash", "isOptional":"false", "replaceableWith":["Acorn Squash","Hubbard Squash", "Pumpkin", "Beets", "Turnips", "Parsnips", "Carrots"], "ratio":"55"}, 
             {"name": "Nutmeg", "isOptional":"true", "replaceableWith": "", "ratio":""},
             {"name":"Black Pepper", "isOptional":"true", "replaceableWith":"", "ratio":""}
            ]
@@ -125,15 +125,15 @@
             ],
          "equipment"   : ["Stove", "Medium Pot"],
          "ingredients" : [
-            {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Butter", "Canola Oil", "Vegetable Oil" ], "ratio":5 }, 
-            {"name": "Onion", "isOptional":"true", "replaceableWith": ["Scallion","Shallot", "Leek"], "ratio":5},
-            {"name": "Garlic", "isOptional":"true", "replaceableWith": "", "ratio":3}, 
-            {"name": "Rosemary", "isOptional":"true", "replaceableWith": ["Oregano", "Thyme"], "ratio":1},
-            {"name": "Rice", "isOptional":"false", "replaceableWith": ["Couscous"], "ratio":30},
-            {"name": "Lentils", "isOptional":"false", "replaceableWith": ["Beans"], "ratio":10},
-            {"name":"Broth", "isOptional":"false", "replaceableWith": ["Water"], "ratio":56},
-            {"name": "Black Pepper", "isOptional":"true", "replaceableWith": "", "ratio":1},
-            {"name": "Salt", "isOptional":"true", "replaceableWith": "", "ratio":1} 
+            {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Butter", "Canola Oil", "Vegetable Oil" ], "ratio":"5" }, 
+            {"name": "Onion", "isOptional":"true", "replaceableWith": ["Scallion","Shallot", "Leek"], "ratio":"5"},
+            {"name": "Garlic", "isOptional":"true", "replaceableWith": "", "ratio":"3"}, 
+            {"name": "Rosemary", "isOptional":"true", "replaceableWith": ["Oregano", "Thyme"], "ratio":"1"},
+            {"name": "Rice", "isOptional":"false", "replaceableWith": ["Couscous"], "ratio":"30"},
+            {"name": "Lentils", "isOptional":"false", "replaceableWith": ["Beans"], "ratio":"10"},
+            {"name":"Broth", "isOptional":"false", "replaceableWith": ["Water"], "ratio":"56"},
+            {"name": "Black Pepper", "isOptional":"true", "replaceableWith": "", "ratio":"1"},
+            {"name": "Salt", "isOptional":"true", "replaceableWith": "", "ratio":"1"} 
          ]
       },
       {
@@ -153,16 +153,16 @@
          "equipment"   : ["Oven", "Baking Dish" ],
          "ingredients" : [
             {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Butter", "Canola Oil", "Vegetable Oil" ], "ratio":2 },
-            {"name": "Bread", "isOptional":"false", "replaceableWith": [ "Rice", "Potatoes", "Pasta", "Couscous" ], "ratio":30 },
-            {"name": "Milk", "isOptional":"false", "replaceableWith": "", "ratio":15 },
-            {"name": "Eggs", "isOptional":"false", "replaceableWith": "", "ratio":7},
-            {"name": "Cheese", "isOptional":"true", "replaceableWith": "", "ratio":5 },
+            {"name": "Bread", "isOptional":"false", "replaceableWith": [ "Rice", "Potatoes", "Pasta", "Couscous" ], "ratio":"30" },
+            {"name": "Milk", "isOptional":"false", "replaceableWith": "", "ratio":"15"},
+            {"name": "Eggs", "isOptional":"false", "replaceableWith": "", "ratio":"7"},
+            {"name": "Cheese", "isOptional":"true", "replaceableWith": "", "ratio":"5" },
             {"name": "Black Pepper", "isOptional":"true", "replaceableWith": "", "ratio":""},
             {"name": "Salt", "isOptional":"true", "replaceableWith": ""}, 
-            {"name": "Roasted Mushrooms", "isOptional":"false", "replaceableWith": [ "Mushrooms", "Roasted Peppers", "Bell Peppers", "Spinach", "Turnips" ], "ratio":20},
-            {"name": "Bell Peppers", "isOptional":"true", "replaceableWith": [ "Mushrooms", "Roasted Peppers", "Tomatoes", "Spinach", "Turnips"], "ratio":20 },
-            {"name": "Onion", "isOptional":"true", "replaceableWith": ["Scallion","Shallot", "Leek"], "ratio":5},
-            {"name": "Garlic", "isOptional":"true", "replaceableWith": "", "ratio":1},
+            {"name": "Roasted Mushrooms", "isOptional":"false", "replaceableWith": [ "Mushrooms", "Roasted Peppers", "Bell Peppers", "Spinach", "Turnips" ], "ratio":"20"},
+            {"name": "Bell Peppers", "isOptional":"true", "replaceableWith": [ "Mushrooms", "Roasted Peppers", "Tomatoes", "Spinach", "Turnips"], "ratio":"20"},
+            {"name": "Onion", "isOptional":"true", "replaceableWith": ["Scallion","Shallot", "Leek"], "ratio":"5"},
+            {"name": "Garlic", "isOptional":"true", "replaceableWith": "", "ratio":"1"},
             {"name": "Rosemary", "isOptional":"true", "replaceableWith": ["Oregano", "Thyme"], "ratio":""},
             {"name": "Chili Flakes", "isOptional":"true", "replaceableWith": "", "ratio":""}
             ]
@@ -183,14 +183,14 @@
          "equipment"   : ["Oven", "Baking Dish", "Stock Pot", "Frying Pan"],
          "ingredients" : [ 
             {"name": "Pasta", "isOptional":"false", "replaceableWith": "", "ratio":50}, 
-            {"name":"Olive Oil", "isOptional":"false", "replaceableWith": ["Butter","Canola Oil","Vegetable Oil"], "ratio":2},         
-            {"name": "Onion", "isOptional":"true", "replaceableWith": ["Scallion","Shallot", "Leek"], "ratio":4},
-            {"name": "Garlic", "isOptional":"false", "replaceableWith": "", "ratio":2},
-            {"name": "Ground Beef", "isOptional":"true", "replaceableWith": [ "Ground Pork", "Ground Lamb", "Ground Turkey"], "ratio":8 },
-            {"name": "Tomatoes", "isOptional":"false", "replaceableWith": [ "Tomato Sauce"] , "ratio":20},
-            {"name": "Roasted Mushrooms", "isOptional":"true", "replaceableWith": [ "Mushrooms", "Roasted Peppers", "Tomatoes", "Spinach"], "ratio":8},
+            {"name":"Olive Oil", "isOptional":"false", "replaceableWith": ["Butter","Canola Oil","Vegetable Oil"], "ratio":"2"},         
+            {"name": "Onion", "isOptional":"true", "replaceableWith": ["Scallion","Shallot", "Leek"], "ratio":"4"},
+            {"name": "Garlic", "isOptional":"false", "replaceableWith": "", "ratio":"2"},
+            {"name": "Ground Beef", "isOptional":"true", "replaceableWith": [ "Ground Pork", "Ground Lamb", "Ground Turkey"], "ratio":"8 "},
+            {"name": "Tomatoes", "isOptional":"false", "replaceableWith": [ "Tomato Sauce"] , "ratio":"20"},
+            {"name": "Roasted Mushrooms", "isOptional":"true", "replaceableWith": [ "Mushrooms", "Roasted Peppers", "Tomatoes", "Spinach"], "ratio":"8"},
             {"name": "Bell Peppers", "isOptional":"true", "replaceableWith": [ "Mushrooms", "Roasted Peppers"], "ratio":"" },
-            {"name": "Cheese", "isOptional":"true", "replaceableWith": "", "ratio":5 },
+            {"name": "Cheese", "isOptional":"true", "replaceableWith": "", "ratio":"5" },
             {"name": "Oregano", "isOptional":"true", "replaceableWith": ["Rosemary", "Thyme"], "ratio":""},
             {"name": "Chili Flakes", "isOptional":"true", "replaceableWith": "", "ratio":""},
             {"name": "Breadcrumbs", "isOptional": "false", "replacableWith":"", "ratio":""}]
@@ -210,15 +210,15 @@
          "equipment"   : ["Oven", "Baking Dish", "Stock Pot" ],
          "ingredients" : [
             {"name": "Pasta", "isOptional":"false", "replaceableWith": 50}, 
-            {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Butter", "Canola Oil", "Vegetable Oil" ], "ratio":3 },
-            {"name": "Onion", "isOptional":"true", "replaceableWith": ["Scallion","Shallot", "Leek"], "ratio":2},
-            {"name": "Garlic", "isOptional":"false", "replaceableWith": "", "ratio":2},
-            {"name": "Chicken", "isOptional":"true", "replaceableWith": [ "Roasted Mushrooms", "Mushrooms", "Spinach"], "ratio":4 },
-            {"name": "Cheese", "isOptional":"true", "replaceableWith": "" , "ratio":12},
+            {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Butter", "Canola Oil", "Vegetable Oil" ], "ratio":"3" },
+            {"name": "Onion", "isOptional":"true", "replaceableWith": ["Scallion","Shallot", "Leek"], "ratio":"2"},
+            {"name": "Garlic", "isOptional":"false", "replaceableWith": "", "ratio":"2"},
+            {"name": "Chicken", "isOptional":"true", "replaceableWith": [ "Roasted Mushrooms", "Mushrooms", "Spinach"], "ratio":"4" },
+            {"name": "Cheese", "isOptional":"true", "replaceableWith": "" , "ratio":"12"},
             {"name": "Rosemary", "isOptional":"true", "replaceableWith": ["Oregano", "Thyme"], "ratio":""},
             {"name": "Chili Flakes", "isOptional":"true", "replaceableWith": "", "ratio":""},
             {"name": "Breadcrumbs", "isOptional": "true", "replacableWith":"", "ratio":""},
-            {"name": "Cream Sauce", "isOptional": "false", "replacableWith":["Cream of Mushroom Soup", "Cream of Celery Soup"], "ratio":20}]
+            {"name": "Cream Sauce", "isOptional": "false", "replacableWith":["Cream of Mushroom Soup", "Cream of Celery Soup"], "ratio":"20"}]
       },
       {
          "name"        : "Creamy Vegetable Pasta Casserole",
@@ -236,14 +236,14 @@
          "categories"  : [{"name": "Vegetarian"},{"name": "Casserole"},{"name":"Other"}, {"name": "Western"}],
          "equipment"   : ["Oven", "Baking Dish", "Stock Pot", "Food Processor", "Slotted Spoon", "Colander" ],
          "ingredients" : [
-            {"name": "Pasta", "isOptional":"false", "replaceableWith": "", "ratio":50}, 
-            {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Butter", "Canola Oil", "Vegetable Oil" ], "ratio":1 },
-            {"name": "Garlic", "isOptional":"true", "replaceableWith": "", "ratio":2},
-            {"name": "Cauliflower", "isOptional":"false", "replaceableWith": ["Zucchini"], "ratio":40},
+            {"name": "Pasta", "isOptional":"false", "replaceableWith": "", "ratio":"50"}, 
+            {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Butter", "Canola Oil", "Vegetable Oil" ], "ratio":"1 "},
+            {"name": "Garlic", "isOptional":"true", "replaceableWith": "", "ratio":"2"},
+            {"name": "Cauliflower", "isOptional":"false", "replaceableWith": ["Zucchini"], "ratio":"40"},
             {"name": "Cheese", "isOptional":"false", "replaceableWith": "", "ratio":"5" },
             {"name": "Nutmeg", "isOptional":"true", "replaceableWith": ["Oregano", "Thyme", "Rosemary"], "ratio":""},
             {"name": "Chili Flakes", "isOptional":"true", "replaceableWith": ["Cayenne","Paprika"], "ratio":""},
-            {"name": "Breadcrumbs", "isOptional": "true", "replacableWith":"", "ratio":2}
+            {"name": "Breadcrumbs", "isOptional": "true", "replacableWith":"", "ratio":"2"}
             ]
       },
       {
@@ -257,16 +257,16 @@
          "categories"  : [{"name": "Vegetarian"},{"name": "Mediterranean"},{"name":"Under 30"}, {"name":"Other"}, {"name": "Snack"}],
          "equipment"   : ["Oven", "Baking Sheet", "Food Processor"],
          "ingredients" : [
-            {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Canola Oil", "Vegetable Oil" ], "ratio":2 },
-            {"name": "Garlic", "isOptional":"false", "replaceableWith": "", "ratio":6 },
-            {"name": "Chickpeas", "isOptional":"false", "replaceableWith": "" , "ratio":75},
-            {"name": "Cilantro", "isOptional":"true", "replaceableWith": [ "Parsley" ], "ratio":2 },
-            {"name": "Baking Powder", "isOptional":"false", "replaceableWith": "", "ratio":1 },
-            {"name": "Lemon", "isOptional":"true", "replaceableWith": "", "ratio":2 },
-            {"name": "Flour", "isOptional":"true", "replaceableWith": "" , "ratio":2},
+            {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Canola Oil", "Vegetable Oil" ], "ratio":"2" },
+            {"name": "Garlic", "isOptional":"false", "replaceableWith": "", "ratio":"6" },
+            {"name": "Chickpeas", "isOptional":"false", "replaceableWith": "" , "ratio":"75"},
+            {"name": "Cilantro", "isOptional":"true", "replaceableWith": [ "Parsley" ], "ratio":"2" },
+            {"name": "Baking Powder", "isOptional":"false", "replaceableWith": "", "ratio":"1" },
+            {"name": "Lemon", "isOptional":"true", "replaceableWith": "", "ratio":"2 "},
+            {"name": "Flour", "isOptional":"true", "replaceableWith": "" , "ratio":"2"},
             {"name": "Salt", "isOptional":"true", "replaceableWith": "" , "ratio":""},
-            {"name": "Cumin", "isOptional":"true", "replaceableWith": "" , "ratio":1},
-            {"name": "Coriander", "isOptional":"true", "replaceableWith": "" , "ratio":.5}
+            {"name": "Cumin", "isOptional":"true", "replaceableWith": "" , "ratio":"1"},
+            {"name": "Coriander", "isOptional":"true", "replaceableWith": "" , "ratio":".5"}
          ]
       },
       {
@@ -279,13 +279,13 @@
          "categories"  : [{"name": "Vegetarian"},{"name": "Mediterranean"},{"name":"Under 30"},{"name":"Other"}, {"name": "Snack"}],
          "equipment"   : ["Food Processor" ],
          "ingredients" : [
-            {"name": "Olive Oil", "isOptional":"true", "replaceableWith": [ "Canola Oil", "Vegetable Oil" ], "ratio":2 },
-            {"name": "Garlic", "isOptional":"false", "replaceableWith": "" , "ratio":6},
-            {"name": "Chickpeas", "isOptional":"false", "replaceableWith": "" , "ratio":80},
+            {"name": "Olive Oil", "isOptional":"true", "replaceableWith": [ "Canola Oil", "Vegetable Oil" ], "ratio":"2 "},
+            {"name": "Garlic", "isOptional":"false", "replaceableWith": "" , "ratio":"6"},
+            {"name": "Chickpeas", "isOptional":"false", "replaceableWith": "" , "ratio":"80"},
             {"name": "Salt", "isOptional":"true", "replaceableWith": "" , "ratio":""},
-            {"name": "Lemon", "isOptional":"true", "replaceableWith": "" , "ratio":5}
-            {"name": "Tahini Paste", "isOptional":"true", "replaceableWith": "" , "ratio":2},
-            {"name": "Hot Peppers", "isOptional":"true", "replaceableWith": "" , "ratio":5}]
+            {"name": "Lemon", "isOptional":"true", "replaceableWith": "" , "ratio":"5"},
+            {"name": "Tahini Paste", "isOptional":"true", "replaceableWith": "" , "ratio":"2"},
+            {"name": "Hot Peppers", "isOptional":"true", "replaceableWith": "" , "ratio":"5"}]
       },
       {
         
@@ -297,16 +297,16 @@
          "categories"  : [{"name": "Vegetarian"},{"name":"Stir Fry"},{"name":"Under 30"},{"name": "Chinese"},{"name":"Rice Dish"}],
          "equipment"   : ["Large Round Pan", "Stove" ],
          "ingredients" : [{ "name":"Rice", "isOptional":"true", "replaceableWith": "", "ratio":"" },
-         { "name":"Peanut Oil", "isOptional":"false", "replaceableWith": ["Vegetable Oil", "Canola Oil"], "ratio":3 },
-         { "name":"Garlic", "isOptional":"true", "replaceableWith": "", "ratio":2 },
+         { "name":"Peanut Oil", "isOptional":"false", "replaceableWith": ["Vegetable Oil", "Canola Oil"], "ratio":"3" },
+         { "name":"Garlic", "isOptional":"true", "replaceableWith": "", "ratio":"2 "},
          { "name":"Scallion", "isOptional":"true", "replaceableWith": "", "ratio":"" },
          { "name":"Ginger", "isOptional":"true", "replaceableWith": "", "ratio":"" },
-         { "name":"Pea Pods", "isOptional":"true", "replaceableWith": ["Bok Choy", "Napa Cabbage","Cabbage","Green Beans"], "ratio":30 },
-         { "name":"Broccoli", "isOptional":"true", "replaceableWith": ["Bell Peppers", "Bean Sprouts"], "ratio":20 },
-         { "name":"Mushrooms", "isOptional":"true", "replaceableWith": ["Eggplant","Zucchini","Green Beans"], "ratio":20},
-         { "name":"Broth", "isOptional":"true", "replaceableWith": ["Water"], "ratio":5 },
-         { "name":"Cornstarch", "isOptional":"true", "replaceableWith": "", "ratio":1 },
-         { "name":"Soy Sauce", "isOptional":"true", "replaceableWith": ["Fish Sauce", "Oyster Sauce"], "ratio":2 }]
+         { "name":"Pea Pods", "isOptional":"true", "replaceableWith": ["Bok Choy", "Napa Cabbage","Cabbage","Green Beans"], "ratio":"30" },
+         { "name":"Broccoli", "isOptional":"true", "replaceableWith": ["Bell Peppers", "Bean Sprouts"], "ratio":"20" },
+         { "name":"Mushrooms", "isOptional":"true", "replaceableWith": ["Eggplant","Zucchini","Green Beans"], "ratio":"20"},
+         { "name":"Broth", "isOptional":"true", "replaceableWith": ["Water"], "ratio":"5"},
+         { "name":"Cornstarch", "isOptional":"true", "replaceableWith": "", "ratio":"1" },
+         { "name":"Soy Sauce", "isOptional":"true", "replaceableWith": ["Fish Sauce", "Oyster Sauce"], "ratio":"2" }]
       },
       {
          "name"        : "Stir Fry with Meat or Tofu",
@@ -318,16 +318,16 @@
          "categories"  : [{"name": "Chinese"},{"name":"Stir Fry"},{"name":"Under 30"},{"name":"Rice Dish"}],
          "equipment"   : ["Large Round Pan", "Stove"  ],
          "ingredients" : [{ "name":"Rice", "isOptional":"true", "replaceableWith": "", "ratio":"" },
-         { "name":"Peanut Oil", "isOptional":"false", "replaceableWith": ["Vegetable Oil", "Canola Oil"], "ratio":3 },
-         { "name":"Garlic", "isOptional":"true", "replaceableWith": "", "ratio":2 },
+         { "name":"Peanut Oil", "isOptional":"false", "replaceableWith": ["Vegetable Oil", "Canola Oil"], "ratio":"3" },
+         { "name":"Garlic", "isOptional":"true", "replaceableWith": "", "ratio":"2" },
          { "name":"Scallion", "isOptional":"true", "replaceableWith": "", "ratio":"" },
          { "name":"Ginger", "isOptional":"true", "replaceableWith": "", "ratio":"" },
-         { "name":"Pea Pods", "isOptional":"true", "replaceableWith": ["Bok Choy", "Napa Cabbage","Cabbage","Green Beans"], "ratio":30 },
-         { "name":"Broccoli", "isOptional":"true", "replaceableWith": ["Bell Peppers", "Bean Sprouts"], "ratio":20 },
-         { "name":"Chicken", "isOptional":"true", "replaceableWith": ["Beef","Pork","Lamb", "Tofu", "Velveted Meat", "Pressed Tofu"], "ratio":20},
-         { "name":"Broth", "isOptional":"true", "replaceableWith": ["Water"], "ratio":5 },
-         { "name":"Cornstarch", "isOptional":"true", "replaceableWith": "", "ratio":1 },
-         { "name":"Soy Sauce", "isOptional":"true", "replaceableWith": ["Fish Sauce", "Oyster Sauce"], "ratio":2 }]
+         { "name":"Pea Pods", "isOptional":"true", "replaceableWith": ["Bok Choy", "Napa Cabbage","Cabbage","Green Beans"], "ratio":"30" },
+         { "name":"Broccoli", "isOptional":"true", "replaceableWith": ["Bell Peppers", "Bean Sprouts"], "ratio":"20" },
+         { "name":"Chicken", "isOptional":"true", "replaceableWith": ["Beef","Pork","Lamb", "Tofu", "Velveted Meat", "Pressed Tofu"], "ratio":"20"},
+         { "name":"Broth", "isOptional":"true", "replaceableWith": ["Water"], "ratio":"5" },
+         { "name":"Cornstarch", "isOptional":"true", "replaceableWith": "", "ratio":"1" },
+         { "name":"Soy Sauce", "isOptional":"true", "replaceableWith": ["Fish Sauce", "Oyster Sauce"], "ratio":"2" }]
       },
       {
          "name"        : "Stir Fry with Seafood",
@@ -339,16 +339,16 @@
          "categories"  : [{"name": "Seafood"},{"name":"Under 30"}, {"name":"Stir Fry"},{"name": "Chinese"},{"name":"Rice Dish"}],
          "equipment"   : ["Large Round Pan", "Stove"  ],
          "ingredients" : [{ "name":"Rice", "isOptional":"true", "replaceableWith": "", "ratio":"" },
-         { "name":"Peanut Oil", "isOptional":"false", "replaceableWith": ["Vegetable Oil", "Canola Oil"], "ratio":3 },
-         { "name":"Garlic", "isOptional":"true", "replaceableWith": "", "ratio":2 },
+         { "name":"Peanut Oil", "isOptional":"false", "replaceableWith": ["Vegetable Oil", "Canola Oil"], "ratio":"3" },
+         { "name":"Garlic", "isOptional":"true", "replaceableWith": "", "ratio":"2" },
          { "name":"Scallion", "isOptional":"true", "replaceableWith": "", "ratio":"" },
          { "name":"Ginger", "isOptional":"true", "replaceableWith": "", "ratio":"" },
-         { "name":"Pea Pods", "isOptional":"true", "replaceableWith": ["Bok Choy", "Napa Cabbage","Cabbage","Green Beans"], "ratio":30 },
-         { "name":"Broccoli", "isOptional":"true", "replaceableWith": ["Bell Peppers", "Bean Sprouts"], "ratio":20 },
-         { "name":"Shrimp", "isOptional":"true", "replaceableWith": ["Imitation Crabmeat","Fish","Scallops"], "ratio":20},
-         { "name":"Broth", "isOptional":"true", "replaceableWith": ["Water"], "ratio":5 },
-         { "name":"Cornstarch", "isOptional":"true", "replaceableWith": "", "ratio":1 },
-         { "name":"Oyster Sauce", "isOptional":"true", "replaceableWith": ["Fish Sauce", "Soy Sauce"], "ratio":2 }]
+         { "name":"Pea Pods", "isOptional":"true", "replaceableWith": ["Bok Choy", "Napa Cabbage","Cabbage","Green Beans"], "ratio":"30" },
+         { "name":"Broccoli", "isOptional":"true", "replaceableWith": ["Bell Peppers", "Bean Sprouts"], "ratio":"20" },
+         { "name":"Shrimp", "isOptional":"true", "replaceableWith": ["Imitation Crabmeat","Fish","Scallops"], "ratio":"20"},
+         { "name":"Broth", "isOptional":"true", "replaceableWith": ["Water"], "ratio":"5" },
+         { "name":"Cornstarch", "isOptional":"true", "replaceableWith": "", "ratio":"1" },
+         { "name":"Oyster Sauce", "isOptional":"true", "replaceableWith": ["Fish Sauce", "Soy Sauce"], "ratio":"2" }]
       },
       {
          "name"        : "Peanut Noodles",
@@ -364,18 +364,18 @@
          "categories"  : [{"name":"Southeast Asian"},{"name":"Vegetarian"},{"name":"Pasta"}, {"name":"Under 30"}],
          "equipment"   : ["Stock Pot", "Stove", "Food Processor", "Colander"],
          "ingredients" : [
-            {"name": "Pasta", "isOptional":"false", "replaceableWith": "", "ratio":80}, 
-            {"name": "Sesame Oil", "isOptional":"true", "replaceableWith": [ "Peanut Oil", "Canola Oil" ] , "ratio":5},
-            {"name": "Ginger", "isOptional":"false", "replaceableWith": "", "ratio":2}, 
-            {"name": "Garlic", "isOptional":"false", "replaceableWith": "", "ratio":2}, 
-            {"name": "Bell Peppers", "isOptional":"false", "replaceableWith": "", "ratio":30},
-            {"name": "Peanut Butter", "isOptional":"false", "replaceableWith": "", "ratio":5}, 
-            {"name": "Soy Sauce", "isOptional":"false", "replaceableWith": "", "ratio":1},
-            {"name": "Peanuts", "isOptional":"true", "replaceableWith": "", "ratio":1}, 
-            {"name": "Hot Peppers", "isOptional":"true", "replaceableWith": ["Chili Flakes"], "ratio":2}, 
-            {"name": "Sugar", "isOptional":"true", "replaceableWith": "", "ratio":.5}, 
-            {"name": "Fish Sauce", "isOptional":"true", "replaceableWith": "", "ratio":1},
-            {"name": "Pineapple", "isOptional":"true", "replaceableWith": "", "ratio":2}
+            {"name": "Pasta", "isOptional":"false", "replaceableWith": "", "ratio":"80"}, 
+            {"name": "Sesame Oil", "isOptional":"true", "replaceableWith": [ "Peanut Oil", "Canola Oil" ] , "ratio":"5"},
+            {"name": "Ginger", "isOptional":"false", "replaceableWith": "", "ratio":"2"}, 
+            {"name": "Garlic", "isOptional":"false", "replaceableWith": "", "ratio":"2"}, 
+            {"name": "Bell Peppers", "isOptional":"false", "replaceableWith": "", "ratio":"30"},
+            {"name": "Peanut Butter", "isOptional":"false", "replaceableWith": "", "ratio":"5"}, 
+            {"name": "Soy Sauce", "isOptional":"false", "replaceableWith": "", "ratio":"1"},
+            {"name": "Peanuts", "isOptional":"true", "replaceableWith": "", "ratio":"1"}, 
+            {"name": "Hot Peppers", "isOptional":"true", "replaceableWith": ["Chili Flakes"], "ratio":"2"}, 
+            {"name": "Sugar", "isOptional":"true", "replaceableWith": "", "ratio":".5"}, 
+            {"name": "Fish Sauce", "isOptional":"true", "replaceableWith": "", "ratio":"1"},
+            {"name": "Pineapple", "isOptional":"true", "replaceableWith": "", "ratio":"2"}
          ]
       },
       {
@@ -385,25 +385,25 @@
             "Add your spices once the garlic has begun to soften, and fry until the contents of your pan are very fragrant.",
             "Add tomato sauce, raise the heat, and stir until bubbling. Then add your chosen meat, turning your pieces to coat it with your spice mixture. ",
             "Add water and again, wait until it is bubbling before you cover your pan and turn the heat to low or medium-low, to simmer, lid slightly askew, for approximately twenty minutes (if there are bones, it may take longer).",
-            "Add whichever fruit you prefer, chopped to smaller-than-bite-sized if necessary, and simmer again for another ten minutes."
+            "Add whichever fruit you prefer, chopped to smaller-than-bite-sized if necessary, and simmer again for another ten minutes.",
             "Serve with couscous.",
             "Adapted from recipes by Mark Bittman in The New York Times"],
          "categories"  : [{"name":"Mediterranean"},{"name":"Stew"},{"name":"Meat & Starch"}],
          "equipment"   : ["Large Round Pan", "Stove"  ],
          "ingredients" : [
-            { "name":"Lamb", "isOptional":"false", "replaceableWith": [ "Chicken", "Beef" ] , "ratio":30},
-            { "name":"Onion", "isOptional":"false", "replaceableWith": [ "Shallot" ] , "ratio":4},
-            {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Canola Oil", "Vegetable Oil" ], "ratio":2 },
-            { "name":"Garlic", "isOptional":"false", "replaceableWith": "" , "ratio":3},
-            { "name":"Cumin", "isOptional":"false", "replaceableWith": "" , "ratio":.75},
-            { "name":"Cayenne", "isOptional":"false", "replaceableWith": "" , "ratio":.25},
-            { "name":"Caraway Seeds", "isOptional":"true", "replaceableWith": "" , "ratio":.75},
-            { "name":"Cinnamon", "isOptional":"false", "replaceableWith": [ "Chicken", "Beef" ] , "ratio":1.5},
-            { "name":"Coriander", "isOptional":"false", "replaceableWith": [ "Chicken", "Beef" ] , "ratio":.75},
-            { "name":"Dried Figs", "isOptional":"false", "replaceableWith": [ "Dried Apricots", "Dried Dates", "Greek Olives", "Golden Raisins" , "Oranges"] , "ratio":5},
-            { "name":"Couscous", "isOptional":"false", "replaceableWith": [ "Rice" ] , "ratio":40},
-            { "name":"Tomato Sauce", "isOptional":"false", "replaceableWith": "" , "ratio":4},
-            { "name":"Water", "isOptional":"false", "replaceableWith": [ "Broth" ] , "ratio":8}
+            { "name":"Lamb", "isOptional":"false", "replaceableWith": [ "Chicken", "Beef" ] , "ratio":"30"},
+            { "name":"Onion", "isOptional":"false", "replaceableWith": [ "Shallot" ] , "ratio":"4"},
+            {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Canola Oil", "Vegetable Oil" ], "ratio":"2"},
+            { "name":"Garlic", "isOptional":"false", "replaceableWith": "" , "ratio":"3"},
+            { "name":"Cumin", "isOptional":"false", "replaceableWith": "" , "ratio":".75"},
+            { "name":"Cayenne", "isOptional":"false", "replaceableWith": "" , "ratio":".25"},
+            { "name":"Caraway Seeds", "isOptional":"true", "replaceableWith": "" , "ratio":".75"},
+            { "name":"Cinnamon", "isOptional":"false", "replaceableWith": [ "Chicken", "Beef" ] , "ratio":"1.5"},
+            { "name":"Coriander", "isOptional":"false", "replaceableWith": [ "Chicken", "Beef" ] , "ratio":".75"},
+            { "name":"Dried Figs", "isOptional":"false", "replaceableWith": [ "Dried Apricots", "Dried Dates", "Greek Olives", "Golden Raisins" , "Oranges"] , "ratio":"5"},
+            { "name":"Couscous", "isOptional":"false", "replaceableWith": [ "Rice" ] , "ratio":"40"},
+            { "name":"Tomato Sauce", "isOptional":"false", "replaceableWith": "" , "ratio":"4"},
+            { "name":"Water", "isOptional":"false", "replaceableWith": [ "Broth" ] , "ratio":"8"}
          
          ]
       },
@@ -417,9 +417,9 @@
          ],
          "categories"  : [{"name":"Western"}, {"name":"Meat & Starch"}, {"name":"Under 30"}, {"name":"Other"}],
          "equipment"   : ["Oven", "Gallon Plastic Bag", "Baking Dish" ],
-         "ingredients" : [{ "name":"Chicken", "isOptional":"false", "replaceableWith": "" , "ratio":60},
-          {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Peanut Oil", "Canola Oil", "Vegetable Oil" ], "ratio":10 },
-         { "name":"Breadcrumbs", "isOptional":"false", "replaceableWith": "" , "ratio":30},
+         "ingredients" : [{ "name":"Chicken", "isOptional":"false", "replaceableWith": "" , "ratio":"60"},
+          {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Peanut Oil", "Canola Oil", "Vegetable Oil" ], "ratio":"10" },
+         { "name":"Breadcrumbs", "isOptional":"false", "replaceableWith": "" , "ratio":"30"},
          { "name":"Garlic", "isOptional":"true", "replaceableWith": "" , "ratio":""},
          { "name":"Paprika", "isOptional":"true", "replaceableWith": [ "Cayenne" ] , "ratio":""},
          { "name":"Oregano", "isOptional":"true", "replaceableWith": [ "Rosemary", "Thyme" ] , "ratio":""},

@@ -58,6 +58,13 @@ Vegetables:
    Escarole
    Broccoli Rabe
    Tomatoes
+   Acorn Squash
+   Hubbard Squash
+   Pumpkin
+   Beets
+   Turnips
+   Parsnips
+   Carrots
 
 Spices and Herbs:
    Garlic
