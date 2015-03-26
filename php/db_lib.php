@@ -10,28 +10,31 @@
         private $_PASSWORD = 'p@ssw0rd';
         private $_DATABASE = 'dinnerwizard';
 
+        //variable to let us know if we have a connection or not
+        private $connected = false ;
+
         //table defines
-        private $mTable_Ingredients         = "ingredients";
-        private $mTable_Recipes             = "recipes";
-        private $mTable_Equipment           = "equipment" ;
-        private $mTable_Error               = "error" ;
-        private $mTable_RecipeTags          = "recipe_tags";
-        private $mTable_IngredientTags      = "ingredient_tags" ;
-        private $mTable_RecipeCategories    = "recipe_filter_categories";
-        private $mTable_IngredientTagMap    = "ingredient_tag_map";
+        private $mTable_Equipment = "equipment";
+        private $mTable_ErrorLog = "error_log";
+        private $mTable_IngredientTagMap = "ingredient_tag_map";
+        private $mTable_IngredientTags = "ingredient_tags";
+        private $mTable_Ingredients = "ingredients";
+        private $mTable_RecipeEquipmentMap = "recipe_equipment_map";
+        private $mTable_RecipeCategories = "recipe_filter_categories";
+        private $mTable_CategoryTagMap = "recipe_filter_category_tag_map";
         private $mTable_RecipeIngredientMap = "recipe_ingredient_map";
-        private $mTable_RecipeEquipmentMap  = "recipe_equipment_map";
-        private $mTable_RecipeTagMap        = "recipe_tag_map" ;
-        private $mTable_CategoryTagMap      = "recipe_filter_category_tag_map";
+        private $mTable_RecipeTagMap = "recipe_tag_map";
+        private $mTable_RecipeTags = "recipe_tags";
+        private $mTable_Recipes = "recipes";
 
         //The most used queries for sustainability and easy formatting
-        private $mQuery_SelectAll          = "SELECT * FROM %s";                                                       //SELECT * FROM <tableName>
-        private $mQuery_SelectLastID       = "SELECT max(id) FROM %s" ;                                                //SELECT max(id) FROM <tableName>
-        private $mQuery_SelectFromTable    = "SELECT %s FROM %s WHERE %s = '%s'";                                      //SELECT <attribute> FROM <table> WHERE <attribute> = <value>
-        private $mQuery_InsBaseTable       = "INSERT INTO %s( id, name ) VALUES( '%d', '%s' ) ";                       //INSERT INTO <table>( id, name ) VALUES( <id>, <name> )
-        private $mQuery_InsTagsTable       = "INSERT INTO tags( id, name, isFilterable ) VALUES '%s', '%s' )" ;        //INSERT INTO tags( id, name, isFilterable ) VALUES( <id>, <name>, <isFilterable> ) ;
-        private $mQuery_InsRecipesTable    = "INSERT INTO recipes( id, name, prepInst ) VALUES ( '%d', '%s', '%s' ) "; //INSERT INTO recipes( id, name, prepInst ) VALUES( <id>, <name>, <prepInst> )
-        private $mQuery_InsMapTable        = "INSERT INTO %s( id, id) VALUES( '%d', '%d')";                            //INSERT INTO <table>( id, id ) VALUES( <id>, <id> ) ;
+        private $mQuery_SelectAll = "SELECT * FROM %s";                                                       //SELECT * FROM <tableName>
+        private $mQuery_SelectLastID = "SELECT max(id) FROM %s";                                                //SELECT max(id) FROM <tableName>
+        private $mQuery_SelectFromTable = "SELECT %s FROM %s WHERE %s = '%s'";                                      //SELECT <attribute> FROM <table> WHERE <attribute> = <value>
+        private $mQuery_InsBaseTable = "INSERT INTO %s( id, name ) VALUES( '%d', '%s' ) ";                       //INSERT INTO <table>( id, name ) VALUES( <id>, <name> )
+        private $mQuery_InsTagsTable = "INSERT INTO tags( id, name, isFilterable ) VALUES '%s', '%s' )";        //INSERT INTO tags( id, name, isFilterable ) VALUES( <id>, <name>, <isFilterable> ) ;
+        private $mQuery_InsRecipesTable = "INSERT INTO recipes( id, name, prepInst ) VALUES ( '%d', '%s', '%s' ) "; //INSERT INTO recipes( id, name, prepInst ) VALUES( <id>, <name>, <prepInst> )
+        private $mQuery_InsMapTable = "INSERT INTO %s( id, id) VALUES( '%d', '%d')";                            //INSERT INTO <table>( id, id ) VALUES( <id>, <id> ) ;
 
         //Going to use these data members at some point
         //private $filterObj = [] ;
@@ -39,19 +42,11 @@
 
         /**
          * Summary:
-         *      Create a connection to the SQL Server and the database we want to use.
+         *      The only thing the constructor does is connects to the database.
          */
         public function __construct()
         {
-            $this->conn = new mysqli( $this->_HOST, $this->_USERNAME, $this->_PASSWORD, $this->_DATABASE );
-
-            //Create any connection error warnings
-            if( $this->conn->connect_error )
-            {
-                //set error information for debugging if we fail to connect
-                die( "Failed to connect to server with error: " . $this->conn->connect_error );
-            }
-
+            $this->dinnerWizardConnect() ;
         }
 
         /**
@@ -61,16 +56,41 @@
          */
         function  __destruct()
         {
-            $this->closeConnection() ;
+            $this->closeConnection();
         }
 
         /**
          * Summary:
-         *      Close the connection that was opened.
+         *      Connect to the database
+         */
+        public function dinnerWizardConnect()
+        {
+
+            //if we arent already connected then lets get a database connection going
+            if( !$this->connected )
+            {
+                $this->conn = new mysqli( $this->_HOST, $this->_USERNAME, $this->_PASSWORD, $this->_DATABASE );
+
+                //Create any connection error warnings
+                if( $this->conn->connect_error )
+                {
+                    //set error information for debugging if we fail to connect
+                    die( "Failed to connect to server with error: " . $this->conn->connect_error );
+                }
+
+                $this->connected = true;
+            }
+        }
+        /**
+         * Summary:
+         *      Close the connection if it is still opened.
          */
         public function closeConnection()
         {
-            $this->conn->close();
+            if( $this->connected )
+            {
+                $this->conn->close();
+            }
         }
 
         /**
@@ -87,26 +107,26 @@
         public function buildFilterObjects( $request )
         {
 
+            $recipeList = [ ];
+
             //Test Filter request to be removed when we get the request working from the front end
-            $testFilter = ["ingredientTags" => [["id" => 4, "name" => "eggs"]],
-                           "recipeTags" => "",
-                           "equipment" => [["id" => 9, "name" => "frying pan"]],
-                           "without" => [["id" => 1, "name" => "spicy", "group" => "recipes"], [ "id" => 2, "name" => "seafood", "group" => "ingredients" ]]] ;
+            $testFilter = [ "ingredientTags" => [ [ "id" => 4, "name" => "eggs" ] ],
+                "recipeTags" => "",
+                "equipment" => [ [ "id" => 9, "name" => "frying pan" ] ],
+                "without" => [ [ "id" => 1, "name" => "spicy", "group" => "recipes" ], [ "id" => 2, "name" => "seafood", "group" => "ingredients" ] ] ];
 
-            $recipeList = [];
-            $ingredientFilter = $testFilter["ingredientTags"] ;
-            $recipeFilter = $testFilter["recipeTags"] ;
-            $equipmentFilter = $testFilter["equipment"] ;
-            $withoutFilter = $testFilter["without"] ;
-
+            $ingredientFilter = $testFilter["ingredientTags"];
+            $recipeFilter = $testFilter["recipeTags"];
+            $equipmentFilter = $testFilter["equipment"];
+            $withoutFilter = $testFilter["without"];
 
             //If we have there has been a filter provided in each of the fields try to generate an array of the correct
             //recipes, if you can then add that array to the recipeList.
             if( $ingredientFilter != "" AND ( $result = $this->filter( $ingredientFilter, "ingredientTags" ) ) != NULL )
             {
-                    array_push( $recipeList, $result );
+                array_push( $recipeList, $result );
             }
-            if( $recipeFilter != "" AND ( $result = $this->filter( $recipeFilter, "recipeTags" ) ) != NULL)
+            if( $recipeFilter != "" AND ( $result = $this->filter( $recipeFilter, "recipeTags" ) ) != NULL )
             {
                 array_push( $recipeList, $result );
             }
@@ -114,111 +134,142 @@
             {
                 array_push( $recipeList, $result );
             }
+
+            //The without filter is a little different, if it finds a recipe it then searches the recipeList and
+            //removes it from the list if it is present
             if( $withoutFilter != "" AND ( $result = $this->filter( $withoutFilter, "without" ) ) != NULL )
             {
-                array_push( $recipeList, $result );
+
+                foreach( $result as $item )
+                {
+                    if( ( $key = array_search( $item, $recipeList ) ) != false )
+                    {
+                        unset( $recipeList[$key] );
+                    }
+                }
+
             }
 
-            return json_encode( $recipeList ) ;
+            print_r( $recipeList ) ;
+
+            //json_encode( getFilterResponse( $recipeList ) );
+            return $recipeList;
 
         }
 
         /**
+         * Summary:
+         *      Take in a filterObject and a filter group and use them to query the database for the appropriate
+         *      recipe.
+         *
          * @param $objFilterObj
+         *      A filter object consisting of either ingredientTags, recipeTags, equipment information, or a without clause
          * @param $strFilterGroup
+         *      The group we are filtering on
          * @return array|int
+         *      The list of recipe ids that are associated with this particular filter
          */
         private function filter( $objFilterObj, $strFilterGroup )
         {
 
-            $recipeList   = "" ;
-            $mapTable     = "" ;
-            $mapAttribute = "" ;
+            $recipeIDList = [ ];
+            $mapTable = "";
+            $mapAttribute = "";
 
             switch( $strFilterGroup )
             {
                 case "ingredientTags":
                 {
-                    $mapTable = $this->mTable_RecipeIngredientMap ;
-                    $mapAttribute = "ingredientID" ;
-                    break ;
+                    $mapTable = $this->mTable_RecipeIngredientMap;
+                    $mapAttribute = "ingredientID";
+                    break;
                 }
                 case "recipeTags":
                 {
                     //do nothing because we have a list of recipe id's so we can just go straight to the recipes table
-                    break ;
+                    break;
                 }
                 case "equipment":
                 {
-                    $mapTable = $this->mTable_RecipeEquipmentMap ;
-                    $mapAttribute = "equipmentID" ;
-                    break ;
+                    $mapTable = $this->mTable_RecipeEquipmentMap;
+                    $mapAttribute = "equipmentID";
+                    break;
                 }
                 case "without":
                 {
-                    //this is a special case i need to pull the group value out to get the appropriate tabless
-                    break ;
+
+                    //Without filtering is a little funky because we could be talking about an ingredient tag or a recipe
+                    //tag. To handle this we are going to parse the without list and simply remove the group creating
+                    //a recipe or ingredient filter and then call filter again.
+                    foreach( $objFilterObj as $withoutFilter )
+                    {
+
+                        if( $withoutFilter["group"] == "recipes" )
+                        {
+
+                            unset( $withoutFilter["group"] );
+                            //when calling filter with withoutFilter must be turned back into an array of id, name objects
+                            array_push( $recipeIDList, $this->filter( [$withoutFilter], "recipeTags" ) );
+
+                        }
+                        elseif( $withoutFilter["group"] == "ingredients" )
+                        {
+
+                            unset( $withoutFilter["group"] );
+                            //when calling filter with withoutFilter must be turned back into an array of id, name objects
+                            array_push( $recipeIDList, $this->filter( [$withoutFilter], "ingredientTags" ) );
+
+                        }
+
+                    }
+
+                    $objFilterObj = [ ]; //reset the objFilterObj so we skip further parsing and just return what we found
+                    break;
                 }
                 default:
                 {
                     //log an error
-                    return -1 ;
+                    return NULL;
                 }
             }
 
             foreach( $objFilterObj as $item )
             {
 
+                //If we dont have an item there is no reason to keep looping so lets save some time and bounce out
                 if( $item == "" )
                 {
-                    continue ;
+                    continue;
                 }
-                //We already have the id of a recipe while filtering so there is no need to go to a map table
-                if( $strFilterGroup != "recipes" )
+
+                //If we aren't filtering on recipes then go to the map table to get the matching recipeID
+                if( $strFilterGroup != "recipes" AND $strFilterGroup != "recipeTags" )
                 {
 
                     //SELECT recipeID FROM $mapTable WHERE $mapApptribute = $item["id"]
-                    $recipeIDList = $this->conn->query( $temp = sprintf( $this->mQuery_SelectFromTable, "recipeID", $mapTable, $mapAttribute, $item["id"] ) );
+                    $recipeId = $this->conn->query( $temp = sprintf( $this->mQuery_SelectFromTable, "recipeID", $mapTable, $mapAttribute, $item["id"] ) )->fetch_row()[0] ;
 
-                    if( $recipeIDList != true OR $recipeIDList != false )
+                    //When we run the query we are getting the first row right away because recipes are unique. If the
+                    //result is NULL then there is no recipe associated with the current filter
+                    if( $recipeId != NULL )
                     {
-                        $recipeIDList->data_seek( 0 );
-                    }
-
-                    while( $row = $recipeIDList->fetch_assoc() )
-                    {
-
-                        //SELECT name FROM recipes WHERE id = row
-                        //TODO: When queries successfully run a query but there are no results the return value is just true. We need to check for this in the future.
-                        $recipe = $this->conn->query( sprintf( $this->mQuery_SelectFromTable, "name", $this->mTable_Recipes, "id", $row["recipeID"] ) )->fetch_row()[0];
-                        if( $recipeList == "" )
-                        {
-                            $recipeList = $recipe ;
-                        }
-                        else
-                        {
-                            $recipeList = $recipeList . ',' . $recipe  ;
-                        }
+                        $recipeId ;
+                        //Recipes are unique and because we have found one we can add it to our list without having to parse the full query results
+                        array_push( $recipeIDList, $recipeId );
                     }
                 }
                 else
                 {
-                    //SELECT name FROM recipes WHERE id = $item["id"]
-                    $recipe = $this->conn->query( sprintf( $this->mQuery_SelectFromTable, "name", $this->mTable_Recipes, "id", $item["id"] ) )->fetch_row()[0];
-                    if( $recipeList == "" )
-                    {
-                        $recipeList = $recipe ;
-                    }
-                    else
-                    {
-                        $recipeList = $recipeList . ',' . $recipe  ;
-                    }
+                    //We already have the id of a recipe so just add it to the list
+                    array_push( $recipeIDList, $item["id"] );
+
                 }
             }
 
-            return $recipeList ;
+            return $recipeIDList;
 
         }
+
         /**
          * Summary:
          *      check to see if the given value exists in the given table, by default we check for ids but
@@ -232,7 +283,7 @@
          *      An identifier telling us if we are checking for an id or a name.
          *
          * @return bool
-         *      True if we found the value and false if we did not
+         *      True if we found the value and false if we didn't
          */
         private function exists( $strValue, $strTable, $strIdentifier = "id" )
         {
@@ -257,9 +308,200 @@
             {
                 return FALSE;
             }
+        }
+
+        function getFilterResponse( $filterList )
+        {
 
         }
 
+        function buildFullRecipeList()
+        {
+            // Get our query.
+            // This monster gets all the information about recipes that we could possibly need
+            // A lot of it is redundant, however, because of the massive number of left joins.
+            // Luckily because we convert the results into an associative array later on we don't have to care much.
+            $queryResult = $this->conn->query
+            ("
+                SELECT recipes.recipeID,
+                recipes.recipeName,
+                recipes.prepInst,
+                IngredientList.initialID AS ingredientID,
+                IngredientList.initialName AS ingredientName,
+                recipe_ingredient_map.isOptional AS isOptional,
+                IngredientList.secondaryID AS replaceableID,
+                IngredientList.secondaryName AS replaceableName,
+                equipment.equipmentID,
+                equipment.equipmentName,
+                recipe_tags.tagID,
+                recipe_tags.tagName
+                FROM recipes
+                LEFT JOIN recipe_ingredient_map	ON recipes.recipeID = recipe_ingredient_map.recipeID
+                LEFT JOIN
+                (
+                    SELECT initial_ingredients.ingredientID AS initialID,
+                    initial_ingredients.ingredientNAME AS initialName,
+                    secondary_ingredients.ingredientID AS secondaryID,
+                    secondary_ingredients.ingredientNAME AS secondaryName,
+                    ingredient_tags.tagName AS categoryName
+                    FROM ingredients AS initial_ingredients
+                    LEFT JOIN ingredient_tag_map AS initial_map ON initial_ingredients.ingredientID = initial_map.ingredientID
+                    LEFT JOIN ingredient_tag_map AS secondary_map ON initial_map.tagID = secondary_map.tagID
+                    LEFT JOIN ingredients AS secondary_ingredients ON secondary_map.ingredientID = secondary_ingredients.ingredientID
+                    LEFT JOIN ingredient_tags ON secondary_map.tagID = ingredient_tags.tagID
+                ) AS IngredientList 		ON IngredientList.initialID = recipe_ingredient_map.ingredientID
+                LEFT JOIN recipe_equipment_map 	ON recipe_equipment_map.recipeID = recipes.recipeID
+                LEFT JOIN equipment 		ON equipment.equipmentID = recipe_equipment_map.equipmentID
+                LEFT JOIN recipe_tag_map 	ON recipe_tag_map.recipeID = recipes.recipeID
+                LEFT JOIN recipe_tags 		ON recipe_tags.tagID = recipe_tag_map.tagID
+                ORDER BY recipeID, tagID, ingredientID, replaceableID, equipmentID
+            ");
+
+            // Set up our result array.
+            // This will be turned into a JSON object later on and then returned.
+            $result = array();
+
+            for ($rowNumber = 0; $rowNumber < $queryResult->num_rows; $rowNumber++)
+            {
+                // Fetch our data from the result into a bunch of variables for ease of use.
+                $queryResult->data_seek($rowNumber);
+                $row = $queryResult->fetch_assoc();
+
+                $recipeID = $row['recipeID'];
+                $recipeName = $row['recipeName'];
+                $prepInst = $row['prepInst'];
+                $ingredientID = $row['ingredientID'];
+                $ingredientName = $row['ingredientName'];
+                $ingredientIsOptional = $row['isOptional'];
+                $ingredientRatio = rand(10, 30);	// We don't actually have ratio information in the database yet...
+                $ingredientReplaceableID = $row['replaceableID'];
+                $ingredientReplaceableName = $row['replaceableName'];
+                $equipmentID = $row['equipmentID'];
+                $equipmentName = $row['equipmentName'];
+                $tagID = $row['tagID'];
+                $tagName = $row['tagName'];
+
+                // Easy stuff--just insert the recipe's ID, name, and prep instructions into the recipe object.
+                $result['recipes'][$recipeID]['id'] = (int)$recipeID;
+                $result['recipes'][$recipeID]['name'] = $recipeName;
+                $result['recipes'][$recipeID]['prepInst'] = $prepInst;
+
+                // For array-like objects this gets a bit trickier.
+                // If we haven't yet created the categories, equipment, or ingredients array for this object, create them.
+                // This is to prevent PHP from spitting out a bunch of errors later on about accessing undefined indices.
+                // We want to ensure that, even if a recipe doesn't use, say, equipment, that there's still an equipment array in there.
+                if (!array_key_exists('categories', $result['recipes'][$recipeID])) $result['recipes'][$recipeID]['categories'] = array();
+                if (!array_key_exists('equipment', $result['recipes'][$recipeID])) $result['recipes'][$recipeID]['equipment'] = array();
+                if (!array_key_exists('ingredients', $result['recipes'][$recipeID])) $result['recipes'][$recipeID]['ingredients'] = array();
+
+                // Only add categories to the JSON object if both the ID and the name are non-null.
+                // This is to prevent awkward things like "categories": [{"id": null, "name": null}] for recipes with no category.
+                // We'd rather just have nothing there than a single entry with nulls in it.
+                // The above part checking for existing array keys handles that.
+                if ($tagID != null && $tagName != null)
+                {
+                    $result['recipes'][$recipeID]['categories'][$tagID]['id'] = (int)$tagID;
+                    $result['recipes'][$recipeID]['categories'][$tagID]['name'] = $tagName;
+                }
+                // Same as above, but with equipment.
+                if ($equipmentID != null && $equipmentName != null)
+                {
+                    $result['recipes'][$recipeID]['equipment'][$equipmentID]['id'] = (int)$equipmentID;
+                    $result['recipes'][$recipeID]['equipment'][$equipmentID]['name'] = $equipmentName;
+                }
+                // Finally, with ingredients
+                // Though really a recipe with no ingredients would be really strange.
+                if ($ingredientID != null && $ingredientName != null)
+                {
+                    $result['recipes'][$recipeID]['ingredients'][$ingredientID]['id'] = (int)$ingredientID;
+                    $result['recipes'][$recipeID]['ingredients'][$ingredientID]['name'] = $ingredientName;
+                    $result['recipes'][$recipeID]['ingredients'][$ingredientID]['isOptional'] = (bool)$ingredientIsOptional;
+                    $result['recipes'][$recipeID]['ingredients'][$ingredientID]['ratio'] = (int)$ingredientRatio;
+
+
+                    // All that stuff we did above to ensure that we had valid arrays and whatever needs to be repeated here
+                    // since ingredients have substitutes in the form of arrays.
+                    if (!array_key_exists('replaceableWith', $result['recipes'][$recipeID]['ingredients'][$ingredientID]))
+                        $result['recipes'][$recipeID]['ingredients'][$ingredientID]['replaceableWith'] = array();
+
+                    if ($ingredientReplaceableID != null && $ingredientReplaceableName != null)
+                    {
+                        $result['recipes'][$recipeID]['ingredients'][$ingredientID]['replaceableWith'][$ingredientReplaceableID]['id'] = (int)$ingredientReplaceableID;
+                        $result['recipes'][$recipeID]['ingredients'][$ingredientID]['replaceableWith'][$ingredientReplaceableID]['name'] = $ingredientReplaceableName;
+                    }
+                }
+
+            }
+
+            // Turn the result from an associative array of recipeID => recipes into a normal array of recipes.
+            $result['recipes'] = array_values($result['recipes']);
+
+            for ($i = 0; $i < count($result['recipes']); $i++)
+            {
+                // Do the same thing for our categories, equipment, and ingredients.
+                $result['recipes'][$i]['categories'] = array_values($result['recipes'][$i]['categories']);
+                $result['recipes'][$i]['equipment'] = array_values($result['recipes'][$i]['equipment']);
+                $result['recipes'][$i]['ingredients'] = array_values($result['recipes'][$i]['ingredients']);
+
+                for ($j = 0; $j < count($result['recipes'][$i]['ingredients']); $j++)
+                {
+                    // And finally to our replaceable ingredients
+                    $result['recipes'][$i]['ingredients'][$j]['replaceableWith'] = array_values($result['recipes'][$i]['ingredients'][$j]['replaceableWith']);
+                }
+            }
+
+            // And we're done.
+            echo json_encode($result, JSON_PRETTY_PRINT);
+            storeRecipes( json_encode( $result, JSON_PRETTY_PRINT ) ) ;
+
+        }
+
+        /**
+         * Summary:
+         *      Write the entire recipe list to a stored JSON file for access to later
+         * @param $recipeJSON
+         *      The json object that contains every recipe in the database
+         */
+        private function storeRecipes( $recipeJSON )
+        {
+
+            $recipeJsonFile = fopen("../data/allRecipes.json", "w") or die("Unable to open file!");
+            fwrite($recipeJsonFile, $recipeJSON);
+            fclose($recipeJsonFile);
+
+        }
+
+        //I dont actually remember what i was building this function for so I'm going to leave it commented out for now
+//        private function getObjectByID( $id, $baseTable )
+//        {
+//
+//            //Base tables have unique id's so we can just fetch row zero without parsing the return
+//            //SELECT * from $baseTable where id = $id
+//            $result = $this->conn( sprintf( $this->mQuery_SelectAll, $baseTable, "id", $id ) )->fetch_row()[0];
+//
+//            switch( $baseTable )
+//            {
+//                case "recipes":
+//                {
+//                    break;
+//                }
+//                case "ingredients":
+//                {
+//                    return ( getIngredientsByID( $id ) );
+//
+//                    break;
+//                }
+//                case "equipment":
+//                {
+//                    return [ "equipment" => [ "id" => $result["id"], "name" => $result["name"] ] ];
+//                    break;
+//                }
+//                case "categories":
+//                {
+//                    break;
+//                }
+//            }
+//        }
     }
 
 ?>
