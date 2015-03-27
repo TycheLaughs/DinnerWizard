@@ -1,0 +1,139 @@
+{
+   "name"        : "Super Basic Tomato Sauce",
+   "prepInst"    : [
+      "Heat the oil until it shimmers.",
+      "Add the onion, if using, and cook gently until translucent.  Add garlic, chopped fine or crushed.",
+      "Puree the tomatoes in a blender of food processor, or chop into thumb-sized pieces. Add the salt and add to onion-garlic mixture.",
+      "Bring to a bubbling boil and then lower the heat. Cook until the tomatoes are cooked to your satisfaction.",
+      "Add herbs, chili flakes and anchovy paste if desired, and cook for another few minutes, stirring well to incorporate.",
+      "Use in other dishes or serve over pasta.  Freezes well."
+      ],
+   "categories"  : [{"name":"Italian"}, {"name":"Component"}],
+   "equipment"   : ["Stove", "Medium Pot", "Food Processor", "Blender" ],
+   "ingredients" : [{ "name":"Tomatoes", "isOptional":"false", "replaceableWith": "", "ratio":"85" },
+   { "name":"Onion", "isOptional":"true", "replaceableWith": "", "ratio":"4" },
+   { "name":"Garlic", "isOptional":"true", "replaceableWith": "", "ratio":"3" },
+   { "name":"Salt", "isOptional":"false", "replaceableWith": "", "ratio":"1" },
+   { "name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Butter", "Canola Oil", "Vegetable Oil" ], "ratio":"3" },
+   { "name":"Oregano", "isOptional":"true", "replaceableWith": "", "ratio":"1" },
+   { "name":"Chili Flakes", "isOptional":"true", "replaceableWith": "", "ratio":"1" },
+   { "name": "Anchovy Paste", "isOptional":"true", "replaceableWith": [ "Basil" ], "ratio":"1" }
+
+   ]
+},
+{
+   "name"        : "Super basic cream sauce",
+   "prepInst"    : ["Melt butter in a pan.",
+      "Add flour to the butter and cook for a minute or two, until the paste formed begins to release liquid.  ",
+      "Slowly and carefully stir in a cup of milk for every tablespoon of flour added.",
+      "Whisk on medium-high heat until the sauce reaches desired thickness.",
+      "Use in other dishes or serve over pasta.  Store up to a week in the fridge."
+   ],
+   "categories"  : [{"name":"Component"}, {"name":"Western"}],
+   "equipment"   : ["Whisk", "Stove", "Medium Pot" ],
+   "ingredients" : [{ "name":"Butter", "isOptional":"false", "replaceableWith": [Olive Oil"], "ratio":"25" },
+   { "name":"Flour", "isOptional":"false", "replaceableWith": [Olive Oil"], "ratio":"25" },
+   { "name":"Milk", "isOptional":"false", "replaceableWith": "", "ratio":"50" },
+   { "name":"Black Pepper", "isOptional":"true", "replaceableWith": "", "ratio":"" },
+   { "name":"Salt", "isOptional":"true", "replaceableWith": "", "ratio":"" }]
+},
+{
+   "name"        : "Broth",
+   "prepInst"    : [
+      "Remove the bones of your desired meat, if using meat or fish. Break or chop vegetables into rough chunks.",
+      "Add bones and some of the meat, as well as the vegetables to a pot, covering with water, and bring to a boil.",
+      "Lower the heat until it is just barely bubbling and let it simmer, lid askew for saveral hours.",
+      "Strain once cool enough to handle and refrigerate overnight.",
+      "Skim any fat buildup from the top of your broth, and store as preferred, or use within two days. ",
+      "Use as a soup base or in other recipes.  Freezes well."
+   ],
+   "categories"  : [{"name":"Component"}],
+   "equipment"   : ["Stock Pot", "Colander"],
+   "ingredients" : [{ "name":"Onion", "isOptional":"true", "replaceableWith": "", "ratio":"4" },
+   { "name":"Celery", "isOptional":"true", "replaceableWith": ["Asparagus"], "ratio":"4" },
+   { "name":"Carrots", "isOptional":"true", "replaceableWith": ["Parsnips", "Turnips"], "ratio":"4" },
+   { "name":"Water", "isOptional":"false", "replaceableWith": "", "ratio":"80" },
+   { "name":"Chicken", "isOptional":"true", "replaceableWith": ["Beef", "Lamb", "Pork", "Fish"], "ratio":"8" }]
+},
+{
+   "name"        : "Roasted Mushrooms",
+   "prepInst"    : [
+      "Heat oven to 425 or 450&deg;F.",
+      "Cut mushrooms to desired sizes, or, if using larger mushrooms, remove the cap from the stem, and discard teh stem.",
+      "Toss or brush with oil and lay on a rimmed baking sheet.",
+      "Bake for approximately 20 minutes. Convection produces better results.",
+      "Good alone, or in a variety of other recipes. Best after allowed to sit for several hours. Keeps for up to a week in the fridge."],
+   "categories"  : [{"name":"Component"}, {"name":"Western"}],
+   "equipment"   : ["Oven", "Baking Sheet" ],
+   "ingredients" : [ { "name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Vegetable Oil","Peanut Oil", "Canola Oil"  ], "ratio":"5" },
+   { "name":"Mushrooms", "isOptional":"false", "replaceableWith": "", "ratio":"95" }]
+},
+{
+   "name"        : "Roasted Root Veggies",
+   "prepInst"    :  ["Heat oven to 425 or 450&deg;F.",
+      "Cut vegetable to desired sizes. Peel if necessary.",
+      "Toss with oil and lay on a rimmed baking sheet.",
+      "Bake for approximately 30-40 minutes. Convection produces better results.",
+      "Good alone, or in a variety of other recipes. Keeps for up to a week in the fridge."],
+   "categories"  : [{"name":"Component"}, {"name":"Western"}],
+   "equipment"   : ["Oven", "Baking Sheet" ],
+   "ingredients" : [ { "name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Vegetable Oil","Peanut Oil", "Canola Oil"  ], "ratio":"5" },
+   { "name":"Beets", "isOptional":"false", "replaceableWith": ["Turnips", "Parsnips", "Carrots"], "ratio":"95" }]
+},
+{
+   "name"        : "Roasted Bell Peppers",
+   "prepInst"    : "Heat oven to 425 or 450&deg;F.",
+      "Brush whole pepper with oil and lay on a rimmed baking sheet.",
+      "Bake for approximately 20 minutes. Convection produces better results.",
+      "Remove from sheet and place in a paper bag for ten minutes.  Peel off skin and slice.",
+      "Use in a variety of other recipes or on sandwiches."],
+   "categories"  : [{"name":"Component"}, {"name":"Western"}],
+   "equipment"   : ["Oven", "Baking Sheet", "Food Processor" ],
+   "ingredients" : [ { "name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Vegetable Oil","Peanut Oil", "Canola Oil"  ], "ratio":"5" },
+   { "name":"Bell Peppers", "isOptional":"false", "replaceableWith": "", "ratio":"95" }]
+},
+
+{
+   "name"        : "Roasted Eggplant",
+   "prepInst"    : ["Heat oven to 425 or 450&deg;F.",
+      "Cut eggplant to desired sizes.",
+      "Toss with oil and lay on a rimmed baking sheet.",
+      "Bake for approximately 20 minutes. Convection produces better results.",
+      "Good alone, or in a variety of other recipes. Keeps for up to a week in the fridge."],
+   "categories"  : [{"name":"Component"}, {"name":"Western"}, {"name":"Italian"},{"name":"Mediterranean"},{"name":"Chinese"}],
+   "equipment"   : ["Oven", "Baking Sheet" ],
+   "ingredients" : [ { "name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Vegetable Oil","Peanut Oil", "Canola Oil"  ], "ratio":"5" },
+   { "name":"Beets", "isOptional":"false", "replaceableWith": ["Turnips", "Parsnips", "Carrots"], "ratio":"95" }]
+},
+{
+   "name"        : "Velveted Meat",
+   "prepInst"    : "",
+   "categories"  : [{"name":"Component"},{"name":"Chinese"}],
+   "equipment"   : ["Medium Pot", "Bowl" ],
+   "ingredients" : [ 
+   { "name":"Chicken", "isOptional":"true", "replaceableWith": ["Beef", "Lamb", "Pork"], "ratio":"80" },
+   { "name":"Salt", "isOptional":"false", "replaceableWith": "", "ratio":"4" },
+   { "name":"Egg", "isOptional":"false", "replaceableWith": "", "ratio":"4" },
+   { "name":"Cornstarch", "isOptional":"false", "replaceableWith": "", "ratio":"4" },
+   { "name":"Vegetable Oil", "isOptional":"false", "replaceableWith": "", "ratio":"4" },
+   { "name":"Rice Vinegar", "isOptional":"false", "replaceableWith": ["Cooking Sherry","Red Wine Vinegar"], "ratio":"4" },
+   { "name":"Soy Sauce", "isOptional":"true", "replaceableWith": "", "ratio":"" }]
+}
+
+
+
+
+
+
+Velveted meats:
+Meat of choice
+salt
+cornstarch
+oil
+vinegar or cooking sherry
+egg
+
+I can't remember the order off the top of my head, but you combine each ingredient by hand (literally. use your fingers) with the meat in a specific order and then let it sit in a covered dish for 20-40 minutes.
+Then dip in hot oil or in boiling water that contains a few spoonfuls of oil for no longer than a minute or possibly even thirty seconds, depending on the size of your meat chunk.
+Use in stir fry.
+
