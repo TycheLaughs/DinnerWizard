@@ -1,5 +1,6 @@
 "filter_request":
 {
+    "ExclusiveIngredients" : bool,
     "ingredientTags" : [{ id, name}],
     "recipeTags"     : [{ id, name}],
     "equipment"      : [{ id, name}],

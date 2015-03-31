@@ -41,13 +41,20 @@
         private $mPath_AllRecipesJSON = "../data/allRecipes.json" ;
 
         //The most used queries for sustainability and easy formatting
-        private $mQuery_SelectAll = "SELECT * FROM %s";                                                       //SELECT * FROM <tableName>
-        private $mQuery_SelectLastID = "SELECT max(id) FROM %s";                                                //SELECT max(id) FROM <tableName>
-        private $mQuery_SelectFromTable = "SELECT %s FROM %s WHERE %s = '%s'";                                      //SELECT <attribute> FROM <table> WHERE <attribute> = <value>
-        private $mQuery_InsBaseTable = "INSERT INTO %s( id, name ) VALUES( '%d', '%s' ) ";                       //INSERT INTO <table>( id, name ) VALUES( <id>, <name> )
-        private $mQuery_InsTagsTable = "INSERT INTO tags( id, name, isFilterable ) VALUES '%s', '%s' )";        //INSERT INTO tags( id, name, isFilterable ) VALUES( <id>, <name>, <isFilterable> ) ;
-        private $mQuery_InsRecipesTable = "INSERT INTO recipes( id, name, prepInst ) VALUES ( '%d', '%s', '%s' ) "; //INSERT INTO recipes( id, name, prepInst ) VALUES( <id>, <name>, <prepInst> )
-        private $mQuery_InsMapTable = "INSERT INTO %s( id, id) VALUES( '%d', '%d')";                            //INSERT INTO <table>( id, id ) VALUES( <id>, <id> ) ;
+        //SELECT * FROM <tableName>
+        private $mQuery_SelectAll = "SELECT * FROM %s";
+        //SELECT max(id) FROM <tableName>
+        private $mQuery_SelectLastID = "SELECT max(id) FROM %s";
+        //SELECT <attribute> FROM <table> WHERE <attribute> = <value>
+        private $mQuery_SelectFromTable = "SELECT %s FROM %s WHERE %s = '%s'";
+        //INSERT INTO <table>( id, name ) VALUES( <id>, <name> )
+        private $mQuery_InsBaseTable = "INSERT INTO %s( id, name ) VALUES( '%d', '%s' ) ";
+        //INSERT INTO tags( id, name, isFilterable ) VALUES( <id>, <name>, <isFilterable> ) ;
+        private $mQuery_InsTagsTable = "INSERT INTO tags( id, name, isFilterable ) VALUES '%s', '%s' )";
+        //INSERT INTO recipes( id, name, prepInst ) VALUES( <id>, <name>, <prepInst> )
+        private $mQuery_InsRecipesTable = "INSERT INTO recipes( id, name, prepInst ) VALUES ( '%d', '%s', '%s' ) ";
+        //INSERT INTO <table>( id, id ) VALUES( <id>, <id> ) ;
+        private $mQuery_InsMapTable = "INSERT INTO %s( id, id) VALUES( '%d', '%d')";
 
         //Going to use these data members at some point
         //private $filterObj = [] ;
@@ -128,11 +135,14 @@
             $recipeList = [ ];
 
             //Test Filter request to be removed when we get the request working from the front end
-            $testFilter = [ "ingredientTags" => [ [ "id" => 4, "name" => "eggs" ] ],
-                "recipeTags" => "",
-                "equipment" => [ [ "id" => 9, "name" => "frying pan" ] ],
-                "without" => [ [ "id" => 1, "name" => "spicy", "group" => "recipes" ], [ "id" => 2, "name" => "seafood", "group" => "ingredients" ] ] ];
+            $testFilter = [ "exclusiveIngredients" => false,
+                           "ingredientTags" => [ [ "id" => 4, "name" => "eggs" ] ],
+                           "recipeTags" => "",
+                           "equipment" => [ [ "id" => 9, "name" => "frying pan" ] ],
+                           "without" => [ [ "id" => 1, "name" => "spicy", "group" => "recipes" ],
+                                          [ "id" => 2, "name" => "seafood", "group" => "ingredients" ] ] ];
 
+            $exclusiveIngredients = $testFilter["eclusiveIngredients"]; // allow the user to do only the ingredients the supply exclude all recipes that contain other ones.
             $ingredientFilter = $testFilter["ingredientTags"];
             $recipeFilter = $testFilter["recipeTags"];
             $equipmentFilter = $testFilter["equipment"];
@@ -344,6 +354,8 @@
             $this->getRecipes() ;
 
             print_r( $this->mJSON_AllRecipes ) ;
+
+
 
             return json_encode($recipeList, JSON_PRETTY_PRINT ) ;
         }
