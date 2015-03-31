@@ -254,7 +254,7 @@
             "Drop, in spoonfuls like cookies, onto a rimmed baking sheet and bake for about 30 minutes.",
             "Serve with pitas or rice, yoghurt and fresh cut vegetables for a filling and refreshing meal."
          ],
-         "categories"  : [{"name": "Vegetarian"},{"name": "Mediterranean"},{"name":"Under 30"}, {"name":"Other"}, {"name": "Snack"}],
+         "categories"  : [{"name": "Vegetarian"},{"name": "Mediterranean"},{"name":"Under 30"}, {"name":"Other"}, {"name": "Snack"}, {"name":"Spicy"}],
          "equipment"   : ["Oven", "Baking Sheet", "Food Processor"],
          "ingredients" : [
             {"name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Canola Oil", "Vegetable Oil" ], "ratio":"2" },
@@ -361,7 +361,7 @@
             "Serve immediately, or at room temperature later, sprinkled with peanuts, and, if you like, pineapple chunks.",
             "Adapted from a recipe by Martin Minow."
          ],
-         "categories"  : [{"name":"Southeast Asian"},{"name":"Vegetarian"},{"name":"Pasta"}, {"name":"Under 30"}],
+         "categories"  : [{"name":"Southeast Asian"},{"name":"Vegetarian"},{"name":"Pasta"}, {"name":"Under 30"}, {"name":"Spicy"}],
          "equipment"   : ["Stock Pot", "Stove", "Food Processor", "Colander"],
          "ingredients" : [
             {"name": "Pasta", "isOptional":"false", "replaceableWith": "", "ratio":"80"}, 
@@ -388,7 +388,7 @@
             "Add whichever fruit you prefer, chopped to smaller-than-bite-sized if necessary, and simmer again for another ten minutes.",
             "Serve with couscous.",
             "Adapted from recipes by Mark Bittman in The New York Times"],
-         "categories"  : [{"name":"Mediterranean"},{"name":"Stew"},{"name":"Meat & Starch"}],
+         "categories"  : [{"name":"Mediterranean"},{"name":"Stew"},{"name":"Meat & Starch"},{"name":"Spicy"}],
          "equipment"   : ["Large Round Pan", "Stove"  ],
          "ingredients" : [
             { "name":"Lamb", "isOptional":"false", "replaceableWith": [ "Chicken", "Beef" ] , "ratio":"30"},

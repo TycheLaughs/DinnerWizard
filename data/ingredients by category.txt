@@ -65,6 +65,7 @@ Vegetables:
    Turnips
    Parsnips
    Carrots
+   Celery
 
 Spices and Herbs:
    Garlic
@@ -83,6 +84,7 @@ Spices and Herbs:
    Thyme
    Paprika
    Nutmeg
+   Basil
 
 Odds and Ends:
    Butter
@@ -102,6 +104,12 @@ Odds and Ends:
    Soy Sauce
    Fish Sauce
    Oyster Sauce
+   Anchovy Paste
+   Tomato Paste
+
+   Cooking sherry
+   Rice Vinegar
+   Red Wine Vinegar
    
    Dates
    Dried Figs

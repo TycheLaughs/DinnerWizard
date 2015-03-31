@@ -88,7 +88,22 @@ li:hover{   /*most list items are interactive, so here's something to show that 
 }
 .optional{
    cursor: pointer;
+   color: gray;
+   //text-decoration: underline;
+   //text-decoration-style: dotted;
+   //border-bottom:thin dashed gray;
     /*temporary styling for optional ingredients*/
+}
+
+.optionalTip{
+   opacity: .5;
+   background-color: gray;
+   color: #065195; /* dark blue*/ 
+}
+
+.subsAvailable{
+   cursor: pointer;
+   color: #065195; /* dark blue*/  
 }
 body { 
    padding-top:5px;
@@ -272,12 +287,6 @@ a:active{
 }
 
 
-.optional{/* this needs combination with earlier .optional rules. */
-    cursor: pointer;
-}
-.optional:hover{
-   font-weight: bold;
-}
 
 /* styling accordions, overriding bootstrap css */
 .panel-default > .panel-heading{

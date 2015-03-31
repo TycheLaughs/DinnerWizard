@@ -29,7 +29,19 @@ Modified: 3/18/2015 by Susan Souza to add a pipe in between recipe tags in each 
          </div>
          </accordion-heading>
          <ul ng-repeat="ingredient in recipe.ingredients" >
-            <li style="list-style-type: none" ><span ng-class="{'optional':ingredient.isOptional === 'true', 'tags':ingredient.replaceableWith.length >0}">{{ingredient.name}}</span></li>
+            <li style="list-style-type: none" >
+               <span ng-if="ingredient.isOptional === 'false' && ingredient.replaceableWith.length === 0">{{ingredient.name}}</span>
+            </li>
+            <li style="list-style-type: none" >
+               <span ng-if="ingredient.isOptional === 'false' && ingredient.replaceableWith.length > 0" ng-class="{'subsAvailable':ingredient.replaceableWith.length >0}" ng-click="substitutions(ingredient.name)">{{ingredient.name}}</span>
+            </li>
+            <li style="list-style-type: none" >
+               <span class = "optional" ng-if="ingredient.isOptional === 'true' && ingredient.replaceableWith.length ===0" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Optional' tooltip-class="optionalTip" >{{ingredient.name}}</span>
+            </li>
+            <li style="list-style-type: none" >
+               <span class = "optional" ng-if="ingredient.isOptional === 'true' && ingredient.replaceableWith.length >0" ng-class="{'subsAvailable':ingredient.replaceableWith.length >0}" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Optional' tooltip-class="optionalTip" ng-click ="substitutions(ingredient.name)">{{ingredient.name}}</span>
+            </li>
+            
          </ul>
       </accordion-group>
    </accordion>
@@ -39,12 +51,21 @@ Modified: 3/18/2015 by Susan Souza to add a pipe in between recipe tags in each 
 <div class="col-xs-11 col-sm-6 rightColumn"><!--container for positioning of the right-hand column's content -->
    <div class="col-xs-11">
       <div class="col-xs-6 infoBox">
-         <p>{{insert}}</p>
-      </div>
+         <div ng-if="subs">Substitutions for {{clickedIngr}}: <!-- substitution listing start-->
+            <div ng-repeat="rec in recipes | filter: {name:showMeRecipe}:true">
+               <ul ng-repeat="ingr in rec.ingredients | filter:{name: clickedIngr}:true">
+                  <li ng-repeat="item in ingr.replaceableWith" >{{item}}</li><!-- will style in a bit to be more consistent with everything else-->
+               </ul>
+            </div>
+         </div><!-- substitution listing end-->
+         <div ng-if="!subs">
+         {{insert}} <!--chart could go here... function in recipeCtrl is showRecipe() -->
+         </div>
+      </div><!--end info box-->
       <div class="col-xs-0 col-sm-1"></div><!--spacer column; hidden on smaller screens-->
       <div class="col-xs-5  tagsList">Your search:
        <ul class = "actualTagsList">
-         <li ng-repeat= "tag in tags" style="list-style-type: none" ><span class ="tags" ng-class="{'without': tag.substr(0,3)=== 'NO ', 'equip': tag.substr(0,4)== 'Use ', 'flavor': tag == 'Mexican' || tag == 'Chinese' || tag == 'Italian' ||tag == 'Southeast Asian' || tag == 'Western' || tag == 'Mediterranean', 'other': tag =='Vegetarian' || tag =='Under 30 Minutes' || tag == 'Cost Cutter', 'noStyle': tag === 'No Search Filters Selected'}">{{tag.name}}</span></li>
+         <li ng-repeat= "tag in tags" style="list-style-type: none" ><span class ="tags" ng-class="{'without': tag.substr(0,3)=== 'NO ', 'equip': tag.substr(0,4)== 'Use ', 'flavor': tag == 'Mexican' || tag == 'Chinese' || tag == 'Italian' ||tag == 'Southeast Asian' || tag == 'Western' || tag == 'Mediterranean', 'other': tag =='Vegetarian' || tag =='Under 30 Minutes' || tag == 'Cost Cutter', 'noStyle': tag === 'No Search Filters Selected'}">{{tag}}</span></li>
        </ul>
       </div>
    </div>

@@ -23,6 +23,7 @@ Equipment
    Baking Dish
    Baking Sheet
    Food Processor
+   Blender
    Stock Pot
    Medium Pot
    Frying Pan
@@ -32,8 +33,11 @@ Equipment
    Oven
    Grater
    Gallon Plastic Bag
+   Bowl
    
 
 Other
    Under 30
    Vegetarian
+   Spicy
+   Component
