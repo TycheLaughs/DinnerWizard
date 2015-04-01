@@ -428,8 +428,8 @@
          ]
       },
       {
-         "name"        : "Super Basic Tomato Sauce",
-      "prepInst"    : [
+         "name"        : "Tomato Sauce",
+         "prepInst"    : [
          "Heat the oil until it shimmers.",
          "Add the onion, if using, and cook gently until translucent.  Add garlic, chopped fine or crushed.",
          "Puree the tomatoes in a blender of food processor, or chop into thumb-sized pieces. Add the salt and add to onion-garlic mixture.",
@@ -437,7 +437,7 @@
          "Add herbs, chili flakes and anchovy paste if desired, and cook for another few minutes, stirring well to incorporate.",
          "Use in other dishes or serve over pasta.  Freezes well."
          ],
-      "categories"  : [{"name":"Italian"}, {"name":"Component"}],
+      "categories"  : [{"name":"Component"}, {"name":"Italian"}],
       "equipment"   : ["Stove", "Medium Pot", "Food Processor", "Blender" ],
       "ingredients" : [{ "name":"Tomatoes", "isOptional":"false", "replaceableWith": "", "ratio":"85" },
       { "name":"Onion", "isOptional":"true", "replaceableWith": "", "ratio":"4" },

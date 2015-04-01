@@ -13,8 +13,10 @@ DinnerWizardApp.controller('recipesController', function($scope, $http, persiste
       $scope.message = 'Recipe View';
       $scope.oneAtATime = true;
       $scope.showMeRecipe = '';
-      $scope.subs = false;
-     
+      $scope.componentRecipe = '';
+      $scope.subs = false;//bool to determine if we should be viewing ingredient substitutions
+      $scope.comp = false;//bool to determine if we should be viewing complex component recipes
+      $scope.comps = [];
       $scope.buttonClass = "recStyle";
 
       $scope.tags = persistentService.Tags()
@@ -30,6 +32,11 @@ DinnerWizardApp.controller('recipesController', function($scope, $http, persiste
          $scope.filterList = data.TAGS; //assign the array of objects called
          //Tags in the json file to a variable named ingredients
       });
+      
+      //console.log($scope.recipes));
+      /*get the mapping between name of ingredient in an ingredient list and name in recipes*/
+      $scope.comps = persistentService.Components($scope.recipes, $scope.ingredients);
+      
       /**showRecipe
       * Determines which JSON object to be using based on parameters (gotten via click)
       * and stores this information in a variable for use outside of the accordion's scope
@@ -41,6 +48,7 @@ DinnerWizardApp.controller('recipesController', function($scope, $http, persiste
          $scope.showMeRecipe = recipe;
          $scope.insert = recipe + " Ratio chart here";
          $scope.subs = false;
+         $scope.comp = false;
       };
       
       $scope.substitutions = function(clickedI){
@@ -49,6 +57,12 @@ DinnerWizardApp.controller('recipesController', function($scope, $http, persiste
          $scope.clickedIngr = clickedI;
          
         //$scope.insert = '<div ng-repeat="rec in recipes| filter: {name:showMeRecipe}:true"><ul ng-repeat="ingr in rec.ingredients"><li class ="rec" ng-repeat="item in ingr.replaceableWith">{{item}}</li></ul></div>';
+      };
+      $scope.showComponent = function(clicked){
+         $scope.comp = true;
+         $scope.subs = false;
+         console.log('clicked ' + clicked +' in ' + $scope.showMeRecipe +' subs: ' + $scope.subs+ ', comp: '+$scope.comp);
+         $scope.componentRecipe = clicked;
       };
       
 	});

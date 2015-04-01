@@ -105,6 +105,37 @@ li:hover{   /*most list items are interactive, so here's something to show that 
    cursor: pointer;
    color: #065195; /* dark blue*/  
 }
+.component{
+   cursor:pointer;
+   color: green;
+}
+.accessGlyph{
+   position: relative;
+   float:right;
+   right: 60px;
+}
+.accessGlyphLeft{
+   right:70px;
+   position: relative;
+   float:right;
+}
+.componentRecipe{
+   font-size: .9em;
+}
+
+
+.componentIngredients{
+   -webkit-column-count:2; /* Chrome, Safari, Opera */
+   -moz-column-count: 2; /* Firefox */
+   column-count: 2;
+   -webkit-column-gap: 2px; /* Chrome, Safari, Opera */
+   -moz-column-gap: 2px; /* Firefox */
+   column-gap: 2px;
+}
+.componentRecipe  ul, .componentRecipe ol{
+   margin-left: 4px;
+   padding-left: 4px;
+}
 body { 
    padding-top:5px;
    font-family: serif;
@@ -205,6 +236,7 @@ a:hover{
    height: 200px;
    border: 4px dashed #f8b30e; /* dark yellow */
    border-radius: 9px;
+    overflow-y: auto;
 }
 
 /*make the box in which recipe procedure sits have a fixed height and scroll when the procedure is too large to fit.*/

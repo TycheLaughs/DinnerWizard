@@ -14,28 +14,50 @@ DinnerWizardApp.service('persistentService', function($http){
    var list = ['Click ingredients to add them to your inventory, or search for them by name.'];
    var tagsList = ['No Search Filters Selected'];
    var restrict = false;
-  
+   var componentMap = [];
    var response ;
    return{
+   
+   
+   Components:function(recipes, ingredients){
+   console.log(JSON.stringify(recipes));
+   console.log(JSON.stringify(ingredients));
+     
+     // var rec = recipes;
+      for(var i = 0; i < recipes.length; i++){
+         for(var j = 0; j < ingredients.length; j++){
+            for(var k = 0; k < recipes[i].ingredients.length ; k++){
+               if(recipes[i].ingredients[k].name === ingredients[j].name){
+                  if(ingredients[j].tags[0] === 'Pre-Made'){
+                     if(componentMap.indexOf(ingredients[j].name) <0){
+                        componentMap.push(ingredients[j].name);
+                     }
+                  }
+               }
+            }
+         }
+      }
+      console.log(JSON.stringify(componentMap));
+   return componentMap;
+   },
    
    
    
    
    
    toggleCheck:function(box){
-   if(box.checked === true){
-      box.checked = false;
-      console.log('Recipe Restriction box unchecked!');
-      restrict = false;
-   }
-   else {
-      box.checked = true;
-      console.log('Recipe Restriction box checked!');
-      restrict = true;
-     
-   }
-  
-},
+      if(box.checked === true){
+         box.checked = false;
+         console.log('Recipe Restriction box unchecked!');
+         restrict = false;
+      }
+      else {
+         box.checked = true;
+         console.log('Recipe Restriction box checked!');
+         restrict = true;
+        
+      }
+   },
    
    
    
