@@ -33,13 +33,13 @@ Modified: 3/18/2015 by Susan Souza to add a pipe in between recipe tags in each 
                <span ng-if="ingredient.isOptional === 'false' && ingredient.replaceableWith.length === 0">{{ingredient.name}}</span>
             </li>
             <li style="list-style-type: none" >
-               <span ng-if="ingredient.isOptional === 'false' && ingredient.replaceableWith.length > 0" ng-class="{'subsAvailable':ingredient.replaceableWith.length >0}" ng-click="substitutions(ingredient.name)">{{ingredient.name}}</span>
+               <span ng-if="ingredient.isOptional === 'false' && ingredient.replaceableWith.length > 0">{{ingredient.name}}</span><span class="glyphicon glyphicon-chevron-right subsAvailable" style="margin-left:30px" ng-click ="substitutions(ingredient.name)"ng-if="ingredient.isOptional === 'false' && ingredient.replaceableWith.length > 0" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Substitutions Available' ></span>
             </li>
             <li style="list-style-type: none" >
                <span class = "optional" ng-if="ingredient.isOptional === 'true' && ingredient.replaceableWith.length ===0" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Optional' tooltip-class="optionalTip" >{{ingredient.name}}</span>
             </li>
             <li style="list-style-type: none" >
-               <span class = "optional" ng-if="ingredient.isOptional === 'true' && ingredient.replaceableWith.length >0" ng-class="{'subsAvailable':ingredient.replaceableWith.length >0}" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Optional' tooltip-class="optionalTip" ng-click ="substitutions(ingredient.name)">{{ingredient.name}}</span>
+               <span class = "optional" ng-if="ingredient.isOptional === 'true' && ingredient.replaceableWith.length >0" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Optional' tooltip-class="optionalTip" >{{ingredient.name}}</span><span class="glyphicon glyphicon-chevron-right subsAvailable" style="margin-left:30px" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Substitutions Available' ng-click ="substitutions(ingredient.name)" ng-if="ingredient.isOptional === 'true' && ingredient.replaceableWith.length > 0"></span>
             </li>
             
          </ul>
@@ -77,7 +77,7 @@ Modified: 3/18/2015 by Susan Souza to add a pipe in between recipe tags in each 
       </ul>
 
    </div>
-   <div class="col-xs-11 procedureBox"><p><!--{{showMeRecipe}} -->Procedure:</p>
+   <div class="col-xs-11 procedureBox"><p><!--{{showMeRecipe}} -->Procedure:</p><!-- we're not having a list here anymore.. must use 'magic' filter instead-->
       <ol ng-repeat="rec in recipes| filter: {name:showMeRecipe}:true">
          <li  ng-repeat="procedure in rec.prepInst">{{procedure}}</li>
       </ol>

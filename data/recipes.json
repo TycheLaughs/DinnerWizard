@@ -426,6 +426,47 @@
          { "name":"Black Pepper", "isOptional":"true", "replaceableWith": "" , "ratio":""},
          { "name":"Salt", "isOptional":"true", "replaceableWith": "" , "ratio":""}
          ]
+      },
+      {
+         "name"        : "Super Basic Tomato Sauce",
+      "prepInst"    : [
+         "Heat the oil until it shimmers.",
+         "Add the onion, if using, and cook gently until translucent.  Add garlic, chopped fine or crushed.",
+         "Puree the tomatoes in a blender of food processor, or chop into thumb-sized pieces. Add the salt and add to onion-garlic mixture.",
+         "Bring to a bubbling boil and then lower the heat. Cook until the tomatoes are cooked to your satisfaction.",
+         "Add herbs, chili flakes and anchovy paste if desired, and cook for another few minutes, stirring well to incorporate.",
+         "Use in other dishes or serve over pasta.  Freezes well."
+         ],
+      "categories"  : [{"name":"Italian"}, {"name":"Component"}],
+      "equipment"   : ["Stove", "Medium Pot", "Food Processor", "Blender" ],
+      "ingredients" : [{ "name":"Tomatoes", "isOptional":"false", "replaceableWith": "", "ratio":"85" },
+      { "name":"Onion", "isOptional":"true", "replaceableWith": "", "ratio":"4" },
+      { "name":"Garlic", "isOptional":"true", "replaceableWith": "", "ratio":"3" },
+      { "name":"Salt", "isOptional":"false", "replaceableWith": "", "ratio":"1" },
+      { "name": "Olive Oil", "isOptional":"false", "replaceableWith": [ "Butter", "Canola Oil", "Vegetable Oil" ], "ratio":"3" },
+      { "name":"Oregano", "isOptional":"true", "replaceableWith": "", "ratio":"1" },
+      { "name":"Chili Flakes", "isOptional":"true", "replaceableWith": "", "ratio":"1" },
+      { "name": "Anchovy Paste", "isOptional":"true", "replaceableWith": [ "Basil" ], "ratio":"1" }
+
+      ]
+      },
+      {
+         "name"        : "Broth",
+         "prepInst"    : [
+            "Remove the bones of your desired meat, if using meat or fish. Break or chop vegetables into rough chunks.",
+            "Add bones and some of the meat, as well as the vegetables to a pot, covering with water, and bring to a boil.",
+            "Lower the heat until it is just barely bubbling and let it simmer, lid askew for saveral hours.",
+            "Strain once cool enough to handle and refrigerate overnight.",
+            "Skim any fat buildup from the top of your broth, and store as preferred, or use within two days. ",
+            "Use as a soup base or in other recipes.  Freezes well."
+         ],
+         "categories"  : [{"name":"Component"}],
+         "equipment"   : ["Stock Pot", "Colander"],
+         "ingredients" : [{ "name":"Onion", "isOptional":"true", "replaceableWith": "", "ratio":"4" },
+         { "name":"Celery", "isOptional":"true", "replaceableWith": ["Asparagus"], "ratio":"4" },
+         { "name":"Carrots", "isOptional":"true", "replaceableWith": ["Parsnips", "Turnips"], "ratio":"4" },
+         { "name":"Water", "isOptional":"false", "replaceableWith": "", "ratio":"80" },
+         { "name":"Chicken", "isOptional":"true", "replaceableWith": ["Beef", "Lamb", "Pork", "Fish"], "ratio":"8" }]
       }
    ]
    }

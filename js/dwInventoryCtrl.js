@@ -11,6 +11,7 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
       $scope.oneAtATime = true;
       $scope.message = 'Inventory';
       $scope.temp = '' ;
+      $scope.box = document.getElementById('exclusionBox');
   
       $scope.buttonClass = "invStyle";
       $scope.selected = undefined;
@@ -24,6 +25,8 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
          //INGREDIENTS in the json file to a variable named ingredients
          $scope.filterList = data.TAGS; //assign the array of objects called
          //Tags in the json file to a variable named ingredients
+         $scope.equipment = data.EQUIPMENT;
+
       });
       /* call mutators for the arrays stored 'globally' in a service*/
      $scope.clickedFromListing = function(content){
@@ -36,14 +39,17 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
 
       $scope.clearInv = function(){
          persistentService.clearInventory();
-         persistentService.filtering($scope.ingredients, persistentService.Tags(), $scope.temp ) ;
+         persistentService.filtering($scope.ingredients, persistentService.Tags(), $scope.equipment) ;
       };
       
      
       $scope.search = function(){
 
-         persistentService.filtering($scope.ingredients, persistentService.Tags(), $scope.temp ) ;
+         persistentService.filtering($scope.ingredients, persistentService.Tags(), $scope.equipment) ;
       };
-      
+      $scope.checkIt = function(){
+        
+         persistentService.toggleCheck($scope.box);
+      };
          
 });

@@ -23,6 +23,7 @@ DinnerWizardApp.controller('filterController', function($scope, $http, persisten
          $scope.ingredients = data.INGREDIENTS; //assign the array of objects called
          //INGREDIENTS in the json file to a variable named ingredients
          $scope.filterList = data.TAGS; //assign the array of objects called
+         $scope.equipment = data.EQUIPMENT;
          //Tags in the json file to a variable named ingredients
       });
      
@@ -41,9 +42,9 @@ DinnerWizardApp.controller('filterController', function($scope, $http, persisten
       }; 
       $scope.clearList = function(){
          persistentService.clearTags();
-         persistentService.filtering($scope.ingredients, persistentService.Tags(), $scope.temp ) ;
+         persistentService.filtering($scope.ingredients, persistentService.Tags(), $scope.equipment) ;
       };
       $scope.search = function(){
-         persistentService.filtering($scope.ingredients, persistentService.Tags());
+         persistentService.filtering($scope.ingredients, persistentService.Tags(), $scope.equipment);
        };
 	});

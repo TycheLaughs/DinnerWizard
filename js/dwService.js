@@ -13,8 +13,31 @@
 DinnerWizardApp.service('persistentService', function($http){
    var list = ['Click ingredients to add them to your inventory, or search for them by name.'];
    var tagsList = ['No Search Filters Selected'];
+   var restrict = false;
+  
    var response ;
    return{
+   
+   
+   
+   
+   
+   toggleCheck:function(box){
+   if(box.checked === true){
+      box.checked = false;
+      console.log('Recipe Restriction box unchecked!');
+      restrict = false;
+   }
+   else {
+      box.checked = true;
+      console.log('Recipe Restriction box checked!');
+      restrict = true;
+     
+   }
+  
+},
+   
+   
    
    /**
       * constructs an array called list to store ingredients selected by one user at a time
@@ -205,19 +228,20 @@ DinnerWizardApp.service('persistentService', function($http){
       * http://www.keyboardninja.eu/webdevelopment/a-simple-search-with-angularjs-and-php
       * http://stackoverflow.com/questions/19970301/convert-javascript-object-or-array-to-json-for-ajax-data
       */
-      filtering:function(ingredients, tags, temp)
+      filtering:function(ingredients, tags, equipment, temp)
       {
 
           var filter = {};
-          var ing = {};
+          /*var ing = {};
           var rec = {};
           var wo = {};
-          var equip = {};
+          var equip = {};*/
           var idFinder = '';
           filter.ingredientTags = [];
           filter.recipeTags = [];
           filter.equipment = [];
           filter.without = [];
+          filter.ExclusiveIngredients = restrict;
           //test print to see that we are in fact getting the right thing from ingredients param
           //console.log(JSON.stringify(ingredients));
          if ( list[0] !== 'Click ingredients to add them to your inventory, or search for them by name.' )
@@ -230,11 +254,11 @@ DinnerWizardApp.service('persistentService', function($http){
                      //console.log(idFinder);
                   }
                }
-               var ing = {};
+              var ing = {};
               ing.id = idFinder;
               ing.name = list[i];
               filter.ingredientTags.push(ing);
-              // console.log(i + (JSON.stringify(filter.ingredientTags)));
+              console.log(i + (JSON.stringify(filter.ingredientTags)));
             }
          }
          if ( tagsList[0] !== 'No Search Filters Selected' )
@@ -243,6 +267,7 @@ DinnerWizardApp.service('persistentService', function($http){
             { 
                //console.log(tagsList[i].substr(0, 3));
                if((tagsList[i]).substr(0, 3) !== 'NO ' && (tagsList[i]).substr(0, 4) !== 'Use '){
+               //might have found a regular tag for recipes
                   for(var k = 0; k < tags.length; k++){
                      if(tags[k].name === tagsList[i]){
                         idFinder = tags[k].id;
@@ -254,28 +279,54 @@ DinnerWizardApp.service('persistentService', function($http){
                   rec.name = tagsList[i];
                   filter.recipeTags.push(rec);
                }
-               else if((tagsList[i]).substr(0, 3) !== 'NO '){
+               else if((tagsList[i]).substr(0, 3) === 'NO '){//found a Without tag
                   console.log('Found a Without tag to process into JSON');
-                    //is it an ingredient or equipment item?
-                    //determine which and find id
                      var wo = {};
-                     wo.name = tagsList[i].substr(3); //remove the 'NO '
-                     //wo.id = idFinder;
-                     //filter.without.push(wo);
-                     
+                     var truncWO = tagsList[i].substr(3); //remove the 'NO '
+                     //iterate through equipment list (JSON) to see if there's a match (also find ID at this time
+                     for (var j = 0; j < equipment.length; j++){
+                        if(truncWO === equipment[j].name){// without equipment
+                           idFinder = equipment[j].id;
+                           wo.name = truncWO;
+                           wo.id = idFinder;
+                           wo.group = "Equipment";
+                           
+                           }
+                           else{//without ingredient
+                              for(var k = 0; k < ingredients.length; k++){
+                                 if(ingredients[k].name === truncWO){
+                                 idFinder = ingredients[k].id;
+                                 wo.name = truncWO;
+                                 wo.group = "Ingredients";
+                        //console.log(idFinder);
+                                 }
+                              }
+                           }
+                        }  
+
+                     filter.without.push(wo);  
                   }
                   else{//we found an equipment tag
                      //find id
                      var equip = {};
-                     equip.name = tagsList[i].substr(4);//trim off the first four characters that spell out 'Use '
-                     //equip.id=idFinder;
-                     //filter.equipment.push(equip);
+                     equip.name = tagsList[i].substr(3);//trim off the first four characters that spell out 'Use '
+                     for (var j = 0; j < equipment.length; j++){
+                        if(equip.name === equipment[j].name){
+                           idFinder = equipment[j].id;
+                           equip.name = equipment[j].name;
+                           equip.id = idFinder;
+                           equip.group = "Equipment";
+                           }
+                        }  
+                     
+                     filter.equipment.push(equip);
                   }
             }
          }
 
           //test print to see what we built
-          console.log( "HERE" + JSON.stringify( filter ) )
+          console.log( "HERE" + JSON.stringify( filter ) );
+          
 
           //Tommy Leedberg - 3/10/2015 - Added steps for doing an http post. Not sure if this will work or not. We'll need to test/debug
           //based on code from http://codeforgeek.com/2014/07/angular-post-request-php/
