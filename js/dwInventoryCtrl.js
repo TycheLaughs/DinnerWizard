@@ -12,7 +12,7 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
       $scope.message = 'Inventory';
       $scope.temp = '' ;
       $scope.box = document.getElementById('exclusionBox');
-  
+      $scope.ingrCats = ['Alternate Protein', 'Meat', 'Seafood', 'Starch', 'Vegetables', 'Spices and Herbs', 'Odds and Ends','Pre-Made']; 
       $scope.buttonClass = "invStyle";
       $scope.selected = undefined;
             $http.get("data/recipes.json").success(function(data) {
@@ -44,7 +44,7 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
       
      
       $scope.search = function(){
-
+         //console.log(JSON.stringify(persistentService.Tags() + persistentService.List()));
          persistentService.filtering($scope.ingredients, persistentService.Tags(), $scope.equipment) ;
       };
       $scope.checkIt = function(){

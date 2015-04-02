@@ -72,11 +72,11 @@ Modified: 3/18/2015 by Susan Souza to add a pipe in between recipe tags in each 
          <div ng-if="subs">Substitutions for {{clickedIngr}}: <!-- substitution listing start-->
             <div ng-repeat="rec in recipes | filter: {name:showMeRecipe}:true">
                <ul ng-repeat="ingr in rec.ingredients | filter:{name: clickedIngr}:true">
-                  <li ng-repeat="item in ingr.replaceableWith" >{{item}}</li><!-- will style in a bit to be more consistent with everything else-->
+                  <li ng-repeat="item in ingr.replaceableWith" class="noStyleList" >{{item}}</li><!-- will style in a bit to be more consistent with everything else-->
                </ul>
             </div>
          </div><!-- substitution listing end-->
-         <div ng-if="comp" class="componentRecipe col-xs-12">{{componentRecipe}}: <!-- complex component recipe start-->
+         <div ng-if="comp && !subs" class="componentRecipe col-xs-12">{{componentRecipe}}: <!-- complex component recipe start-->
             <div ng-repeat="rec in recipes | filter: {name:componentRecipe}:true" >
                <ul class="componentIngredients">
                   <li ng-repeat="ingr in rec.ingredients" style="list-style-type:none">{{ingr.name}}</li>

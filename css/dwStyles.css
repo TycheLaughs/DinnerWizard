@@ -296,6 +296,15 @@ a:hover{
    background-color: #fff;
 }
 
+.noStyleList{
+   cursor: default;
+   list-style-type:none;
+   
+}
+.noStyleList:hover{
+   cursor: default;
+   font-weight: normal;
+}
 /* more link styling.  Could possibly combine some of this with earlier rules.  Next pass.*/
 a:link{
    text-decoration:none;/*remove the dashed line box around clicked areas*/

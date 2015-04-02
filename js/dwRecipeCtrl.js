@@ -35,8 +35,12 @@ DinnerWizardApp.controller('recipesController', function($scope, $http, persiste
       
       //console.log($scope.recipes));
       /*get the mapping between name of ingredient in an ingredient list and name in recipes*/
-      $scope.comps = persistentService.Components($scope.recipes, $scope.ingredients);
-      
+      //$scope.comps = persistentService.Components($scope.recipes, $scope.ingredients);
+      for(var i = 0; i < $scope.ingredients.length; i++){
+         if($scope.ingredients[i].tags[0] === 'Pre-Made'){
+            $scope.comps.push($scope.ingredients[i].name);
+         }
+      }  
       /**showRecipe
       * Determines which JSON object to be using based on parameters (gotten via click)
       * and stores this information in a variable for use outside of the accordion's scope

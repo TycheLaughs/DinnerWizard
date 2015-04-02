@@ -14,37 +14,15 @@ DinnerWizardApp.service('persistentService', function($http){
    var list = ['Click ingredients to add them to your inventory, or search for them by name.'];
    var tagsList = ['No Search Filters Selected'];
    var restrict = false;
-   var componentMap = [];
+  
    var response ;
    return{
    
-   
-   Components:function(recipes, ingredients){
-   console.log(JSON.stringify(recipes));
-   console.log(JSON.stringify(ingredients));
-     
-     // var rec = recipes;
-      for(var i = 0; i < recipes.length; i++){
-         for(var j = 0; j < ingredients.length; j++){
-            for(var k = 0; k < recipes[i].ingredients.length ; k++){
-               if(recipes[i].ingredients[k].name === ingredients[j].name){
-                  if(ingredients[j].tags[0] === 'Pre-Made'){
-                     if(componentMap.indexOf(ingredients[j].name) <0){
-                        componentMap.push(ingredients[j].name);
-                     }
-                  }
-               }
-            }
-         }
-      }
-      console.log(JSON.stringify(componentMap));
-   return componentMap;
-   },
-   
-   
-   
-   
-   
+   /** toggleCheck
+   * Toggles checked status on checkbox
+   * @param box the checkbox to toggle
+   * This function also sets a Boolean to include in the filtering function  
+   */
    toggleCheck:function(box){
       if(box.checked === true){
          box.checked = false;
@@ -280,7 +258,7 @@ DinnerWizardApp.service('persistentService', function($http){
               ing.id = idFinder;
               ing.name = list[i];
               filter.ingredientTags.push(ing);
-              console.log(i + (JSON.stringify(filter.ingredientTags)));
+              //console.log(i + (JSON.stringify(filter.ingredientTags)));
             }
          }
          if ( tagsList[0] !== 'No Search Filters Selected' )
@@ -302,7 +280,7 @@ DinnerWizardApp.service('persistentService', function($http){
                   filter.recipeTags.push(rec);
                }
                else if((tagsList[i]).substr(0, 3) === 'NO '){//found a Without tag
-                  console.log('Found a Without tag to process into JSON');
+                  //console.log('Found a Without tag to process into JSON');
                      var wo = {};
                      var truncWO = tagsList[i].substr(3); //remove the 'NO '
                      //iterate through equipment list (JSON) to see if there's a match (also find ID at this time

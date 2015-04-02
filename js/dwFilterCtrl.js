@@ -10,7 +10,7 @@ DinnerWizardApp.controller('filterController', function($scope, $http, persisten
 		$scope.message = 'Recipe Search Filters';
       $scope.tags = persistentService.Tags();
       $scope.oneAtATime = true;
-
+      $scope.ingrCats = ['Alternate Protein', 'Meat', 'Seafood', 'Starch', 'Vegetables', 'Spices and Herbs', 'Odds and Ends','Pre-Made']; 
       $scope.buttonClass = "filtStyle";
     
       $scope.temp = '' ;
@@ -46,5 +46,6 @@ DinnerWizardApp.controller('filterController', function($scope, $http, persisten
       };
       $scope.search = function(){
          persistentService.filtering($scope.ingredients, persistentService.Tags(), $scope.equipment);
+         //console.log(JSON.stringify(persistentService.Tags() + persistentService.List()));
        };
 	});
