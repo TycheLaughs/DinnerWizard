@@ -6,16 +6,17 @@ Update date:
         Tommy Leedberg - 3/03/2015 - Updated tables in accordance to Matts suggestions.
         Tommy Leedberg - 3/12/2015 - Updated tables to include the categoryID in the map tables and added an error
                                      table.
-	Matthew Szekely- 3/18/2015 - Updated tables to include mapIDs where necessary as well as ingredient_tags,
+        Matthew Szekely- 3/18/2015 - Updated tables to include mapIDs where necessary as well as ingredient_tags,
                                      recipe_filter_categories, recipe_filter_category_tag_map, and recipe_tags.
                                      Removed tags; split it into recipe_tags and ingredient_tags.
+        Matthew Szekely- 4/2/2015  - Changed how replaceable ingredients are stored and added ratio information
 
 
 ingredients( id, name )
 recipes( id, name, prepInst )
 equipment( id, name )
 recipe_equipment_map( recipeID, equipmentID )
-recipe_ingredient_map( recipeID, ingredientID, isOptional, replaceableCategory )
+recipe_ingredient_map( recipeID, ingredientID, isOptional, ratio )
 ingredient_tag_map( ingredientID, tagID, categoryID )
 recipe_tag_map( recipeID, tagID, categoryID )
 error_log( id, timestamp, level, description )
@@ -23,6 +24,7 @@ ingredient_tags( id, name, isFilterable )
 recipe_filter_categories( id, categoryName)
 recipe_filter_category_tag_map( categoryID, tagID )
 recipe_tags( id, name )
+recipe_replaceable_ingredient_map( recipeID, ingredientID, replaceableIngredientID )
 
 
 Notes about various tables:
@@ -42,3 +44,5 @@ recipe_ingredient_map: Shows which recipes use which ingredients. isOptional not
 recipe_tags: All tags that can be applied to a recipe, such as "Mexican" or "Under 30 Minutes"
 
 recipe_tag_map: Shows which recipes use which tags
+
+recipe_replaceable_ingredient_map: Shows which ingredients can be instead for a given ingredient's entry in a recipe.

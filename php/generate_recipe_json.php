@@ -29,38 +29,28 @@
 	// A lot of it is redundant, however, because of the massive number of left joins.
 	// Luckily because we convert the results into an associative array later on we don't have to care much.
 	$queryResult = $conn->query("
-SELECT recipes.recipeID, 
-recipes.recipeName, 
+SELECT recipes.ID AS recipeID, 
+recipes.name AS recipeName, 
 recipes.prepInst, 
-IngredientList.initialID AS ingredientID, 
-IngredientList.initialName AS ingredientName, 
+recipe_ingredient_map.ingredientID AS ingredientID, 
+ingredients1.name AS ingredientName, 
 recipe_ingredient_map.isOptional AS isOptional, 
-IngredientList.secondaryID AS replaceableID, 
-IngredientList.secondaryName AS replaceableName, 
-equipment.equipmentID, 
-equipment.equipmentName, 
-recipe_tags.tagID, 
-recipe_tags.tagName
+recipe_replaceable_ingredient_map.replaceableIngredientID AS replaceableIngredientID, 
+ingredients2.name AS replaceableIngredientName, 
+equipment.ID AS equipmentID, 
+equipment.name AS equipmentName, 
+recipe_tags.ID AS tagID, 
+recipe_tags.name AS tagName
 FROM recipes 
-LEFT JOIN recipe_ingredient_map	ON recipes.recipeID = recipe_ingredient_map.recipeID 
-LEFT JOIN 
-(
-	SELECT initial_ingredients.ingredientID AS initialID, 
-	initial_ingredients.ingredientNAME AS initialName, 
-	secondary_ingredients.ingredientID AS secondaryID, 
-	secondary_ingredients.ingredientNAME AS secondaryName, 
-	ingredient_tags.tagName AS categoryName 
-	FROM ingredients AS initial_ingredients 
-	LEFT JOIN ingredient_tag_map AS initial_map ON initial_ingredients.ingredientID = initial_map.ingredientID 
-	LEFT JOIN ingredient_tag_map AS secondary_map ON initial_map.tagID = secondary_map.tagID 
-	LEFT JOIN ingredients AS secondary_ingredients ON secondary_map.ingredientID = secondary_ingredients.ingredientID 
-	LEFT JOIN ingredient_tags ON secondary_map.tagID = ingredient_tags.tagID
-) AS IngredientList 		ON IngredientList.initialID = recipe_ingredient_map.ingredientID 
-LEFT JOIN recipe_equipment_map 	ON recipe_equipment_map.recipeID = recipes.recipeID 
-LEFT JOIN equipment 		ON equipment.equipmentID = recipe_equipment_map.equipmentID 
-LEFT JOIN recipe_tag_map 	ON recipe_tag_map.recipeID = recipes.recipeID 
-LEFT JOIN recipe_tags 		ON recipe_tags.tagID = recipe_tag_map.tagID 
-ORDER BY recipeID, tagID, ingredientID, replaceableID, equipmentID
+LEFT JOIN recipe_ingredient_map	ON recipes.ID = recipe_ingredient_map.recipeID 
+LEFT JOIN recipe_replaceable_ingredient_map ON recipes.ID = recipe_replaceable_ingredient_map.recipeID AND recipe_ingredient_map.ingredientID = recipe_replaceable_ingredient_map.ingredientID
+LEFT JOIN ingredients AS ingredients1 ON recipe_ingredient_map.recipeID = ingredients1.ID
+LEFT JOIN ingredients AS ingredients2 ON recipe_replaceable_ingredient_map.replaceableIngredientID = ingredients2.ID
+LEFT JOIN recipe_equipment_map 	ON recipes.ID = recipe_equipment_map.recipeID
+LEFT JOIN equipment 		ON equipment.ID = recipe_equipment_map.equipmentID 
+LEFT JOIN recipe_tag_map 	ON recipes.ID = recipe_tag_map.recipeID 
+LEFT JOIN recipe_tags 		ON recipe_tags.ID = recipe_tag_map.tagID 
+ORDER BY recipeID, ingredientID, replaceableIngredientID, equipmentID, tagID
 ");
 
 	// Set up our result array.
@@ -163,4 +153,55 @@ ORDER BY recipeID, tagID, ingredientID, replaceableID, equipmentID
 	// And we're done.
 	echo json_encode($result, JSON_PRETTY_PRINT);
 
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	/*
+	Old query, just in case.
+	Used when replaceable ingredients were based on categories instead of an array of ingredients.
+	
+SELECT recipes.recipeID, 
+recipes.recipeName, 
+recipes.prepInst, 
+IngredientList.initialID AS ingredientID, 
+IngredientList.initialName AS ingredientName, 
+recipe_ingredient_map.isOptional AS isOptional, 
+IngredientList.secondaryID AS replaceableID, 
+IngredientList.secondaryName AS replaceableName, 
+equipment.equipmentID, 
+equipment.equipmentName, 
+recipe_tags.tagID, 
+recipe_tags.tagName
+FROM recipes 
+LEFT JOIN recipe_ingredient_map	ON recipes.recipeID = recipe_ingredient_map.recipeID 
+LEFT JOIN 
+(
+	SELECT initial_ingredients.ingredientID AS initialID, 
+	initial_ingredients.ingredientNAME AS initialName, 
+	secondary_ingredients.ingredientID AS secondaryID, 
+	secondary_ingredients.ingredientNAME AS secondaryName, 
+	ingredient_tags.tagName AS categoryName 
+	FROM ingredients AS initial_ingredients 
+	LEFT JOIN ingredient_tag_map AS initial_map ON initial_ingredients.ingredientID = initial_map.ingredientID 
+	LEFT JOIN ingredient_tag_map AS secondary_map ON initial_map.tagID = secondary_map.tagID 
+	LEFT JOIN ingredients AS secondary_ingredients ON secondary_map.ingredientID = secondary_ingredients.ingredientID 
+	LEFT JOIN ingredient_tags ON secondary_map.tagID = ingredient_tags.tagID
+) AS IngredientList 		ON IngredientList.initialID = recipe_ingredient_map.ingredientID 
+LEFT JOIN recipe_equipment_map 	ON recipe_equipment_map.recipeID = recipes.recipeID 
+LEFT JOIN equipment 		ON equipment.equipmentID = recipe_equipment_map.equipmentID 
+LEFT JOIN recipe_tag_map 	ON recipe_tag_map.recipeID = recipes.recipeID 
+LEFT JOIN recipe_tags 		ON recipe_tags.tagID = recipe_tag_map.tagID 
+ORDER BY recipeID, tagID, ingredientID, replaceableID, equipmentID
+	*/
+	
+	
+	
+	
+	
 ?>
