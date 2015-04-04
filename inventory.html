@@ -51,7 +51,7 @@ Modified: 3/15/2015 by Susan Souza to limit typeahead results to the correct obj
       <div style="display: inline-block">Your Inventory: </div> <div style="display: inline-block;margin-left: 10px"><span style="border: 1px solid gray; border-radius: 12px; padding: 3px; color: black; background-color: lightgray; cursor:pointer; position:absolute; text-align: center" ng-click="checkIt()" tooltip-placement="right" tooltip-popup-delay='500' tooltip= '(Show Recipe Results for Only Ingredients in your Inventory)'>Restrict Recipes</span><input type="checkbox" name="exclusionBox" id = "exclusionBox" value="boxy" style="margin-left: 5px" ></div>
       
       <ul>
-         <li ng-repeat="item in list track by $index" style="list-style-type: none" ng-click="clickedFromInventory(item)">{{item}}</li>
+         <li ng-repeat="item in list track by $index" style="list-style-type: none" ng-click="clickedFromInventory(item)">{{item}}<span ng-if="item !== 'Click ingredients to add them to your inventory, or search for them by name.'" class="closingX">x</span></li>
       </ul><!-- Resolved error with using ng-repeat and adding items to an array dynamically here: https://docs.angularjs.org/error/ngRepeat/dupes -->
    </div>
    <div class="col-xs-2"></div>

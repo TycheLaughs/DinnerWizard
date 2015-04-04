@@ -66,6 +66,7 @@ div{
 li:hover{   /*most list items are interactive, so here's something to show that without the ugly underline*/
    font-weight: bold;
    cursor: pointer;
+   
 }
 
 #recListing{ /*a box to which we add a scrollbar if there are too many recipes to fit nicely on the page*/
@@ -136,6 +137,18 @@ li:hover{   /*most list items are interactive, so here's something to show that 
    margin-left: 4px;
    padding-left: 4px;
 }
+.closingX{
+   font-size: .8em;
+   margin-left: 3px;
+   color: white;
+
+}
+li:hover > .closingX{/* this makes hovering over the list item turn the little x span 'visible'*/
+   /*ref: http://stackoverflow.com/questions/26289664/css-hover-one-element-affect-another  */
+   color:gray;
+   font-weight:normal;
+}
+
 body { 
    padding-top:5px;
    font-family: serif;
@@ -211,16 +224,7 @@ a:hover{
    height: 200px;
    font-size:.85em;
    padding-left: 0px;
-   
-   /*
-   -webkit-column-count: 2; /* Chrome, Safari, Opera */
-   /*-moz-column-count: 2; /* Firefox */
-   /*column-count: 2;
-   -webkit-column-gap: 4px; /* Chrome, Safari, Opera */
-  /* -moz-column-gap: 4px; /* Firefox */
-  /* column-gap: 4px;
-   */
-} 
+}
 
 /*style the list items for the user-selected filters in the recipe view*/
 .actualTagsList{
