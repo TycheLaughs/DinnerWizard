@@ -11,11 +11,13 @@
       Modified: 2/08/2015 by Susan Souza to further tweak layout positioning. 
       Modified: 2/09/2015 by Susan Souza to add necessary script and elements for routing/views/navigation, found here: http://plnkr.co/edit/dd8Nk9PDFotCQu4yrnDg?p=preview 
       Modified: 3/09/2015 by Susan Souza to rearrange some of the button positions and add splash screen
-      
+      Modified: 4/05/2015 by Susan Souza to begin making this app more mobile friendly
       -->
       
     <!-- AngularJS -->
    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.27/angular.min.js"></script>
+   <!--Angular Touch for mobile touch-related (swipe) events-->
+   <script src="//cdnjs.cloudflare.com/ajax/libs/angular.js/1.3.15/angular-touch.min.js"></script>
     
    <!-- BOOTSTRAP -->
    <!--AngularUI Bootstrap-->
@@ -59,31 +61,29 @@
            <div id = "logoText" class = "hidden-xs">Dinner Wizard</div>
          </a><!-- end logo-->
         
-            <div class="col-xs-5 col-sm-6"></div>
-            <a class="col-xs-3 col-md-2"href="#recipes"><span class= "roundEdges recStyle" ng-class="{}" ng-click="search()">{{recipes.length}} Recipes</span></a>
+            <div class="hidden-xs col-sm-6"></div>
+            <a class="col-xs-4 col-md-2"href="#recipes"><span class= "roundEdges recStyle recipeButton" ng-click="search()">{{recipes.length}} Recipes</span></a>
             <div class="col-xs-1"></div>
          <!-- end dishes button placement -->
         
      </div><!-- end headerRow -->
    <div class="col-xs-12" style="height:4px"></div><!--hacked-in spacer-->
-   <div id="ButtonsRow"class="container-fluid">   
+   <div id="ButtonsRow"class="container-fluid hidden-xs">   
       <a class="col-sm-2 hidden-xs"href="#recipes"><span class= "roundEdges hidden-xs hidden-sm hidden-md hidden-lg">Random Recipe</span></a> 
       <div class="col-sm-7 col-lg-7"></div>
-      <!-- Filter recipes needs logic to not appear on certain screens.-->
-     
-       <div class="col-xs-2"></div>
+      <div class="col-xs-2"></div>
    </div>
   
    <div id= "contentRow" class="container-fluid"> 
-      <div class="col-xs-12" style="height:7px"></div><!--hacked-in spacer-->
-      <div class="col-xs-2 col-sm-3 col-md-2" >
+      <div class="col-xs-12" style="height:7px "></div><!--hacked-in spacer-->
+      <div class="col-xs-2 col-sm-3 col-md-3 hidden-xs" >
          <div class="col-xs-12" style="height:18px"></div><!--hacked-in spacer-->
          <a class="hidden-xs col-xs-12"href="#inventory"><span class= "roundEdges invStyle">Inventory</span></a>
          <div class="col-xs-12" style="height:10px"></div><!--hacked-in spacer-->
          <a class="hidden-xs col-xs-12" href="#filter"><span class= "roundEdges filtStyle">Recipe Filters</span></a>
          <div class="col-xs-12" style="height:7px"></div><!--hacked-in spacer--> 
       </div>
-      <div class="col-xs-10 col-md-9">
+      <div class="col-xs-11 col-sm-10 col-md-9 swipable">
           <!-- angular templating -->
          <!-- this is where content will be injected -->
          <div ng-view></div>
@@ -93,10 +93,11 @@
    <!-- These are the two buttons at the bottom of the mobile layout.  
    Need logic to swap them for appropriate ones(with appropriate navigation) 
    depending on screen.-->
-   <div id = "hiddenFootButtons" class ="hidden-sm hidden-md hidden-lg hidden-xl col-xs-10">
-      <div class="col-xs-6"></div>
-      <a class="col-xs-4 hidden-xs"href="#recipes"><span class= "roundEdges">Random Recipe</span></a> 
-      <a class="col-xs-4 col-sm-3" href="#inventory"><span class= "roundEdges">Inventory</span></a><!--pull-right-->
+   <div id = "hiddenFootButtons" class ="hidden-sm hidden-md hidden-lg hidden-xl col-xs-12">
+      
+      <a class="col-xs-6 col-sm-3 "href="#recipes" id="randFoot"><span class= "roundEdges filtStyle">Random Recipe</span></a> 
+       <a class="col-xs-5 col-sm-4" href="#filter" id="recipeFoot"><span class= "roundEdges invStyle">Recipe Filters</span></a>
+      <a class="col-xs-4 col-sm-3" href="#inventory" id="invFoot"><span class= "roundEdges recStyle">Inventory</span></a>
       </div>
    </div>
   </body>

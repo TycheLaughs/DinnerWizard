@@ -34,7 +34,7 @@
 #ingredientSearch{ /* this styles the input block for the searchbar*/
    display:inline-block;
    border: none;
-   width: 240px;
+   width: 200px;
    height: 28px;
    border: 1px solid lightgray;
    border-radius: 8px; 
@@ -46,16 +46,42 @@
 
 @media(max-width: 1400px){ /* this to correct weird shifting */
    #ingredientSearch{
-      width: 160px;
+      width: 150px;
    }
 }
-.glyphicon-search{ /*style the magnifying glass glyphicon*/
+#hiddenFootButtons{
+   position:fixed;
+}
+
+#searchIcon{ /*style the magnifying glass glyphicon*/
    color: powderblue;
    cursor:default;
-   right: 20px;
+   right:20px;
 }
+
+#recipeFoot{
+   padding-right: 2px;
+   padding-left:5px;
+   width:90px;
+
+}
+#invFoot{
+   padding-right: 0px;
+   padding-left:0px;
+   width:80px;
+}
+#randFoot{
+   width:100px;
+   padding-right:0px;
+
+}
+
 .contentContainer{ /*a general dashed-line container to show positioning while working on styling and layout*/
    border: 1px dashed black;
+}
+.listContainer{ /*a general dashed-line container to show positioning while working on styling and layout*/
+   border: 1px dashed black;
+   height: 500px;
 }
 
 div{
@@ -72,7 +98,7 @@ li:hover{   /*most list items are interactive, so here's something to show that 
 #recListing{ /*a box to which we add a scrollbar if there are too many recipes to fit nicely on the page*/
    overflow-y: auto;
    height: 600px;
-   min-width: 350px;
+   min-width: 270px;
    max-width: 380px;
 }
 .inv li:hover, .filt li:hover{
@@ -153,12 +179,16 @@ body {
    padding-top:5px;
    font-family: serif;
    background-color: white;
+   overflow-y:hidden;
    /*font-size: 1.1em;*/
   
 }
 @media(min-width: 1000px){
    body{
       overflow-y:hidden;
+   }
+   .swipable{
+      margin-left: -80px;
    }
 }
 
@@ -196,20 +226,60 @@ body {
    height: 550px;
    padding-right: 5px;
 }
+.leftCol{
+   margin-top: 0px;
+}
 
 /*some adjustments to follow depending on screen width*/
 @media (max-width: 500px) {
    body{
     font-size: 1em;
+   /* overflow-x:hidden;*/
     }
 
+}
+
+@media(max-width:360px){
+   .swipable{
+      width:600px;
+
+   }
+   .screen{
+      overflow-x:hidden;
+   }
+   #headerRow{
+      top:-2px;
+      padding-top:6px;
+      padding-bottom: 2px;
+      position:fixed;
+      z-index:1;
+      height:45px;
+      width:400px;
+      background-color:white;
+   }
 }
 @media (max-width: 500px) {
    .roundEdges{
       font-size: 1em;
+
    }
    .rightColumn{
-      height: 200px;
+      margin-top:25px;
+      height: 400px;
+      padding-right:0px;
+      padding-left:0px;
+    
+      width:280px;
+     
+   }
+   .listContainer{
+      height: 375px;
+   }
+   
+   .recipeButton{
+      top:15px;
+      left: 240px;
+      position:fixed;
    }
 }
 
@@ -232,8 +302,9 @@ a:hover{
 }
 /*style for the list of tags associated with a selected recipe, displayed above procedure*/
 .hScroll{
-   overflow-x: auto;
-   max-height: 25px;
+   overflow-x: hidden;
+   overflow-y:hidden;
+   max-height: 22px;
 }
 /*add a curved-corner, thick, darker yellow dashed line to the box that displays all sorts of information (like ratio charts) above procedure*/
 .infoBox{
@@ -333,6 +404,7 @@ a:active{
 
 
 
+
 /* styling accordions, overriding bootstrap css */
 .panel-default > .panel-heading{
    /*border: 1px solid gray;*/
@@ -347,6 +419,80 @@ a:active{
    text-decoration:none;
 }
 
+@media(max-width:400px){
+   .panel-default > .panel-heading{
+      /*border: 1px solid gray;*/
+      /* background-color: #8d1801; /*dark red /*#99b9f4; medium light blue    #f8b30e; /* dark yellow */
+      border-radius:19px;
+      /*color: white;*/
+      /*border: none;*/
+      background-image: none;
+      text-align: center;
+      height: 40px;
+      width: 270px;
+      text-decoration:none;
+   }
+   .rec > .panel-group{
+      width:270px;
+      margin-right:8px;
+   }
+   div#recListing{
+      margin-left:0px;
+      margin-right:10px;
+      height:400px;
+      width: 270px;
+      overflow-y: hidden;
+   }
+   div#recListing:hover{
+      margin-left:0px;
+      height:400px;
+      margin-right:10px;
+      overflow-y: auto;
+   }
+   .tagsList{ /* style the container around the list of user-selected filters in the recipe view*/
+   height: 85px;
+
+   }
+   .hScroll{
+      height:15px;
+   }
+   .actualTagsList{
+      width: 200px;
+      -webkit-column-count:2; /* Chrome, Safari, Opera */
+      -moz-column-count: 2; /* Firefox */
+      column-count: 2;
+      -webkit-column-gap: 0px; /* Chrome, Safari, Opera */
+      -moz-column-gap: 0px; /* Firefox */
+      column-gap: 0px;
+      
+   }
+   .procedureBox{
+      height: 300px;
+      overflow-y: auto;
+      width: 275px;
+      /*border: 1px dashed black;*/
+   }
+   .swipable{
+      margin-left:-12px;
+   }
+   #searchAdd{
+      position:relative;
+      left: 35px;
+   }
+   div#recListing{
+      margin-top:15px;
+      width:280px;
+   }
+   .pushDown{
+      margin-top:15px;
+   }
+   .rightColumn{
+      /*border: 1px dashed black;*/
+   }
+   .topBox{
+      height:75px;
+   }
+}
 div a.accordion-toggle:link, div a.accordion-toggle:hover, div a.accordion-toggle:visited, div a.accordion-toggle:active,  a.accordion-toggle:link,  a.accordion-toggle:hover, a.accordion-toggle:visited, a.accordion-toggle:active{
    text-decoration:none;
    outline: none;
@@ -460,6 +606,8 @@ div.panel-body{
    .splash p {
       top:87%;
    }  
+   
+
 }
 
 @media (max-width: 700px) {
@@ -469,7 +617,9 @@ div.panel-body{
    .splash p {
       top:68%;
   }
-
+   .leftCol{
+      margin-top:15px;
+   }
 }
 
 
@@ -518,7 +668,19 @@ div.panel-body{
    z-index: -1;}
 }
 
+/*
+@keyframes slide{
+   0%{}
+   100%{
+      transform: translateX(280px;);
+   }
+}
 
-
-
+@-webkit-keyframes slide{
+   0%{}
+   100%{
+      transform: translateX(-300px;);
+   }
+}
+*/
 
