@@ -5,8 +5,8 @@
 
     //DATABASE INFORMATION
     define( "_HOST",     "localhost" );
-    define( "_USERNAME", "tommy" );
-    define( "_PASSWORD", "p@ssw0rd" );
+    define( "_USERNAME", "root" );
+    define( "_PASSWORD", "" );
     define( "_DATABASE", "dinnerwizard" ) ;
 
     //TABLE DEFINES
@@ -70,6 +70,8 @@
         public function __construct()
         {
             $this->dinnerWizardConnect() ;
+            $this->buildFullRecipeList() ;
+            //TODO: Add ingredient and equipment builders to class and generate seperate files for all three of them
         }
 
         /**
@@ -411,45 +413,42 @@
 
         function buildFullRecipeList()
         {
+
+            // If we don't have this the ° characters in, for example, "heat the oven to 400°", will cause json_encode to just fail silently.
+            if (!$this->conn->set_charset("utf8mb4"))
+            {
+                die("Error loading character set utf8: " . $this->conn->error);
+            }
+
             // Get our query.
             // This monster gets all the information about recipes that we could possibly need
             // A lot of it is redundant, however, because of the massive number of left joins.
             // Luckily because we convert the results into an associative array later on we don't have to care much.
-            $queryResult = $this->conn->query
-            ("
-                SELECT recipes.recipeID,
-                recipes.recipeName,
-                recipes.prepInst,
-                IngredientList.initialID AS ingredientID,
-                IngredientList.initialName AS ingredientName,
-                recipe_ingredient_map.isOptional AS isOptional,
-                IngredientList.secondaryID AS replaceableID,
-                IngredientList.secondaryName AS replaceableName,
-                equipment.equipmentID,
-                equipment.equipmentName,
-                recipe_tags.tagID,
-                recipe_tags.tagName
-                FROM recipes
-                LEFT JOIN recipe_ingredient_map	ON recipes.recipeID = recipe_ingredient_map.recipeID
-                LEFT JOIN
-                (
-                    SELECT initial_ingredients.ingredientID AS initialID,
-                    initial_ingredients.ingredientNAME AS initialName,
-                    secondary_ingredients.ingredientID AS secondaryID,
-                    secondary_ingredients.ingredientNAME AS secondaryName,
-                    ingredient_tags.tagName AS categoryName
-                    FROM ingredients AS initial_ingredients
-                    LEFT JOIN ingredient_tag_map AS initial_map ON initial_ingredients.ingredientID = initial_map.ingredientID
-                    LEFT JOIN ingredient_tag_map AS secondary_map ON initial_map.tagID = secondary_map.tagID
-                    LEFT JOIN ingredients AS secondary_ingredients ON secondary_map.ingredientID = secondary_ingredients.ingredientID
-                    LEFT JOIN ingredient_tags ON secondary_map.tagID = ingredient_tags.tagID
-                ) AS IngredientList 		ON IngredientList.initialID = recipe_ingredient_map.ingredientID
-                LEFT JOIN recipe_equipment_map 	ON recipe_equipment_map.recipeID = recipes.recipeID
-                LEFT JOIN equipment 		ON equipment.equipmentID = recipe_equipment_map.equipmentID
-                LEFT JOIN recipe_tag_map 	ON recipe_tag_map.recipeID = recipes.recipeID
-                LEFT JOIN recipe_tags 		ON recipe_tags.tagID = recipe_tag_map.tagID
-                ORDER BY recipeID, tagID, ingredientID, replaceableID, equipmentID
-            ");
+            $queryResult = $this->conn->query("
+SELECT recipes.ID AS recipeID,
+recipes.name AS recipeName,
+recipes.prepInst,
+recipe_ingredient_map.ingredientID AS ingredientID,
+ingredients1.name AS ingredientName,
+recipe_ingredient_map.isOptional AS isOptional,
+recipe_replaceable_ingredient_map.replaceableIngredientID AS replaceableIngredientID,
+ingredients2.name AS replaceableIngredientName,
+recipe_ingredient_map.ratio AS ratio,
+equipment.ID AS equipmentID,
+equipment.name AS equipmentName,
+recipe_tags.ID AS tagID,
+recipe_tags.name AS tagName
+FROM recipes
+LEFT JOIN recipe_ingredient_map	ON recipes.ID = recipe_ingredient_map.recipeID
+LEFT JOIN recipe_replaceable_ingredient_map ON recipes.ID = recipe_replaceable_ingredient_map.recipeID AND recipe_ingredient_map.ingredientID = recipe_replaceable_ingredient_map.ingredientID
+LEFT JOIN ingredients AS ingredients1 ON recipe_ingredient_map.recipeID = ingredients1.ID
+LEFT JOIN ingredients AS ingredients2 ON recipe_replaceable_ingredient_map.replaceableIngredientID = ingredients2.ID
+LEFT JOIN recipe_equipment_map 	ON recipes.ID = recipe_equipment_map.recipeID
+LEFT JOIN equipment 		ON equipment.ID = recipe_equipment_map.equipmentID
+LEFT JOIN recipe_tag_map 	ON recipes.ID = recipe_tag_map.recipeID
+LEFT JOIN recipe_tags 		ON recipe_tags.ID = recipe_tag_map.tagID
+ORDER BY recipeID, ingredientID, replaceableIngredientID, equipmentID, tagID
+");
 
             // Set up our result array.
             // This will be turned into a JSON object later on and then returned.
@@ -467,13 +466,14 @@
                 $ingredientID = $row['ingredientID'];
                 $ingredientName = $row['ingredientName'];
                 $ingredientIsOptional = $row['isOptional'];
-                $ingredientRatio = rand(10, 30);	// We don't actually have ratio information in the database yet...
-                $ingredientReplaceableID = $row['replaceableID'];
-                $ingredientReplaceableName = $row['replaceableName'];
+                $ingredientRatio = $row['ratio'];
+                $ingredientReplaceableID = $row['replaceableIngredientID'];
+                $ingredientReplaceableName = $row['replaceableIngredientName'];
                 $equipmentID = $row['equipmentID'];
                 $equipmentName = $row['equipmentName'];
                 $tagID = $row['tagID'];
                 $tagName = $row['tagName'];
+
 
                 // Easy stuff--just insert the recipe's ID, name, and prep instructions into the recipe object.
                 $result['recipes'][$recipeID]['id'] = (int)$recipeID;
@@ -524,7 +524,6 @@
                         $result['recipes'][$recipeID]['ingredients'][$ingredientID]['replaceableWith'][$ingredientReplaceableID]['name'] = $ingredientReplaceableName;
                     }
                 }
-
             }
 
             // Turn the result from an associative array of recipeID => recipes into a normal array of recipes.
@@ -546,7 +545,7 @@
 
             // And we're done.
             echo json_encode($result, JSON_PRETTY_PRINT);
-            $this->storeRecipes( json_encode( $result, JSON_PRETTY_PRINT ) ) ;
+            $this->storeRecipes( json_encode($result, JSON_PRETTY_PRINT) ) ;
 
         }
 
@@ -559,7 +558,6 @@
         private function storeRecipes( $recipeJSON )
         {
 
-            $this->buildFullRecipeList() ; //first things first, make sure the file is up to date
             if( ( $recipeJsonFile = fopen( $this->mPath_AllRecipesJSON, "w" ) ) != FALSE )
             {
                 fwrite( $recipeJsonFile, $recipeJSON );
