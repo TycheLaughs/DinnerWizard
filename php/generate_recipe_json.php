@@ -24,6 +24,12 @@
 		die("Failed to connect to server with error: " . $this->conn->connect_error);
 	}
 	
+	// If we don't have this the ° characters in, for example, "heat the oven to 400°", will cause json_encode to just fail silently.
+	if (!$conn->set_charset("utf8mb4")) 
+	{
+		die("Error loading character set utf8: " . $conn->error);
+	}
+	
 	// Get our query.
 	// This monster gets all the information about recipes that we could possibly need
 	// A lot of it is redundant, however, because of the massive number of left joins.
@@ -37,6 +43,7 @@ ingredients1.name AS ingredientName,
 recipe_ingredient_map.isOptional AS isOptional, 
 recipe_replaceable_ingredient_map.replaceableIngredientID AS replaceableIngredientID, 
 ingredients2.name AS replaceableIngredientName, 
+recipe_ingredient_map.ratio AS ratio,
 equipment.ID AS equipmentID, 
 equipment.name AS equipmentName, 
 recipe_tags.ID AS tagID, 
@@ -69,13 +76,14 @@ ORDER BY recipeID, ingredientID, replaceableIngredientID, equipmentID, tagID
 		$ingredientID = $row['ingredientID'];
 		$ingredientName = $row['ingredientName'];
 		$ingredientIsOptional = $row['isOptional'];
-		$ingredientRatio = rand(10, 30);	// We don't actually have ratio information in the database yet...
-		$ingredientReplaceableID = $row['replaceableID'];
-		$ingredientReplaceableName = $row['replaceableName'];
+		$ingredientRatio = $row['ratio'];
+		$ingredientReplaceableID = $row['replaceableIngredientID'];
+		$ingredientReplaceableName = $row['replaceableIngredientName'];
 		$equipmentID = $row['equipmentID'];
 		$equipmentName = $row['equipmentName'];
 		$tagID = $row['tagID'];
 		$tagName = $row['tagName'];
+		
 		
 		// Easy stuff--just insert the recipe's ID, name, and prep instructions into the recipe object.
 		$result['recipes'][$recipeID]['id'] = (int)$recipeID;
@@ -126,9 +134,9 @@ ORDER BY recipeID, ingredientID, replaceableIngredientID, equipmentID, tagID
 				$result['recipes'][$recipeID]['ingredients'][$ingredientID]['replaceableWith'][$ingredientReplaceableID]['name'] = $ingredientReplaceableName;
 			}
 		}
-		
 	}
 	
+			
 	// We've gotten all our information. We still need to do a little bit of clean up with it, though
 	// But that cleanup doesn't involve the database anymore, so close it just in case.
 	$conn->close();
