@@ -135,18 +135,18 @@
             $recipeList = [ ];
 
             //Test Filter request to be removed when we get the request working from the front end
-            $testFilter = [ "exclusiveIngredients" => false,
-                           "ingredientTags" => [ [ "id" => 20, "name" => "eggs" ] ],
-                           "recipeTags" => [ [ "id" => 7, "name" => "pasta" ] ],
-                           "equipment" => [ [ "id" => 10, "name" => "frying pan" ] ],
-                           "without" => [ [ "id" => 17, "name" => "spicy", "group" => "recipes" ],
-                                          [ "id" => 3, "name" => "seafood", "group" => "ingredients" ] ] ];
+            //$testFilter = [ "exclusiveIngredients" => false,
+            //               "ingredientTags" => [ [ "id" => 20, "name" => "eggs" ] ],
+            //               "recipeTags" => [ [ "id" => 7, "name" => "pasta" ] ],
+            //               "equipment" => [ [ "id" => 10, "name" => "frying pan" ] ],
+            //               "without" => [ [ "id" => 17, "name" => "spicy", "group" => "recipes" ],
+            //                              [ "id" => 3, "name" => "seafood", "group" => "ingredients" ] ] ];
             //Allow the user to do only the ingredients the supply exclude all recipes that contain other ones.
-            $exclusiveIngredients = $testFilter["exclusiveIngredients"];
-            $ingredientFilter = $testFilter["ingredientTags"];
-            $recipeFilter = $testFilter["recipeTags"];
-            $equipmentFilter = $testFilter["equipment"];
-            $withoutFilter = $testFilter["without"];
+            $exclusiveIngredients = $request["ExclusiveIngredients"];
+            $ingredientFilter = $request["ingredientTags"];
+            $recipeFilter = $request["recipeTags"];
+            $equipmentFilter = $request["equipment"];
+            $withoutFilter = $request["without"];
 
             //If we have there has been a filter provided in each of the fields try to generate an array of the correct
             //recipes, if you can then add that array to the recipeList.
@@ -157,8 +157,19 @@
                 //in php has issues with non unique keys and we were overwriting results because of duplicate key names
                 foreach( $result as $recipeID )
                 {
+
                     array_push( $recipeList, $recipeID ) ;
-                    array_unique( $recipeList ); //there's no reason for duplicate recipes
+
+                    if( !$exclusiveIngredients )
+                    {
+                        //there's no reason for duplicate recipes if we dont want specific ingredients
+                        array_unique( $recipeList );
+                    }
+                    else
+                    {
+                        //For exclusive ingredients you have to filter the rest of the categories on the subset of recipes you just found
+                    }
+
                 }
 
             }
