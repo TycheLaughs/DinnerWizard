@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.2.7.1
+-- version 4.2.11
 -- http://www.phpmyadmin.net
 --
 -- Host: 127.0.0.1
--- Generation Time: Apr 02, 2015 at 07:42 AM
--- Server version: 5.6.20
--- PHP Version: 5.5.15
+-- Generation Time: Apr 07, 2015 at 07:07 PM
+-- Server version: 5.6.21
+-- PHP Version: 5.6.3
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -29,7 +29,7 @@ SET time_zone = "+00:00";
 CREATE TABLE IF NOT EXISTS `equipment` (
 `id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci AUTO_INCREMENT=15 ;
+) ENGINE=InnoDB AUTO_INCREMENT=15 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
 
 --
 -- Dumping data for table `equipment`
@@ -73,7 +73,7 @@ CREATE TABLE IF NOT EXISTS `error_log` (
 CREATE TABLE IF NOT EXISTS `ingredients` (
 `id` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=123 ;
+) ENGINE=InnoDB AUTO_INCREMENT=123 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `ingredients`
@@ -211,7 +211,7 @@ CREATE TABLE IF NOT EXISTS `ingredient_tags` (
 `id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL,
   `isFilterable` tinyint(1) NOT NULL DEFAULT '0'
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci AUTO_INCREMENT=9 ;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci;
 
 --
 -- Dumping data for table `ingredient_tags`
@@ -366,7 +366,7 @@ CREATE TABLE IF NOT EXISTS `recipes` (
 `id` int(11) NOT NULL,
   `name` varchar(255) NOT NULL,
   `prepInst` text
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `recipes`
@@ -470,7 +470,7 @@ INSERT INTO `recipe_equipment_map` (`recipeID`, `equipmentID`) VALUES
 CREATE TABLE IF NOT EXISTS `recipe_filter_categories` (
 `id` int(11) NOT NULL,
   `name` varchar(255) COLLATE utf8_general_mysql500_ci NOT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci COMMENT='The categories that appear on the recipe filter page' AUTO_INCREMENT=6 ;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8 COLLATE=utf8_general_mysql500_ci COMMENT='The categories that appear on the recipe filter page';
 
 --
 -- Dumping data for table `recipe_filter_categories`
@@ -894,7 +894,7 @@ INSERT INTO `recipe_replaceable_ingredient_map` (`recipeID`, `ingredientID`, `re
 CREATE TABLE IF NOT EXISTS `recipe_tags` (
 `id` int(11) NOT NULL,
   `name` varchar(255) DEFAULT NULL
-) ENGINE=InnoDB  DEFAULT CHARSET=utf8 AUTO_INCREMENT=21 ;
+) ENGINE=InnoDB AUTO_INCREMENT=21 DEFAULT CHARSET=utf8;
 
 --
 -- Dumping data for table `recipe_tags`
