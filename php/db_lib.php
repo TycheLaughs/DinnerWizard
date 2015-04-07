@@ -5,8 +5,8 @@
 
     //DATABASE INFORMATION
     define( "_HOST",     "localhost" );
-    define( "_USERNAME", "root" );
-    define( "_PASSWORD", "" );
+    define( "_USERNAME", "tommy" );
+    define( "_PASSWORD", "p@ssw0rd" );
     define( "_DATABASE", "dinnerwizard" ) ;
 
     //TABLE DEFINES
@@ -89,7 +89,7 @@
         public function dinnerWizardConnect()
         {
 
-            //if we arent already connected then lets get a database connection going
+            //if we aren't already connected then lets get a database connection going
             if( !$this->connected )
             {
                 $this->conn = new mysqli( _HOST, _USERNAME, _PASSWORD, _DATABASE );
@@ -136,13 +136,13 @@
 
             //Test Filter request to be removed when we get the request working from the front end
             $testFilter = [ "exclusiveIngredients" => false,
-                           "ingredientTags" => [ [ "id" => 4, "name" => "eggs" ] ],
-                           "recipeTags" => "",
-                           "equipment" => [ [ "id" => 9, "name" => "frying pan" ] ],
-                           "without" => [ [ "id" => 1, "name" => "spicy", "group" => "recipes" ],
-                                          [ "id" => 2, "name" => "seafood", "group" => "ingredients" ] ] ];
-
-            $exclusiveIngredients = $testFilter["eclusiveIngredients"]; // allow the user to do only the ingredients the supply exclude all recipes that contain other ones.
+                           "ingredientTags" => [ [ "id" => 20, "name" => "eggs" ] ],
+                           "recipeTags" => [ [ "id" => 7, "name" => "pasta" ] ],
+                           "equipment" => [ [ "id" => 10, "name" => "frying pan" ] ],
+                           "without" => [ [ "id" => 17, "name" => "spicy", "group" => "recipes" ],
+                                          [ "id" => 3, "name" => "seafood", "group" => "ingredients" ] ] ];
+            //Allow the user to do only the ingredients the supply exclude all recipes that contain other ones.
+            $exclusiveIngredients = $testFilter["exclusiveIngredients"];
             $ingredientFilter = $testFilter["ingredientTags"];
             $recipeFilter = $testFilter["recipeTags"];
             $equipmentFilter = $testFilter["equipment"];
@@ -152,15 +152,31 @@
             //recipes, if you can then add that array to the recipeList.
             if( $ingredientFilter != "" AND ( $result = $this->filter( $ingredientFilter, "ingredientTags" ) ) != NULL )
             {
-                array_push( $recipeList, $result );
+
+                //Having to loop through the results to rebuild our recipeList isn't very elegant but merging arrays
+                //in php has issues with non unique keys and we were overwriting results because of duplicate key names
+                foreach( $result as $recipeID )
+                {
+                    array_push( $recipeList, $recipeID ) ;
+                    array_unique( $recipeList ); //there's no reason for duplicate recipes
+                }
+
             }
             if( $recipeFilter != "" AND ( $result = $this->filter( $recipeFilter, "recipeTags" ) ) != NULL )
             {
-                array_push( $recipeList, $result );
+                foreach( $result as $recipeID )
+                {
+                    array_push( $recipeList, $recipeID ) ;
+                    array_unique( $recipeList ); //there's no reason for duplicate recipes
+                }
             }
             if( $equipmentFilter != "" AND ( $result = $this->filter( $equipmentFilter, "equipment" ) ) != NULL )
             {
-                array_push( $recipeList, $result );
+                foreach( $result as $recipeID )
+                {
+                    array_push( $recipeList, $recipeID ) ;
+                    array_unique( $recipeList ); //there's no reason for duplicate recipes
+                }
             }
 
             //The without filter is a little different, if it finds a recipe it then searches the recipeList and
@@ -178,9 +194,7 @@
 
             }
 
-            print_r( $recipeList ) ;
-
-            $this->buildFilterResponse( $recipeList ) ;
+            $recipeList = $this->buildFilterResponse( $recipeList ) ;
             return $recipeList;
 
         }
@@ -214,7 +228,8 @@
                 }
                 case "recipeTags":
                 {
-                    //do nothing because we have a list of recipe id's so we can just go straight to the recipes table
+                    $mapTable = TABLE_RECIPE_TAG_MAP ;
+                    $mapAttribute = "tagID" ;
                     break;
                 }
                 case "equipment":
@@ -237,7 +252,11 @@
 
                             unset( $withoutFilter["group"] );
                             //when calling filter with withoutFilter must be turned back into an array of id, name objects
-                            array_push( $recipeIDList, $this->filter( [$withoutFilter], "recipeTags" ) );
+                            foreach( $this->filter( [$withoutFilter], "recipeTags" ) as $recipeID )
+                            {
+                                array_push( $recipeIDList, $recipeID ) ;
+                                array_unique( $recipeIDList  );
+                            }
 
                         }
                         elseif( $withoutFilter["group"] == "ingredients" )
@@ -245,7 +264,11 @@
 
                             unset( $withoutFilter["group"] );
                             //when calling filter with withoutFilter must be turned back into an array of id, name objects
-                            array_push( $recipeIDList, $this->filter( [$withoutFilter], "ingredientTags" ) );
+                            foreach( $this->filter( [$withoutFilter], "ingredientTags" ) as $recipeID )
+                            {
+                                array_push( $recipeIDList, $recipeID ) ;
+                                array_unique( $recipeIDList  );
+                            }
 
                         }
 
@@ -270,28 +293,21 @@
                     continue;
                 }
 
-                //If we aren't filtering on recipes then go to the map table to get the matching recipeID
-                if( $strFilterGroup != "recipes" AND $strFilterGroup != "recipeTags" )
+                //SELECT recipeID FROM $mapTable WHERE $mapApptribute = $item["id"]
+                $recipeIDs = $this->conn->query( $temp = sprintf( $this->mQuery_SelectFromTable, "recipeID", $mapTable, $mapAttribute, $item["id"] ) ) ;
+
+                //When we run the query we are getting the first row right away because recipes are unique. If the
+                //result is NULL then there is no recipe associated with the current filter
+                if( $recipeIDs != NULL )
                 {
 
-                    //SELECT recipeID FROM $mapTable WHERE $mapApptribute = $item["id"]
-                    $recipeId = $this->conn->query( $temp = sprintf( $this->mQuery_SelectFromTable, "recipeID", $mapTable, $mapAttribute, $item["id"] ) )->fetch_row()[0] ;
-
-                    //When we run the query we are getting the first row right away because recipes are unique. If the
-                    //result is NULL then there is no recipe associated with the current filter
-                    if( $recipeId != NULL )
+                    while( $row = mysqli_fetch_row( $recipeIDs ) )
                     {
-                        $recipeId ;
-                        //Recipes are unique and because we have found one we can add it to our list without having to parse the full query results
-                        array_push( $recipeIDList, $recipeId );
+                        array_push( $recipeIDList, $row[0] );
                     }
-                }
-                else
-                {
-                    //We already have the id of a recipe so just add it to the list
-                    array_push( $recipeIDList, $item["id"] );
 
                 }
+
             }
 
             return $recipeIDList;
@@ -350,14 +366,36 @@
         function buildFilterResponse( $filterList )
         {
 
-            $recipeList = [] ;
             $this->getRecipes() ;
+            $recipeList = [] ;
 
-            print_r( $this->mJSON_AllRecipes ) ;
+            //Get all the recipes and decode them into an associative array
+            $allRecipes = json_decode( $this->mJSON_AllRecipes, true ) ;
 
+            foreach( $filterList as $filter )
+            {
 
+                foreach( $allRecipes["recipes"] as $recipe )
+                {
 
-            return json_encode($recipeList, JSON_PRETTY_PRINT ) ;
+                    if( $filter == $recipe["id"]  )
+                    {
+
+                        if( empty( $recipeList ) )
+                        {
+                            $recipeList["recipes"] = [$recipe] ;
+                            break ;
+                        }
+                        else
+                        {
+                            array_push( $recipeList["recipes"], [$recipe] );
+                            break ;
+                        }
+                    }
+                }
+            }
+
+            return $recipeList ;
         }
 
         function buildFullRecipeList()
@@ -510,6 +548,7 @@
         private function storeRecipes( $recipeJSON )
         {
 
+            $this->buildFullRecipeList() ; //first things first, make sure the file is up to date
             if( ( $recipeJsonFile = fopen( $this->mPath_AllRecipesJSON, "w" ) ) != FALSE )
             {
                 fwrite( $recipeJsonFile, $recipeJSON );

@@ -6,17 +6,11 @@
 
     //$data = json_decode(file_get_contents("php://input"));
     //$request = $data->filter ;
-      $request = "FooBar";
-
-    // print_r( $request ) ;
+    $request = "FOOBAR" ;
 
     $temp = new db_lib;
-    //$temp->getTables();
-    print_r( json_encode( $temp->buildFilterObjects( $request ) ));
-
-    $temp->closeConnection() ;
-
-
-    //$temp->closeConnection();
+    echo "<div id='recipeFilter' style='visibility:hidden'>" ;
+    echo json_encode( $temp->buildFilterObjects( $request ), JSON_PRETTY_PRINT ) ;
+    echo "</div>";
 
 ?>
