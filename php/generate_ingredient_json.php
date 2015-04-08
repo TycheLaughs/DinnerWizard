@@ -1,6 +1,7 @@
 <?php
 
 	// Note: see generate_recipe_json.php for more detailed information about what's going on here.
+	// Much of the code is shared but cannot be easily abstracted out.
 	header('Content-Type: application/json');
 	$conn = NULL;
 	$_HOST = 'localhost';

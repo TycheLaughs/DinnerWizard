@@ -37,28 +37,39 @@ http://angular-ui.github.io/bootstrap/ -->
                   Without
                   </div>
                </accordion-heading>
-               <accordion close-others="oneAtATime" class="rec"><!--begin Without nested Accordions-->
-                  <accordion-group ng-repeat="cat in ingrCats">
-                     <accordion-heading >
-                        <div>
-                         {{cat}}
-                        </div>
-                     </accordion-heading>
-                     <ul>
-                        <li ng-repeat="content in ingredients" ng-if="content.tags[0]===cat" style="list-style-type: none" ><a ng-click="clickedFromListing(content.name)">{{content.name}}</a></li>
-                     </ul>
-                  </accordion-group>
-                  <!-- end Without Ingredients-->
+               <accordion close-others="oneAtATime" class="inv"><!--begin Without nested Accordions-->
                   <accordion-group>
                      <accordion-heading>
                         <div>
-                           Equipment
+                           Ingredients
                         </div>
                      </accordion-heading>
-                     <ul ng-repeat="item in equipment">
-                        <li style="list-style-type: none" ><a ng-click="clickedFromWithout(item.name)">{{item.name}}</a></li>
-                     </ul>
+                     <accordion close-others="oneAtATime" class="rec">
+                        <accordion-group ng-repeat="cat in ingrCats">
+                           <accordion-heading >
+                              <div>
+                                 {{cat}}
+                              </div>
+                           </accordion-heading>
+                           <ul>
+                              <li ng-repeat="content in ingredients" ng-if="content.tags[0]===cat" style="list-style-type: none" ><a ng-click="clickedFromWithout(content.name)">{{content.name}}</a></li>
+                           </ul>
+                        </accordion-group>
+                        <!-- end Without Ingredients-->
+                     </accordion>
                   </accordion-group>
+                  <accordion close-others="oneAtATime" class="inv">
+                     <accordion-group>
+                        <accordion-heading>
+                           <div>
+                              Equipment
+                           </div>
+                        </accordion-heading>
+                        <ul ng-repeat="item in equipment">
+                           <li style="list-style-type: none" ><a ng-click="clickedFromWithout(item.name)">{{item.name}}</a></li>
+                        </ul>
+                     </accordion-group>
+                  </accordion>
                   <!--end Without Equipment-->
                </accordion>
          </accordion-group>

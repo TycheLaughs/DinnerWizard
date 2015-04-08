@@ -181,7 +181,7 @@ DinnerWizardApp.service('persistentService', function($http){
             //prompt before adding the item
          }
          
-         var isPresent = tagsList.indexOf('Use' + clicked);/* check if the item is already in 
+         var isPresent = tagsList.indexOf('Use ' + clicked);/* check if the item is already in 
          the constructed list  */
          var isWithout = tagsList.indexOf('NO ' + clicked);/* check if the item is already in 
          the constructed list  */
