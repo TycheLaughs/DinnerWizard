@@ -38,9 +38,9 @@
         private $connected = false ;
 
         //member variable containing the path to the allRecipes.json file
-        private $mPath_AllRecipesJSON = "../data/recipes.json" ;
-        private $mPath_AllIngredientsJSON = "../data/ingredients.json";
-        private $mPath_AllEquipmentJSON = "../data/equipment.json" ;
+        //private $mPath_AllRecipesJSON = "../data/recipes.json" ;
+        //private $mPath_AllIngredientsJSON = "../data/ingredients.json";
+        //private $mPath_AllEquipmentJSON = "../data/equipment.json" ;
 
         //The most used queries for sustainability and easy formatting
         //SELECT * FROM <tableName>
@@ -346,46 +346,6 @@
 
         /**
          * Summary:
-         *      check to see if the given value exists in the given table, by default we check for ids but
-         *      you can also check by name.
-         *
-         * @param $strValue
-         *      The value we are checking to see if exists in the given table.
-         * @param $strTable
-         *      The table we should be checking.
-         * @param string $strIdentifier
-         *      An identifier telling us if we are checking for an id or a name.
-         *
-         * @return bool
-         *      True if we found the value and false if we didn't
-         */
-        private function exists( $strValue, $strTable, $strIdentifier = "id" )
-        {
-
-            if( $strIdentifier == 'id' )
-            {
-                //SELECT * from $strTable WHERE id = '$strValue'
-                $strQuery = sprintf( $this->mQuery_SelectFromTable, 'id', $strTable, 'id', $strValue );
-            }
-            else
-            {
-                //SELECT * from $strTable WHERE name = '$strValue'
-                $strQuery = sprintf( $this->mQuery_SelectFromTable, 'name', $strTable, 'name', $strValue );
-            }
-
-            //If the query returns a value then return true otherwise return false
-            if( $this->conn->query( $strQuery )->num_rows > 0 )
-            {
-                return TRUE;
-            }
-            else
-            {
-                return FALSE;
-            }
-        }
-
-        /**
-         * Summary:
          *      This method will take in a filterList that contains recipe id's and then from there get all of the
          *      recipes that are in the database that match those ids.
          * @param $filterList
@@ -645,55 +605,21 @@
             //$this->storeInformation( json_encode($result, JSON_PRETTY_PRINT), $this->mPath_AllEquipmentJSON ) ;
             return json_encode( $result, JSON_PRETTY_PRINT ) ;
         }
+
         /**
          * Summary:
-         *      Write the entire recipe list to a stored JSON file for access to later
-         *
-         * @param $infoJSON
-         *      The information we want to store in the storepath's file
-         * @param $storagePath
-         *      The json object that contains every recipe in the database
-
-        private function storeInformation( $infoJSON, $storagePath )
-        {
-
-            if( ( $handle = fopen( $storagePath, "w" ) ) != FALSE )
-            {
-                fwrite( $handle, $infoJSON );
-                fclose( $handle );
-            }
-            else
-            {
-                //Log an Error.
-            }
-
-        }
-*/
-        /**
-         * Summary:
-         *      This method is called when we want to get a json object containing all of the recipes, ingredients,
-         *      or equipment that live in the database.
-         *
-         * @param $path
-         *      The path of the file we are going to to get the database information
-         * @return array
-         *      The information from the JSON file we have pertaining to the objects we are trying to get, either
-         *      recipes, ingredients, or equipment
+         *          Get the current timestamp and then insert the error into the database for logging purposes
+         * @param $description
+         *          A description of the error
+         * @param $level
+         *          The error type, either Error, Warn, or Information
          */
-        private function getBaseTableInfo( $path )
+        private function logError( $description, $level )
         {
 
-            if( ( $jsonFile = fopen( $path, "r" ) ) != FALSE )
-            {
-                $jsonObject = fread( $path, filesize( $path ) );
-                fclose( $path );
-            }
-            else
-            {
-                $this->logError( "Failed to read " . $path, ERROR ) ;
-            }
-
-            return $jsonObject ;
+            $currentTime = date("Y-m-d H:i:s"); //set the timestamp to the current time, use the mySQL format
+            $logQuery = "INSERT INTO error_log( timestamp, level, description ) VALUES( %s %s %s)" ;
+            $this->conn->query( sprintf( $logQuery, $currentTime, $level, $description ) ) ;
 
         }
 
@@ -718,54 +644,97 @@
             //return $this->getBaseTableInfo( $this->mPath_AllEquipmentJSON ) ;
         }
 
-        /**
-         * Summary:
-         *          Get the current timestamp and then insert the error into the database for logging purposes
-         * @param $description
-         *          A description of the error
-         * @param $level
-         *          The error type, either Error, Warn, or Information
-         */
-        private function logError( $description, $level )
-        {
-
-            $currentTime = date("Y-m-d H:i:s"); //set the timestamp to the current time, use the mySQL format
-            $logQuery = "INSERT INTO error_log( timestamp, level, description ) VALUES( %s %s %s)" ;
-            $this->conn->query( sprintf( $logQuery, $currentTime, $level, $description ) ) ;
-
-        }
-
-        //I dont actually remember what i was building this function for so I'm going to leave it commented out for now
-//        private function getObjectByID( $id, $baseTable )
+//        /**
+//         * Summary:
+//         *      check to see if the given value exists in the given table, by default we check for ids but
+//         *      you can also check by name.
+//         *
+//         * @param $strValue
+//         *      The value we are checking to see if exists in the given table.
+//         * @param $strTable
+//         *      The table we should be checking.
+//         * @param string $strIdentifier
+//         *      An identifier telling us if we are checking for an id or a name.
+//         *
+//         * @return bool
+//         *      True if we found the value and false if we didn't
+//         */
+//        private function exists( $strValue, $strTable, $strIdentifier = "id" )
 //        {
 //
-//            //Base tables have unique id's so we can just fetch row zero without parsing the return
-//            //SELECT * from $baseTable where id = $id
-//            $result = $this->conn( sprintf( $this->mQuery_SelectAll, $baseTable, "id", $id ) )->fetch_row()[0];
-//
-//            switch( $baseTable )
+//            if( $strIdentifier == 'id' )
 //            {
-//                case "recipes":
-//                {
-//                    break;
-//                }
-//                case "ingredients":
-//                {
-//                    return ( getIngredientsByID( $id ) );
+//                //SELECT * from $strTable WHERE id = '$strValue'
+//                $strQuery = sprintf( $this->mQuery_SelectFromTable, 'id', $strTable, 'id', $strValue );
+//            }
+//            else
+//            {
+//                //SELECT * from $strTable WHERE name = '$strValue'
+//                $strQuery = sprintf( $this->mQuery_SelectFromTable, 'name', $strTable, 'name', $strValue );
+//            }
 //
-//                    break;
-//                }
-//                case "equipment":
-//                {
-//                    return [ "equipment" => [ "id" => $result["id"], "name" => $result["name"] ] ];
-//                    break;
-//                }
-//                case "categories":
-//                {
-//                    break;
-//                }
+//            //If the query returns a value then return true otherwise return false
+//            if( $this->conn->query( $strQuery )->num_rows > 0 )
+//            {
+//                return TRUE;
+//            }
+//            else
+//            {
+//                return FALSE;
 //            }
 //        }
+//
+//        /**
+//         * Summary:
+//         *      Write the entire recipe list to a stored JSON file for access to later
+//         *
+//         * @param $infoJSON
+//         *      The information we want to store in the storepath's file
+//         * @param $storagePath
+//         *      The json object that contains every recipe in the database
+//         */
+//        private function storeInformation( $infoJSON, $storagePath )
+//        {
+//
+//            if( ( $handle = fopen( $storagePath, "w" ) ) != FALSE )
+//            {
+//                fwrite( $handle, $infoJSON );
+//                fclose( $handle );
+//            }
+//            else
+//            {
+//                //Log an Error.
+//            }
+//
+//        }
+//
+//        /**
+//         * Summary:
+//         *      This method is called when we want to get a json object containing all of the recipes, ingredients,
+//         *      or equipment that live in the database.
+//         *
+//         * @param $path
+//         *      The path of the file we are going to to get the database information
+//         * @return array
+//         *      The information from the JSON file we have pertaining to the objects we are trying to get, either
+//         *      recipes, ingredients, or equipment
+//         */
+//        private function getBaseTableInfo( $path )
+//        {
+//
+//            if( ( $jsonFile = fopen( $path, "r" ) ) != FALSE )
+//            {
+//                $jsonObject = fread( $path, filesize( $path ) );
+//                fclose( $path );
+//            }
+//            else
+//            {
+//                $this->logError( "Failed to read " . $path, ERROR );
+//            }
+//
+//            return $jsonObject ;
+//        }
+
     }
 
 ?>
