@@ -9,6 +9,7 @@
     $request = $data["filter"] ;
 
     $temp = new db_lib;
+
     //echo "<div id='recipeFilter' style='visibility:hidden'>" ;
     echo json_encode( $temp->buildFilterObjects( $request ), JSON_PRETTY_PRINT ) ;
     //echo "</div>";

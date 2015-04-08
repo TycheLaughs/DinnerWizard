@@ -58,9 +58,6 @@
         //INSERT INTO <table>( id, id ) VALUES( <id>, <id> ) ;
         private $mQuery_InsMapTable = "INSERT INTO %s( id, id) VALUES( '%d', '%d')";
 
-        //An array that will hold all of the recipes in the database -- NOTE: this may be removed after refactoring
-        private $mJSON_AllRecipes = [] ;
-
         /**
          * Summary:
          *      The only thing the constructor does is connects to the database.
@@ -68,9 +65,6 @@
         public function __construct()
         {
             $this->dinnerWizardConnect() ;
-            $this->buildFullRecipeList() ;
-            //TODO: Add ingredient and equipment builders to class and generate seperate files for all three of them
-            //TODO: Refactor and remove extra echo/print statements.
         }
 
         /**
@@ -102,6 +96,12 @@
                     //Print the error to the screen and then log it
                     echo $errorMsg ;
                     $this->logError( $errorMsg, ERROR ) ;
+                }
+
+                // If we don't have this the ° characters in, for example, "heat the oven to 400°", will cause json_encode to just fail silently.
+                if (!$this->conn->set_charset("utf8mb4"))
+                {
+                    die("Error loading character set utf8: " . $this->conn->error);
                 }
 
                 $this->connected = true;
@@ -393,14 +393,14 @@
          * @return array
          *      A json encoded array of all the recipes we found based on the filter
          */
-        function buildFilterResponse( $filterList )
+        private function buildFilterResponse( $filterList )
         {
 
-            $this->getRecipes() ;
+            $recipes = $this->getRecipes() ;
             $recipeList = [] ;
 
             //Get all the recipes and decode them into an associative array
-            $allRecipes = json_decode( $this->mJSON_AllRecipes, true ) ;
+            $allRecipes = json_decode( $recipes, true ) ;
 
             foreach( $filterList as $filter )
             {
@@ -428,44 +428,38 @@
             return $recipeList ;
         }
 
-        function buildFullRecipeList()
+        private function buildRecipeList()
         {
-
-            // If we don't have this the ° characters in, for example, "heat the oven to 400°", will cause json_encode to just fail silently.
-            if (!$this->conn->set_charset("utf8mb4"))
-            {
-                die("Error loading character set utf8: " . $this->conn->error);
-            }
 
             // Get our query.
             // This monster gets all the information about recipes that we could possibly need
             // A lot of it is redundant, however, because of the massive number of left joins.
             // Luckily because we convert the results into an associative array later on we don't have to care much.
             $queryResult = $this->conn->query("
-SELECT recipes.ID AS recipeID,
-recipes.name AS recipeName,
-recipes.prepInst,
-recipe_ingredient_map.ingredientID AS ingredientID,
-ingredients1.name AS ingredientName,
-recipe_ingredient_map.isOptional AS isOptional,
-recipe_replaceable_ingredient_map.replaceableIngredientID AS replaceableIngredientID,
-ingredients2.name AS replaceableIngredientName,
-recipe_ingredient_map.ratio AS ratio,
-equipment.ID AS equipmentID,
-equipment.name AS equipmentName,
-recipe_tags.ID AS tagID,
-recipe_tags.name AS tagName
-FROM recipes
-LEFT JOIN recipe_ingredient_map	ON recipes.ID = recipe_ingredient_map.recipeID
-LEFT JOIN recipe_replaceable_ingredient_map ON recipes.ID = recipe_replaceable_ingredient_map.recipeID AND recipe_ingredient_map.ingredientID = recipe_replaceable_ingredient_map.ingredientID
-LEFT JOIN ingredients AS ingredients1 ON recipe_ingredient_map.recipeID = ingredients1.ID
-LEFT JOIN ingredients AS ingredients2 ON recipe_replaceable_ingredient_map.replaceableIngredientID = ingredients2.ID
-LEFT JOIN recipe_equipment_map 	ON recipes.ID = recipe_equipment_map.recipeID
-LEFT JOIN equipment 		ON equipment.ID = recipe_equipment_map.equipmentID
-LEFT JOIN recipe_tag_map 	ON recipes.ID = recipe_tag_map.recipeID
-LEFT JOIN recipe_tags 		ON recipe_tags.ID = recipe_tag_map.tagID
-ORDER BY recipeID, ingredientID, replaceableIngredientID, equipmentID, tagID
-");
+                    SELECT recipes.ID AS recipeID,
+                    recipes.name AS recipeName,
+                    recipes.prepInst,
+                    recipe_ingredient_map.ingredientID AS ingredientID,
+                    ingredients1.name AS ingredientName,
+                    recipe_ingredient_map.isOptional AS isOptional,
+                    recipe_replaceable_ingredient_map.replaceableIngredientID AS replaceableIngredientID,
+                    ingredients2.name AS replaceableIngredientName,
+                    recipe_ingredient_map.ratio AS ratio,
+                    equipment.ID AS equipmentID,
+                    equipment.name AS equipmentName,
+                    recipe_tags.ID AS tagID,
+                    recipe_tags.name AS tagName
+                    FROM recipes
+                    LEFT JOIN recipe_ingredient_map	ON recipes.ID = recipe_ingredient_map.recipeID
+                    LEFT JOIN recipe_replaceable_ingredient_map ON recipes.ID = recipe_replaceable_ingredient_map.recipeID AND recipe_ingredient_map.ingredientID = recipe_replaceable_ingredient_map.ingredientID
+                    LEFT JOIN ingredients AS ingredients1 ON recipe_ingredient_map.recipeID = ingredients1.ID
+                    LEFT JOIN ingredients AS ingredients2 ON recipe_replaceable_ingredient_map.replaceableIngredientID = ingredients2.ID
+                    LEFT JOIN recipe_equipment_map 	ON recipes.ID = recipe_equipment_map.recipeID
+                    LEFT JOIN equipment 		ON equipment.ID = recipe_equipment_map.equipmentID
+                    LEFT JOIN recipe_tag_map 	ON recipes.ID = recipe_tag_map.recipeID
+                    LEFT JOIN recipe_tags 		ON recipe_tags.ID = recipe_tag_map.tagID
+                    ORDER BY recipeID, ingredientID, replaceableIngredientID, equipmentID, tagID
+            ");
 
             // Set up our result array.
             // This will be turned into a JSON object later on and then returned.
@@ -561,24 +555,112 @@ ORDER BY recipeID, ingredientID, replaceableIngredientID, equipmentID, tagID
             }
 
             // And we're done.
-            echo json_encode($result, JSON_PRETTY_PRINT);
-            $this->storeRecipes( json_encode($result, JSON_PRETTY_PRINT) ) ;
-
+            //echo json_encode($result, JSON_PRETTY_PRINT);
+            //$this->storeInformation( json_encode($result, JSON_PRETTY_PRINT),  $this->mPath_AllIngredientsJSON ) ;
+            return json_encode($result, JSON_PRETTY_PRINT) ;
         }
 
+        private function buildIngredientList()
+        {
+
+            $queryResult = $this->conn->query("
+                    SELECT ingredients.ID AS ingredientID,
+                    ingredients.name AS ingredientName,
+                    ingredient_tags.ID AS tagID,
+                    ingredient_tags.name AS tagName
+                    FROM ingredients
+                    LEFT JOIN ingredient_tag_map ON ingredients.ID = ingredient_tag_map.ingredientID
+                    LEFT JOIN ingredient_tags ON ingredient_tag_map.tagID = ingredient_tags.ID
+                    ORDER BY ingredientID");
+
+            // Set up our result array.
+            // This will be turned into a JSON object later on and then returned.
+            $result = array();
+            $result['ingredients'] = array();
+
+            for ($rowNumber = 0; $rowNumber < $queryResult->num_rows; $rowNumber++)
+            {
+                $queryResult->data_seek($rowNumber);
+                $row = $queryResult->fetch_assoc();
+
+                $ingredientID = $row['ingredientID'];
+                $ingredientName = $row['ingredientName'];
+                $tagID = $row['tagID'];
+                $tagName = $row['tagName'];
+
+                $result['ingredients'][$ingredientID]['id'] = (int)$ingredientID;
+                $result['ingredients'][$ingredientID]['ingredientName'] = $ingredientName;
+
+                if (!array_key_exists('tags', $result['ingredients'][$ingredientID]))
+                    $result['ingredients'][$ingredientID]['tags'] = array();
+
+                if ($tagID != null)
+                {
+                    $result['ingredients'][$ingredientID]['tags'][$tagID]['id'] = (int)$tagID;
+                    $result['ingredients'][$ingredientID]['tags'][$tagID]['name'] = $tagName;
+                }
+            }
+
+            $result['ingredients'] = array_values($result['ingredients']);
+
+            for ($i = 0; $i < count($result['ingredients']); $i++)
+            {
+                // Do the same thing for our categories, equipment, and ingredients.
+                $result['ingredients'][$i]['tags'] = array_values($result['ingredients'][$i]['tags']);
+            }
+
+            // And we're done.
+            //echo json_encode($result, JSON_PRETTY_PRINT);
+            //$this->storeInformation( json_encode($result, JSON_PRETTY_PRINT), $this->mPath_AllIngredientsJSON ) ;
+            return json_encode( $result, JSON_PRETTY_PRINT ) ;
+        }
+
+        private function buildEquipmentList()
+        {
+            $queryResult = $this->conn->query("
+                          SELECT equipment.id AS equipmentID,
+                          equipment.name AS equipmentName FROM equipment");
+
+            // Set up our result array.
+            // This will be turned into a JSON object later on and then returned.
+            $result = array();
+            $result['equipment'] = array();
+
+            for ($rowNumber = 0; $rowNumber < $queryResult->num_rows; $rowNumber++)
+            {
+                $queryResult->data_seek($rowNumber);
+                $row = $queryResult->fetch_assoc();
+
+                $equipmentID = $row['equipmentID'];
+                $equipmentName = $row['equipmentName'];
+
+                $result['equipment'][$equipmentID]['id'] = (int)$equipmentID;
+                $result['equipment'][$equipmentID]['name'] = $equipmentName;
+            }
+
+            $result['equipment'] = array_values($result['equipment']);
+
+            // And we're done.
+            //echo json_encode($result, JSON_PRETTY_PRINT);
+            //$this->storeInformation( json_encode($result, JSON_PRETTY_PRINT), $this->mPath_AllEquipmentJSON ) ;
+            return json_encode( $result, JSON_PRETTY_PRINT ) ;
+        }
         /**
          * Summary:
          *      Write the entire recipe list to a stored JSON file for access to later
-         * @param $recipeJSON
+         *
+         * @param $infoJSON
+         *      The information we want to store in the storepath's file
+         * @param $storagePath
          *      The json object that contains every recipe in the database
-         */
-        private function storeRecipes( $recipeJSON )
+
+        private function storeInformation( $infoJSON, $storagePath )
         {
 
-            if( ( $recipeJsonFile = fopen( $this->mPath_AllRecipesJSON, "w" ) ) != FALSE )
+            if( ( $handle = fopen( $storagePath, "w" ) ) != FALSE )
             {
-                fwrite( $recipeJsonFile, $recipeJSON );
-                fclose( $recipeJsonFile );
+                fwrite( $handle, $infoJSON );
+                fclose( $handle );
             }
             else
             {
@@ -586,25 +668,54 @@ ORDER BY recipeID, ingredientID, replaceableIngredientID, equipmentID, tagID
             }
 
         }
-
+*/
         /**
          * Summary:
-         *      This method is called when we want to read and store all of the recipes that live in the allRecipes.json
-         *      file.
+         *      This method is called when we want to get a json object containing all of the recipes, ingredients,
+         *      or equipment that live in the database.
+         *
+         * @param $path
+         *      The path of the file we are going to to get the database information
+         * @return array
+         *      The information from the JSON file we have pertaining to the objects we are trying to get, either
+         *      recipes, ingredients, or equipment
          */
-        private function getRecipes()
+        private function getBaseTableInfo( $path )
         {
 
-            if( ( $recipeJsonFile = fopen( $this->mPath_AllRecipesJSON, "r" ) ) != FALSE )
+            if( ( $jsonFile = fopen( $path, "r" ) ) != FALSE )
             {
-                $this->mJSON_AllRecipes = fread( $recipeJsonFile, filesize( $this->mPath_AllRecipesJSON ) );
-                fclose( $recipeJsonFile );
+                $jsonObject = fread( $path, filesize( $path ) );
+                fclose( $path );
             }
             else
             {
-                $this->logError( "Failed to read allRecipes.json", ERROR ) ;
+                $this->logError( "Failed to read " . $path, ERROR ) ;
             }
 
+            return $jsonObject ;
+
+        }
+
+        public function getRecipes()
+        {
+            //make sure we have the most up to date version of the recipes
+            return $this->buildRecipeList() ;
+            //return $this->getBaseTableInfo( $this->mPath_AllRecipesJSON ) ;
+        }
+
+        public function getIngredients()
+        {
+            //make sure we have the most up to date version of the recipes
+            return $this->buildIngredientList() ;
+            //return $this->getBaseTableInfo( $this->mPath_AllIngredientsJSON ) ;
+        }
+
+        public function getEquipment()
+        {
+            //make sure we have the most up to date version of the recipes
+            return $this->buildEquipmentList() ;
+            //return $this->getBaseTableInfo( $this->mPath_AllEquipmentJSON ) ;
         }
 
         /**
@@ -658,221 +769,3 @@ ORDER BY recipeID, ingredientID, replaceableIngredientID, equipmentID, tagID
     }
 
 ?>
-
-<!-- PROTOTYPE UPDATE FUNCTIONS
- /**
-         * Summary:
-         *      Try to update the database with the row for the given objType.
-         *
-         * @param $objDinnerWizard
-         *      The object we want to put into the database
-         *
-         * @param $strTableName
-         *      The table we want to update
-         */
-        function updateBaseTables( $objDinnerWizard, $strTableName )
-        {
-
-            //If the item is already in the database make sure that our id's match otherwise add a new item to the database
-            if( $this->exists( $objDinnerWizard["name"], $strTableName, "name" ) )
-            {
-
-                //SELECT id FROM $strTableName WHERE name = $objDinnerWizard["name"]
-                $intObjID = $this->conn->query( sprintf( $this->mQuery_SelectFromTable, 'id', $strTableName, 'name', $objDinnerWizard["name"] ) )->fetch_row()[0];
-
-                if( $objDinnerWizard["id"] != $intObjID )
-                {
-                    //Provided ID and equipment ID don't match, log an error and return
-                    return;
-                }
-
-                //Item exists already so do nothing
-                return;
-
-            }
-            else
-            {
-
-                //get the last id from the table
-                $intLastID = $this->conn->query( sprintf( $this->mQuery_SelectLastID, $strTableName ) )->fetch_row()[0];
-
-                //if there is no id available we must be adding the first row so set intLastID to 0
-                if( $intLastID == NULL )
-                {
-                    $intLastID = 0;
-                }
-                else
-                {
-                    $intLastID++;
-                }
-
-                //The recipe and tags tables have extra attributes so do something else with it
-                if( $strTableName == $this->mTable_Recipes )
-                {
-                    //INSERT INTO recipes( id, name, prepInst ) VALUES( $intLastID, $objDinnerWizard["name"], $objDinnerWizard["prepInst"] )
-                    $this->conn->query( sprintf( $this->mQuery_InsRecipesTable, $intLastID, $objDinnerWizard["name"], $objDinnerWizard["prepInst"] ) );
-                }
-                elseif( $strTableName == $this->mTable_Tags )
-                {
-                    //INSERT INTO tags( id, name, isFilterable ) VALUES( $intLastID, $objDinnerWizard["name"], $objDinnerWizard["isFilterable"] ) ;
-                    $this->conn->query( sprintf( $this->mQuery_InsTagsTable, $intLastID, $objDinnerWizard["name"], $objDinnerWizard["isFilterable"] ) );
-                }
-                else
-                {
-                    //INSERT INTO $strTableName( id, name ) VALUES( $intIngredientID, $ingredient )
-                    $this->conn->query( sprintf( $this->mQuery_InsBaseTable, $strTableName, $intLastID, $objDinnerWizard["name"] ) );
-                }
-
-            }
-
-            return;
-        }
-
-        /**
-         * Summary:
-         *      Update the mapping tables with the appropriate id's
-         *
-         * @param $objDinnerWizard
-         *      The object we are adding to the database
-         * @param $strTableName
-         *      The name of the base table we are updating
-         */
-        function updateMapTables( $objDinnerWizard, $strTableName )
-        {
-
-            $intNewItemID = $objDinnerWizard["id"];
-            $strTableToMap = '';
-            $objListOfItemsToMap = [ ];
-
-            switch( $strTableName )
-            {
-                case "ingredients":
-                {
-                    $strTableToMap = $this->mTable_IngredientTagMap;
-                    $objListOfItemsToMap = $objDinnerWizard["tags"];
-                    break;
-                }
-                case "tags":
-                {
-
-                    if( $objDinnerWizard["recipes"] )
-                    {
-                        $strTableToMap = $this->mTable_RecipeTagMap;
-                        $objListOfItemsToMap = $objDinnerWizard["recipes"];
-                    }
-                    else
-                    {
-                        $strTableToMap = $this->mTable_IngredientTagMap;
-                        $objListOfItemsToMap = $objDinnerWizard["ingredients"];
-                    }
-                    break;
-                }
-                case "equipment":
-                {
-                    $strTableToMap = $this->mTable_RecipeEquipmentMap;
-                    $objListOfItemsToMap = $objDinnerWizard["recipes"];
-                    break;
-                }
-                case "recipes":
-                {
-                    //recipes map to all the tables so leave this empty for now
-                    break;
-                }
-                default:
-                {
-                    //log error because the wrong table type was passed in
-                }
-            }
-
-            if( $strTableName != "recipes" )
-            {
-
-                foreach( $objListOfItemsToMap as $item )
-                {
-
-                    //SELECT id FROM $strTableName WHERE name = <value>
-                    $itemID = $this->conn->query( sprintf( $this->mQuery_SelectFromTable, "id", $strTableName, "name", $item["name"] ) );
-
-                    //if we found the item in a base table then we just have to update the map table, otherwise we have to add the item to the base table as first
-                    if( $itemID != NULL )
-                    {
-                        //INSERT INTO <table>( id, id ) VALUES( <id>, <id> ) ;
-                        $this->conn->query( sprintf( $this->mQuery_InsMapTable, $strTableToMap, $intNewItemID, $itemID ) );
-                    }
-                    else
-                    {
-                        if( $strTableName == "tags" )
-                        {
-                            $tempObj = [ "name" => $item["name"], "isFilterable" => false ] ;
-                        }
-                        else
-                        {
-                            $tempObj = [ "name" => $item["name"] ] ;
-                        }
-
-                        $this->updateBaseTables( $tempObj, $strTableName ) ;
-                        $this->updateMapTables( $objDinnerWizard, $strTableName ) ;
-                    }
-                }
-            }
-            else
-            {
-//                $recipe = [ "id" => 0, "name" => "burrito", "prepInst" => "Cook the rice, saute the vegetables, cook the chicken, microwave the wrap for 10 seconds.",
-//                    "tags" => [ [ "id" => 2, "name" => "spicy", "isFilterable" => true ], [ "id" => 4, "name" => "Mexican", "isFilterable" => true ] ],
-//                    "equipment" => [ "id" => 0, "name" => "stove" ],
-//                    "ingredients" => [ "id" => 0, "name" => "chicken", "isOptional" => TRUE, "replaceableWith" => [ "turkey", "steak", "pork" ] ] ];
-
-                $objListOfItemsToMap = $objDinnerWizard["tags"];
-                $strBaseTable = $this->mTable_Tags ;
-                $strTableToMap = $this->mTable_RecipeTagMap;
-                $updateRecipes = true;
-
-                while( $updateRecipes == true )
-                {
-                    if( $strTableToMap == $this->mTable_RecipeEquipmentMap )
-                    {
-                        $updateRecipes = false ;
-                    }
-
-                    foreach( $objListOfItemsToMap as $item )
-                    {
-
-                        //SELECT id FROM $strTableName WHERE name = <value>
-                        $itemID = $this->conn->query( sprintf( $this->mQuery_SelectFromTable, "id", $strBaseTable, "name", $item["name"] ) );
-
-                        //if we found the item in a base table then we just have to update the map table, otherwise we have to add the item to the base table as first
-                        if( $itemID != NULL )
-                        {
-                            //INSERT INTO <table>( id, id ) VALUES( <id>, <id> ) ;
-                            $this->conn->query( sprintf( $this->mQuery_InsMapTable, $strTableToMap, $intNewItemID, $itemID ) );
-                        }
-                        else
-                        {
-                            if( $strBaseTable == "tags" )
-                            {
-                                $tempObj = [ "name" => $item["name"], "isFilterable" => false ];
-                            }
-                            else
-                            {
-                                $tempObj = [ "name" => $item["name"] ];
-                            }
-
-                            $this->updateBaseTables( $tempObj, $strBaseTable );
-                            $this->updateMapTables( $objDinnerWizard, $strTableName );
-                        }
-                    }
-
-                    if( $strTableToMap == $this->mTable_RecipeTagMap )
-                    {
-                        $objListOfItemsToMap = $objDinnerWizard["ingredients"];
-                        $strTableToMap = $this->mTable_IngredientRecipeMap;
-                    }
-                    else
-                    {
-                        $objListOfItemsToMap = $objDinnerWizard["equipment"];
-                        $strTableToMap = $this->mTable_RecipeEquipmentMap;
-                    }
-                }
-            }
-        }
--->
