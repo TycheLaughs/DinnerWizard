@@ -17,7 +17,7 @@
     define( "TABLE_INGREDIENTS",           "ingredients" );
     define( "TABLE_RECIPE_EQUIPMENT_MAP",  "recipe_equipment_map" );
     define( "TABLE_RECIPE_CATEGORIES",     "recipe_filter_categories" );
-    define( "TABLE_CATEGPRY_TAG_MAP",      "recipe_filter_category_tag_map" );
+    define( "TABLE_CATEGORY_TAG_MAP",      "recipe_filter_category_tag_map" );
     define( "TABLE_RECIPE_INGREDIENT_MAP", "recipe_ingredient_map" );
     define( "TABLE_RECIPE_TAG_MAP",        "recipe_tag_map" );
     define( "TABLE_RECIPE_TAGS",           "recipe_tags" );
@@ -38,7 +38,9 @@
         private $connected = false ;
 
         //member variable containing the path to the allRecipes.json file
-        private $mPath_AllRecipesJSON = "../data/allRecipes.json" ;
+        private $mPath_AllRecipesJSON = "../data/recipes.json" ;
+        private $mPath_AllIngredientsJSON = "../data/ingredients.json";
+        private $mPath_AllEquipmentJSON = "../data/equipment.json" ;
 
         //The most used queries for sustainability and easy formatting
         //SELECT * FROM <tableName>
@@ -56,10 +58,6 @@
         //INSERT INTO <table>( id, id ) VALUES( <id>, <id> ) ;
         private $mQuery_InsMapTable = "INSERT INTO %s( id, id) VALUES( '%d', '%d')";
 
-        //Going to use these data members at some point
-        //private $filterObj = [] ;
-        //private $updateObj = [] ;
-
         //An array that will hold all of the recipes in the database -- NOTE: this may be removed after refactoring
         private $mJSON_AllRecipes = [] ;
 
@@ -72,6 +70,7 @@
             $this->dinnerWizardConnect() ;
             $this->buildFullRecipeList() ;
             //TODO: Add ingredient and equipment builders to class and generate seperate files for all three of them
+            //TODO: Refactor and remove extra echo/print statements.
         }
 
         /**
@@ -136,13 +135,6 @@
 
             $recipeList = [ ];
 
-            //Test Filter request to be removed when we get the request working from the front end
-            //$testFilter = [ "exclusiveIngredients" => false,
-            //               "ingredientTags" => [ [ "id" => 20, "name" => "eggs" ] ],
-            //               "recipeTags" => [ [ "id" => 7, "name" => "pasta" ] ],
-            //               "equipment" => [ [ "id" => 10, "name" => "frying pan" ] ],
-            //               "without" => [ [ "id" => 17, "name" => "spicy", "group" => "recipes" ],
-            //                              [ "id" => 3, "name" => "seafood", "group" => "ingredients" ] ] ];
             //Allow the user to do only the ingredients the supply exclude all recipes that contain other ones.
             $exclusiveIngredients = $request["ExclusiveIngredients"];
             $ingredientFilter = $request["ingredientTags"];
@@ -165,11 +157,36 @@
                     if( !$exclusiveIngredients )
                     {
                         //there's no reason for duplicate recipes if we dont want specific ingredients
-                        array_unique( $recipeList );
+                        $recipeList = array_unique( $recipeList );
                     }
                     else
                     {
-                        //For exclusive ingredients you have to filter the rest of the categories on the subset of recipes you just found
+                        /**
+                         * TODO: For exclusive ingredients you have to filter the rest of the categories on the subset of recipes you just found
+                         * If every ingredient returns the same recipe then we must have a recipe in which every ingredient is included
+                         * for this to work if we get the difference between the full set of recipes and the unique recipes we should end up
+                         * with only the recipes that are duplicates, comparing this to the number of ingredients we are searching should return
+                         * only recipes in which all of these ingredients are used.
+                         */
+
+                        //Determin the number of ingredients we are dealing with
+                        $uiNumOfIngredients = count($ingredientFilter) ;
+                        //Get a temporary array containing on the unique recipes
+                        $tempArray = array_unique( $result ) ;
+                        //Taking the difference of the unique recipes and all recipes should give us only the duplicates
+                        $onlyDuplicateRecipes = $tempArray - $result ;
+
+                        $histogram = array_count_values( $onlyDuplicateRecipes ) ;
+
+                        foreach( $histogram as $recipe )
+                        {
+                            if( array_values( $recipe ) == $uiNumOfIngredients )
+                            {
+                                array_push( $recipeList, $recipe ) ;
+                            }
+                        }
+
+
                     }
 
                 }
@@ -180,7 +197,7 @@
                 foreach( $result as $recipeID )
                 {
                     array_push( $recipeList, $recipeID ) ;
-                    array_unique( $recipeList ); //there's no reason for duplicate recipes
+                    $recipeList = array_unique( $recipeList ); //there's no reason for duplicate recipes
                 }
             }
             if( $equipmentFilter != "" AND ( $result = $this->filter( $equipmentFilter, "equipment" ) ) != NULL )
@@ -188,7 +205,7 @@
                 foreach( $result as $recipeID )
                 {
                     array_push( $recipeList, $recipeID ) ;
-                    array_unique( $recipeList ); //there's no reason for duplicate recipes
+                    $recipeList = array_unique( $recipeList ); //there's no reason for duplicate recipes
                 }
             }
 
