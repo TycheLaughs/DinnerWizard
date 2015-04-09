@@ -8,6 +8,15 @@
     $data = json_decode( file_get_contents("php://input"), true ) ;
     $request = $data["filter"] ;
 
+    /*Test Data
+     $request = [ "exclusiveIngredients" => false,
+                  "ingredientTags" => [ [ "id" => 20, "name" => "eggs" ] ],
+                  "recipeTags" => [ [ "id" => 7, "name" => "pasta" ] ],
+                  "equipment" => [ [ "id" => 10, "name" => "frying pan" ] ],
+                  "without" => [ [ "id" => 17, "name" => "spicy", "group" => "recipes" ],
+                  [ "id" => 3, "name" => "seafood", "group" => "ingredients" ] ] ];
+     */
+
     $temp = new db_lib;
 
     //echo "<div id='recipeFilter' style='visibility:hidden'>" ;

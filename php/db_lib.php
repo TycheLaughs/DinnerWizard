@@ -6,7 +6,7 @@
     //DATABASE INFORMATION
     define( "_HOST",     "localhost" );
     define( "_USERNAME", "root" );
-    define( "_PASSWORD", "" );
+    define( "_PASSWORD", "Anarki87" );
     define( "_DATABASE", "dinnerwizard" ) ;
 
     //TABLE DEFINES
@@ -159,15 +159,8 @@
                         //there's no reason for duplicate recipes if we dont want specific ingredients
                         $recipeList = array_unique( $recipeList );
                     }
-                    else
+                    /*else
                     {
-                        /**
-                         * TODO: For exclusive ingredients you have to filter the rest of the categories on the subset of recipes you just found
-                         * If every ingredient returns the same recipe then we must have a recipe in which every ingredient is included
-                         * for this to work if we get the difference between the full set of recipes and the unique recipes we should end up
-                         * with only the recipes that are duplicates, comparing this to the number of ingredients we are searching should return
-                         * only recipes in which all of these ingredients are used.
-                         */
 
                         //Determin the number of ingredients we are dealing with
                         $uiNumOfIngredients = count($ingredientFilter) ;
@@ -186,8 +179,8 @@
                             }
                         }
 
-
                     }
+                     */
 
                 }
 
@@ -378,7 +371,10 @@
                         }
                         else
                         {
-                            array_push( $recipeList["recipes"], [$recipe] );
+                            //after we have created the initial array of recipe objects we dont want to
+                            //add extra arrays, because the JSON should look like [{recipe},{recipe}] if we continue to
+                            //push arrays we end up with [{recipe}[{recipe]} which is inproper formating
+                            array_push( $recipeList["recipes"], $recipe );
                             break ;
                         }
                     }
