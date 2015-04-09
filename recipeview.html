@@ -15,10 +15,11 @@ Modified: 3/18/2015 by Susan Souza to add a pipe in between recipe tags in each 
 
 -->
 <div class="col-xs-5 col-sm-5"><!--left-hand column. Contains recipe selection accordion (with ingredients) -->
-   <p class="hidden-xs">Recipes Found:</p>
-
+   <p class="hidden-xs" ng-if="recipes.length !== 0 && recipes != []">Recipes Found:</p>
+    
 <!-- AngularUI Bootstrap Accordion found here, with some modifications: http://angular-ui.github.io/bootstrap/ -->
    <div class= "listing">
+   <p ng-if="recipes.length <= 0 || recipes===''">No Recipes Found</p>
    <accordion class = "rec" close-others="oneAtATime"><!--captured click from examples found here: http://stackoverflow.com/questions/15642082/handle-open-collapse-events-of-accordion-in-angular/15642577#15642577
    -->
       <accordion-group ng-repeat="recipe in recipes track by $index">
@@ -30,35 +31,35 @@ Modified: 3/18/2015 by Susan Souza to add a pipe in between recipe tags in each 
          </div>
          </accordion-heading>
          <ul ng-repeat="ingredient in recipe.ingredients" >
-            <li style="list-style-type: none" ><!-- regular, required ingredient -->
-               <span ng-if="(ingredient.isOptional === 'false' && ingredient.replaceableWith.length === 0) && 0 > comps.indexOf(ingredient.name)">{{ingredient.name}}</span>
+             <li style="list-style-type: none" ><!-- regular, required ingredient -->
+               <span ng-if="(ingredient.isOptional === false && ingredient.replaceableWith.length === 0) && 0 > comps.indexOf(ingredient.name)">{{ingredient.name}}</span>
             </li>
             <li style="list-style-type: none" ><!-- required ingredient with substitutions -->
-               <span ng-if="(ingredient.isOptional === 'false' && ingredient.replaceableWith.length > 0)&& 0> comps.indexOf(ingredient.name)">{{ingredient.name}}<span class="glyphicon glyphicon-chevron-right subsAvailable accessGlyph"  ng-click ="substitutions(ingredient.name)"ng-if="ingredient.isOptional === 'false' && ingredient.replaceableWith.length > 0" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Substitutions Available' ></span></span>
+               <span ng-if="(ingredient.isOptional === false && ingredient.replaceableWith.length > 0)&& 0> comps.indexOf(ingredient.name)">{{ingredient.name}}<span class="glyphicon glyphicon-chevron-right subsAvailable accessGlyph"  ng-click ="substitutions(ingredient.name)"ng-if="ingredient.isOptional === false && ingredient.replaceableWith.length > 0" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Substitutions Available' ></span></span>
             </li>
             <li style="list-style-type: none" ><!-- optional ingredient -->
-               <span class = "optional" ng-if="(ingredient.isOptional === 'true' && ingredient.replaceableWith.length ===0 )&& 0 > comps.indexOf(ingredient.name)" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Optional' tooltip-class="optionalTip" >{{ingredient.name}}</span>
+               <span class = "optional" ng-if="(ingredient.isOptional === true && ingredient.replaceableWith.length ===0 )&& 0 > comps.indexOf(ingredient.name)" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Optional' tooltip-class="optionalTip" >{{ingredient.name}}</span>
             </li>
             <li style="list-style-type: none" ><!-- optional ingredient with substitutions -->
-               <span class = "optional" ng-if="(ingredient.isOptional === 'true' && ingredient.replaceableWith.length > 0) && 0 > comps.indexOf(ingredient.name)" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Optional' tooltip-class="optionalTip" >{{ingredient.name}}</span><span class="glyphicon glyphicon-chevron-right subsAvailable accessGlyph" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Substitutions Available' ng-click ="substitutions(ingredient.name)" ng-if="(ingredient.isOptional === 'true' && ingredient.replaceableWith.length > 0) && 0 > comps.indexOf(ingredient.name)"></span>
+               <span class = "optional" ng-if="(ingredient.isOptional === true && ingredient.replaceableWith.length > 0) && 0 > comps.indexOf(ingredient.name)" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Optional' tooltip-class="optionalTip" >{{ingredient.name}}</span><span class="glyphicon glyphicon-chevron-right subsAvailable accessGlyph" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Substitutions Available' ng-click ="substitutions(ingredient.name)" ng-if="(ingredient.isOptional === true && ingredient.replaceableWith.length > 0) && 0 > comps.indexOf(ingredient.name)"></span>
             </li>
             
             
             
             <li style="list-style-type: none" ><!-- component required ingredient -->
-               <span ng-if="ingredient.isOptional === 'false' && ingredient.replaceableWith.length === 0 && 0 <= comps.indexOf(ingredient.name)" class = "component">{{ingredient.name}}</span><span class="glyphicon glyphicon-expand subsAvailable" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Click for recipe!' ng-click ="showComponent(ingredient.name)" ng-if="ingredient.isOptional === 'false' && ingredient.replaceableWith.length === 0 && 0 <= comps.indexOf(ingredient.name)"></span><!-- function to open component recipe in info box-->
+               <span ng-if="ingredient.isOptional === false && ingredient.replaceableWith.length === 0 && 0 <= comps.indexOf(ingredient.name)" class = "component">{{ingredient.name}}</span><span class="glyphicon glyphicon-expand subsAvailable" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Click for recipe!' ng-click ="showComponent(ingredient.name)" ng-if="ingredient.isOptional === false && ingredient.replaceableWith.length === 0 && 0 <= comps.indexOf(ingredient.name)"></span><!-- function to open component recipe in info box-->
             </li>
             <li style="list-style-type: none" ><!-- required component ingredient with substitutions -->
-               <span ng-if="(ingredient.isOptional === 'false' && ingredient.replaceableWith.length > 0) && 0 <= comps.indexOf(ingredient.name)" class = "component">{{ingredient.name}}</span><span class="glyphicon glyphicon-chevron-right subsAvailable accessGlyph"  ng-click ="substitutions(ingredient.name)"ng-if="(ingredient.isOptional === 'false' && ingredient.replaceableWith.length > 0) && 0 <= comps.indexOf(ingredient.name)" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Substitutions Available' ></span>
-               <span class="glyphicon glyphicon-expand subsAvailable accessGlyph accessGlyphLeft" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Click for recipe!' ng-click ="showComponent(ingredient.name)" ng-if="(ingredient.isOptional === 'false' && ingredient.replaceableWith.length > 0) && 0 <= comps.indexOf(ingredient.name)"></span><!-- function to open component recipe in info box-->
+               <span ng-if="(ingredient.isOptional === false && ingredient.replaceableWith.length > 0) && 0 <= comps.indexOf(ingredient.name)" class = "component">{{ingredient.name}}</span><span class="glyphicon glyphicon-chevron-right subsAvailable accessGlyph"  ng-click ="substitutions(ingredient.name)"ng-if="(ingredient.isOptional === false && ingredient.replaceableWith.length > 0) && 0 <= comps.indexOf(ingredient.name)" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Substitutions Available' ></span>
+               <span class="glyphicon glyphicon-expand subsAvailable accessGlyph accessGlyphLeft" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Click for recipe!' ng-click ="showComponent(ingredient.name)" ng-if="(ingredient.isOptional === false && ingredient.replaceableWith.length > 0) && 0 <= comps.indexOf(ingredient.name)"></span><!-- function to open component recipe in info box-->
             </li>
             <li style="list-style-type: none" ><!-- component optional ingredient -->
-               <span class = "optional component" ng-if="(ingredient.isOptional === 'true' && ingredient.replaceableWith.length ===0) && 0 <= comps.indexOf(ingredient.name)" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Optional' tooltip-class="optionalTip" >{{ingredient.name}}</span><span class="glyphicon glyphicon-chevron-right subsAvailable accessGlyph" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Substitutions Available' ng-click ="substitutions(ingredient.name)" ng-if="(ingredient.isOptional === 'true' && ingredient.replaceableWith.length ===0) && 0 <= comps.indexOf(ingredient.name)"></span>
-               <span class="glyphicon glyphicon-expand subsAvailable accessGlyph" style="margin-left:30px" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Click for recipe!' ng-click ="showComponent(ingredient.name)" ng-if="(ingredient.isOptional === 'true' && ingredient.replaceableWith.length ===0) && 0 <= comps.indexOf(ingredient.name)"></span><!-- function to open component recipe in info box-->
+               <span class = "optional component" ng-if="(ingredient.isOptional === true && ingredient.replaceableWith.length ===0) && 0 <= comps.indexOf(ingredient.name)" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Optional' tooltip-class="optionalTip" >{{ingredient.name}}}</span><span class="glyphicon glyphicon-chevron-right subsAvailable accessGlyph" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Substitutions Available' ng-click ="substitutions(ingredient.name)" ng-if="(ingredient.isOptional === true && ingredient.replaceableWith.length ===0) && 0 <= comps.indexOf(ingredient.name)"></span>
+               <span class="glyphicon glyphicon-expand subsAvailable accessGlyph" style="margin-left:30px" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Click for recipe!' ng-click ="showComponent(ingredient.name)" ng-if="(ingredient.isOptional === true && ingredient.replaceableWith.length ===0) && 0 <= comps.indexOf(ingredient.name)"></span><!-- function to open component recipe in info box-->
             </li>
             <li style="list-style-type: none" ><!-- optional component ingredient with substitutions -->
-               <span class = "optional component" ng-if="(ingredient.isOptional === 'true' && ingredient.replaceableWith.length) >0 && 0 <= comps.indexOf(ingredient.name)" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Optional' tooltip-class="optionalTip" >{{ingredient.name}}</span><span class="glyphicon glyphicon-chevron-right subsAvailable accessGlyph" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Substitutions Available' ng-click ="substitutions(ingredient.name)" ng-if="(ingredient.isOptional === 'true' && ingredient.replaceableWith.length) >0 && 0 <= comps.indexOf(ingredient.name)"></span>
-               <span class="glyphicon glyphicon-expand subsAvailable accessGlyph accessGlyphLeft" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Click for recipe!' ng-click ="showComponent(ingredient.name)" ng-if="(ingredient.isOptional === 'true' && ingredient.replaceableWith.length) >0 && 0 <= comps.indexOf(ingredient.name)"></span><!-- function to open component recipe in info box-->
+               <span class = "optional component" ng-if="(ingredient.isOptional === true && ingredient.replaceableWith.length) >0 && 0 <= comps.indexOf(ingredient.name)" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Optional' tooltip-class="optionalTip" >{{ingredient.name}}</span><span class="glyphicon glyphicon-chevron-right subsAvailable accessGlyph" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Substitutions Available' ng-click ="substitutions(ingredient.name)" ng-if="(ingredient.isOptional === true && ingredient.replaceableWith.length) >0 && 0 <= comps.indexOf(ingredient.name)"></span>
+               <span class="glyphicon glyphicon-expand subsAvailable accessGlyph accessGlyphLeft" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Click for recipe!' ng-click ="showComponent(ingredient.name)" ng-if="(ingredient.isOptional === true && ingredient.replaceableWith.length) >0 && 0 <= comps.indexOf(ingredient.name)"></span><!-- function to open component recipe in info box-->
             </li>
             
          </ul>
@@ -73,7 +74,7 @@ Modified: 3/18/2015 by Susan Souza to add a pipe in between recipe tags in each 
          <div ng-if="subs">Substitutions for {{clickedIngr}}: <!-- substitution listing start-->
             <div ng-repeat="rec in recipes | filter: {name:showMeRecipe}:true">
                <ul ng-repeat="ingr in rec.ingredients | filter:{name: clickedIngr}:true">
-                  <li ng-repeat="item in ingr.replaceableWith" class="noStyleList" >{{item}}</li><!-- will style in a bit to be more consistent with everything else-->
+                  <li ng-repeat="item in ingr.replaceableWith" class="noStyleList" >{{item.name}}</li><!-- will style in a bit to be more consistent with everything else-->
                </ul>
             </div>
          </div><!-- substitution listing end-->
@@ -85,7 +86,7 @@ Modified: 3/18/2015 by Susan Souza to add a pipe in between recipe tags in each 
                <div>
                   Procedure:
                   <div ng-repeat="rec in recipes| filter: {name:showMeRecipe}:true">
-                     <div ng-bind-html="magic(rec.prepInst)"></div>
+                     <ol ng-bind-html="magic(rec.prepInst)"></ol>
                   </div>
                </div>
                <!-- add a way to, like random recipe button, view only one recipe (this one) in the accordion-style layout? -->
@@ -113,39 +114,39 @@ Modified: 3/18/2015 by Susan Souza to add a pipe in between recipe tags in each 
    <div class="col-xs-11 procedureBox"><!--display ingredient list here when in mobile view-->
     <ul class = "visible-xs" ng-repeat="rec in recipes| filter: {name:showMeRecipe}:true" >
             <li ng-repeat="ingredient in rec.ingredients" style="list-style-type: none" ><!-- regular, required ingredient -->
-               <span ng-if="(ingredient.isOptional === 'false' && ingredient.replaceableWith.length === 0) && 0 > comps.indexOf(ingredient.name)">{{ingredient.name}}</span>
+               <span ng-if="(ingredient.isOptional === false && ingredient.replaceableWith.length === 0) && 0 > comps.indexOf(ingredient.name)">{{ingredient.name}}</span>
             </li>
             <li ng-repeat="ingredient in rec.ingredients"style="list-style-type: none" ><!-- required ingredient with substitutions -->
-               <span ng-if="(ingredient.isOptional === 'false' && ingredient.replaceableWith.length > 0)&& 0> comps.indexOf(ingredient.name)">{{ingredient.name}}<span class="glyphicon glyphicon-chevron-right subsAvailable accessGlyph"  ng-click ="substitutions(ingredient.name)"ng-if="ingredient.isOptional === 'false' && ingredient.replaceableWith.length > 0" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Substitutions Available' ></span></span>
+               <span ng-if="(ingredient.isOptional === false && ingredient.replaceableWith.length > 0)&& 0> comps.indexOf(ingredient.name)">{{ingredient.name}}<span class="glyphicon glyphicon-chevron-right subsAvailable accessGlyph"  ng-click ="substitutions(ingredient.name)"ng-if="ingredient.isOptional === false && ingredient.replaceableWith.length > 0" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Substitutions Available' ></span></span>
             </li>
             <li ng-repeat="ingredient in rec.ingredients" style="list-style-type: none" ><!-- optional ingredient -->
-               <span class = "optional" ng-if="(ingredient.isOptional === 'true' && ingredient.replaceableWith.length ===0 )&& 0 > comps.indexOf(ingredient.name)" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Optional' tooltip-class="optionalTip" >{{ingredient.name}}</span>
+               <span class = "optional" ng-if="(ingredient.isOptional === true && ingredient.replaceableWith.length ===0 )&& 0 > comps.indexOf(ingredient.name)" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Optional' tooltip-class="optionalTip" >{{ingredient.name}}</span>
             </li>
             <li ng-repeat="ingredient in rec.ingredients" style="list-style-type: none" ><!-- optional ingredient with substitutions -->
-               <span class = "optional" ng-if="(ingredient.isOptional === 'true' && ingredient.replaceableWith.length > 0) && 0 > comps.indexOf(ingredient.name)" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Optional' tooltip-class="optionalTip" >{{ingredient.name}}</span><span class="glyphicon glyphicon-chevron-right subsAvailable accessGlyph" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Substitutions Available' ng-click ="substitutions(ingredient.name)" ng-if="(ingredient.isOptional === 'true' && ingredient.replaceableWith.length > 0) && 0 > comps.indexOf(ingredient.name)"></span>
+               <span class = "optional" ng-if="(ingredient.isOptional === true && ingredient.replaceableWith.length > 0) && 0 > comps.indexOf(ingredient.name)" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Optional' tooltip-class="optionalTip" >{{ingredient.name}}</span><span class="glyphicon glyphicon-chevron-right subsAvailable accessGlyph" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Substitutions Available' ng-click ="substitutions(ingredient.name)" ng-if="(ingredient.isOptional === true && ingredient.replaceableWith.length > 0) && 0 > comps.indexOf(ingredient.name)"></span>
             </li>
             
             
             
             <li ng-repeat="ingredient in rec.ingredients" style="list-style-type: none" ><!-- component required ingredient -->
-               <span ng-if="ingredient.isOptional === 'false' && ingredient.replaceableWith.length === 0 && 0 <= comps.indexOf(ingredient.name)" class = "component">{{ingredient.name}}</span><span class="glyphicon glyphicon-expand subsAvailable" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Click for recipe!' ng-click ="showComponent(ingredient.name)" ng-if="ingredient.isOptional === 'false' && ingredient.replaceableWith.length === 0 && 0 <= comps.indexOf(ingredient.name)"></span><!-- function to open component recipe in info box-->
+               <span ng-if="ingredient.isOptional === false && ingredient.replaceableWith.length === 0 && 0 <= comps.indexOf(ingredient.name)" class = "component">{{ingredient.name}}</span><span class="glyphicon glyphicon-expand subsAvailable" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Click for recipe!' ng-click ="showComponent(ingredient.name)" ng-if="ingredient.isOptional === false && ingredient.replaceableWith.length === 0 && 0 <= comps.indexOf(ingredient.name)"></span><!-- function to open component recipe in info box-->
             </li>
             <li ng-repeat="ingredient in rec.ingredients" style="list-style-type: none" ><!-- required component ingredient with substitutions -->
-               <span ng-if="(ingredient.isOptional === 'false' && ingredient.replaceableWith.length > 0) && 0 <= comps.indexOf(ingredient.name)" class = "component">{{ingredient.name}}</span><span class="glyphicon glyphicon-chevron-right subsAvailable accessGlyph"  ng-click ="substitutions(ingredient.name)"ng-if="(ingredient.isOptional === 'false' && ingredient.replaceableWith.length > 0) && 0 <= comps.indexOf(ingredient.name)" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Substitutions Available' ></span>
-               <span class="glyphicon glyphicon-expand subsAvailable accessGlyph accessGlyphLeft" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Click for recipe!' ng-click ="showComponent(ingredient.name)" ng-if="(ingredient.isOptional === 'false' && ingredient.replaceableWith.length > 0) && 0 <= comps.indexOf(ingredient.name)"></span><!-- function to open component recipe in info box-->
+               <span ng-if="(ingredient.isOptional === false && ingredient.replaceableWith.length > 0) && 0 <= comps.indexOf(ingredient.name)" class = "component">{{ingredient.name}}</span><span class="glyphicon glyphicon-chevron-right subsAvailable accessGlyph"  ng-click ="substitutions(ingredient.name)"ng-if="(ingredient.isOptional === false && ingredient.replaceableWith.length > 0) && 0 <= comps.indexOf(ingredient.name)" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Substitutions Available' ></span>
+               <span class="glyphicon glyphicon-expand subsAvailable accessGlyph accessGlyphLeft" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Click for recipe!' ng-click ="showComponent(ingredient.name)" ng-if="(ingredient.isOptional === false && ingredient.replaceableWith.length > 0) && 0 <= comps.indexOf(ingredient.name)"></span><!-- function to open component recipe in info box-->
             </li>
             <li ng-repeat="ingredient in rec.ingredients" style="list-style-type: none" ><!-- component optional ingredient -->
-               <span class = "optional component" ng-if="(ingredient.isOptional === 'true' && ingredient.replaceableWith.length ===0) && 0 <= comps.indexOf(ingredient.name)" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Optional' tooltip-class="optionalTip" >{{ingredient.name}}</span><span class="glyphicon glyphicon-chevron-right subsAvailable accessGlyph" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Substitutions Available' ng-click ="substitutions(ingredient.name)" ng-if="(ingredient.isOptional === 'true' && ingredient.replaceableWith.length ===0) && 0 <= comps.indexOf(ingredient.name)"></span>
-               <span class="glyphicon glyphicon-expand subsAvailable accessGlyph" style="margin-left:30px" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Click for recipe!' ng-click ="showComponent(ingredient.name)" ng-if="(ingredient.isOptional === 'true' && ingredient.replaceableWith.length ===0) && 0 <= comps.indexOf(ingredient.name)"></span><!-- function to open component recipe in info box-->
+               <span class = "optional component" ng-if="(ingredient.isOptional === true && ingredient.replaceableWith.length ===0) && 0 <= comps.indexOf(ingredient.name)" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Optional' tooltip-class="optionalTip" >{{ingredient.name}}</span><span class="glyphicon glyphicon-chevron-right subsAvailable accessGlyph" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Substitutions Available' ng-click ="substitutions(ingredient.name)" ng-if="(ingredient.isOptional === true && ingredient.replaceableWith.length ===0) && 0 <= comps.indexOf(ingredient.name)"></span>
+               <span class="glyphicon glyphicon-expand subsAvailable accessGlyph" style="margin-left:30px" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Click for recipe!' ng-click ="showComponent(ingredient.name)" ng-if="(ingredient.isOptional === true && ingredient.replaceableWith.length ===0) && 0 <= comps.indexOf(ingredient.name)"></span><!-- function to open component recipe in info box-->
             </li>
             <li ng-repeat="ingredient in rec.ingredients" style="list-style-type: none" ><!-- optional component ingredient with substitutions -->
-               <span class = "optional component" ng-if="(ingredient.isOptional === 'true' && ingredient.replaceableWith.length) >0 && 0 <= comps.indexOf(ingredient.name)" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Optional' tooltip-class="optionalTip" >{{ingredient.name}}</span><span class="glyphicon glyphicon-chevron-right subsAvailable accessGlyph" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Substitutions Available' ng-click ="substitutions(ingredient.name)" ng-if="(ingredient.isOptional === 'true' && ingredient.replaceableWith.length) >0 && 0 <= comps.indexOf(ingredient.name)"></span>
-               <span class="glyphicon glyphicon-expand subsAvailable accessGlyph accessGlyphLeft" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Click for recipe!' ng-click ="showComponent(ingredient.name)" ng-if="(ingredient.isOptional === 'true' && ingredient.replaceableWith.length) >0 && 0 <= comps.indexOf(ingredient.name)"></span><!-- function to open component recipe in info box-->
+               <span class = "optional component" ng-if="(ingredient.isOptional === true && ingredient.replaceableWith.length) >0 && 0 <= comps.indexOf(ingredient.name)" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Optional' tooltip-class="optionalTip" >{{ingredient.name}}</span><span class="glyphicon glyphicon-chevron-right subsAvailable accessGlyph" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Substitutions Available' ng-click ="substitutions(ingredient.name)" ng-if="(ingredient.isOptional === true && ingredient.replaceableWith.length) >0 && 0 <= comps.indexOf(ingredient.name)"></span>
+               <span class="glyphicon glyphicon-expand subsAvailable accessGlyph accessGlyphLeft" tooltip-placement="right" tooltip-popup-delay='500' tooltip='Click for recipe!' ng-click ="showComponent(ingredient.name)" ng-if="(ingredient.isOptional === true && ingredient.replaceableWith.length) >0 && 0 <= comps.indexOf(ingredient.name)"></span><!-- function to open component recipe in info box-->
             </li>
          </ul>
       <p>Procedure:</p>
       <div ng-repeat="rec in recipes| filter: {name:showMeRecipe}:true">
-         <div ng-bind-html="magic(rec.prepInst)"></div>
+         <ol ng-bind-html="magic(rec.prepInst)"></ol>
       </div>
    </div><!--end all recipe display content for right-hand column-->
 </div><!--end rightColumn-->

@@ -29,7 +29,7 @@ var DinnerWizardApp = angular.module('DinnerWizardApp', ['ngRoute', 'ui.bootstra
 * http://plnkr.co/edit/dd8Nk9PDFotCQu4yrnDg?p=preview
 */
 // configure our routes
-DinnerWizardApp.config(function($routeProvider) {
+DinnerWizardApp.config(function($routeProvider, $locationProvider) {
    $routeProvider
 
       // route for the home/inventory page
@@ -59,7 +59,14 @@ DinnerWizardApp.config(function($routeProvider) {
          controller  : 'filterController'
         
       });
-})
+})/*
+.run(function($rootScope, $locatione){
+
+   $rootScope.$on( "$routeChangeSuccess", function() {
+      var wearehere = $location.path();
+      console.log(wearehere.substr(1));
+   });
+})*/;
 
 
 

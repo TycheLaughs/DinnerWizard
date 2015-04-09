@@ -39,13 +39,19 @@ DinnerWizardApp.controller('recipesController', function($scope, $http, $sce, pe
       });
       persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList).then(function(R){
       //console.log("R.data.recipes: "+JSON.stringify(R.data.recipes));
+      console.log("We got this back: " +JSON.stringify(R.data));
+      if(JSON.stringify(R.data)==='[]'){
+         $scope.recipes = '';
+         console.log("Just to be clear, we got an empty array back: " +JSON.stringify(R.data));
+         console.log($scope.recipes.length);
+      }
+      else{
          $scope.recipes = R.data.recipes; 
+         console.log($scope.recipes.length);
          //console.log(JSON.stringify($scope.recipes[0].ingredients));
          //console.log($scope.recipes.length);
-        
-      
-
-      });     
+         }
+      }); 
       
       //console.log($scope.recipes));
       /*get the mapping between name of ingredient in an ingredient list and name in recipes*/

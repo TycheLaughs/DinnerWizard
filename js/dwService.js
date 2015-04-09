@@ -240,7 +240,7 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
          filter.equipment = [];
          filter.without = [];
          filter.ExclusiveIngredients = restrict;
-         console.log(JSON.stringify(recTags));
+         //console.log(JSON.stringify(recTags));
          /* found way to return objects from get/post methods in an angular service here: http://stackoverflow.com/questions/12505760/processing-http-response-in-service
          with plunkr here: http://plnkr.co/edit/TTlbSv?p=preview */
          if(list[0] === 'Click ingredients to add them to your inventory, or search for them by name.' && tagsList[0] === 'No Search Filters Selected' ){
@@ -282,9 +282,9 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
                   //might have found a regular tag for recipes
                      for(var k = 0; k < recTags.length; k++){
                         for(var j = 0; j < recTags[k].Contents.length; j++){
-                           console.log("comparing "+tagsList[i]+" to " + recTags[k].Contents[j].name);
+                           //console.log("comparing "+tagsList[i]+" to " + recTags[k].Contents[j].name);
                            if(recTags[k].Contents[j].name === tagsList[i]){
-                              console.log(JSON.stringify(recTags[k].Contents[j].name) + ": "+ JSON.stringify(recTags[k].id));
+                              //console.log(JSON.stringify(recTags[k].Contents[j].name) + ": "+ JSON.stringify(recTags[k].id));
                               idFinder = recTags[k].Contents[j].id;
                               //console.log(idFinder);
                            }
@@ -312,6 +312,7 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
                               if(ingredients[k].ingredientName === truncWO){
                               idFinder = ingredients[k].id;
                               wo.name = truncWO;
+                              wo.id = idFinder;
                               wo.group = "Ingredients";
                      //console.log(idFinder);
                               }
