@@ -6,7 +6,7 @@
     //DATABASE INFORMATION
     define( "_HOST",     "localhost" );
     define( "_USERNAME", "root" );
-    define( "_PASSWORD", "Anarki87" );
+    define( "_PASSWORD", "" );
     define( "_DATABASE", "dinnerwizard" ) ;
 
     //TABLE DEFINES
