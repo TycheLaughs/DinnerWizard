@@ -240,7 +240,7 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
          filter.equipment = [];
          filter.without = [];
          filter.ExclusiveIngredients = restrict;
-         
+         console.log(JSON.stringify(recTags));
          /* found way to return objects from get/post methods in an angular service here: http://stackoverflow.com/questions/12505760/processing-http-response-in-service
          with plunkr here: http://plnkr.co/edit/TTlbSv?p=preview */
          if(list[0] === 'Click ingredients to add them to your inventory, or search for them by name.' && tagsList[0] === 'No Search Filters Selected' ){
@@ -281,10 +281,13 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
                   if((tagsList[i]).substr(0, 3) !== 'NO ' && (tagsList[i]).substr(0, 4) !== 'Use '){
                   //might have found a regular tag for recipes
                      for(var k = 0; k < recTags.length; k++){
-                        if(recTags[k].name === tagsList[i]){
-                           //console.log(JSON.stringify(recTags[k].name) + ": "+ JSON.stringify(recTags[k].id));
-                           idFinder = recTags[k].id;
-                           //console.log(idFinder);
+                        for(var j = 0; j < recTags[k].Contents.length; j++){
+                           console.log("comparing "+tagsList[i]+" to " + recTags[k].Contents[j].name);
+                           if(recTags[k].Contents[j].name === tagsList[i]){
+                              console.log(JSON.stringify(recTags[k].Contents[j].name) + ": "+ JSON.stringify(recTags[k].id));
+                              idFinder = recTags[k].Contents[j].id;
+                              //console.log(idFinder);
+                           }
                         }
                      }
                      var rec = {};
@@ -339,7 +342,7 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
 
              //based on code from http://codeforgeek.com/2014/07/angular-post-request-php/
              //Tommy Leedberg - 3/10/2015 - Added steps for doing an http post. Not sure if this will work or not. We'll need to test/debug
-               var response =$http.post( "php/request_filter.php", { 'filter': filter } )
+               var response = $http.post( "php/request_filter.php", { 'filter': filter } )
                   .success(function(data) {
                //console.log(JSON.stringify(data) ) ;
                return data.recipes;

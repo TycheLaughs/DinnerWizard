@@ -60,7 +60,7 @@ DinnerWizardApp.controller('filterController', function($scope, $http, persisten
       $scope.search = function(){
         // $scope.recipes = persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList);
          //console.log(JSON.stringify(persistentService.Tags() + persistentService.List()));
-          persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList).then(function(R){
+      persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList).then(function(R){
       //console.log("R.data.recipes: "+JSON.stringify(R.data.recipes));
          $scope.recipes = R.data.recipes; 
          //console.log(JSON.stringify($scope.recipes[0].ingredients));
