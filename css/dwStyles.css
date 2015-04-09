@@ -76,6 +76,7 @@
 
 }
 
+
 .contentContainer{ /*a general dashed-line container to show positioning while working on styling and layout*/
    border: 1px dashed black;
 }
@@ -95,7 +96,7 @@ li:hover{   /*most list items are interactive, so here's something to show that 
    
 }
 
-#recListing{ /*a box to which we add a scrollbar if there are too many recipes to fit nicely on the page*/
+.listing{ /*a box to which we add a scrollbar if there are too many recipes to fit nicely on the page*/
    overflow-y: auto;
    height: 600px;
    min-width: 270px;
@@ -179,14 +180,14 @@ body {
    padding-top:5px;
    font-family: serif;
    background-color: white;
-   overflow-y:hidden;
+   /*overflow-y:hidden;*/
    /*font-size: 1.1em;*/
   
 }
 @media(min-width: 1000px){
-   body{
+  /* body{
       overflow-y:hidden;
-   }
+   }*/
    .swipable{
       margin-left: -80px;
    }
@@ -239,7 +240,7 @@ body {
 
 }
 
-@media(max-width:360px){
+@media(max-width:415px){
    .swipable{
       width:600px;
 
@@ -419,7 +420,7 @@ a:active{
    text-decoration:none;
 }
 
-@media(max-width:400px){
+@media(max-width:670px){
    .panel-default > .panel-heading{
       /*border: 1px solid gray;*/
       /* background-color: #8d1801; /*dark red /*#99b9f4; medium light blue    #f8b30e; /* dark yellow */
@@ -436,14 +437,14 @@ a:active{
       width:270px;
       margin-right:8px;
    }
-   div#recListing{
+   div.listing{
       margin-left:0px;
       margin-right:10px;
       height:400px;
       width: 270px;
       overflow-y: hidden;
    }
-   div#recListing:hover{
+   div.listing:hover{
       margin-left:0px;
       height:400px;
       margin-right:10px;
@@ -479,7 +480,7 @@ a:active{
       position:relative;
       left: 35px;
    }
-   div#recListing{
+   div.listing{
       margin-top:15px;
       width:280px;
    }
@@ -493,6 +494,12 @@ a:active{
       height:75px;
    }
 }
+.activeButton{
+   background-color: white;
+   border: none;
+   font-weight: bold;
+}
+
 div a.accordion-toggle:link, div a.accordion-toggle:hover, div a.accordion-toggle:visited, div a.accordion-toggle:active,  a.accordion-toggle:link,  a.accordion-toggle:hover, a.accordion-toggle:visited, a.accordion-toggle:active{
    text-decoration:none;
    outline: none;

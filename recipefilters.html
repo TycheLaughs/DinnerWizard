@@ -9,72 +9,75 @@ Modified: 3/13/2015 by Susan Souza to make accordion headers fully clickable-- t
 <div class="col-xs-5 col-sm-5" ><p class = "pushDown">{{ message }} Selection:</p> 
 <!-- AngularUI Bootstrap Accordion found here, with some modifications:
 http://angular-ui.github.io/bootstrap/ -->
-   <accordion close-others="oneAtATime" class = "filt"><!--captured click from examples found here: http://stackoverflow.com/questions/15642082/handle-open-collapse-events-of-accordion-in-angular/15642577#15642577
-   -->
-      <accordion-group ng-repeat ="cat in filterList">
-         <accordion-heading>
-            <div>
-               {{cat.Category}}
-            </div>
-         </accordion-heading>
-         <ul ng-repeat="content in cat.Contents">
-            <li style="list-style-type: none" ><a ng-click="clickedFromTagListing(content)">{{content}}</a></li>
-         </ul>
-         </accordion-group>
-          <accordion-group>
-               <accordion-heading>
-                  <div>
-                     Equipment
-                  </div>
-               </accordion-heading>
-               <ul ng-repeat="item in equipment">
-                  <li style="list-style-type: none" ><a ng-click="clickedFromEquip(item.name)">{{item.name}}</a></li>
-               </ul>
-            </accordion-group>
-            <accordion-group>
-               <accordion-heading>
+   <div class= "listing">
+      <accordion close-others="oneAtATime" class = "filt"><!--captured click from examples found here: http://stackoverflow.com/questions/15642082/handle-open-collapse-events-of-accordion-in-angular/15642577#15642577
+      -->
+         <accordion-group ng-repeat ="cat in filterList">
+            <accordion-heading>
                <div>
-                  Without
-                  </div>
-               </accordion-heading>
-               <accordion close-others="oneAtATime" class="inv"><!--begin Without nested Accordions-->
-                  <accordion-group>
-                     <accordion-heading>
-                        <div>
-                           Ingredients
-                        </div>
-                     </accordion-heading>
-                     <accordion close-others="oneAtATime" class="rec">
-                        <accordion-group ng-repeat="cat in ingrCats">
-                           <accordion-heading >
-                              <div>
-                                 {{cat}}
-                              </div>
-                           </accordion-heading>
-                           <ul>
-                              <li ng-repeat="content in ingredients" ng-if="content.tags[0]===cat" style="list-style-type: none" ><a ng-click="clickedFromWithout(content.name)">{{content.name}}</a></li>
-                           </ul>
-                        </accordion-group>
-                        <!-- end Without Ingredients-->
-                     </accordion>
-                  </accordion-group>
-                  <accordion close-others="oneAtATime" class="inv">
+                  {{cat.Category}}
+               </div>
+            </accordion-heading>
+            <ul ng-repeat="content in cat.Contents">
+               <li style="list-style-type: none" ><a ng-click="clickedFromTagListing(content.name)">{{content.name}}</a></li>
+            </ul>
+            </accordion-group>
+             <accordion-group>
+                  <accordion-heading>
+                     <div>
+                        Equipment
+                     </div>
+                  </accordion-heading>
+                  <ul ng-repeat="item in equipment">
+                     <li style="list-style-type: none" ><a ng-click="clickedFromEquip(item.name)">{{item.name}}</a></li>
+                  </ul>
+               </accordion-group>
+               <accordion-group>
+                  <accordion-heading>
+                  <div>
+                     Without
+                     </div>
+                  </accordion-heading>
+                  <accordion close-others="oneAtATime" class="inv"><!--begin Without nested Accordions-->
                      <accordion-group>
                         <accordion-heading>
                            <div>
-                              Equipment
+                              Ingredients
                            </div>
                         </accordion-heading>
-                        <ul ng-repeat="item in equipment">
-                           <li style="list-style-type: none" ><a ng-click="clickedFromWithout(item.name)">{{item.name}}</a></li>
-                        </ul>
+                        <accordion close-others="oneAtATime" class="rec" ><!--captured click from examples found here: http://stackoverflow.com/questions/15642082/handle-open-collapse-events-of-accordion-in-angular/15642577#15642577
+                        -->
+                           <accordion-group ng-repeat="cat in ingrCats">
+                              <accordion-heading >
+                                 <div>
+                                    {{cat}}
+                                 </div>
+                              </accordion-heading>
+                              <ul>
+                                 <li ng-repeat="content in ingredients" ng-if="content.tags[0].name===cat" style="list-style-type: none" ><a ng-click="clickedFromWithout(content.ingredientName)">{{content.ingredientName}}</a></li>
+                              </ul>
+                           </accordion-group>
+                           <!-- end Without Ingredients-->
+                        </accordion>
                      </accordion-group>
+                     <accordion close-others="oneAtATime" class="inv">
+                        <accordion-group>
+                           <accordion-heading>
+                              <div>
+                                 Equipment
+                              </div>
+                           </accordion-heading>
+                           <ul ng-repeat="item in equipment">
+                              <li style="list-style-type: none" ><a ng-click="clickedFromWithout(item.name)">{{item.name}}</a></li>
+                           </ul>
+                        </accordion-group>
+                     </accordion>
+                     <!--end Without Equipment-->
                   </accordion>
-                  <!--end Without Equipment-->
-               </accordion>
-         </accordion-group>
-   </accordion>
-</div>
+            </accordion-group>
+         </accordion>
+      </div>
+   </div>
 <div class="col-xs-1 col-sm-1"></div>  
 <div class="col-xs-6 col-sm-6">
    <div class = "rightColumn "><!--<p>Selected Recipe Filters:</p>-->

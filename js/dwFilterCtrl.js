@@ -8,26 +8,33 @@
 DinnerWizardApp.controller('filterController', function($scope, $http, persistentService) {
         //console.log( "filterController") ;
 		$scope.message = 'Recipe Search Filters';
+      $scope.wherearewe = 'filters';
       $scope.tags = persistentService.Tags();
       $scope.oneAtATime = true;
+      $scope.recipes = [];
       $scope.ingrCats = ['Alternate Protein', 'Meat', 'Seafood', 'Starch', 'Vegetables', 'Spices and Herbs', 'Odds and Ends','Pre-Made']; 
       $scope.buttonClass = "filtStyle";
-    
       $scope.temp = '' ;
-      $http.get("data/recipes.json").success(function(data) {
-         $scope.recipes = data.recipes; //assign the array of objects called
-         //RECIPES in the json file to a variable named recipes
-        
+     
+      $http.get("php/generate_recipe_categories_json.php").success(function(data) {
+         $scope.filterList = data.RecipeTags; //assign the array of objects called
       });
-      $http.get("data/recipesTest2.json").success(function(data) {
-         $scope.ingredients = data.INGREDIENTS; //assign the array of objects called
-         //INGREDIENTS in the json file to a variable named ingredients
-         $scope.filterList = data.TAGS; //assign the array of objects called
-         $scope.equipment = data.EQUIPMENT;
+      $http.get("php/generate_equipment_json.php").success(function(data) {
+         $scope.equipment = data.equipment;
          //Tags in the json file to a variable named ingredients
       });
-     
+      $http.get("php/generate_ingredient_json.php").success(function(data) {
+         $scope.ingredients = data.ingredients; //assign the array of objects called
+         //INGREDIENTS in the json file to a variable named ingredients
+      });
+     // $scope.recipes =  persistentService.filtering($scope.ingredients, , $scope.equipment, $scope.filterList) ;
       /* call mutators for the arrays stored 'globally' in a service*/
+      persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList).then(function(R){
+      //console.log("R.data.recipes: "+JSON.stringify(R.data.recipes));
+         $scope.recipes = R.data.recipes; 
+         //console.log(JSON.stringify($scope.recipes[0].ingredients));
+         console.log($scope.recipes.length);
+      });    
       $scope.clickedFromTagListing = function(item){
          persistentService.addTag(item);    
       };
@@ -42,10 +49,22 @@ DinnerWizardApp.controller('filterController', function($scope, $http, persisten
       }; 
       $scope.clearList = function(){
          persistentService.clearTags();
-         persistentService.filtering($scope.ingredients, persistentService.Tags(), $scope.equipment) ;
+         //$scope.recipes = persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList) ;
+          persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList).then(function(R){
+      //console.log("R.data.recipes: "+JSON.stringify(R.data.recipes));
+         $scope.recipes = R.data.recipes; 
+         //console.log(JSON.stringify($scope.recipes[0].ingredients));
+         console.log($scope.recipes.length);
+      });    
       };
       $scope.search = function(){
-         persistentService.filtering($scope.ingredients, persistentService.Tags(), $scope.equipment);
+        // $scope.recipes = persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList);
          //console.log(JSON.stringify(persistentService.Tags() + persistentService.List()));
+          persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList).then(function(R){
+      //console.log("R.data.recipes: "+JSON.stringify(R.data.recipes));
+         $scope.recipes = R.data.recipes; 
+         //console.log(JSON.stringify($scope.recipes[0].ingredients));
+         console.log($scope.recipes.length);
+      });    
        };
 	});

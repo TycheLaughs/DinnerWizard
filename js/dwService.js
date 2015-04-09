@@ -10,13 +10,16 @@
 * and
 * http://jsfiddle.net/b2fCE/1/
 */
-DinnerWizardApp.service('persistentService', function($http){
+DinnerWizardApp.service('persistentService', function($http, $sce){
    var list = ['Click ingredients to add them to your inventory, or search for them by name.'];
    var tagsList = ['No Search Filters Selected'];
    var restrict = false;
   
    var response ;
    return{
+   
+   
+   
    
    /** toggleCheck
    * Toggles checked status on checkbox
@@ -228,59 +231,69 @@ DinnerWizardApp.service('persistentService', function($http){
       * http://www.keyboardninja.eu/webdevelopment/a-simple-search-with-angularjs-and-php
       * http://stackoverflow.com/questions/19970301/convert-javascript-object-or-array-to-json-for-ajax-data
       */
-      filtering:function(ingredients, tags, equipment, temp)
-      {
+      filtering:function(ingredients, equipment, recTags){
 
-          var filter = {};
-          /*var ing = {};
-          var rec = {};
-          var wo = {};
-          var equip = {};*/
-          var idFinder = '';
-          filter.ingredientTags = [];
-          filter.recipeTags = [];
-          filter.equipment = [];
-          filter.without = [];
-          filter.ExclusiveIngredients = restrict;
+         var filter = {};
+         var idFinder = '';
+         filter.ingredientTags = [];
+         filter.recipeTags = [];
+         filter.equipment = [];
+         filter.without = [];
+         filter.ExclusiveIngredients = restrict;
+         
+         /* found way to return objects from get/post methods in an angular service here: http://stackoverflow.com/questions/12505760/processing-http-response-in-service
+         with plunkr here: http://plnkr.co/edit/TTlbSv?p=preview */
+         if(list[0] === 'Click ingredients to add them to your inventory, or search for them by name.' && tagsList[0] === 'No Search Filters Selected' ){
+            var response = $http.get("php/generate_recipe_json.php")
+            .success(function(data) {
+               //console.log(JSON.stringify(data) ) ;
+               return data.recipes;
+           
+            })
+            .error( function( error ){
+                     console.log( error ) ;
+               });
+            //console.log(JSON.stringify(response));
+            return response;
+         }
+         else{
+         //console.log("entered else");
           //test print to see that we are in fact getting the right thing from ingredients param
           //console.log(JSON.stringify(ingredients));
-         if ( list[0] !== 'Click ingredients to add them to your inventory, or search for them by name.' )
-         {
-            for ( var i = 0; i < list.length; i++ )
-            { //iterate through array for inventory
-               for(var k = 0; k < ingredients.length; k++){
-                  if(ingredients[k].name === list[i]){
-                     idFinder = ingredients[k].id;
-                     //console.log(idFinder);
-                  }
-               }
-              var ing = {};
-              ing.id = idFinder;
-              ing.name = list[i];
-              filter.ingredientTags.push(ing);
-              //console.log(i + (JSON.stringify(filter.ingredientTags)));
-            }
-         }
-         if ( tagsList[0] !== 'No Search Filters Selected' )
-         {//iterate through array for tags
-            for ( var i = 0; i < tagsList.length; i++ )
-            { 
-               //console.log(tagsList[i].substr(0, 3));
-               if((tagsList[i]).substr(0, 3) !== 'NO ' && (tagsList[i]).substr(0, 4) !== 'Use '){
-               //might have found a regular tag for recipes
-                  for(var k = 0; k < tags.length; k++){
-                     if(tags[k].name === tagsList[i]){
-                        idFinder = tags[k].id;
+            if ( list[0] !== 'Click ingredients to add them to your inventory, or search for them by name.' ){
+               for ( var i = 0; i < list.length; i++ ){ //iterate through array for inventory
+                  for(var k = 0; k < ingredients.length; k++){
+                     if(ingredients[k].ingredientName === list[i]){
+                        idFinder = ingredients[k].id;
                         //console.log(idFinder);
                      }
                   }
-                  var rec = {};
-                  rec.id = idFinder;
-                  rec.name = tagsList[i];
-                  filter.recipeTags.push(rec);
+                  var ing = {};
+                  ing.id = idFinder;
+                  ing.name = list[i];
+                  filter.ingredientTags.push(ing);
+                  //console.log(i + (JSON.stringify(filter.ingredientTags)));
                }
-               else if((tagsList[i]).substr(0, 3) === 'NO '){//found a Without tag
-                  //console.log('Found a Without tag to process into JSON');
+            }
+            if ( tagsList[0] !== 'No Search Filters Selected' ){//iterate through array for tags
+               for ( var i = 0; i < tagsList.length; i++ ){ 
+                  //console.log(tagsList[i].substr(0, 3));
+                  if((tagsList[i]).substr(0, 3) !== 'NO ' && (tagsList[i]).substr(0, 4) !== 'Use '){
+                  //might have found a regular tag for recipes
+                     for(var k = 0; k < recTags.length; k++){
+                        if(recTags[k].name === tagsList[i]){
+                           //console.log(JSON.stringify(recTags[k].name) + ": "+ JSON.stringify(recTags[k].id));
+                           idFinder = recTags[k].id;
+                           //console.log(idFinder);
+                        }
+                     }
+                     var rec = {};
+                     rec.id = idFinder;
+                     rec.name = tagsList[i];
+                     filter.recipeTags.push(rec);
+                  }
+                  else if((tagsList[i]).substr(0, 3) === 'NO '){//found a Without tag
+                     //console.log('Found a Without tag to process into JSON');
                      var wo = {};
                      var truncWO = tagsList[i].substr(3); //remove the 'NO '
                      //iterate through equipment list (JSON) to see if there's a match (also find ID at this time
@@ -290,24 +303,22 @@ DinnerWizardApp.service('persistentService', function($http){
                            wo.name = truncWO;
                            wo.id = idFinder;
                            wo.group = "Equipment";
-                           
-                           }
-                           else{//without ingredient
-                              for(var k = 0; k < ingredients.length; k++){
-                                 if(ingredients[k].name === truncWO){
-                                 idFinder = ingredients[k].id;
-                                 wo.name = truncWO;
-                                 wo.group = "Ingredients";
-                        //console.log(idFinder);
-                                 }
+                        }
+                        else{//without ingredient
+                           for(var k = 0; k < ingredients.length; k++){
+                              if(ingredients[k].ingredientName === truncWO){
+                              idFinder = ingredients[k].id;
+                              wo.name = truncWO;
+                              wo.group = "Ingredients";
+                     //console.log(idFinder);
                               }
                            }
-                        }  
-
+                        }
+                     }  
                      filter.without.push(wo);  
                   }
                   else{//we found an equipment tag
-                     //find id
+                        //find id
                      var equip = {};
                      equip.name = tagsList[i].substr(3);//trim off the first four characters that spell out 'Use '
                      for (var j = 0; j < equipment.length; j++){
@@ -316,29 +327,30 @@ DinnerWizardApp.service('persistentService', function($http){
                            equip.name = equipment[j].name;
                            equip.id = idFinder;
                            equip.group = "Equipment";
-                           }
-                        }  
-                     
+                        }
+                     }  
                      filter.equipment.push(equip);
                   }
+               }
             }
+
+             //test print to see what we built
+             console.log( "HERE" + JSON.stringify( filter ) );
+
+             //based on code from http://codeforgeek.com/2014/07/angular-post-request-php/
+             //Tommy Leedberg - 3/10/2015 - Added steps for doing an http post. Not sure if this will work or not. We'll need to test/debug
+               var response =$http.post( "php/request_filter.php", { 'filter': filter } )
+                  .success(function(data) {
+               //console.log(JSON.stringify(data) ) ;
+               return data.recipes;
+           
+            })
+            .error( function( error ){
+                     console.log( error ) ;
+               });
+            //console.log(JSON.stringify(response));
+            return response;
          }
-
-          //test print to see what we built
-          console.log( "HERE" + JSON.stringify( filter ) );
-          
-
-          //Tommy Leedberg - 3/10/2015 - Added steps for doing an http post. Not sure if this will work or not. We'll need to test/debug
-          //based on code from http://codeforgeek.com/2014/07/angular-post-request-php/
-            $http.post( "/dinnerwizard/php/request_filter.php", { 'filter': filter } ).
-            success( function( data )
-            {
-                console.log( data ) ;
-
-            }).error( function( error )
-            {
-               console.log( error ) ;
-            });
       }
    };
 });

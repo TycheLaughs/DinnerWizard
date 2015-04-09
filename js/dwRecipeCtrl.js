@@ -7,37 +7,51 @@
 * Modified: 3/22/2015 by Susan Souza to add a quick little variable to reflect display changes 
 * to the box above Procedure when a recipe is selected from the accordion.
 */
-DinnerWizardApp.controller('recipesController', function($scope, $http, persistentService)
+DinnerWizardApp.controller('recipesController', function($scope, $http, $sce, persistentService)
    {
 
       $scope.message = 'Recipe View';
       $scope.oneAtATime = true;
       $scope.showMeRecipe = '';
+      $scope.wherearewe = 'recipes';
       $scope.componentRecipe = '';
       $scope.subs = false;//bool to determine if we should be viewing ingredient substitutions
       $scope.comp = false;//bool to determine if we should be viewing complex component recipes
       $scope.comps = [];
       $scope.buttonClass = "recStyle";
-
+      $scope.recipes = [];
       $scope.tags = persistentService.Tags()
       //console.log()
-      $http.get("data/recipes.json").success(function(data) {
-         $scope.recipes = data.recipes; //assign the array of objects called
-         //RECIPES in the json file to a variable named recipes
-        
+     
+      $http.get("php/generate_recipe_categories_json.php").success(function(data) {
+         $scope.filterList = data.RecipeTags; //assign the array of objects called
+         //console.log(JSON.stringify(data));
       });
-       $http.get("data/recipesTest2.json").success(function(data) {
-       $scope.ingredients = data.INGREDIENTS; //assign the array of objects called
-         //INGREDIENTS in the json file to a variable named ingredients
-         $scope.filterList = data.TAGS; //assign the array of objects called
+      $http.get("php/generate_equipment_json.php").success(function(data) {
+         $scope.equipment = data.equipment;
          //Tags in the json file to a variable named ingredients
+         //console.log(JSON.stringify(data));
       });
+      $http.get("php/generate_ingredient_json.php").success(function(data) {
+         $scope.ingredients = data.ingredients; //assign the array of objects called
+         //INGREDIENTS in the json file to a variable named ingredients
+         //console.log(JSON.stringify(data));
+      });
+      persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList).then(function(R){
+      //console.log("R.data.recipes: "+JSON.stringify(R.data.recipes));
+         $scope.recipes = R.data.recipes; 
+         //console.log(JSON.stringify($scope.recipes[0].ingredients));
+         //console.log($scope.recipes.length);
+        
+      
+
+      });     
       
       //console.log($scope.recipes));
       /*get the mapping between name of ingredient in an ingredient list and name in recipes*/
       //$scope.comps = persistentService.Components($scope.recipes, $scope.ingredients);
       for(var i = 0; i < $scope.ingredients.length; i++){
-         if($scope.ingredients[i].tags[0] === 'Pre-Made'){
+         if($scope.ingredients[i].tags.name === 'Pre-Made'){
             $scope.comps.push($scope.ingredients[i].name);
          }
       }  
@@ -49,8 +63,15 @@ DinnerWizardApp.controller('recipesController', function($scope, $http, persiste
       */
      $scope.showRecipe = function(recipe){
          console.log( recipe +' clicked.');
-         $scope.showMeRecipe = recipe;
-         $scope.insert = recipe + " Ratio chart here";
+         if($scope.showMeRecipe === recipe){
+            $scope.insert = '';
+            $scope.showMeRecipe = '';
+            
+         }
+         else{
+            $scope.showMeRecipe = recipe;
+            $scope.insert = recipe + " Ratio chart here";
+         }
          $scope.subs = false;
          $scope.comp = false;
       };
@@ -67,6 +88,15 @@ DinnerWizardApp.controller('recipesController', function($scope, $http, persiste
          $scope.subs = false;
          console.log('clicked ' + clicked +' in ' + $scope.showMeRecipe +' subs: ' + $scope.subs+ ', comp: '+$scope.comp);
          $scope.componentRecipe = clicked;
+      };
+      
+      /** magic
+      * should produce usable html from html embedded in JSON
+      *@param html_text the JSON string that contains markup
+      *@return some magical, valid html in my document
+      */
+      $scope.magic = function(html_text){
+         return $sce.trustAsHtml(html_text);
       };
       
 	});
