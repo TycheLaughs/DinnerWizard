@@ -63,7 +63,7 @@
          </a><!-- end logo-->
            
             <div class="hidden-xs col-sm-6"></div>
-            <a class="col-xs-4 col-md-2"href="#recipes"><span class= "roundEdges recStyle recipeButton" ng-click="search()" ng-class="{'activeButton':$route.current.templateUrl=== 'recipeview.html'}">{{recipes.length}} Recipes</span></a>
+            <a class="col-xs-4 col-md-2"href="#recipes"><span class= "roundEdges recStyle recipeButton" ng-click="search()" ng-class="{'activeButton':$route.current.templateUrl=== 'recipeview.html'}">{{recipes.length}} Recipe<span ng-if="recipes.length!== 1">s</span></span></a>
             <div class="col-xs-1"></div>
          <!-- end dishes button placement -->
         

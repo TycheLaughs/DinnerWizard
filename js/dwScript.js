@@ -23,7 +23,7 @@
 * 
 */
 // create the module
-var DinnerWizardApp = angular.module('DinnerWizardApp', ['ngRoute', 'ui.bootstrap', 'ngTouch']);
+var DinnerWizardApp = angular.module('DinnerWizardApp', ['ngRoute', 'ui.bootstrap']);
 
 /** code for routing initially found here, with initial comments:
 * http://plnkr.co/edit/dd8Nk9PDFotCQu4yrnDg?p=preview
@@ -59,25 +59,9 @@ DinnerWizardApp.config(function($routeProvider, $locationProvider) {
          controller  : 'filterController'
         
       });
-})/*
-.run(function($rootScope, $locatione){
-
-   $rootScope.$on( "$routeChangeSuccess", function() {
-      var wearehere = $location.path();
-      console.log(wearehere.substr(1));
-   });
-})*/;
+});
 
 
 
 
-// create each controller and inject Angular's $scope
-
-//Inventory Builder
-
-   
-//Recipe Filtering
-	
-   
-   //Recipe Selection and Browsing
 	

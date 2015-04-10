@@ -57,10 +57,12 @@ DinnerWizardApp.controller('recipesController', function($scope, $http, $sce, pe
       /*get the mapping between name of ingredient in an ingredient list and name in recipes*/
       //$scope.comps = persistentService.Components($scope.recipes, $scope.ingredients);
       for(var i = 0; i < $scope.ingredients.length; i++){
-         if($scope.ingredients[i].tags.name === 'Pre-Made'){
-            $scope.comps.push($scope.ingredients[i].name);
+         if($scope.ingredients[i].tags[0].name === 'Pre-Made'){
+            $scope.comps.push($scope.ingredients[i].ingredientName);
          }
-      }  
+      }
+console.log(JSON.stringify($scope.comps));      
+
       /**showRecipe
       * Determines which JSON object to be using based on parameters (gotten via click)
       * and stores this information in a variable for use outside of the accordion's scope
@@ -104,5 +106,23 @@ DinnerWizardApp.controller('recipesController', function($scope, $http, $sce, pe
       $scope.magic = function(html_text){
          return $sce.trustAsHtml(html_text);
       };
-      
+      function search(){
+   // $scope.recipes = persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList);
+   //console.log(JSON.stringify(persistentService.Tags() + persistentService.List()));
+   persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList).then(function(R){
+      //console.log("R.data.recipes: "+JSON.stringify(R.data.recipes));
+      //console.log("We got this back: " +JSON.stringify(R.data));
+      if(JSON.stringify(R.data)==='[]'){
+         $scope.recipes = '';
+         //console.log("Just to be clear, we got an empty array back: " +JSON.stringify(R.data));
+         console.log($scope.recipes.length);
+      }
+      else{
+         $scope.recipes = R.data.recipes; 
+         console.log($scope.recipes.length);
+         //console.log(JSON.stringify($scope.recipes[0].ingredients));
+         //console.log($scope.recipes.length);
+      }
+   }); 
+};
 	});

@@ -89,7 +89,7 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
       removeIngredient:function(clicked){
       var itemIndex = list.indexOf(clicked);/*index found this way to avoid an issue found that removed 
          items starting at index zero regardless of which item was clicked.*/
-         console.log('Clicked '+ clicked +' in contructed inventory.');
+         console.log('Clicked '+ clicked +' in constructed inventory.');
             list.splice(itemIndex, 1); 
             if(list.length === 0){//if array is empty, print user prompt
                list.push('Click ingredients to add them to your inventory, or search for them by name.');

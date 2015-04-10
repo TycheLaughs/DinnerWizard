@@ -397,7 +397,9 @@ INSERT INTO `recipes` (`id`, `name`, `prepInst`) VALUES
 (17, 'Stir Fry with Seafood', '\n<li>Cook the rice.</li>\n<li>When the rice is about halfway done, heat the oil in a large, rounded pan on medium-high, and add the scallions and ginger, if using, stirring lightly so they do not burn.</li>\n<li>Add your chosen seafood, keeping it moving lightly around the pan, until it seems to be mostly cooked, two or three minutes.</li>\n<li>Add the vegetables(sliced) and garlic, chopped fine, continuing to keep the mixture in contact with the bottom of the pan for as brief a moment at a time as you can.</li>\n<li>If you''re using it, mix some broth with a spoonful of soy sauce and a spoonful of cornstarch and add to the pan, stirring to incorporate this sauce.  Remove from heat within the minute, and serve immediately over rice.</li>\n'),
 (18, 'Peanut Noodles', '\n<li>Boil water.  While it is not yet boiling, puree the garlic and ginger in a food processor.  If you prefer to do this by hand, grating them works just as well.</li>\n<li>When the water is boiling, cook the pasta. and drain.</li>\n<li>Place the pot back on the stove and heat the oil in it.  Once it shimmers, add the garlic-ginger mixture, stirring quickly so it doesn''t burn.  Immediately add your chili flakes or chopped hot peppers.</li>\n<li>As soon as the garlic-ginger mixture has appeared to cook a bit, add your sauce(s).  If using fish sauce, some sugar would not go amiss.</li>\n<li>Add peanut butter, stirring to make a sauce of medium thickness.  Add noodles and sliced bell peppers, stirring to coat.</li>\n<li>Serve immediately, or at room temperature later, sprinkled with peanuts, and, if you like, pineapple chunks.</li>\n<li>Adapted from a recipe by Martin Minow.</li>\n'),
 (19, 'Essential Tagine', '\n<li>Heat oil in pan; add garlic and onion.  Cook gently until the onion is translucent, then add the garlic.</li>\n<li>Add your spices once the garlic has begun to soften, and fry until the contents of your pan are very fragrant.</li>\n<li>Add tomato sauce, raise the heat, and stir until bubbling. Then add your chosen meat, turning your pieces to coat it with your spice mixture. </li>\n<li>Add water and again, wait until it is bubbling before you cover your pan and turn the heat to low or medium-low, to simmer, lid slightly askew, for approximately twenty minutes (if there are bones, it may take longer).</li>\n<li>Add whichever fruit you prefer, chopped to smaller-than-bite-sized if necessary, and simmer again for another ten minutes.</li>\n<li>Serve with couscous.</li>\n<li>Adapted from recipes by Mark Bittman in The New York Times</li>\n'),
-(20, 'Breaded Chicken', '\n<li>Preheat the oven to 375°F.</li>\n<li>Combine breadcrumbs, olive oil, herbs and spices in a gallon plastic bag.</li>\n<li>Drop in chicken pieces one at a time and shake or use hands to coat the chicken with the breading mixture.</li>\n<li>Bake chicken on a rimmed baking sheet or in a baking dish for 20-40 minutes.</li>\n');
+(20, 'Breaded Chicken', '\n<li>Preheat the oven to 375°F.</li>\n<li>Combine breadcrumbs, olive oil, herbs and spices in a gallon plastic bag.</li>\n<li>Drop in chicken pieces one at a time and shake or use hands to coat the chicken with the breading mixture.</li>\n<li>Bake chicken on a rimmed baking sheet or in a baking dish for 20-40 minutes.</li>\n'),
+(21, 'Broth', '\n<li>Remove the bones of your desired meat, if using meat or fish. Break or chop vegetables into rough chunks.</li>\n<li>Add bones and some of the meat, as well as the vegetables to a pot, covering with water, and bring to a boil.</li>\n<li>Lower the heat until it is just barely bubbling and let it simmer, lid askew for saveral hours.</li>\n<li>Strain once cool enough to handle and refrigerate overnight.</li>\n<li>Skim any fat buildup from the top of your broth, and store as preferred, or use within two days. </li>\n<li>Use as a soup base or in other recipes.  Freezes well.</li>'),
+(22, 'Tomato Sauce', '\n<li>Heat the oil until it shimmers.</li>\n<li>Add the onion, if using, and cook gently until translucent.  Add garlic, chopped fine or crushed.</li>\n<li>Puree the tomatoes in a blender of food processor, or chop into thumb-sized pieces. Add the salt and add to onion-garlic mixture.</li>\n<li>Bring to a bubbling boil and then lower the heat. Cook until the tomatoes are cooked to your satisfaction.</li>\n<li>Add herbs, chili flakes and anchovy paste if desired, and cook for another few minutes, stirring well to incorporate.</li>\n<li>Use in other dishes or serve over pasta.  Freezes well.</li>');
 
 -- --------------------------------------------------------
 
@@ -467,7 +469,13 @@ INSERT INTO `recipe_equipment_map` (`recipeID`, `equipmentID`) VALUES
 (19, 1),
 (20, 8),
 (20, 14),
-(20, 9);
+(20, 9),
+(21,1),
+(21, 3),
+(21, 4),
+(22,1),
+(22,7),
+(22, 11);
 
 -- --------------------------------------------------------
 
@@ -699,7 +707,20 @@ INSERT INTO `recipe_ingredient_map` (`recipeID`, `ingredientID`, `isOptional`, `
 (20, 64, 1, 0),
 (20, 27, 1, 0),
 (20, 11, 1, 0),
-(20, 18, 1, 0);
+(20, 18, 1, 0),
+(21, 12, 1, 4),
+(21, 100, 1, 4),
+(21, 79, 1, 4),
+(21, 28, 1, 8),
+(21, 63, 0, 80),
+(22, 2, 0, 3),
+(22, 12, 1, 4),
+(22, 3, 1, 3),
+(22, 26, 0, 85),
+(22, 18, 0, 1),
+(22, 27, 1, 1),
+(22, 5, 1, 1),
+(22, 107, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -890,7 +911,18 @@ INSERT INTO `recipe_replaceable_ingredient_map` (`recipeID`, `ingredientID`, `re
 (20, 2, 67),
 (20, 64, 57),
 (20, 27, 14),
-(20, 27, 104);
+(20, 27, 104),
+(21, 100, 69),
+(21, 79, 78),
+(21, 79, 77),
+(21, 28, 83),
+(21, 28, 56),
+(21, 28, 87),
+(21, 28, 88),
+(22, 2, 65),
+(22, 2, 66),
+(22, 2, 67),
+(22, 107, 105);
 
 -- --------------------------------------------------------
 
@@ -1021,7 +1053,16 @@ INSERT INTO `recipe_tag_map` (`recipeID`, `tagID`) VALUES
 (20, 3),
 (20, 20),
 (20, 15),
-(20, 14);
+(20, 14),
+(21, 18),
+(21, 1),
+(21, 2),
+(21, 3),
+(21, 4),
+(21, 5),
+(22, 18),
+(22, 2),
+(22, 4);
 
 --
 -- Indexes for dumped tables
