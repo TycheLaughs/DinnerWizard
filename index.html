@@ -7,6 +7,7 @@
        <!--
       File: dinnerwizard.html
       91.462 GUI Programming II, Prof. Heines, University of Massachusetts Lowell
+      Project Team: Susan Souza, Tommy Leedberg, Matthew Szekely
       Created:  2/07/2015 by Susan Souza, for use in the Dinner Wizard Application.
       Modified: 2/08/2015 by Susan Souza to further tweak layout positioning. 
       Modified: 2/09/2015 by Susan Souza to add necessary script and elements for routing/views/navigation, found here: http://plnkr.co/edit/dd8Nk9PDFotCQu4yrnDg?p=preview 
@@ -44,12 +45,13 @@
    <script src="js/dwInventoryCtrl.js"></script>
    <script src="js/dwFilterCtrl.js"></script>
    <script src="js/dwRecipeCtrl.js"></script>
+   <script src="js/dwAboutCtrl.js"></script>
 
   </head>
   
   <body>
   <!--splash screen-->
-   <div id="splash" class ="splash col-xs-12">
+   <!--<div id="splash" class ="splash col-xs-12">
       <p>Just a moment while Dinner Wizard summons chefs from the nether realm to combine the contents of your fridge...</p>
     </div>  
   <!-- end splash screen-->
@@ -62,10 +64,12 @@
            <div id = "logoText" class = "hidden-xs">Dinner Wizard</div>
          </a><!-- end logo-->
            
-            <div class="hidden-xs col-sm-6"></div>
-            <a class="col-xs-4 col-md-2"href="#recipes"><span class= "roundEdges recStyle recipeButton" ng-click="search()" ng-class="{'activeButton':$route.current.templateUrl=== 'recipeview.html'}">{{recipes.length}} Recipe<span ng-if="recipes.length!== 1">s</span></span></a>
-            <div class="col-xs-1"></div>
-         <!-- end dishes button placement -->
+            <div class="hidden-xs col-sm-5"></div>
+            <div class="col-xs-4 col-md-2">
+               <a href="#recipes"><span class= "roundEdges recStyle recipeButton" ng-click="search()" ng-class="{'activeButton':$route.current.templateUrl=== 'recipeview.html'}">{{recipes.length}} Recipe<span ng-if="recipes.length!== 1">s</span></span></a>
+               <a href="#about"><span class ="glyphicon glyphicon-question-sign recipeButton aboutStyle "></span></a>
+            </div>
+         <!-- end recipes button placement -->
         
      </div><!-- end headerRow --> 
      

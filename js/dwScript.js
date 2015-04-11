@@ -58,6 +58,11 @@ DinnerWizardApp.config(function($routeProvider, $locationProvider) {
          templateUrl : 'recipefilters.html',
          controller  : 'filterController'
         
+      })
+      
+      .when('/about',{
+         templateUrl : 'about.html',
+         controller: 'aboutController'
       });
 });
 

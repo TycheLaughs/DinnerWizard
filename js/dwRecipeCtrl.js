@@ -42,7 +42,7 @@ DinnerWizardApp.controller('recipesController', function($scope, $http, $sce, pe
       console.log("We got this back: " +JSON.stringify(R.data));
       if(JSON.stringify(R.data)==='[]'){
          $scope.recipes = '';
-         console.log("Just to be clear, we got an empty array back: " +JSON.stringify(R.data));
+         //console.log("Just to be clear, we got an empty array back: " +JSON.stringify(R.data));
          console.log($scope.recipes.length);
       }
       else{
@@ -78,7 +78,7 @@ console.log(JSON.stringify($scope.comps));
          }
          else{
             $scope.showMeRecipe = recipe;
-            $scope.insert = recipe + " Ratio chart here";
+            $scope.insert = recipe + " Ingredient Suggested Ratio chart goes here";
          }
          $scope.subs = false;
          $scope.comp = false;

@@ -109,7 +109,6 @@
 }
 
 
-
 .contentContainer{ /*a general dashed-line container to show positioning while working on styling and layout*/
    border: 1px dashed black;
 }
@@ -221,6 +220,25 @@ body {
    /*font-size: 1.1em;*/
   
 }
+.aboutPage{
+   background-image:url("dinnerWizardLogoColor_B.png");
+   height:480px;
+   background-repeat: no-repeat;
+   background-position:center;
+}
+.aboutPage p{
+   text-indent:30px;
+}
+.aboutPage h1{
+   text-align:center;
+}
+.iconKey{
+   position:relative;
+   right: 20px;
+}
+.keyHolding p{
+   text-indent:15px;
+}
 @media(min-width: 1000px){
   /* body{
       overflow-y:hidden;
@@ -257,7 +275,7 @@ body {
    margin-bottom:7px;
    padding: 4px;
    font-family: 'Bitter', serif;
-   background-color: #ebebfb;
+   background-color: #ebebfb;/*light grayish*/
 }
 
 /*styling for the right-hand column of each view.  */
@@ -283,8 +301,15 @@ body {
       width:600px;
 
    }
+   .aboutPage{
+   background-image:url("dinnerWizardLogoColor_B.png");
+   height:480px;
+   background-repeat: no-repeat;
+   background-attachment: fixed;
+}
    .screen{
       overflow-x:hidden;
+      overflow-y:hidden;
    }
    #headerRow{
       top:-2px;
@@ -323,8 +348,12 @@ body {
    
    .recipeButton{
       top:15px;
-      left: 240px;
+      left: 233px;
       position:fixed;
+   }
+   .aboutStyle{
+      left:178px;
+      top: 20px;
    }
 }
 
@@ -402,7 +431,7 @@ a:hover{
 .other{
    color: #5a0799;/*purple*/
    border: 1px solid #5a0799;
-   background-color: #eadcf4; /*pale purple*/
+   background-color: #eadcf4; /*pale purple-blue-gray*/
 }
 .without{
    color: #8d1801; /*dark red*/
@@ -589,6 +618,18 @@ ul.pushDown{
    color:#ededf9;
    border: 1px solid #ededf9;
   
+}
+.aboutStyle{
+   cursor: default;
+   color:#065195;/*dark blue*/
+   border:0px solid #065195;
+   display:inline-block;
+   position:relative;
+ 
+}
+.aboutStyle:hover{
+   cursor:pointer;
+   color:#99b9f4; /*medium light blue*/
 }
 
 
