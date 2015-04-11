@@ -17,6 +17,8 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
       $scope.ingrCats = ['Alternate Protein', 'Meat', 'Seafood', 'Starch', 'Vegetables', 'Spices and Herbs', 'Odds and Ends','Pre-Made']; 
       $scope.buttonClass = "invStyle";
       $scope.selected = undefined;
+     
+     
       /*$http.get("php/generate_recipe_json.php").success(function(data) {
          $scope.recipes = data.recipes; //assign the array of objects called
          //RECIPES in the json file to a variable named recipes 
@@ -50,6 +52,8 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
          //console.log($scope.recipes.length);
          }
       }); 
+      
+      
       /* call mutators for the arrays stored 'globally' in a service*/
      $scope.clickedFromListing = function(content){
          persistentService.addIngredient(content);    
@@ -66,7 +70,13 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
       
         $scope.checkIt = function(){
         
-         persistentService.toggleCheck($scope.box);
+        $scope.count= persistentService.toggleCheck($scope.box);
+        if($scope.count%2 === 0){
+         $scope.restricted = false;
+        }
+        else{
+         $scope.restricted = true;
+        }
       };  
     $scope.search= function (){
       // $scope.recipes = persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList);

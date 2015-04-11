@@ -14,7 +14,7 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
    var list = ['Click ingredients to add them to your inventory, or search for them by name.'];
    var tagsList = ['No Search Filters Selected'];
    var restrict = false;
-  
+   var count = 0;
    var response ;
    return{
    
@@ -27,6 +27,7 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
    * This function also sets a Boolean to include in the filtering function  
    */
    toggleCheck:function(box){
+      count++;
       if(box.checked === true){
          box.checked = false;
          console.log('Recipe Restriction box unchecked!');
@@ -38,6 +39,7 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
          restrict = true;
         
       }
+      return count;
    },
    
    
@@ -324,7 +326,7 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
                   else{//we found an equipment tag
                         //find id
                      var equip = {};
-                     equip.name = tagsList[i].substr(3);//trim off the first four characters that spell out 'Use '
+                     equip.name = tagsList[i].substr(4);//trim off the first four characters that spell out 'Use '
                      for (var j = 0; j < equipment.length; j++){
                         if(equip.name === equipment[j].name){
                            idFinder = equipment[j].id;

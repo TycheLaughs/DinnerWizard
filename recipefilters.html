@@ -80,10 +80,10 @@ http://angular-ui.github.io/bootstrap/ -->
    </div>
 <div class="col-xs-1 col-sm-1"></div>  
 <div class="col-xs-6 col-sm-6">
-   <div class = "rightColumn "><!--<p>Selected Recipe Filters:</p>-->
+   <div class = "rightColumn listContainer"><!--<p>Selected Recipe Filters:</p>-->
    Your Search Filter Selections:
       <ul class ="actualTagsList">
-         <li ng-repeat="item in tags track by $index" style="list-style-type: none" ng-click="clickedFromSelectedTags(item)"><span class ="tags" ng-class="{'without': item.substr(0,3)=== 'NO ', 'equip': item.substr(0,4)== 'Use ', 'flavor': item == 'Mexican' || item == 'Chinese' || item == 'Italian' ||item == 'Southeast Asian' || item == 'Western' || item == 'Mediterranean', 'other': item =='Vegetarian' || item =='Under 30 Minutes' || item == 'Cost Cutter', 'noStyle': item === 'No Search Filters Selected'}"> {{item}}</span><span ng-if="item !== 'No Search Filters Selected'" class="closingX">x</span></li>
+         <li ng-repeat="item in tags track by $index" style="list-style-type: none" ng-click="clickedFromSelectedTags(item)"ng-class="{'noInteract': item === 'No Search Filters Selected'}"><span class ="tags" ng-class="{'without': item.substr(0,3)=== 'NO ', 'equip': item.substr(0,4)== 'Use ', 'flavor': item == 'Mexican' || item == 'Chinese' || item == 'Italian' ||item == 'Southeast Asian' || item == 'Western' || item == 'Mediterranean', 'other': item =='Vegetarian' || item =='Under 30 Minutes' || item == 'Cost Cutter', 'noStyle': item === 'No Search Filters Selected', 'noInteract': item === 'No Search Filters Selected'}"> {{item}}</span><span ng-if="item !== 'No Search Filters Selected'" class="closingX">x</span></li>
       </ul><!-- Resolved error with using ng-repeat and adding items to an array dynamically here: https://docs.angularjs.org/error/ngRepeat/dupes -->
    </div>
    <div class="col-xs-12">
