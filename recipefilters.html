@@ -33,13 +33,13 @@ http://angular-ui.github.io/bootstrap/ -->
                      <li style="list-style-type: none" ><a ng-click="clickedFromEquip(item.name)">{{item.name}}</a></li>
                   </ul>
                </accordion-group>
-               <accordion-group>
+<!--           <accordion-group>
                   <accordion-heading>
                   <div>
                      Without
                      </div>
                   </accordion-heading>
-                  <accordion close-others="oneAtATime" class="inv"><!--begin Without nested Accordions-->
+                  <accordion close-others="oneAtATime" class="inv"><!--begin Without nested Accordions
                      <accordion-group>
                         <accordion-heading>
                            <div>
@@ -47,7 +47,7 @@ http://angular-ui.github.io/bootstrap/ -->
                            </div>
                         </accordion-heading>
                         <accordion close-others="oneAtATime" class="rec" ><!--captured click from examples found here: http://stackoverflow.com/questions/15642082/handle-open-collapse-events-of-accordion-in-angular/15642577#15642577
-                        -->
+                        
                            <accordion-group ng-repeat="cat in ingrCats">
                               <accordion-heading >
                                  <div>
@@ -58,7 +58,7 @@ http://angular-ui.github.io/bootstrap/ -->
                                  <li ng-repeat="content in ingredients" ng-if="content.tags[0].name===cat" style="list-style-type: none" ><a ng-click="clickedFromWithout(content.ingredientName)">{{content.ingredientName}}</a></li>
                               </ul>
                            </accordion-group>
-                           <!-- end Without Ingredients-->
+                           <!-- end Without Ingredients
                         </accordion>
                      </accordion-group>
                      <accordion close-others="oneAtATime" class="inv">
@@ -73,9 +73,9 @@ http://angular-ui.github.io/bootstrap/ -->
                            </ul>
                         </accordion-group>
                      </accordion>
-                     <!--end Without Equipment-->
+                     <!--end Without Equipment
                   </accordion>
-            </accordion-group>
+            </accordion-group>                 -->
          </accordion>
       </div>
    </div>

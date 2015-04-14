@@ -50,7 +50,8 @@ Modified: 3/15/2015 by Susan Souza to limit typeahead results to the correct obj
 <div class="col-xs-1 col-sm-1"></div>  
 <div class="col-xs-6">
    <div class="rightColumn listContainer">
-      <div style="display: inline-block">Your Inventory: </div> <div id ="restriction"style="display: inline-block;margin-left: 10px"><span class ="restrictButtonUP"ng-class="{'restrictButtonDOWN': restricted === true}" ng-click="checkIt()" tooltip-placement="right" tooltip-popup-delay='70' tooltip= '(Show Recipe Results for Only Ingredients in your Inventory)'>Restrict Recipes</span><input type="checkbox" name="exclusionBox" id = "exclusionBox" value="boxy" style="margin-left: 5px" ></div>
+      <div style="display: inline-block">Your Inventory: </div> 
+      <!--<div id ="restriction"style="display: inline-block;margin-left: 10px"><span class ="restrictButtonUP"ng-class="{'restrictButtonDOWN': restricted === true}" ng-click="checkIt()" tooltip-placement="top" tooltip-popup-delay='70' tooltip= '(Show Recipe Results for Only Ingredients in your Inventory)'>Restrict Recipes</span><input type="checkbox" name="exclusionBox" id = "exclusionBox" value="boxy" style="margin-left: 5px" ></div>-->
       
       <ul class = "pushDown">
          <li ng-repeat="item in list track by $index" style="list-style-type: none" ng-click="clickedFromInventory(item)"ng-class="{'noInteract': item === 'Click ingredients to add them to your inventory, or search for them by name.'}">{{item}}<span ng-if="item !== 'Click ingredients to add them to your inventory, or search for them by name.'" class="closingX">x</span></li>
@@ -58,7 +59,7 @@ Modified: 3/15/2015 by Susan Souza to limit typeahead results to the correct obj
    </div>
    <div class="col-xs-12">
      <!--<div class="col-xs-6"><a class="roundEdges" ng-click="search()">Filter Recipes</a></div> This button just doesn't work, no matter what I do. Might have something to do with how I'm implementing the search function-->
-      <div class = "col-xs-5"></div><div class="col-xs-6 "><a class="roundEdges" ng-click="clearInv()">Clear List</a></div> 
+      <div class = "col-xs-4"></div><div class="col-xs-6 "><a class="roundEdges" ng-click="clearInv()">Clear List</a></div> 
    </div>
 </div>
 
