@@ -51,6 +51,7 @@
 }
 #hiddenFootButtons{
    position:fixed;
+   bottom:25px;
 }
 
 #searchIcon{ /*style the magnifying glass glyphicon*/
@@ -76,13 +77,77 @@
 
 }
 
+#restriction{
+   position:absolute;
+   left:290px;
+   width: 250px;
+}
+@media(min-width: 1300px){
+
+   #bigBox{
+      max-width:1250px;
+      max-height:720px;
+   }
+}
+@media(max-width: 1300px){
+     #bigBox{
+      position:absolute;
+      left:0%;
+      width:1200px;
+      height:660px;
+      overflow-x:hidden;
+      overflow-y:hidden;
+     }
+     body{
+      max-width: 1200px;
+      height:700px;
+      overflow-y:hidden;
+      
+     }
+     #splashBlanket{
+      width:1200px;
+      height:695px;
+     }
+     
+     .splash{
+      max-height{
+         690px;
+      
+     }
+     
+}
+
+.restrictButtonUP{
+   border: 1px solid lightgray; 
+   border-radius: 12px; 
+   padding: 3px; 
+   color: white; 
+   background-color:#99b9f4;
+   cursor:pointer; 
+   position:absolute; 
+   text-align: center;
+}
+.restrictButtonUP:hover{
+   font-weight: bold;
+}
+.restrictButtonDOWN{
+   background-color: #065195;
+   border-width: 3px;
+   font-weight: bold;
+
+}
+
 
 .contentContainer{ /*a general dashed-line container to show positioning while working on styling and layout*/
    border: 1px dashed black;
 }
 .listContainer{ /*a general dashed-line container to show positioning while working on styling and layout*/
-   border: 1px dashed black;
-   height: 500px;
+   /*border: 1px dashed black;*/
+  background: #ededf9;/*light, light gray*/
+  background-image:url("dinnerWizardLogoColor_B.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  height: 500px;
 }
 
 div{
@@ -184,25 +249,45 @@ body {
    /*font-size: 1.1em;*/
   
 }
-@media(min-width: 1000px){
+.aboutPage{
+   background-image:url("dinnerWizardLogoColor_B.png");
+   height:480px;
+   background-repeat: no-repeat;
+   background-position:center;
+}
+.aboutPage p{
+   text-indent:30px;
+}
+.aboutPage h1{
+   text-align:center;
+}
+.iconKey{
+   position:relative;
+   right: 20px;
+}
+.keyHolding p{
+   text-indent:15px;
+}
+@media(min-width: 1300px){
   /* body{
       overflow-y:hidden;
    }*/
    .swipable{
       margin-left: -80px;
    }
+   
+   #bigBox{
+      position:absolute;
+      left:22%;
+      width:1250px;
+      height:700px;
+   }
+   body { 
+      overflow-y:hidden;
+   }
 }
 
-/*slightly temporary rules for an attempt at different color #recipes button on each view. Under construction.*/
-.filtStyle{
-   color: #f8b30e; /* dark yellow */
-}
-.recStyle{
-   color: #8d1801; /*dark red */
-}
-.invStyle{
-   color: #065195; /* dark blue*/
-}
+
 
 /*some extra overrides for bootstrap's container-fluid to sit properly in this particular layout*/
 .container-fluid{
@@ -211,7 +296,7 @@ body {
 }
 /*initial styling for all buttons. needs review*/
 .roundEdges{
-   border: 1px solid lightgray;
+   border: 1px solid #99b9f4; /*medium light blue*/
    border-radius: 12px;
    font-size: 1.1em;
    text-align: center;
@@ -219,7 +304,7 @@ body {
    margin-bottom:7px;
    padding: 4px;
    font-family: 'Bitter', serif;
-   background-color: #ebebfb;
+   background-color: #ebebfb;/*light grayish*/
 }
 
 /*styling for the right-hand column of each view.  */
@@ -245,8 +330,15 @@ body {
       width:600px;
 
    }
+   .aboutPage{
+   background-image:url("dinnerWizardLogoColor_B.png");
+   height:480px;
+   background-repeat: no-repeat;
+   background-attachment: fixed;
+}
    .screen{
       overflow-x:hidden;
+      overflow-y:hidden;
    }
    #headerRow{
       top:-2px;
@@ -257,6 +349,12 @@ body {
       height:45px;
       width:400px;
       background-color:white;
+      
+   }
+    #bigBox{
+      position:absolute;
+      width:600px;
+      height:auto;
    }
 }
 @media (max-width: 500px) {
@@ -279,8 +377,12 @@ body {
    
    .recipeButton{
       top:15px;
-      left: 240px;
+      left: 233px;
       position:fixed;
+   }
+   .aboutStyle{
+      left:178px;
+      top: 20px;
    }
 }
 
@@ -358,7 +460,7 @@ a:hover{
 .other{
    color: #5a0799;/*purple*/
    border: 1px solid #5a0799;
-   background-color: #eadcf4; /*pale purple*/
+   background-color: #eadcf4; /*pale purple-blue-gray*/
 }
 .without{
    color: #8d1801; /*dark red*/
@@ -369,7 +471,7 @@ a:hover{
 .noStyle{
    border: none;
    color: black;
-   background-color: #fff;
+   background-color: transparent;
 }
 
 .noStyleList{
@@ -402,10 +504,22 @@ a:active{
    outline: none;
    
 }
+.recipeButton{
+   border: 1px solid #8d1801; /*dark red */
+}
 
+ul.pushDown{
+      margin-top:5px;
+}
+.noInteract:hover{
+   font-weight:normal;
+   cursor:default;
+} 
 
-
-
+.noInteract li:hover, .noInteract div:hover{
+   font-weight:normal;
+   cursor:default;
+ }
 /* styling accordions, overriding bootstrap css */
 .panel-default > .panel-heading{
    /*border: 1px solid gray;*/
@@ -440,13 +554,13 @@ a:active{
    div.listing{
       margin-left:0px;
       margin-right:10px;
-      height:400px;
+      height:380px;
       width: 270px;
       overflow-y: hidden;
    }
    div.listing:hover{
       margin-left:0px;
-      height:400px;
+      height:380px;
       margin-right:10px;
       overflow-y: auto;
    }
@@ -484,6 +598,7 @@ a:active{
       margin-top:15px;
       width:280px;
    }
+   
    .pushDown{
       margin-top:15px;
    }
@@ -499,6 +614,53 @@ a:active{
    border: none;
    font-weight: bold;
 }
+
+.filtStyle{
+   color: #eaa706; /* dark yellow */
+   border: 1px solid #eaa706;
+   border-radius: 18px;
+}
+.recStyle{
+   color: #8d1801; /*dark red */
+   border-radius: 18px;
+}
+.invStyle{
+   color: #065195; /* dark blue*/
+   border: 1px solid #065195;
+   border-radius: 18px;
+}
+.filtStyle:hover, .filtStyle:active, .filtStyle:focus{
+   background-color: #eaa706; /* dark yellow */
+   color:#ededf9;
+   /*border: 1px solid #ededf9;*/
+   
+
+}
+.recStyle:hover, .recStyle:active, .recStyle:focus{
+   background-color: #8d1801; /*dark red */
+   color:#ededf9;
+   /*border: 1px solid #ededf9;*/
+   
+}
+.invStyle:hover, .invStyle:active, .invStyle:focus{
+   background-color: #065195; /* dark blue*/
+   color:#ededf9;
+   /*border: 1px solid #ededf9;*/
+  
+}
+.aboutStyle{
+   cursor: default;
+   color:#065195;/*dark blue*/
+   border:0px solid #065195;
+   display:inline-block;
+   position:relative;
+ 
+}
+.aboutStyle:hover{
+   cursor:pointer;
+   color:#99b9f4; /*medium light blue*/
+}
+
 
 div a.accordion-toggle:link, div a.accordion-toggle:hover, div a.accordion-toggle:visited, div a.accordion-toggle:active,  a.accordion-toggle:link,  a.accordion-toggle:hover, a.accordion-toggle:visited, a.accordion-toggle:active{
    text-decoration:none;
@@ -556,8 +718,8 @@ h4.panel-title{
    color: white;
    border: none;
    text-decoration:none;
-}
 
+}
 .rec >.panel-group >.panel-default >.panel-heading{
    background-color: #99b9f4; /*medium light blue*/
    color: white;
@@ -574,7 +736,16 @@ div.panel-body{
    padding-left: 15px;
 }
 /***** end styling accordions*******/
-
+#splashBlanket{/*supposed to prevent issues with teh spash screen's hidden cursor from affecting the rest of the app*/
+   z-index:-1;
+   width:100%;
+   max-height:1200px;
+   min-height:650px;
+   margin-top:-15px;
+   background-color:white;
+   overflow-x: hidden;
+   overflow-y:hidden;
+}
 /* splash screen and its fade in/out animations*/
 .splash {
   background: white;
@@ -598,7 +769,7 @@ div.panel-body{
    font-size: 1em;
    font-family: 'Bitter', serif;
    position: relative;
-   top:85%;
+   top:90%;
    /*left: 20%;*/
    text-align: center;
    -webkit-animation: splashText 6s ease  2s 1;
@@ -640,7 +811,7 @@ div.panel-body{
    90%{opacity: 0;
    z-index: 2;}
    100%{opacity: 0;
-   z-index: -1;}
+   z-index: -2;}
 }
 
 @-webkit-keyframes splash{
@@ -651,7 +822,7 @@ div.panel-body{
    90%{opacity: 0;
    z-index: 2;}
    100%{opacity: 0;
-   z-index: -1;}
+   z-index: -2;}
 }
 
 @keyframes splashText{
@@ -662,7 +833,7 @@ div.panel-body{
    50%{opacity:100;
    z-index: 2;}
    100%{opacity: 0;
-   z-index: -1;}
+   z-index: -2;}
 }
 
 @-webkit-keyframes splashText{
@@ -672,7 +843,7 @@ div.panel-body{
    50%{opacity:100;
    z-index: 2;}
    100%{opacity: 0;
-   z-index: -1;}
+   z-index: -2;}
 }
 
 /*

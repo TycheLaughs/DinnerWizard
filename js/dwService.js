@@ -14,7 +14,7 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
    var list = ['Click ingredients to add them to your inventory, or search for them by name.'];
    var tagsList = ['No Search Filters Selected'];
    var restrict = false;
-  
+   var count = 0;
    var response ;
    return{
    
@@ -27,6 +27,7 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
    * This function also sets a Boolean to include in the filtering function  
    */
    toggleCheck:function(box){
+      count++;
       if(box.checked === true){
          box.checked = false;
          console.log('Recipe Restriction box unchecked!');
@@ -38,6 +39,7 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
          restrict = true;
         
       }
+      return count;
    },
    
    
@@ -89,7 +91,7 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
       removeIngredient:function(clicked){
       var itemIndex = list.indexOf(clicked);/*index found this way to avoid an issue found that removed 
          items starting at index zero regardless of which item was clicked.*/
-         console.log('Clicked '+ clicked +' in contructed inventory.');
+         console.log('Clicked '+ clicked +' in constructed inventory.');
             list.splice(itemIndex, 1); 
             if(list.length === 0){//if array is empty, print user prompt
                list.push('Click ingredients to add them to your inventory, or search for them by name.');
@@ -240,7 +242,7 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
          filter.equipment = [];
          filter.without = [];
          filter.ExclusiveIngredients = restrict;
-         console.log(JSON.stringify(recTags));
+         //console.log(JSON.stringify(recTags));
          /* found way to return objects from get/post methods in an angular service here: http://stackoverflow.com/questions/12505760/processing-http-response-in-service
          with plunkr here: http://plnkr.co/edit/TTlbSv?p=preview */
          if(list[0] === 'Click ingredients to add them to your inventory, or search for them by name.' && tagsList[0] === 'No Search Filters Selected' ){
@@ -282,9 +284,9 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
                   //might have found a regular tag for recipes
                      for(var k = 0; k < recTags.length; k++){
                         for(var j = 0; j < recTags[k].Contents.length; j++){
-                           console.log("comparing "+tagsList[i]+" to " + recTags[k].Contents[j].name);
+                           //console.log("comparing "+tagsList[i]+" to " + recTags[k].Contents[j].name);
                            if(recTags[k].Contents[j].name === tagsList[i]){
-                              console.log(JSON.stringify(recTags[k].Contents[j].name) + ": "+ JSON.stringify(recTags[k].id));
+                              //console.log(JSON.stringify(recTags[k].Contents[j].name) + ": "+ JSON.stringify(recTags[k].id));
                               idFinder = recTags[k].Contents[j].id;
                               //console.log(idFinder);
                            }
@@ -312,6 +314,7 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
                               if(ingredients[k].ingredientName === truncWO){
                               idFinder = ingredients[k].id;
                               wo.name = truncWO;
+                              wo.id = idFinder;
                               wo.group = "Ingredients";
                      //console.log(idFinder);
                               }
@@ -323,7 +326,7 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
                   else{//we found an equipment tag
                         //find id
                      var equip = {};
-                     equip.name = tagsList[i].substr(3);//trim off the first four characters that spell out 'Use '
+                     equip.name = tagsList[i].substr(4);//trim off the first four characters that spell out 'Use '
                      for (var j = 0; j < equipment.length; j++){
                         if(equip.name === equipment[j].name){
                            idFinder = equipment[j].id;

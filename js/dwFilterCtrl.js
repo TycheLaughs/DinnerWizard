@@ -29,12 +29,22 @@ DinnerWizardApp.controller('filterController', function($scope, $http, persisten
       });
      // $scope.recipes =  persistentService.filtering($scope.ingredients, , $scope.equipment, $scope.filterList) ;
       /* call mutators for the arrays stored 'globally' in a service*/
-      persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList).then(function(R){
+       persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList).then(function(R){
       //console.log("R.data.recipes: "+JSON.stringify(R.data.recipes));
-         $scope.recipes = R.data.recipes; 
-         //console.log(JSON.stringify($scope.recipes[0].ingredients));
+     // console.log("We got this back: " +JSON.stringify(R.data));
+      if(JSON.stringify(R.data)==='[]'){
+         $scope.recipes = '';
+        // console.log("Just to be clear, we got an empty array back: " +JSON.stringify(R.data));
          console.log($scope.recipes.length);
-      });    
+      }
+      else{
+         $scope.recipes = R.data.recipes; 
+         console.log($scope.recipes.length);
+         //console.log(JSON.stringify($scope.recipes[0].ingredients));
+         //console.log($scope.recipes.length);
+         }
+      }); 
+      
       $scope.clickedFromTagListing = function(item){
          persistentService.addTag(item);    
       };
@@ -50,21 +60,24 @@ DinnerWizardApp.controller('filterController', function($scope, $http, persisten
       $scope.clearList = function(){
          persistentService.clearTags();
          //$scope.recipes = persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList) ;
-          persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList).then(function(R){
-      //console.log("R.data.recipes: "+JSON.stringify(R.data.recipes));
-         $scope.recipes = R.data.recipes; 
-         //console.log(JSON.stringify($scope.recipes[0].ingredients));
-         console.log($scope.recipes.length);
-      });    
       };
-      $scope.search = function(){
-        // $scope.recipes = persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList);
+      function search(){
+         // $scope.recipes = persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList);
          //console.log(JSON.stringify(persistentService.Tags() + persistentService.List()));
-      persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList).then(function(R){
-      //console.log("R.data.recipes: "+JSON.stringify(R.data.recipes));
-         $scope.recipes = R.data.recipes; 
-         //console.log(JSON.stringify($scope.recipes[0].ingredients));
-         console.log($scope.recipes.length);
-      });    
-       };
+         persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList).then(function(R){
+            //console.log("R.data.recipes: "+JSON.stringify(R.data.recipes));
+            //console.log("We got this back: " +JSON.stringify(R.data));
+            if(JSON.stringify(R.data)==='[]'){
+               $scope.recipes = '';
+               //console.log("Just to be clear, we got an empty array back: " +JSON.stringify(R.data));
+               console.log($scope.recipes.length);
+            }
+            else{
+               $scope.recipes = R.data.recipes; 
+               console.log($scope.recipes.length);
+               //console.log(JSON.stringify($scope.recipes[0].ingredients));
+               //console.log($scope.recipes.length);
+            }
+         }); 
+};
 	});
