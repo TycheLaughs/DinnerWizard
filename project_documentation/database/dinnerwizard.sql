@@ -264,6 +264,7 @@ INSERT INTO `ingredient_tag_map` (`ingredientID`, `tagID`) VALUES
 (89, 3),
 (90, 3),
 (48, 3),
+(1,1),
 (19, 4),
 (61, 4),
 (15, 4),
