@@ -22,9 +22,9 @@
 				// These are the colors the graph will use. 
 				// They're hardcoded right now. Could we dynamically generate nice-looking colors...?
 				
-				//							Blue       Green      Red        Cyan      Orange-ish  Dark gray  Purple
-				var graphNormalColors =    ["#4D53A3", "#00A719", "#F7464A", "#46BFBD", "#FDB45C", "#4D5360", "#8C2BAF"];
-				var graphHighlightColors = ["#616ACC", "#00DB19", "#FF5A5E", "#5AD3D1", "#FFC870", "#616774", "#A333CC"];
+				//							Dark red,  Blue       Green      Light red        Cyan      Orange-ish  Dark gray  Purple
+				var graphNormalColors =    ["#992F0F", "#4D53A3", "#00A719", "#F7464A", "#46BFBD", "#FDB45C", "#4D5360", "#8C2BAF"];
+				var graphHighlightColors = ["#CC3C14", "#616ACC", "#00DB19", "#FF5A5E", "#5AD3D1", "#FFC870", "#616774", "#A333CC"];
 
 				// Combine the arrays into one.
 				// We shuffle the colors to add some element of randomness,
@@ -105,7 +105,7 @@
 			$.getJSON("php/generate_recipe_json.php", function(json) 
 			{
 				// Change this code to whatever in order to get the recipe JSON object we're currently showing
-				var currentRecipeIndex = 4;	
+				var currentRecipeIndex = 15;	
 				var currentRecipe = json.recipes[currentRecipeIndex];
 				
 				// Then just call this. 
