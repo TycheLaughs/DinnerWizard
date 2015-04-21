@@ -138,7 +138,7 @@
             //Allow the user to do only the ingredients the supply exclude all recipes that contain other ones.
             $exclusiveIngredients = $request["ExclusiveIngredients"];
             $ingredientFilter = $request["ingredientTags"];
-            $recipeFilter = $request["recipeTags"];
+            $recipeTagFilter = $request["recipeTags"];
             $equipmentFilter = $request["equipment"];
             $withoutFilter = $request["without"];
 
@@ -185,14 +185,6 @@
                 }
 
             }
-            if( $recipeFilter != "" AND ( $result = $this->filter( $recipeFilter, "recipeTags" ) ) != NULL )
-            {
-                foreach( $result as $recipeID )
-                {
-                    array_push( $recipeList, $recipeID ) ;
-                    $recipeList = array_unique( $recipeList ); //there's no reason for duplicate recipes
-                }
-            }
             if( $equipmentFilter != "" AND ( $result = $this->filter( $equipmentFilter, "equipment" ) ) != NULL )
             {
                 foreach( $result as $recipeID )
@@ -216,6 +208,13 @@
                 }
 
             }
+            //Only recipes for ingredients/equipment that we found that also contain the requested tag can be used
+            //so we need to check our recipe list and make sure that the tag matches
+            if( $recipeTagFilter != "" )
+            {
+                $recipeList = $this->matchRecipeTags( $recipeTagFilter, $recipeList ) ;
+            }
+
 
             $recipeList = $this->buildFilterResponse( $recipeList ) ;
             return $recipeList;
@@ -247,12 +246,6 @@
                 {
                     $mapTable = TABLE_RECIPE_INGREDIENT_MAP ;
                     $mapAttribute = "ingredientID";
-                    break;
-                }
-                case "recipeTags":
-                {
-                    $mapTable = TABLE_RECIPE_TAG_MAP ;
-                    $mapAttribute = "tagID" ;
                     break;
                 }
                 case "equipment":
@@ -337,6 +330,7 @@
 
         }
 
+
         /**
          * Summary:
          *      This method will take in a filterList that contains recipe id's and then from there get all of the
@@ -384,6 +378,40 @@
             return $recipeList ;
         }
 
+        private function matchRecipeTags( $tagList, $recipeList )
+        {
+
+            foreach( $recipeList as $item )
+            {
+
+                $tagMatch = false ;
+
+                //SELECT tagID FROM TABLE_RECIPE_TAG_MAP WHERE recipeID = $item["id"]
+                $tagID = $this->conn->query( $temp = sprintf( $this->mQuery_SelectFromTable, "tagID", TABLE_RECIPE_TAG_MAP, "recipeID", $item["id"] ) ) ;
+
+                if( $tagID != NULL )
+                {
+
+                    while( $row = mysqli_fetch_row( $tagID ) )
+                    {
+
+                        //Check to see if the tagID for the recipe, $item,
+                        if( ( $key = array_search( $row, $tagList ) ) != false )
+                        {
+                            $tagMatch = true ;
+                        }
+                    }
+
+                }
+                if( $tagMatch != true )
+                {
+                    unset( $recipeList[$item] );
+                }
+            }
+
+            return $recipeList ;
+
+        }
         private function buildRecipeList()
         {
 
@@ -619,6 +647,13 @@
 
         }
 
+        /**
+         * Summary:
+         *      Get a json object representing all of the recipes in the database
+         *
+         * @return string
+         *      The JSON object representing the recipes
+         */
         public function getRecipes()
         {
             //make sure we have the most up to date version of the recipes
@@ -626,6 +661,13 @@
             //return $this->getBaseTableInfo( $this->mPath_AllRecipesJSON ) ;
         }
 
+        /**
+         * Summary:
+         *      Get a json object representing all of the ingredients in the database
+         *
+         * @return string
+         *      The JSON object representing the ingredients
+         */
         public function getIngredients()
         {
             //make sure we have the most up to date version of the recipes
@@ -633,6 +675,13 @@
             //return $this->getBaseTableInfo( $this->mPath_AllIngredientsJSON ) ;
         }
 
+        /**
+         * Summary:
+         *      Get a json object representing all of the equipment in the database
+         *
+         * @return string
+         *      The JSON object representing the equipment
+         */
         public function getEquipment()
         {
             //make sure we have the most up to date version of the recipes
