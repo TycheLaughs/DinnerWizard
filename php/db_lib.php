@@ -378,6 +378,17 @@
             return $recipeList ;
         }
 
+        /**
+         * Summary:
+         *      Take a list of recipeID's and TagId's and remove any recipe from the recipeList that doesnt contain a tag
+         *      from the taglist
+         * @param $tagList
+         *      A list of Tag objects [ 'id' => id, 'name' => name ]
+         * @param $recipeList
+         *      A list of recipe Ids
+         * @return mixed
+         *      A list of recipeID's that have tagId's from the tag list.
+         */
         private function matchRecipeTags( $tagList, $recipeList )
         {
 
@@ -423,6 +434,7 @@
             return $recipeList ;
 
         }
+
         private function buildRecipeList()
         {
 
