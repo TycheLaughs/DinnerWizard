@@ -144,7 +144,7 @@
 
             //If we have there has been a filter provided in each of the fields try to generate an array of the correct
             //recipes, if you can then add that array to the recipeList.
-            if( $ingredientFilter != "" AND ( $result = $this->filter( $ingredientFilter, "ingredientTags" ) ) != NULL )
+            if( $ingredientFilter != NULL AND ( $result = $this->filter( $ingredientFilter, "ingredientTags" ) ) != NULL )
             {
 
                 //Having to loop through the results to rebuild our recipeList isn't very elegant but merging arrays
@@ -185,7 +185,7 @@
                 }
 
             }
-            if( $equipmentFilter != "" AND ( $result = $this->filter( $equipmentFilter, "equipment" ) ) != NULL )
+            if( $equipmentFilter != NULL AND ( $result = $this->filter( $equipmentFilter, "equipment" ) ) != NULL )
             {
                 foreach( $result as $recipeID )
                 {
@@ -196,7 +196,7 @@
 
             //The without filter is a little different, if it finds a recipe it then searches the recipeList and
             //removes it from the list if it is present
-            if( $withoutFilter != "" AND ( $result = $this->filter( $withoutFilter, "without" ) ) != NULL )
+            if( $withoutFilter != NULL AND ( $result = $this->filter( $withoutFilter, "without" ) ) != NULL )
             {
 
                 foreach( $result as $item )
@@ -210,7 +210,7 @@
             }
             //Only recipes for ingredients/equipment that we found that also contain the requested tag can be used
             //so we need to check our recipe list and make sure that the tag matches
-            if( $recipeTagFilter != "" )
+            if( $recipeTagFilter != NULL )
             {
                 $recipeList = $this->matchRecipeTags( $recipeTagFilter, $recipeList ) ;
             }
@@ -310,7 +310,7 @@
                 }
 
                 //SELECT recipeID FROM $mapTable WHERE $mapApptribute = $item["id"]
-                $recipeIDs = $this->conn->query( $temp = sprintf( $this->mQuery_SelectFromTable, "recipeID", $mapTable, $mapAttribute, $item["id"] ) ) ;
+                $recipeIDs = $this->conn->query( sprintf( $this->mQuery_SelectFromTable, "recipeID", $mapTable, $mapAttribute, $item["id"] ) ) ;
 
                 //When we run the query we are getting the first row right away because recipes are unique. If the
                 //result is NULL then there is no recipe associated with the current filter
@@ -381,13 +381,15 @@
         private function matchRecipeTags( $tagList, $recipeList )
         {
 
+            //To ensure our recipelist only conatins recipes that match the tag we will get all the tagID's for the recipes
+            //we have found and then check to make sure they match a tagID in our tag list
             foreach( $recipeList as $item )
             {
 
-                $tagMatch = false ;
+                $tagMatch = FALSE ;
 
                 //SELECT tagID FROM TABLE_RECIPE_TAG_MAP WHERE recipeID = $item["id"]
-                $tagID = $this->conn->query( $temp = sprintf( $this->mQuery_SelectFromTable, "tagID", TABLE_RECIPE_TAG_MAP, "recipeID", $item["id"] ) ) ;
+                $tagID = $this->conn->query( $temp = sprintf( $this->mQuery_SelectFromTable, "tagID", TABLE_RECIPE_TAG_MAP, "recipeID", $item ) ) ;
 
                 if( $tagID != NULL )
                 {
@@ -396,14 +398,23 @@
                     {
 
                         //Check to see if the tagID for the recipe, $item,
-                        if( ( $key = array_search( $row, $tagList ) ) != false )
+                        foreach( $tagList as $tagItem )
                         {
-                            $tagMatch = true ;
+                            if( $row[0] == $tagItem["id"] )
+                            {
+                                $tagMatch = TRUE ;
+                                break ;
+                            }
+                        }
+
+                        if( $tagMatch == TRUE )
+                        {
+                            break ;
                         }
                     }
 
                 }
-                if( $tagMatch != true )
+                if( $tagMatch == FALSE )
                 {
                     unset( $recipeList[$item] );
                 }
