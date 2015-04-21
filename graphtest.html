@@ -1,9 +1,7 @@
 <html>
 <head>
 	<title>Graph test</title>
-
-
-
+	
 	<script src="lib/jquery-2.1.1.js"></script>
 	<script src="lib/chartjs/Chart.js"></script>
 
@@ -37,7 +35,8 @@
 				graphCombinedColors = shuffle(graphCombinedColors);
 				
 				
-				
+				// This is the data we'll pass to chart.js.
+				// It contains the data that will be used to create our graph
 				var graphData = new Array();
 				
 				var ingredientCount = recipe.ingredients.length;
@@ -45,7 +44,8 @@
 				// Need this because not all recipe ratios add up to 100.
 				var ratioMaxValue = 0;
 				
-				// First, find out what the "total" ratio is (ideally it should be close to 100, but that's not always the case)
+				// First, find out what the "total" ratio is 
+				// (ideally it should be close to 100, but that's not always the case)
 				for (var i = 0; i < ingredientCount; i++)
 				{
 					if (typeof(recipe.ingredients[i].ratio) === "undefined")
