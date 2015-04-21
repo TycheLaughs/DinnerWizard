@@ -19,81 +19,82 @@
 		// Pass this function a recipe object and the string ID of a canvas and a pie chart will be placed inside it.
 		function createPieChart(recipe, canvasID)
 		{			
-				// These are the colors the graph will use. 
-				// They're hardcoded right now. Could we dynamically generate nice-looking colors...?
-				
-				//							Dark red,  Blue       Green      Light red        Cyan      Orange-ish  Dark gray  Purple
-				var graphNormalColors =    ["#992F0F", "#4D53A3", "#00A719", "#F7464A", "#46BFBD", "#FDB45C", "#4D5360", "#8C2BAF"];
-				var graphHighlightColors = ["#CC3C14", "#616ACC", "#00DB19", "#FF5A5E", "#5AD3D1", "#FFC870", "#616774", "#A333CC"];
+			// These are the colors the graph will use. 
+			// They're hardcoded right now. Could we dynamically generate nice-looking colors...?
+			
+			//							Dark red,  Blue       Green      Light red   Cyan      Orange-ish  Dark gray  Purple   
+			var graphNormalColors =    ["#992F0F", "#4D53A3", "#00A719", "#F7464A", "#46BFBD", "#FDB45C", "#4D5360", "#8C2BAF"];
+			var graphHighlightColors = ["#CC3C14", "#616ACC", "#00DB19", "#FF5A5E", "#5AD3D1", "#FFC870", "#616774", "#A333CC"];
 
-				// Combine the arrays into one.
-				// We shuffle the colors to add some element of randomness,
-				// But if we shuffle each array individually we'll get strange results with the colors seemingly changing randomly when highlighted.
-				var graphCombinedColors = new Array();
-				for (var i = 0; i < graphNormalColors.length; i++)
-				{
-					graphCombinedColors[i] = { normalColor: graphNormalColors[i], highlightColor: graphHighlightColors[i] };
-				}
-				graphCombinedColors = shuffle(graphCombinedColors);
-				
-				
-				// This is the data we'll pass to chart.js.
-				// It contains the data that will be used to create our graph
-				var graphData = new Array();
-				
-				var ingredientCount = recipe.ingredients.length;
-				
-				// Need this because not all recipe ratios add up to 100.
-				var ratioMaxValue = 0;
-				
-				// First, find out what the "total" ratio is 
-				// (ideally it should be close to 100, but that's not always the case)
-				for (var i = 0; i < ingredientCount; i++)
-				{
-					if (typeof(recipe.ingredients[i].ratio) === "undefined")
-						continue;
-						
-					// Negative ratios should not exist, but just in case...
-					// Also remove really tiny ratios, since they're hard to see and select.
-					if (recipe.ingredients[i].ratio <= 1)
-						continue;
+			// Combine the arrays into one.
+			// We shuffle the colors to add some element of randomness,
+			// But if we shuffle each array individually we'll get strange results with the colors seemingly changing randomly when highlighted.
+			// Sure would be nice if we could set Math.random()'s seed...
+			var graphCombinedColors = new Array();
+			for (var i = 0; i < graphNormalColors.length; i++)
+			{
+				graphCombinedColors[i] = { normalColor: graphNormalColors[i], highlightColor: graphHighlightColors[i] };
+			}
+			graphCombinedColors = shuffle(graphCombinedColors);
+			
+			
+			// This is the data we'll pass to chart.js.
+			// It contains the data that will be used to create our graph
+			var graphData = new Array();
+			
+			var ingredientCount = recipe.ingredients.length;
+			
+			// Need this because not all recipe ratios add up to 100.
+			var ratioMaxValue = 0;
+			
+			// First, find out what the "total" ratio is 
+			// (ideally it should be close to 100, but that's not always the case)
+			for (var i = 0; i < ingredientCount; i++)
+			{
+				if (typeof(recipe.ingredients[i].ratio) === "undefined")
+					continue;
 					
-					ratioMaxValue += recipe.ingredients[i].ratio;
-				}
+				// Negative ratios should not exist, but just in case...
+				// Also remove really tiny ratios, since they're hard to see and select.
+				if (recipe.ingredients[i].ratio <= 1)
+					continue;
 				
-				// Now with that information, we can build our graph data.
-				
-				var colorIndex = 0;
-				for (var i = 0; i < ingredientCount; i++)
-				{
-					if (typeof(recipe.ingredients[i].ratio) === "undefined")
-						continue;
-					if (recipe.ingredients[i].ratio <= 1)
-						continue;
-					
-					
-					var correctedRatio = recipe.ingredients[i].ratio / ratioMaxValue;
-					
-					// Just in case, make sure we don't run past the end of the color array.
-					// We really shouldn't need to, though--this is just in case.
-					var normalColor, highlightColor;
-					normalColor = typeof(graphCombinedColors[colorIndex]) === "undefined"? "#000000" : graphCombinedColors[colorIndex].normalColor;
-					highlightColor = typeof(graphCombinedColors[colorIndex]) === "undefined"? "#000000" : graphCombinedColors[colorIndex].highlightColor;
-					
-					graphData[graphData.length] = { 
-						value: correctedRatio,
-						color: normalColor,
-						highlight: highlightColor,
-						label: recipe.ingredients[i].name + ": " + (correctedRatio * 100).toFixed(0).toString() + "%"
-					};
-					
-					colorIndex++;
-				}
+				ratioMaxValue += recipe.ingredients[i].ratio;
+			}
+			
+			// Now with that information, we can build our graph data.
+			
+			var colorIndex = 0;
+			for (var i = 0; i < ingredientCount; i++)
+			{
+				if (typeof(recipe.ingredients[i].ratio) === "undefined")
+					continue;
+				if (recipe.ingredients[i].ratio <= 1)
+					continue;
 				
 				
-				// Finally, create our pie chart.
-				var ctx = document.getElementById(canvasID).getContext("2d");		
-				new Chart(ctx).Pie(graphData, { animationEasing : "easeOutQuart", animateScale: true, tooltipTemplate: "<%=label%>" });
+				var correctedRatio = recipe.ingredients[i].ratio / ratioMaxValue;
+				
+				// Just in case, make sure we don't run past the end of the color array.
+				// We really shouldn't need to, though--this is just in case.
+				var normalColor, highlightColor;
+				normalColor = typeof(graphCombinedColors[colorIndex]) === "undefined"? "#000" : graphCombinedColors[colorIndex].normalColor;
+				highlightColor = typeof(graphCombinedColors[colorIndex]) === "undefined"? "#333" : graphCombinedColors[colorIndex].highlightColor;
+				
+				graphData[graphData.length] = { 
+					value: correctedRatio,
+					color: normalColor,
+					highlight: highlightColor,
+					label: recipe.ingredients[i].name + ": " + (correctedRatio * 100).toFixed(0).toString() + "%"
+				};
+				
+				colorIndex++;
+			}
+			
+			
+			// Finally, create our pie chart.
+			var ctx = document.getElementById(canvasID).getContext("2d");		
+			new Chart(ctx).Pie(graphData, { animationEasing : "easeOutQuart", animateScale: true, tooltipTemplate: "<%=label%>" });
 		}
 		
 		
