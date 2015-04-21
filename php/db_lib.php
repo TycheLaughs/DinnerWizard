@@ -6,7 +6,7 @@
     //DATABASE INFORMATION
     define( "_HOST",     "localhost" );
     define( "_USERNAME", "root" );
-    define( "_PASSWORD", "Anarki87" );
+    define( "_PASSWORD", "" );
     define( "_DATABASE", "dinnerwizard" ) ;
 
     //TABLE DEFINES
@@ -433,15 +433,15 @@
                     equipment.name AS equipmentName,
                     recipe_tags.ID AS tagID,
                     recipe_tags.name AS tagName
-                    FROM recipes
-                    LEFT JOIN recipe_ingredient_map	ON recipes.ID = recipe_ingredient_map.recipeID
+                    FROM recipes 
+                    LEFT JOIN recipe_ingredient_map	ON recipes.ID = recipe_ingredient_map.recipeID 
                     LEFT JOIN recipe_replaceable_ingredient_map ON recipes.ID = recipe_replaceable_ingredient_map.recipeID AND recipe_ingredient_map.ingredientID = recipe_replaceable_ingredient_map.ingredientID
-                    LEFT JOIN ingredients AS ingredients1 ON recipe_ingredient_map.recipeID = ingredients1.ID
+                    LEFT JOIN ingredients AS ingredients1 ON recipe_ingredient_map.ingredientID = ingredients1.ID
                     LEFT JOIN ingredients AS ingredients2 ON recipe_replaceable_ingredient_map.replaceableIngredientID = ingredients2.ID
                     LEFT JOIN recipe_equipment_map 	ON recipes.ID = recipe_equipment_map.recipeID
-                    LEFT JOIN equipment 		ON equipment.ID = recipe_equipment_map.equipmentID
-                    LEFT JOIN recipe_tag_map 	ON recipes.ID = recipe_tag_map.recipeID
-                    LEFT JOIN recipe_tags 		ON recipe_tags.ID = recipe_tag_map.tagID
+                    LEFT JOIN equipment 		ON equipment.ID = recipe_equipment_map.equipmentID 
+                    LEFT JOIN recipe_tag_map 	ON recipes.ID = recipe_tag_map.recipeID 
+                    LEFT JOIN recipe_tags 		ON recipe_tags.ID = recipe_tag_map.tagID 
                     ORDER BY recipeID, ingredientID, replaceableIngredientID, equipmentID, tagID
             ");
 

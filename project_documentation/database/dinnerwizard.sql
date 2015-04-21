@@ -354,7 +354,15 @@ INSERT INTO `ingredient_tag_map` (`ingredientID`, `tagID`) VALUES
 (29, 8),
 (23, 8),
 (119, 8),
-(120, 8);
+(120, 8),
+(1, 4),
+(5, 6),
+(9, 5),
+(32, 7),
+(37, 7),
+(41, 6),
+(121, 5),
+(122, 7);
 
 -- --------------------------------------------------------
 
@@ -373,23 +381,25 @@ CREATE TABLE IF NOT EXISTS `recipes` (
 --
 
 INSERT INTO `recipes` (`id`, `name`, `prepInst`) VALUES
-(4, 'Quick Pasta 1', '<ul>\n<li>Cook pasta according to package instructions, drain and set aside.</li>\n<li>While the pasta is cooking, heat the oil in a large, flat pan on medium-high, and sear or brown the vegetables (in slices or pieces no thicker than a finger), if using any.  Then reduce the heat and allow the vegetables to cook, at most ten minutes.</li>\n<li>Add garlic, chopped fine.  This should be about when the pasta is ready and just as the vegetables still have some bite.  Stir fry briefly with herbs and chili flakes if using them.</li>\n<li>Remove from heat and toss with pasta, adding lemon juice or zest if desired.</li>\n<li>Serve with grated cheese.</li>\n<li>Adapted from recipes by Mark Bittman in The New York Times</li>\n</ul>'),
-(5, 'Quick Pasta 2', '<ul>\n<li>Cook pasta according to package instructions, drain and set aside.</li>\n<li>When the pasta is about halfway done, heat the oil in a large, flat pan on medium, and add garlic, chopped fine.</li>\n<li>When the garlic is nearly cooked, add breadcrumbs, and the vegetable, stirring to coat them with the garlic-floavored oil and continuing to stir-fry until it is a very vivid green and just wilted.</li>\n<li>Toss briefly with chili flakes if using them.</li>\n<li>Remove from heat and toss with pasta, adding lemon juice or zest if desired.</li>\n<li>Serve with grated cheese.</li>\n<li>Adapted from recipes by Mark Bittman in The New York Times</li>\n</ul>'),
-(6, 'Quick Pasta 3', '<ul>\n<li>Boil water.  While it is not yet boiling, cut your vegetables to manageable size.</li>\n<li>Dip your vegetables in the boiling water for a minute or so in small batches, removing them to a colander with a slotted spoon.</li>\n<li>Cook pasta according to package instructions, drain and set aside.</li>\n<li>When the pasta is about halfway done, heat the oil in a large, flat pan on medium, and add garlic, chopped fine.</li>\n<li>When the garlic is nearly cooked, add breadcrumbs, and the vegetable, stirring to coat them with the garlic-floavored oil.</li>\n<li>Toss briefly with chili flakes if using them.</li>\n<li>Remove from heat and toss with pasta, adding lemon juice or zest if desired.</li>\n<li>Serve with grated cheese.</li>\n<li>Adapted from recipes by Mark Bittman in The New York Times</li>\n</ul>'),
-(7, 'Quick Pasta 4', '<ul>\n<li>Peel, then chop, shred or grate your vegetables to the approximate size of matchsticks, or perhaps a bit larger.</li>\n<li>Cook pasta according to package instructions, drain and set aside, reserving some of the water from cooking.</li>\n<li>While the pasta is cooking, heat your large, flat pan and add your vegetable with just barely enough oil to prevent it from burning.</li>\n<li>When the vegetable begins to soften, add some of the pasta water and continue to cook, adding nutmeg and black pepper</li>\n<li>Stir in the pasta, adding more pasta water if the ''sauce'' you''ve been making isn''t coating the pasta easily enough.</li>\n<li>Serve with grated cheese.</li>\n<li>Adapted from recipes by Mark Bittman in The New York Times</li>\n</ul>'),
-(8, 'Lentils and Rice', '<ul>\n<li>Heat oil in medium pot or high-sided pan on medium heat.</li>\n<li>Add the onion, if using, and gook gently until translucent.  If using garlic, add this also.</li>\n<li>Pour the uncooked rice and lentils into pan and stir its contents gently to coat.  Add any herbs and paper now, as well.</li>\n<li>Add water or broth to cover the rice and reduce heat to medium-low once it bubbles.</li>\n<li>Let it cook for approximately fifteen minutes, stirring occasionally.</li>\n<li>Add salt to taste, and lemon juice or zest if desired.</li>\n<li>Serve immediately.</li>\n</ul>'),
-(9, 'Makeshift Casserole', '<ul>\n<li>Heat the oven to 375°F.</li>\n<li>Brush a baking dish with oil.</li>\n<li>Whisk together eggs, milk, herbs, salt and pepper.</li>\n<li>Layer bread torn into chunks, vegetables and cheese until the baking dish is 3/4 of the way full.</li>\n<li>Gently pour the egg mixture over the layers and top with any remaining cheese.</li>\n<li>Bake for approximately 40 minutes, or until a fork inserved at the center can be removed cleanly.</li>\n<li>Once removed from the oven, let the casserole rest for 10 minutes before serving.</li>\n<li>Note: This recipe is untested and may require adjustments outside of what is listed here.</li>\n</ul>'),
-(10, 'Red Sauce Pasta Casserole', '<ul>\n<li>Heat the oven to 400°F.</li>\n<li>Brush a baking dish with oil.</li>\n<li>Cook the pasta, drain and set aside.</li>\n<li>Heat oil in a pan and cook the onion gently until translucent.  Add garlic and your chosen meat, stirring gently until your meat is browned, but not overcooked.</li>\n<li>Add tomatoes or tomato sauce, then herbs and cook until the liquid in your pan is bubbly.</li>\n<li>Layer pasta, sauce and vegetables in your baking dish, adding or topping with cheese if desired.</li>\n<li>Bake for 30-40 minutes, or until very bubbly.</li>\n</ul>'),
-(11, 'White Sauce Pasta Casserole', '<ul>\n<li>Heat the oven to 400°F.</li>\n<li>Brush a baking dish with oil.</li>\n<li>Cook the pasta, drain and set aside.</li>\n<li>Heat oil in a pan and cook the onion gently until translucent. Add garlic.  Brown chicken if using and remove from pan.</li>\n<li>Add herbs to pan, cooking briefly, before adding cream sauce, stirring well until it bubbles slightly.  Remove from heat.</li>\n<li>Layer pasta, chicken(or your chosen vegetable) and sauce in your baking dish.</li>\n<li>Bake for 30-45 minutes. Serve with grated cheese, if desired.</li>\n</ul>'),
-(12, 'Creamy Vegetable Pasta Casserole', '<ul>\n<li>Heat the oven to 400°F.</li>\n<li>Brush a baking dish with oil.</li>\n<li>While the oven is heating, boil some water and cook the cauliflower.</li>\n<li>Fish out each piece witha slotted spoon and puree in the food processor.</li>\n<li>Add half the cheese and any spices you like. Pulse a few more times.</li>\n<li>Cook the pasta in the boiling water still in the pot. Drain.</li>\n<li>Layer the pasta and the vegetable mixture in your baking dish, topping with cheese and breadcrumbs if desired.</li>\n<li>Bake for 20-30 minutes, or until bubbly.</li>\n<li>Serve with grated cheese.</li>\n<li>Adapted from recipes by Mark Bittman in The New York Times</li>\n</ul>'),
-(13, 'Baked Falafel', '<ul>\n<li>Heat the oven to 400°F.</li>\n<li>Pulse chickpeas and garlic in food processor.</li>\n<li>Add other ingredients slowly, one-by-one, pulsing as sparingly as possible, so that the mixture resembles coarse breadcrumbs when you''re finished, but still can be packed into good-sized clumps.</li>\n<li>Drop, in spoonfuls like cookies, onto a rimmed baking sheet and bake for about 30 minutes.</li>\n<li>Serve with pitas or rice, yoghurt and fresh cut vegetables for a filling and refreshing meal.</li>\n</ul>'),
-(14, 'Hummus', '<ul>\n<li>Pulse chickpeas and garlic in food processor.</li>\n<li>Add other ingredients slowly, one-by-one, processing until a fairly smooth paste is produced.</li>\n<li>Best served with pitas, toasted or fresh.</li>\n</ul>'),
-(15, 'Veggie Stir Fry', '<ul>\n<li>Cook the rice.</li>\n<li>When the rice is about halfway done, heat the oil in a large, rounded pan on medium-high, and add the scallions and ginger, if using, stirring lightly so they do not burn.</li>\n<li>Add vegetables(sliced) and garlic, chopped fine, keeping them moving lightly around the pan so as to keep them in contact with the bottom of the pan for as brief a moment at a time as you can.</li>\n<li>If you''re using it, mix some broth with a spoonful of soy sauce and a spoonful of cornstarch and add to the pan, stirring to incorporate this sauce.  Remove from heat within the minute, and serve immediately over rice.</li>\n</ul>'),
-(16, 'Stir Fry with Meat or Tofu', '<ul>\n<li>Cook the rice.</li>\n<li>When the rice is about halfway done, heat the oil in a large, rounded pan on medium-high, and add the scallions and ginger, if using, stirring lightly so they do not burn.</li>\n<li>Add your favored protein, keeping it moving lightly around the pan, until it seems to be mostly cooked, about a minute, longer if using tofu.</li>\n<li>Add the vegetables(sliced) and garlic, chopped fine, continuing to keep the mixture in contact with the bottom of the pan for as brief a moment at a time as you can.</li>\n<li>If you''re using it, mix some broth with a spoonful of soy sauce and a spoonful of cornstarch and add to the pan, stirring to incorporate this sauce.  Remove from heat within the minute, and serve immediately over rice.</li>\n</ul>'),
-(17, 'Stir Fry with Seafood', '<ul>\n<li>Cook the rice.</li>\n<li>When the rice is about halfway done, heat the oil in a large, rounded pan on medium-high, and add the scallions and ginger, if using, stirring lightly so they do not burn.</li>\n<li>Add your chosen seafood, keeping it moving lightly around the pan, until it seems to be mostly cooked, two or three minutes.</li>\n<li>Add the vegetables(sliced) and garlic, chopped fine, continuing to keep the mixture in contact with the bottom of the pan for as brief a moment at a time as you can.</li>\n<li>If you''re using it, mix some broth with a spoonful of soy sauce and a spoonful of cornstarch and add to the pan, stirring to incorporate this sauce.  Remove from heat within the minute, and serve immediately over rice.</li>\n</ul>'),
-(18, 'Peanut Noodles', '<ul>\n<li>Boil water.  While it is not yet boiling, puree the garlic and ginger in a food processor.  If you prefer to do this by hand, grating them works just as well.</li>\n<li>When the water is boiling, cook the pasta. and drain.</li>\n<li>Place the pot back on the stove and heat the oil in it.  Once it shimmers, add the garlic-ginger mixture, stirring quickly so it doesn''t burn.  Immediately add your chili flakes or chopped hot peppers.</li>\n<li>As soon as the garlic-ginger mixture has appeared to cook a bit, add your sauce(s).  If using fish sauce, some sugar would not go amiss.</li>\n<li>Add peanut butter, stirring to make a sauce of medium thickness.  Add noodles and sliced bell peppers, stirring to coat.</li>\n<li>Serve immediately, or at room temperature later, sprinkled with peanuts, and, if you like, pineapple chunks.</li>\n<li>Adapted from a recipe by Martin Minow.</li>\n</ul>'),
-(19, 'Essential Tagine', '<ul>\n<li>Heat oil in pan; add garlic and onion.  Cook gently until the onion is translucent, then add the garlic.</li>\n<li>Add your spices once the garlic has begun to soften, and fry until the contents of your pan are very fragrant.</li>\n<li>Add tomato sauce, raise the heat, and stir until bubbling. Then add your chosen meat, turning your pieces to coat it with your spice mixture. </li>\n<li>Add water and again, wait until it is bubbling before you cover your pan and turn the heat to low or medium-low, to simmer, lid slightly askew, for approximately twenty minutes (if there are bones, it may take longer).</li>\n<li>Add whichever fruit you prefer, chopped to smaller-than-bite-sized if necessary, and simmer again for another ten minutes.</li>\n<li>Serve with couscous.</li>\n<li>Adapted from recipes by Mark Bittman in The New York Times</li>\n</ul>'),
-(20, 'Breaded Chicken', '<ul>\n<li>Preheat the oven to 375°F.</li>\n<li>Combine breadcrumbs, olive oil, herbs and spices in a gallon plastic bag.</li>\n<li>Drop in chicken pieces one at a time and shake or use hands to coat the chicken with the breading mixture.</li>\n<li>Bake chicken on a rimmed baking sheet or in a baking dish for 20-40 minutes.</li>\n</ul>');
+(4, 'Quick Pasta 1', '\n<li>Cook pasta according to package instructions, drain and set aside.</li>\n<li>While the pasta is cooking, heat the oil in a large, flat pan on medium-high, and sear or brown the vegetables (in slices or pieces no thicker than a finger), if using any.  Then reduce the heat and allow the vegetables to cook, at most ten minutes.</li>\n<li>Add garlic, chopped fine.  This should be about when the pasta is ready and just as the vegetables still have some bite.  Stir fry briefly with herbs and chili flakes if using them.</li>\n<li>Remove from heat and toss with pasta, adding lemon juice or zest if desired.</li>\n<li>Serve with grated cheese.</li>\n<li>Adapted from recipes by Mark Bittman in The New York Times</li>\n'),
+(5, 'Quick Pasta 2', '\n<li>Cook pasta according to package instructions, drain and set aside.</li>\n<li>When the pasta is about halfway done, heat the oil in a large, flat pan on medium, and add garlic, chopped fine.</li>\n<li>When the garlic is nearly cooked, add breadcrumbs, and the vegetable, stirring to coat them with the garlic-floavored oil and continuing to stir-fry until it is a very vivid green and just wilted.</li>\n<li>Toss briefly with chili flakes if using them.</li>\n<li>Remove from heat and toss with pasta, adding lemon juice or zest if desired.</li>\n<li>Serve with grated cheese.</li>\n<li>Adapted from recipes by Mark Bittman in The New York Times</li>\n'),
+(6, 'Quick Pasta 3', '\n<li>Boil water.  While it is not yet boiling, cut your vegetables to manageable size.</li>\n<li>Dip your vegetables in the boiling water for a minute or so in small batches, removing them to a colander with a slotted spoon.</li>\n<li>Cook pasta according to package instructions, drain and set aside.</li>\n<li>When the pasta is about halfway done, heat the oil in a large, flat pan on medium, and add garlic, chopped fine.</li>\n<li>When the garlic is nearly cooked, add breadcrumbs, and the vegetable, stirring to coat them with the garlic-floavored oil.</li>\n<li>Toss briefly with chili flakes if using them.</li>\n<li>Remove from heat and toss with pasta, adding lemon juice or zest if desired.</li>\n<li>Serve with grated cheese.</li>\n<li>Adapted from recipes by Mark Bittman in The New York Times</li>\n'),
+(7, 'Quick Pasta 4', '\n<li>Peel, then chop, shred or grate your vegetables to the approximate size of matchsticks, or perhaps a bit larger.</li>\n<li>Cook pasta according to package instructions, drain and set aside, reserving some of the water from cooking.</li>\n<li>While the pasta is cooking, heat your large, flat pan and add your vegetable with just barely enough oil to prevent it from burning.</li>\n<li>When the vegetable begins to soften, add some of the pasta water and continue to cook, adding nutmeg and black pepper</li>\n<li>Stir in the pasta, adding more pasta water if the ''sauce'' you''ve been making isn''t coating the pasta easily enough.</li>\n<li>Serve with grated cheese.</li>\n<li>Adapted from recipes by Mark Bittman in The New York Times</li>\n'),
+(8, 'Lentils and Rice', '\n<li>Heat oil in medium pot or high-sided pan on medium heat.</li>\n<li>Add the onion, if using, and gook gently until translucent.  If using garlic, add this also.</li>\n<li>Pour the uncooked rice and lentils into pan and stir its contents gently to coat.  Add any herbs and paper now, as well.</li>\n<li>Add water or broth to cover the rice and reduce heat to medium-low once it bubbles.</li>\n<li>Let it cook for approximately fifteen minutes, stirring occasionally.</li>\n<li>Add salt to taste, and lemon juice or zest if desired.</li>\n<li>Serve immediately.</li>\n'),
+(9, 'Makeshift Casserole', '\n<li>Heat the oven to 375°F.</li>\n<li>Brush a baking dish with oil.</li>\n<li>Whisk together eggs, milk, herbs, salt and pepper.</li>\n<li>Layer bread torn into chunks, vegetables and cheese until the baking dish is 3/4 of the way full.</li>\n<li>Gently pour the egg mixture over the layers and top with any remaining cheese.</li>\n<li>Bake for approximately 40 minutes, or until a fork inserved at the center can be removed cleanly.</li>\n<li>Once removed from the oven, let the casserole rest for 10 minutes before serving.</li>\n<li>Note: This recipe is untested and may require adjustments outside of what is listed here.</li>\n'),
+(10, 'Red Sauce Pasta Casserole', '\n<li>Heat the oven to 400°F.</li>\n<li>Brush a baking dish with oil.</li>\n<li>Cook the pasta, drain and set aside.</li>\n<li>Heat oil in a pan and cook the onion gently until translucent.  Add garlic and your chosen meat, stirring gently until your meat is browned, but not overcooked.</li>\n<li>Add tomatoes or tomato sauce, then herbs and cook until the liquid in your pan is bubbly.</li>\n<li>Layer pasta, sauce and vegetables in your baking dish, adding or topping with cheese if desired.</li>\n<li>Bake for 30-40 minutes, or until very bubbly.</li>\n'),
+(11, 'White Sauce Pasta Casserole', '\n<li>Heat the oven to 400°F.</li>\n<li>Brush a baking dish with oil.</li>\n<li>Cook the pasta, drain and set aside.</li>\n<li>Heat oil in a pan and cook the onion gently until translucent. Add garlic.  Brown chicken if using and remove from pan.</li>\n<li>Add herbs to pan, cooking briefly, before adding cream sauce, stirring well until it bubbles slightly.  Remove from heat.</li>\n<li>Layer pasta, chicken(or your chosen vegetable) and sauce in your baking dish.</li>\n<li>Bake for 30-45 minutes. Serve with grated cheese, if desired.</li>\n'),
+(12, 'Creamy Vegetable Pasta Casserole', '\n<li>Heat the oven to 400°F.</li>\n<li>Brush a baking dish with oil.</li>\n<li>While the oven is heating, boil some water and cook the cauliflower.</li>\n<li>Fish out each piece witha slotted spoon and puree in the food processor.</li>\n<li>Add half the cheese and any spices you like. Pulse a few more times.</li>\n<li>Cook the pasta in the boiling water still in the pot. Drain.</li>\n<li>Layer the pasta and the vegetable mixture in your baking dish, topping with cheese and breadcrumbs if desired.</li>\n<li>Bake for 20-30 minutes, or until bubbly.</li>\n<li>Serve with grated cheese.</li>\n<li>Adapted from recipes by Mark Bittman in The New York Times</li>\n'),
+(13, 'Baked Falafel', '\n<li>Heat the oven to 400°F.</li>\n<li>Pulse chickpeas and garlic in food processor.</li>\n<li>Add other ingredients slowly, one-by-one, pulsing as sparingly as possible, so that the mixture resembles coarse breadcrumbs when you''re finished, but still can be packed into good-sized clumps.</li>\n<li>Drop, in spoonfuls like cookies, onto a rimmed baking sheet and bake for about 30 minutes.</li>\n<li>Serve with pitas or rice, yoghurt and fresh cut vegetables for a filling and refreshing meal.</li>\n'),
+(14, 'Hummus', '\n<li>Pulse chickpeas and garlic in food processor.</li>\n<li>Add other ingredients slowly, one-by-one, processing until a fairly smooth paste is produced.</li>\n<li>Best served with pitas, toasted or fresh.</li>\n'),
+(15, 'Veggie Stir Fry', '\n<li>Cook the rice.</li>\n<li>When the rice is about halfway done, heat the oil in a large, rounded pan on medium-high, and add the scallions and ginger, if using, stirring lightly so they do not burn.</li>\n<li>Add vegetables(sliced) and garlic, chopped fine, keeping them moving lightly around the pan so as to keep them in contact with the bottom of the pan for as brief a moment at a time as you can.</li>\n<li>If you''re using it, mix some broth with a spoonful of soy sauce and a spoonful of cornstarch and add to the pan, stirring to incorporate this sauce.  Remove from heat within the minute, and serve immediately over rice.</li>\n'),
+(16, 'Stir Fry with Meat or Tofu', '\n<li>Cook the rice.</li>\n<li>When the rice is about halfway done, heat the oil in a large, rounded pan on medium-high, and add the scallions and ginger, if using, stirring lightly so they do not burn.</li>\n<li>Add your favored protein, keeping it moving lightly around the pan, until it seems to be mostly cooked, about a minute, longer if using tofu.</li>\n<li>Add the vegetables(sliced) and garlic, chopped fine, continuing to keep the mixture in contact with the bottom of the pan for as brief a moment at a time as you can.</li>\n<li>If you''re using it, mix some broth with a spoonful of soy sauce and a spoonful of cornstarch and add to the pan, stirring to incorporate this sauce.  Remove from heat within the minute, and serve immediately over rice.</li>\n'),
+(17, 'Stir Fry with Seafood', '\n<li>Cook the rice.</li>\n<li>When the rice is about halfway done, heat the oil in a large, rounded pan on medium-high, and add the scallions and ginger, if using, stirring lightly so they do not burn.</li>\n<li>Add your chosen seafood, keeping it moving lightly around the pan, until it seems to be mostly cooked, two or three minutes.</li>\n<li>Add the vegetables(sliced) and garlic, chopped fine, continuing to keep the mixture in contact with the bottom of the pan for as brief a moment at a time as you can.</li>\n<li>If you''re using it, mix some broth with a spoonful of soy sauce and a spoonful of cornstarch and add to the pan, stirring to incorporate this sauce.  Remove from heat within the minute, and serve immediately over rice.</li>\n'),
+(18, 'Peanut Noodles', '\n<li>Boil water.  While it is not yet boiling, puree the garlic and ginger in a food processor.  If you prefer to do this by hand, grating them works just as well.</li>\n<li>When the water is boiling, cook the pasta. and drain.</li>\n<li>Place the pot back on the stove and heat the oil in it.  Once it shimmers, add the garlic-ginger mixture, stirring quickly so it doesn''t burn.  Immediately add your chili flakes or chopped hot peppers.</li>\n<li>As soon as the garlic-ginger mixture has appeared to cook a bit, add your sauce(s).  If using fish sauce, some sugar would not go amiss.</li>\n<li>Add peanut butter, stirring to make a sauce of medium thickness.  Add noodles and sliced bell peppers, stirring to coat.</li>\n<li>Serve immediately, or at room temperature later, sprinkled with peanuts, and, if you like, pineapple chunks.</li>\n<li>Adapted from a recipe by Martin Minow.</li>\n'),
+(19, 'Essential Tagine', '\n<li>Heat oil in pan; add garlic and onion.  Cook gently until the onion is translucent, then add the garlic.</li>\n<li>Add your spices once the garlic has begun to soften, and fry until the contents of your pan are very fragrant.</li>\n<li>Add tomato sauce, raise the heat, and stir until bubbling. Then add your chosen meat, turning your pieces to coat it with your spice mixture. </li>\n<li>Add water and again, wait until it is bubbling before you cover your pan and turn the heat to low or medium-low, to simmer, lid slightly askew, for approximately twenty minutes (if there are bones, it may take longer).</li>\n<li>Add whichever fruit you prefer, chopped to smaller-than-bite-sized if necessary, and simmer again for another ten minutes.</li>\n<li>Serve with couscous.</li>\n<li>Adapted from recipes by Mark Bittman in The New York Times</li>\n'),
+(20, 'Breaded Chicken', '\n<li>Preheat the oven to 375°F.</li>\n<li>Combine breadcrumbs, olive oil, herbs and spices in a gallon plastic bag.</li>\n<li>Drop in chicken pieces one at a time and shake or use hands to coat the chicken with the breading mixture.</li>\n<li>Bake chicken on a rimmed baking sheet or in a baking dish for 20-40 minutes.</li>\n'),
+(21, 'Broth', '\n<li>Remove the bones of your desired meat, if using meat or fish. Break or chop vegetables into rough chunks.</li>\n<li>Add bones and some of the meat, as well as the vegetables to a pot, covering with water, and bring to a boil.</li>\n<li>Lower the heat until it is just barely bubbling and let it simmer, lid askew for saveral hours.</li>\n<li>Strain once cool enough to handle and refrigerate overnight.</li>\n<li>Skim any fat buildup from the top of your broth, and store as preferred, or use within two days. </li>\n<li>Use as a soup base or in other recipes.  Freezes well.</li>'),
+(22, 'Tomato Sauce', '\n<li>Heat the oil until it shimmers.</li>\n<li>Add the onion, if using, and cook gently until translucent.  Add garlic, chopped fine or crushed.</li>\n<li>Puree the tomatoes in a blender of food processor, or chop into thumb-sized pieces. Add the salt and add to onion-garlic mixture.</li>\n<li>Bring to a bubbling boil and then lower the heat. Cook until the tomatoes are cooked to your satisfaction.</li>\n<li>Add herbs, chili flakes and anchovy paste if desired, and cook for another few minutes, stirring well to incorporate.</li>\n<li>Use in other dishes or serve over pasta.  Freezes well.</li>');
 
 -- --------------------------------------------------------
 
@@ -459,7 +469,13 @@ INSERT INTO `recipe_equipment_map` (`recipeID`, `equipmentID`) VALUES
 (19, 1),
 (20, 8),
 (20, 14),
-(20, 9);
+(20, 9),
+(21,1),
+(21, 3),
+(21, 4),
+(22,1),
+(22,7),
+(22, 11);
 
 -- --------------------------------------------------------
 
@@ -479,9 +495,8 @@ CREATE TABLE IF NOT EXISTS `recipe_filter_categories` (
 INSERT INTO `recipe_filter_categories` (`id`, `name`) VALUES
 (1, 'Flavors'),
 (2, 'Dishes'),
-(3, 'Equipment'),
-(4, 'Other'),
-(5, 'Without');
+(3, 'Other');
+
 
 -- --------------------------------------------------------
 
@@ -513,10 +528,10 @@ INSERT INTO `recipe_filter_category_tag_map` (`filterCategoryID`, `tagID`) VALUE
 (2, 12),
 (2, 13),
 (2, 14),
-(4, 15),
-(4, 16),
-(4, 17),
-(4, 18);
+(3, 15),
+(3, 16),
+(3, 17),
+(3, 18);
 
 -- --------------------------------------------------------
 
@@ -692,7 +707,20 @@ INSERT INTO `recipe_ingredient_map` (`recipeID`, `ingredientID`, `isOptional`, `
 (20, 64, 1, 0),
 (20, 27, 1, 0),
 (20, 11, 1, 0),
-(20, 18, 1, 0);
+(20, 18, 1, 0),
+(21, 12, 1, 4),
+(21, 100, 1, 4),
+(21, 79, 1, 4),
+(21, 28, 1, 8),
+(21, 63, 0, 80),
+(22, 2, 0, 3),
+(22, 12, 1, 4),
+(22, 3, 1, 3),
+(22, 26, 0, 85),
+(22, 18, 0, 1),
+(22, 27, 1, 1),
+(22, 5, 1, 1),
+(22, 107, 1, 1);
 
 -- --------------------------------------------------------
 
@@ -883,7 +911,18 @@ INSERT INTO `recipe_replaceable_ingredient_map` (`recipeID`, `ingredientID`, `re
 (20, 2, 67),
 (20, 64, 57),
 (20, 27, 14),
-(20, 27, 104);
+(20, 27, 104),
+(21, 100, 69),
+(21, 79, 78),
+(21, 79, 77),
+(21, 28, 83),
+(21, 28, 56),
+(21, 28, 87),
+(21, 28, 88),
+(22, 2, 65),
+(22, 2, 66),
+(22, 2, 67),
+(22, 107, 105);
 
 -- --------------------------------------------------------
 
@@ -1014,7 +1053,16 @@ INSERT INTO `recipe_tag_map` (`recipeID`, `tagID`) VALUES
 (20, 3),
 (20, 20),
 (20, 15),
-(20, 14);
+(20, 14),
+(21, 18),
+(21, 1),
+(21, 2),
+(21, 3),
+(21, 4),
+(21, 5),
+(22, 18),
+(22, 2),
+(22, 4);
 
 --
 -- Indexes for dumped tables
