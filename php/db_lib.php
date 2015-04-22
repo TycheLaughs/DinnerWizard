@@ -136,7 +136,7 @@
             $recipeList = [ ];
 
             //Allow the user to do only the ingredients the supply exclude all recipes that contain other ones.
-            $exclusiveIngredients = $request["ExclusiveIngredients"];
+            $exclusiveIngredients = $request["exclusiveIngredients"];
             $ingredientFilter = $request["ingredientTags"];
             $recipeTagFilter = $request["recipeTags"];
             $equipmentFilter = $request["equipment"];
@@ -153,34 +153,8 @@
                 {
 
                     array_push( $recipeList, $recipeID ) ;
-
-                    if( !$exclusiveIngredients )
-                    {
-                        //there's no reason for duplicate recipes if we dont want specific ingredients
-                        $recipeList = array_unique( $recipeList );
-                    }
-                    /*else
-                    {
-
-                        //Determin the number of ingredients we are dealing with
-                        $uiNumOfIngredients = count($ingredientFilter) ;
-                        //Get a temporary array containing on the unique recipes
-                        $tempArray = array_unique( $result ) ;
-                        //Taking the difference of the unique recipes and all recipes should give us only the duplicates
-                        $onlyDuplicateRecipes = $tempArray - $result ;
-
-                        $histogram = array_count_values( $onlyDuplicateRecipes ) ;
-
-                        foreach( $histogram as $recipe )
-                        {
-                            if( array_values( $recipe ) == $uiNumOfIngredients )
-                            {
-                                array_push( $recipeList, $recipe ) ;
-                            }
-                        }
-
-                    }
-                     */
+                    //there's no reason for duplicate recipes if we dont want specific ingredients
+                    $recipeList = array_unique( $recipeList );
 
                 }
 
@@ -213,6 +187,11 @@
             if( $recipeTagFilter != NULL )
             {
                 $recipeList = $this->matchRecipeTags( $recipeTagFilter, $recipeList ) ;
+            }
+
+            if( $exclusiveIngredients )
+            {
+                $recipeList = $this->exclusiveIngredientList( $ingredientFilter, $recipeList ) ;
             }
 
 
@@ -400,7 +379,7 @@
                 $tagMatch = FALSE ;
 
                 //SELECT tagID FROM TABLE_RECIPE_TAG_MAP WHERE recipeID = $item["id"]
-                $tagID = $this->conn->query( $temp = sprintf( $this->mQuery_SelectFromTable, "tagID", TABLE_RECIPE_TAG_MAP, "recipeID", $item ) ) ;
+                $tagID = $this->conn->query( sprintf( $this->mQuery_SelectFromTable, "tagID", TABLE_RECIPE_TAG_MAP, "recipeID", $item ) ) ;
 
                 if( $tagID != NULL )
                 {
@@ -408,7 +387,8 @@
                     while( $row = mysqli_fetch_row( $tagID ) )
                     {
 
-                        //Check to see if the tagID for the recipe, $item,
+                        //Check to see if a tagID from the tagList and the tagID from the recipe_tag_map, for the given
+                        //recipeID, match
                         foreach( $tagList as $tagItem )
                         {
                             if( $row[0] == $tagItem["id"] )
@@ -425,9 +405,13 @@
                     }
 
                 }
+
                 if( $tagMatch == FALSE )
                 {
-                    unset( $recipeList[$item] );
+                    if( ( $key = array_search( $item, $recipeList) ) !== false )
+                    {
+                        unset( $recipeList[$key] );
+                    }
                 }
             }
 
@@ -435,6 +419,67 @@
 
         }
 
+        /**
+         * Summary:
+         *      Exclusive ingredients require that any recipe that we return has all of the requested ingredients in
+         *      it and nothing more so we have to filter through the list of recipes we've currently generated and check
+         *      to see that all of the ingredients are present in it, if not we need to remove it.
+         * @param $ingredientList
+         *      The list of ingredient objects that we are filtering on
+         * @param $recipeList
+         *      The current list of recipe Id's that we have gathered from filtering
+         * @return mixed
+         *      A recipe list that contains only recipes which contain all ingredients in the ingredientList
+         */
+        private function exclusiveIngredientList( $ingredientList, $recipeList )
+        {
+
+            //To ensure our recipelist only conatins recipes that match the tag we will get all the tagID's for the recipes
+            //we have found and then check to make sure they match a tagID in our tag list
+            foreach( $recipeList as $item )
+            {
+
+                $tempArray = [] ;
+
+                //SELECT ingredientID FROM TABLE_RECIPE_TAG_MAP WHERE recipeID = $item["id"]
+                $ingredientID = $this->conn->query( $temp = sprintf( $this->mQuery_SelectFromTable, "ingredientID", TABLE_RECIPE_INGREDIENT_MAP, "recipeID", $item ) ) ;
+
+                if( $ingredientID != NULL )
+                {
+
+                    while( $row = mysqli_fetch_row( $ingredientID ) )
+                    {
+
+                        //Check to see if a tagID from the tagList and the tagID from the recipe_tag_map, for the given
+                        //recipeID, match
+                        foreach( $ingredientList as $ingredient )
+                        {
+                            if( $row[0] == $ingredient["id"] )
+                            {
+                                array_push( $tempArray, $ingredient );
+
+                            }
+                        }
+
+                    }
+
+                }
+
+                if( $tempArray != $ingredientList )
+                {
+
+                    if( ( $key = array_search( $item, $recipeList) ) !== false )
+                    {
+                        unset( $recipeList[$key] );
+                    }
+
+                }
+
+            }
+
+            return $recipeList ;
+
+        }
         private function buildRecipeList()
         {
 

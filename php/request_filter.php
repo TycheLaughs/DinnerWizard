@@ -9,9 +9,12 @@
     $request = $data["filter"] ;
 
     /*Test Data
-     $request = [ "ExclusiveIngredients" => false,
-                  "ingredientTags" => [ [ "id" => 18, "name" => "salt" ] ],
-                  "recipeTags" => [ [ "id" => 16, "name" => "Vegetarian"]],
+     $request = [ "exclusiveIngredients" => true,
+                  "ingredientTags" => [ [ "id" => 1, "name" => "Pasta" ],
+                                        [ "id" => 2, "name" => "Olive Oil" ],
+                                        [ "id" => 3, "name" => "Garlic" ],
+                                        [ "id" => 4, "name" => "Cauliflower"]],
+                  "recipeTags" => [[ "id" => 7, "name" => "Pasta" ]],
                   "equipment" => [],
                   "without" => []];
     */
