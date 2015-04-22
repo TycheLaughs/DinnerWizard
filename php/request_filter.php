@@ -9,13 +9,15 @@
     $request = $data["filter"] ;
 
     /*Test Data
-     $request = [ "exclusiveIngredients" => false,
-                  "ingredientTags" => [ [ "id" => 20, "name" => "eggs" ] ],
-                  "recipeTags" => [ [ "id" => 7, "name" => "pasta" ] ],
-                  "equipment" => [ [ "id" => 10, "name" => "frying pan" ] ],
-                  "without" => [ [ "id" => 17, "name" => "spicy", "group" => "recipes" ],
-                  [ "id" => 3, "name" => "seafood", "group" => "ingredients" ] ] ];
-     */
+     $request = [ "exclusiveIngredients" => true,
+                  "ingredientTags" => [ [ "id" => 1, "name" => "Pasta" ],
+                                        [ "id" => 2, "name" => "Olive Oil" ],
+                                        [ "id" => 3, "name" => "Garlic" ],
+                                        [ "id" => 4, "name" => "Cauliflower"]],
+                  "recipeTags" => [[ "id" => 7, "name" => "Pasta" ]],
+                  "equipment" => [],
+                  "without" => []];
+    */
 
     $temp = new db_lib;
 

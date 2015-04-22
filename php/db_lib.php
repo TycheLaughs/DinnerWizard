@@ -136,15 +136,15 @@
             $recipeList = [ ];
 
             //Allow the user to do only the ingredients the supply exclude all recipes that contain other ones.
-            $exclusiveIngredients = $request["ExclusiveIngredients"];
+            $exclusiveIngredients = $request["exclusiveIngredients"];
             $ingredientFilter = $request["ingredientTags"];
-            $recipeFilter = $request["recipeTags"];
+            $recipeTagFilter = $request["recipeTags"];
             $equipmentFilter = $request["equipment"];
             $withoutFilter = $request["without"];
 
             //If we have there has been a filter provided in each of the fields try to generate an array of the correct
             //recipes, if you can then add that array to the recipeList.
-            if( $ingredientFilter != "" AND ( $result = $this->filter( $ingredientFilter, "ingredientTags" ) ) != NULL )
+            if( $ingredientFilter != NULL AND ( $result = $this->filter( $ingredientFilter, "ingredientTags" ) ) != NULL )
             {
 
                 //Having to loop through the results to rebuild our recipeList isn't very elegant but merging arrays
@@ -153,47 +153,13 @@
                 {
 
                     array_push( $recipeList, $recipeID ) ;
-
-                    if( !$exclusiveIngredients )
-                    {
-                        //there's no reason for duplicate recipes if we dont want specific ingredients
-                        $recipeList = array_unique( $recipeList );
-                    }
-                    /*else
-                    {
-
-                        //Determin the number of ingredients we are dealing with
-                        $uiNumOfIngredients = count($ingredientFilter) ;
-                        //Get a temporary array containing on the unique recipes
-                        $tempArray = array_unique( $result ) ;
-                        //Taking the difference of the unique recipes and all recipes should give us only the duplicates
-                        $onlyDuplicateRecipes = $tempArray - $result ;
-
-                        $histogram = array_count_values( $onlyDuplicateRecipes ) ;
-
-                        foreach( $histogram as $recipe )
-                        {
-                            if( array_values( $recipe ) == $uiNumOfIngredients )
-                            {
-                                array_push( $recipeList, $recipe ) ;
-                            }
-                        }
-
-                    }
-                     */
+                    //there's no reason for duplicate recipes if we dont want specific ingredients
+                    $recipeList = array_unique( $recipeList );
 
                 }
 
             }
-            if( $recipeFilter != "" AND ( $result = $this->filter( $recipeFilter, "recipeTags" ) ) != NULL )
-            {
-                foreach( $result as $recipeID )
-                {
-                    array_push( $recipeList, $recipeID ) ;
-                    $recipeList = array_unique( $recipeList ); //there's no reason for duplicate recipes
-                }
-            }
-            if( $equipmentFilter != "" AND ( $result = $this->filter( $equipmentFilter, "equipment" ) ) != NULL )
+            if( $equipmentFilter != NULL AND ( $result = $this->filter( $equipmentFilter, "equipment" ) ) != NULL )
             {
                 foreach( $result as $recipeID )
                 {
@@ -204,7 +170,7 @@
 
             //The without filter is a little different, if it finds a recipe it then searches the recipeList and
             //removes it from the list if it is present
-            if( $withoutFilter != "" AND ( $result = $this->filter( $withoutFilter, "without" ) ) != NULL )
+            if( $withoutFilter != NULL AND ( $result = $this->filter( $withoutFilter, "without" ) ) != NULL )
             {
 
                 foreach( $result as $item )
@@ -216,6 +182,18 @@
                 }
 
             }
+            //Only recipes for ingredients/equipment that we found that also contain the requested tag can be used
+            //so we need to check our recipe list and make sure that the tag matches
+            if( $recipeTagFilter != NULL )
+            {
+                $recipeList = $this->matchRecipeTags( $recipeTagFilter, $recipeList ) ;
+            }
+
+            if( $exclusiveIngredients )
+            {
+                $recipeList = $this->exclusiveIngredientList( $ingredientFilter, $recipeList ) ;
+            }
+
 
             $recipeList = $this->buildFilterResponse( $recipeList ) ;
             return $recipeList;
@@ -247,12 +225,6 @@
                 {
                     $mapTable = TABLE_RECIPE_INGREDIENT_MAP ;
                     $mapAttribute = "ingredientID";
-                    break;
-                }
-                case "recipeTags":
-                {
-                    $mapTable = TABLE_RECIPE_TAG_MAP ;
-                    $mapAttribute = "tagID" ;
                     break;
                 }
                 case "equipment":
@@ -317,7 +289,7 @@
                 }
 
                 //SELECT recipeID FROM $mapTable WHERE $mapApptribute = $item["id"]
-                $recipeIDs = $this->conn->query( $temp = sprintf( $this->mQuery_SelectFromTable, "recipeID", $mapTable, $mapAttribute, $item["id"] ) ) ;
+                $recipeIDs = $this->conn->query( sprintf( $this->mQuery_SelectFromTable, "recipeID", $mapTable, $mapAttribute, $item["id"] ) ) ;
 
                 //When we run the query we are getting the first row right away because recipes are unique. If the
                 //result is NULL then there is no recipe associated with the current filter
@@ -336,6 +308,7 @@
             return $recipeIDList;
 
         }
+
 
         /**
          * Summary:
@@ -384,6 +357,129 @@
             return $recipeList ;
         }
 
+        /**
+         * Summary:
+         *      Take a list of recipeID's and TagId's and remove any recipe from the recipeList that doesnt contain a tag
+         *      from the taglist
+         * @param $tagList
+         *      A list of Tag objects [ 'id' => id, 'name' => name ]
+         * @param $recipeList
+         *      A list of recipe Ids
+         * @return mixed
+         *      A list of recipeID's that have tagId's from the tag list.
+         */
+        private function matchRecipeTags( $tagList, $recipeList )
+        {
+
+            //To ensure our recipelist only conatins recipes that match the tag we will get all the tagID's for the recipes
+            //we have found and then check to make sure they match a tagID in our tag list
+            foreach( $recipeList as $item )
+            {
+
+                $tagMatch = FALSE ;
+
+                //SELECT tagID FROM TABLE_RECIPE_TAG_MAP WHERE recipeID = $item["id"]
+                $tagID = $this->conn->query( sprintf( $this->mQuery_SelectFromTable, "tagID", TABLE_RECIPE_TAG_MAP, "recipeID", $item ) ) ;
+
+                if( $tagID != NULL )
+                {
+
+                    while( $row = mysqli_fetch_row( $tagID ) )
+                    {
+
+                        //Check to see if a tagID from the tagList and the tagID from the recipe_tag_map, for the given
+                        //recipeID, match
+                        foreach( $tagList as $tagItem )
+                        {
+                            if( $row[0] == $tagItem["id"] )
+                            {
+                                $tagMatch = TRUE ;
+                                break ;
+                            }
+                        }
+
+                        if( $tagMatch == TRUE )
+                        {
+                            break ;
+                        }
+                    }
+
+                }
+
+                if( $tagMatch == FALSE )
+                {
+                    if( ( $key = array_search( $item, $recipeList) ) !== false )
+                    {
+                        unset( $recipeList[$key] );
+                    }
+                }
+            }
+
+            return $recipeList ;
+
+        }
+
+        /**
+         * Summary:
+         *      Exclusive ingredients require that any recipe that we return has all of the requested ingredients in
+         *      it and nothing more so we have to filter through the list of recipes we've currently generated and check
+         *      to see that all of the ingredients are present in it, if not we need to remove it.
+         * @param $ingredientList
+         *      The list of ingredient objects that we are filtering on
+         * @param $recipeList
+         *      The current list of recipe Id's that we have gathered from filtering
+         * @return mixed
+         *      A recipe list that contains only recipes which contain all ingredients in the ingredientList
+         */
+        private function exclusiveIngredientList( $ingredientList, $recipeList )
+        {
+
+            //To ensure our recipelist only conatins recipes that match the tag we will get all the tagID's for the recipes
+            //we have found and then check to make sure they match a tagID in our tag list
+            foreach( $recipeList as $item )
+            {
+
+                $tempArray = [] ;
+
+                //SELECT ingredientID FROM TABLE_RECIPE_TAG_MAP WHERE recipeID = $item["id"]
+                $ingredientID = $this->conn->query( $temp = sprintf( $this->mQuery_SelectFromTable, "ingredientID", TABLE_RECIPE_INGREDIENT_MAP, "recipeID", $item ) ) ;
+
+                if( $ingredientID != NULL )
+                {
+
+                    while( $row = mysqli_fetch_row( $ingredientID ) )
+                    {
+
+                        //Check to see if a tagID from the tagList and the tagID from the recipe_tag_map, for the given
+                        //recipeID, match
+                        foreach( $ingredientList as $ingredient )
+                        {
+                            if( $row[0] == $ingredient["id"] )
+                            {
+                                array_push( $tempArray, $ingredient );
+
+                            }
+                        }
+
+                    }
+
+                }
+
+                if( $tempArray != $ingredientList )
+                {
+
+                    if( ( $key = array_search( $item, $recipeList) ) !== false )
+                    {
+                        unset( $recipeList[$key] );
+                    }
+
+                }
+
+            }
+
+            return $recipeList ;
+
+        }
         private function buildRecipeList()
         {
 
@@ -619,6 +715,13 @@
 
         }
 
+        /**
+         * Summary:
+         *      Get a json object representing all of the recipes in the database
+         *
+         * @return string
+         *      The JSON object representing the recipes
+         */
         public function getRecipes()
         {
             //make sure we have the most up to date version of the recipes
@@ -626,6 +729,13 @@
             //return $this->getBaseTableInfo( $this->mPath_AllRecipesJSON ) ;
         }
 
+        /**
+         * Summary:
+         *      Get a json object representing all of the ingredients in the database
+         *
+         * @return string
+         *      The JSON object representing the ingredients
+         */
         public function getIngredients()
         {
             //make sure we have the most up to date version of the recipes
@@ -633,6 +743,13 @@
             //return $this->getBaseTableInfo( $this->mPath_AllIngredientsJSON ) ;
         }
 
+        /**
+         * Summary:
+         *      Get a json object representing all of the equipment in the database
+         *
+         * @return string
+         *      The JSON object representing the equipment
+         */
         public function getEquipment()
         {
             //make sure we have the most up to date version of the recipes
