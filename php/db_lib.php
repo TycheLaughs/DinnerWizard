@@ -182,6 +182,7 @@
                 }
 
             }
+
             //Only recipes for ingredients/equipment that we found that also contain the requested tag can be used
             //so we need to check our recipe list and make sure that the tag matches
             if( $recipeTagFilter != NULL )
@@ -191,7 +192,7 @@
 
                 //Now that we've simplified our current list we can go in and get all the other recipes that pertain
                 //to this recipe filter
-                if( $result = $this->filter( $recipeTagFilter, "recipeTags" )  != NULL )
+                if( ($result = $this->filter( $recipeTagFilter, "recipeTags" )) != NULL )
                 {
                     foreach( $result as $recipeID )
                     {
@@ -200,7 +201,6 @@
                     }
                 }
             }
-
             if( $exclusiveIngredients )
             {
                 $recipeList = $this->exclusiveIngredientList( $ingredientFilter, $recipeList ) ;
