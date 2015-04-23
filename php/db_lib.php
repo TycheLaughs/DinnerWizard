@@ -186,7 +186,19 @@
             //so we need to check our recipe list and make sure that the tag matches
             if( $recipeTagFilter != NULL )
             {
+                //first lets get only recipes that pertain to this tag from our current recipe list
                 $recipeList = $this->matchRecipeTags( $recipeTagFilter, $recipeList ) ;
+
+                //Now that we've simplified our current list we can go in and get all the other recipes that pertain
+                //to this recipe filter
+                if( $result = $this->filter( $recipeFilter, "recipeTags" ) ) != NULL )
+                {
+                    foreach( $result as $recipeID )
+                    {
+                        array_push( $recipeList, $recipeID ) ;
+                        $recipeList = array_unique( $recipeList ); //there's no reason for duplicate recipes
+                    }
+                }
             }
 
             if( $exclusiveIngredients )
@@ -225,6 +237,12 @@
                 {
                     $mapTable = TABLE_RECIPE_INGREDIENT_MAP ;
                     $mapAttribute = "ingredientID";
+                    break;
+                }
+                case "recipeTags":
+                {
+                    $mapTable = TABLE_RECIPE_TAG_MAP ;
+                    $mapAttribute = "tagID" ;
                     break;
                 }
                 case "equipment":
