@@ -5,7 +5,7 @@
 * Created:  3/18/2015 by Susan Souza for use in the Dinner Wizard application
 * Re-factored into separate files 3/18/2015. See dwScript.js for earlier revision notes.
 */
-DinnerWizardApp.controller('inventoryController',function($scope, $http, persistentService) {
+DinnerWizardApp.controller('inventoryController',function($scope, $http, $modal, persistentService) {
       
       $scope.list = persistentService.List();
       $scope.oneAtATime = true;
@@ -17,8 +17,10 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
       $scope.ingrCats = ['Alternate Protein', 'Meat', 'Seafood', 'Starch', 'Vegetables', 'Spices and Herbs', 'Odds and Ends','Pre-Made']; 
       $scope.buttonClass = "invStyle";
       $scope.selected = undefined;
+      $scope.toggled = 0;
+      $scope.clickedHeader = '';
      
-     
+
       /*$http.get("php/generate_recipe_json.php").success(function(data) {
          $scope.recipes = data.recipes; //assign the array of objects called
          //RECIPES in the json file to a variable named recipes 
@@ -53,7 +55,14 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
          }
       }); 
       
-      
+      $scope.openInstr = function(){//ref: https://angular-ui.github.io/bootstrap/
+         console.log('opening modal');
+         settimeout(3000);
+         var modalInstance = $modal.open({
+            templateUrl: 'instructions.html',
+            controller: 'instrController'
+         });
+      };
       /* call mutators for the arrays stored 'globally' in a service*/
      $scope.clickedFromListing = function(content){
          persistentService.addIngredient(content);    
@@ -61,6 +70,7 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
       
       $scope.clickedFromInventory = function(item){
          persistentService.removeIngredient(item);
+         
       };
 
       $scope.clearInv = function(){
@@ -97,5 +107,5 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, persist
          }
       }); 
    };
-         
 });
+         

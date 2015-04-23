@@ -7,7 +7,7 @@ Modified: 2/25/2015 by Susan Souza to add interactivity and 'Clear Filters' butt
 Modified: 3/13/2015 by Susan Souza to make accordion headers fully clickable-- toggle on a click anywhere in the header
 -- rather than the text only.
 -->
-<div class="col-xs-5 col-sm-5" ><p class = "pushDown">{{ message }} Selection:</p> 
+<div class="col-xs-5 col-sm-6" ><p class = "pushDown">Filters Selection:</p> 
 <!-- AngularUI Bootstrap Accordion found here, with some modifications:
 http://angular-ui.github.io/bootstrap/ -->
    <div class= "listing">
@@ -16,7 +16,7 @@ http://angular-ui.github.io/bootstrap/ -->
          <accordion-group ng-repeat ="cat in filterList">
             <accordion-heading>
                <div>
-                  {{cat.Category}}
+                  {{cat.Category}} <span class="glyphicon glyphicon-chevron-down"></span>
                </div>
             </accordion-heading>
             <ul ng-repeat="content in cat.Contents">
@@ -26,46 +26,46 @@ http://angular-ui.github.io/bootstrap/ -->
              <accordion-group>
                   <accordion-heading>
                      <div>
-                        Equipment
+                        Equipment <span class="glyphicon glyphicon-chevron-down"></span>
                      </div>
                   </accordion-heading>
                   <ul ng-repeat="item in equipment">
                      <li style="list-style-type: none" ><a ng-click="clickedFromEquip(item.name)">{{item.name}}</a></li>
                   </ul>
                </accordion-group>
-<!--           <accordion-group>
+               <accordion-group>
                   <accordion-heading>
                   <div>
-                     Without
+                     Without <span class="glyphicon glyphicon-chevron-down"></span>
                      </div>
                   </accordion-heading>
-                  <accordion close-others="oneAtATime" class="inv"><!--begin Without nested Accordions
+                  <accordion close-others="oneAtATime" class="inv"><!--begin Without nested Accordions-->
                      <accordion-group>
                         <accordion-heading>
                            <div>
-                              Ingredients
+                              Ingredients <span class="glyphicon glyphicon-chevron-down"></span>
                            </div>
                         </accordion-heading>
-                        <accordion close-others="oneAtATime" class="rec" ><!--captured click from examples found here: http://stackoverflow.com/questions/15642082/handle-open-collapse-events-of-accordion-in-angular/15642577#15642577
+                        <accordion close-others="oneAtATime" class="rec" ><!--captured click from examples found here: http://stackoverflow.com/questions/15642082/handle-open-collapse-events-of-accordion-in-angular/15642577#15642577-->
                         
                            <accordion-group ng-repeat="cat in ingrCats">
                               <accordion-heading >
                                  <div>
-                                    {{cat}}
+                                    {{cat}} <span class="glyphicon glyphicon-chevron-down"></span>
                                  </div>
                               </accordion-heading>
                               <ul>
                                  <li ng-repeat="content in ingredients" ng-if="content.tags[0].name===cat" style="list-style-type: none" ><a ng-click="clickedFromWithout(content.ingredientName)">{{content.ingredientName}}</a></li>
                               </ul>
                            </accordion-group>
-                           <!-- end Without Ingredients
+                           <!-- end Without Ingredients-->
                         </accordion>
                      </accordion-group>
                      <accordion close-others="oneAtATime" class="inv">
                         <accordion-group>
                            <accordion-heading>
                               <div>
-                                 Equipment
+                                 Equipment <span class="glyphicon glyphicon-chevron-down"></span>
                               </div>
                            </accordion-heading>
                            <ul ng-repeat="item in equipment">
@@ -73,18 +73,18 @@ http://angular-ui.github.io/bootstrap/ -->
                            </ul>
                         </accordion-group>
                      </accordion>
-                     <!--end Without Equipment
+                     <!--end Without Equipment-->
                   </accordion>
-            </accordion-group>                 -->
+            </accordion-group>              
          </accordion>
       </div>
    </div>
-<div class="col-xs-1 col-sm-1"></div>  
+<div class="col-xs-1 col-sm-0"></div>  
 <div class="col-xs-6 col-sm-6">
    <div class = "rightColumn listContainer"><!--<p>Selected Recipe Filters:</p>-->
    Your Search Filter Selections:
       <ul class ="actualTagsList">
-         <li ng-repeat="item in tags track by $index" style="list-style-type: none" ng-click="clickedFromSelectedTags(item)"ng-class="{'noInteract': item === 'No Search Filters Selected'}"><span class ="tags" ng-class="{'without': item.substr(0,3)=== 'NO ', 'equip': item.substr(0,4)== 'Use ', 'flavor': item == 'Mexican' || item == 'Chinese' || item == 'Italian' ||item == 'Southeast Asian' || item == 'Western' || item == 'Mediterranean', 'other': item =='Vegetarian' || item =='Under 30 Minutes' || item == 'Cost Cutter', 'noStyle': item === 'No Search Filters Selected', 'noInteract': item === 'No Search Filters Selected'}"> {{item}}</span><span ng-if="item !== 'No Search Filters Selected'" class="closingX">x</span></li>
+         <li ng-repeat="item in tags track by $index" style="list-style-type: none" ng-click="clickedFromSelectedTags(item)"ng-class="{'noInteract': item === 'No Search Filters Selected'}"><span class ="tags" ng-class="{'without': item.substr(0,3)=== 'NO ', 'equip': item.substr(0,4)== 'Use ', 'flavor': item == 'Mexican' || item == 'Chinese' || item == 'Italian' ||item == 'Southeast Asian' || item == 'Western' || item == 'Mediterranean', 'other': item =='Vegetarian' || item =='Under 30' || item == 'Cost Cutter' || item =='Spicy' || item== 'Component', 'noStyle': item === 'No Search Filters Selected', 'noInteract': item === 'No Search Filters Selected'}"> {{item}}</span><span ng-if="item !== 'No Search Filters Selected'" class="closingX">x</span></li>
       </ul><!-- Resolved error with using ng-repeat and adding items to an array dynamically here: https://docs.angularjs.org/error/ngRepeat/dupes -->
    </div>
    <div class="col-xs-12">

@@ -36,12 +36,14 @@
    border: none;
    width: 200px;
    height: 28px;
+   margin-left:-3px;
    border: 1px solid lightgray;
    border-radius: 8px; 
 }
 
 #searchAdd{ /* div containing both the search bar and the glyphicon*/
    display:inline-block;
+
 }
 
 @media(max-width: 1400px){ /* this to correct weird shifting */
@@ -57,7 +59,8 @@
 #searchIcon{ /*style the magnifying glass glyphicon*/
    color: powderblue;
    cursor:default;
-   right:20px;
+   /*right:20px;*/
+   /*left:15px;*/
 }
 
 #recipeFoot{
@@ -82,6 +85,20 @@
    left:290px;
    width: 250px;
 }
+
+#chartBox{
+   position: relative;
+   left:-13px;
+   top: 13px;
+   padding:0px;
+   margin: 0px;
+   z-index:2;
+}
+
+#subsBox{
+   padding-right:15px;
+}
+
 @media(min-width: 1300px){
 
    #bigBox{
@@ -163,9 +180,10 @@ li:hover{   /*most list items are interactive, so here's something to show that 
 
 .listing{ /*a box to which we add a scrollbar if there are too many recipes to fit nicely on the page*/
    overflow-y: auto;
+   padding-right:25px;
    height: 600px;
    min-width: 270px;
-   max-width: 380px;
+   max-width: 415px;
 }
 .inv li:hover, .filt li:hover{
    cursor: pointer; /* re-emphasising interactivity on these specific list items in filter and inventory view*/
@@ -182,10 +200,10 @@ li:hover{   /*most list items are interactive, so here's something to show that 
 .optional{
    cursor: pointer;
    color: gray;
-   //text-decoration: underline;
-   //text-decoration-style: dotted;
-   //border-bottom:thin dashed gray;
-    /*temporary styling for optional ingredients*/
+   font-style: italic;
+   border-bottom:thin dotted gray;
+   font-weight: normal;
+    
 }
 
 .optionalTip{
@@ -214,6 +232,7 @@ li:hover{   /*most list items are interactive, so here's something to show that 
 }
 .componentRecipe{
    font-size: .9em;
+   padding-right:15px;
 }
 
 
@@ -228,16 +247,19 @@ li:hover{   /*most list items are interactive, so here's something to show that 
 .componentRecipe  ul, .componentRecipe ol{
    margin-left: 4px;
    padding-left: 4px;
+   
 }
 .closingX{
-   font-size: .8em;
-   margin-left: 3px;
-   color: white;
+   font-size: 1.2em;
+   margin-left: 5px;
+   color: #065195;/*dark blue*/
+   font-weight: normal;
+   font-family: monospace, sans-serif;
 
 }
 li:hover > .closingX{/* this makes hovering over the list item turn the little x span 'visible'*/
    /*ref: http://stackoverflow.com/questions/26289664/css-hover-one-element-affect-another  */
-   color:gray;
+   color:#8d1801; /*#065195;/*dark blue*/
    font-weight:normal;
 }
 
@@ -296,15 +318,16 @@ body {
 }
 /*initial styling for all buttons. needs review*/
 .roundEdges{
-   border: 1px solid #99b9f4; /*medium light blue*/
+   border: 2px solid #065195; 
    border-radius: 12px;
+   color: #065195;/*dark blue*/
    font-size: 1.1em;
    text-align: center;
    margin-top: 7px;
    margin-bottom:7px;
    padding: 4px;
    font-family: 'Bitter', serif;
-   background-color: #ebebfb;/*light grayish*/
+   /*background-color: #ebebfb;/*light grayish*/
 }
 
 /*styling for the right-hand column of each view.  */
@@ -377,12 +400,16 @@ body {
    
    .recipeButton{
       top:15px;
-      left: 233px;
+      left: 203px;
       position:fixed;
    }
    .aboutStyle{
       left:178px;
       top: 20px;
+   }
+   .aboutStyle{
+      top:10px;
+      right: 3px;
    }
 }
 
@@ -414,7 +441,8 @@ a:hover{
    height: 200px;
    border: 4px dashed #f8b30e; /* dark yellow */
    border-radius: 9px;
-    overflow-y: auto;
+   overflow-y: auto;
+   
 }
 
 /*make the box in which recipe procedure sits have a fixed height and scroll when the procedure is too large to fit.*/
@@ -434,37 +462,37 @@ a:hover{
    padding-right: 2px;
    padding-top: 0px;
    padding-bottom: 0px;
-   border-radius: 8px;
+  /* border-radius: 8px;*/
    color: #065195; /* dark blue*/
-   border: 1px solid #065195; 
+   /*border: 1px solid #065195; */
    background-color: #d9ffff; /*pale blue*/
    font-size: 1.1em;
 }
 /* change colors to orange for Flavor*/
 .flavor{
    color: #be6201; /*orange*/
-   border: 1px solid #be6201;
+   /*border: 1px solid #be6201;*/
    background-color: #fee7cb; /*fed6ab; /*pale orange*/
    
 }
 .equip{
    color: #217603;/* medium dark green*/
-   border: 1px solid #217603;
+  /* border: 1px solid #217603; */
    background-color: #e7f2e3; /*d4e2cf; /*pale green*/
 }
 .dish{
    color: #065195; /* dark blue*/
-   border: 1px solid #065195; 
+  /* border: 1px solid #065195; */
    background-color: #d9ffff; /*pale blue*/
 }
 .other{
    color: #5a0799;/*purple*/
-   border: 1px solid #5a0799;
+  /* border: 1px solid #5a0799;*/
    background-color: #eadcf4; /*pale purple-blue-gray*/
 }
 .without{
    color: #8d1801; /*dark red*/
-   border: 1px solid #8d1801; 
+  /* border: 1px solid #8d1801; */
    background-color: #ebebfb; /*very pale bluish gray*/ #e6ebef; /* pale gray*/
 }
 /*if, instead of a tag, this is something else displayed in any of the tag lists, remove all the relevant 'tag' styling.*/
@@ -473,7 +501,15 @@ a:hover{
    color: black;
    background-color: transparent;
 }
-
+.selected{
+   cursor: default;
+   background-color: lavender;
+   color: lightgray;
+}
+.haveIt{
+   right: 22px;
+   margin-right:-17px;
+}
 .noStyleList{
    cursor: default;
    list-style-type:none;
@@ -505,7 +541,7 @@ a:active{
    
 }
 .recipeButton{
-   border: 1px solid #8d1801; /*dark red */
+   border: 2px solid #8d1801; /*dark red */
 }
 
 ul.pushDown{
@@ -532,8 +568,11 @@ ul.pushDown{
    height: 40px;
    width: 320px;
    text-decoration:none;
+   border-image: none;
 }
-
+.rightHandButtons{
+   top: 12px;
+}
 @media(max-width:670px){
    .panel-default > .panel-heading{
       /*border: 1px solid gray;*/
@@ -550,6 +589,7 @@ ul.pushDown{
    .rec > .panel-group{
       width:270px;
       margin-right:8px;
+      border-image: none;
    }
    div.listing{
       margin-left:0px;
@@ -557,17 +597,20 @@ ul.pushDown{
       height:380px;
       width: 270px;
       overflow-y: hidden;
+      padding-right:18px;
    }
    div.listing:hover{
       margin-left:0px;
       height:380px;
       margin-right:10px;
       overflow-y: auto;
+      padding-right:18px;
    }
    .tagsList{ /* style the container around the list of user-selected filters in the recipe view*/
    height: 85px;
 
    }
+
    .hScroll{
       height:15px;
    }
@@ -584,6 +627,7 @@ ul.pushDown{
    .procedureBox{
       height: 300px;
       overflow-y: auto;
+      padding-right:18px;
       width: 275px;
       /*border: 1px dashed black;*/
    }
@@ -596,7 +640,7 @@ ul.pushDown{
    }
    div.listing{
       margin-top:15px;
-      width:280px;
+      width:315px;
    }
    
    .pushDown{
@@ -608,6 +652,12 @@ ul.pushDown{
    .topBox{
       height:75px;
    }
+   
+   .panel-collapse > .panel-body ul{
+      max-height: 100px;
+      border-image: none;
+
+   }
 }
 .activeButton{
    background-color: white;
@@ -615,9 +665,10 @@ ul.pushDown{
    font-weight: bold;
 }
 
+
 .filtStyle{
    color: #eaa706; /* dark yellow */
-   border: 1px solid #eaa706;
+   border: 2px solid #eaa706;
    border-radius: 18px;
 }
 .recStyle{
@@ -626,7 +677,7 @@ ul.pushDown{
 }
 .invStyle{
    color: #065195; /* dark blue*/
-   border: 1px solid #065195;
+   border: 2px solid #065195;
    border-radius: 18px;
 }
 .filtStyle:hover, .filtStyle:active, .filtStyle:focus{
@@ -661,11 +712,14 @@ ul.pushDown{
    color:#99b9f4; /*medium light blue*/
 }
 
-
+.rec  .panel-body li{
+   font-weight:bold;
+}
 div a.accordion-toggle:link, div a.accordion-toggle:hover, div a.accordion-toggle:visited, div a.accordion-toggle:active,  a.accordion-toggle:link,  a.accordion-toggle:hover, a.accordion-toggle:visited, a.accordion-toggle:active{
    text-decoration:none;
    outline: none;
    font-weight: normal;
+   border-image: none;
 }
 
 
@@ -694,16 +748,27 @@ h4.panel-title{
    margin-top:2px;
    border: none;
    text-decoration:none;
+   border-image: none;
+   
    
 }
+
 .panel-collapse > .panel-body ul{
    margin-bottom:1px;
+   overflow-y:auto;
+   max-height: 140px;
+   padding-right:18px;
+   border-image: none;
+}
+.panel-collapse > .panel-body{
+   border-image:none;
 }
 
 .panel-group .panel-heading + .panel-collapse > .panel-body {
    border: none;
    font-family: sans-serif;
    text-decoration:none;
+   border-image: none;
 }
 /* set color choices for each accordion header*/
 .inv >.panel-group >.panel-default >.panel-heading{
@@ -730,10 +795,20 @@ h4.panel-title{
 
 div.panel-group{
    margin-bottom: 2px;
+   border-image: none;
+  
 }
 div.panel-body{
    padding: 2px;
    padding-left: 15px;
+   border-image: none;
+}
+
+.glyphicon-chevron-down{
+   float:right;
+   position: relative;
+   right: 5px;
+   font-size: .7em;
 }
 /***** end styling accordions*******/
 #splashBlanket{/*supposed to prevent issues with teh spash screen's hidden cursor from affecting the rest of the app*/

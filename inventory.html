@@ -17,30 +17,30 @@ Modified: 3/15/2015 by Susan Souza to limit typeahead results to the correct obj
 -->
 
 <div class="col-xs-5 col-sm-5 leftCol" >
-    <p><div><span class="hidden-xs"><span class="hidden-xs hidden-sm hidden-md">Select </span>Ingredients: </span>
+    <p><div><span class="hidden-xs">Ingredients: </span>
       <!--searchbar with typeahead found here:
       http://angular-ui.github.io/bootstrap/
       Restriction of typeahead suggestions to only the name property of ingredient objects found here:
       http://stackoverflow.com/questions/16045069/limit-angular-ui-bootstrap-typeahead-to-specific-object-property
       -->
          <div id="searchAdd">
-            <input id ="ingredientSearch" type="text" ng-model="selected" typeahead="ingredient.ingredientName for ingredient in ingredients | filter:{ingredientName:$viewValue} | limitTo:7" typeahead-editable="ingredients" typeahead-on-select="clickedFromListing(selected)" typeahead-wait-ms="30"class="form-control"><span class="glyphicon glyphicon-search" id="searchIcon"></span>
+            <!--<span class="glyphicon glyphicon-search" id="searchIcon" tooltip-placement="top" tooltip-popup-delay='50' tooltip='Type here to search for ingredients instead of perusing the accordion' ></span>--><input id ="ingredientSearch" type="text" ng-model="selected" typeahead="ingredient.ingredientName for ingredient in ingredients | filter:{ingredientName:$viewValue} | limitTo:7" typeahead-editable="ingredients" typeahead-on-select="clickedFromListing(selected)" typeahead-wait-ms="30"class="form-control" tooltip-placement="top" tooltip-popup-delay='50' tooltip='Type here to search for ingredients instead of perusing the accordion'>
          </div>
          </div>
       </p>
    <!-- AngularUI Bootstrap Accordion found here, with some modifications:
    http://angular-ui.github.io/bootstrap/ -->
-    <div class= "listing">
+    <div>
          <accordion close-others="oneAtATime" class="inv" ><!--captured click from examples found here: http://stackoverflow.com/questions/15642082/handle-open-collapse-events-of-accordion-in-angular/15642577#15642577
          -->
             <accordion-group ng-repeat="cat in ingrCats">
-               <accordion-heading >
-                  <div>
-                   {{cat}}
+               <accordion-heading>
+                  <div >
+                   {{cat}}<span class="glyphicon glyphicon-chevron-down"></span>
                   </div>
                </accordion-heading>
                <ul>
-                  <li ng-repeat="content in ingredients" ng-if="content.tags[0].name===cat" style="list-style-type: none" ><a ng-click="clickedFromListing(content.ingredientName)">{{content.ingredientName}}</a></li>
+                  <li ng-repeat="content in ingredients|orderBy: 'ingredientName'" ng-if="content.tags[0].name===cat" style="list-style-type: none" ><a ng-click="clickedFromListing(content.ingredientName)"> {{content.ingredientName}}</a></li>
                </ul>
             </accordion-group>
          </accordion>
@@ -51,10 +51,10 @@ Modified: 3/15/2015 by Susan Souza to limit typeahead results to the correct obj
 <div class="col-xs-6">
    <div class="rightColumn listContainer">
       <div style="display: inline-block">Your Inventory: </div> 
-      <!--<div id ="restriction"style="display: inline-block;margin-left: 10px"><span class ="restrictButtonUP"ng-class="{'restrictButtonDOWN': restricted === true}" ng-click="checkIt()" tooltip-placement="top" tooltip-popup-delay='70' tooltip= '(Show Recipe Results for Only Ingredients in your Inventory)'>Restrict Recipes</span><input type="checkbox" name="exclusionBox" id = "exclusionBox" value="boxy" style="margin-left: 5px" ></div>-->
+      <div id ="restriction"style="display: inline-block;margin-left: 10px"><span class ="restrictButtonUP"ng-class="{'restrictButtonDOWN': restricted === true}" ng-click="checkIt()" tooltip-placement="top" tooltip-popup-delay='70' tooltip= '(Show Combination Results for Only Ingredients in Your Inventory)'>Restrict Search</span><input type="checkbox" name="exclusionBox" id = "exclusionBox" value="boxy" style="margin-left: 5px" ></div>
       
       <ul class = "pushDown">
-         <li ng-repeat="item in list track by $index" style="list-style-type: none" ng-click="clickedFromInventory(item)"ng-class="{'noInteract': item === 'Click ingredients to add them to your inventory, or search for them by name.'}">{{item}}<span ng-if="item !== 'Click ingredients to add them to your inventory, or search for them by name.'" class="closingX">x</span></li>
+         <li ng-repeat="item in list track by $index" style="list-style-type: none" ng-click="clickedFromInventory(item)"ng-class="{'noInteract': item === 'Click to select ingredients from the accordions to the left to add them to your inventory, or search for them by name.'}">{{item}}<span ng-if="item !== 'Click to select ingredients from the accordions to the left to add them to your inventory, or search for them by name.'" class="closingX">x</span></li>
       </ul><!-- Resolved error with using ng-repeat and adding items to an array dynamically here: https://docs.angularjs.org/error/ngRepeat/dupes -->
    </div>
    <div class="col-xs-12">

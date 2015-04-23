@@ -11,7 +11,7 @@
 * http://jsfiddle.net/b2fCE/1/
 */
 DinnerWizardApp.service('persistentService', function($http, $sce){
-   var list = ['Click ingredients to add them to your inventory, or search for them by name.'];
+   var list = ['Click to select ingredients from the accordions to the left to add them to your inventory, or search for them by name.'];
    var tagsList = ['No Search Filters Selected'];
    var restrict = false;
    var count = 0;
@@ -63,7 +63,7 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
       */
       addIngredient:function(clicked){
          console.log('Clicked '+ clicked);
-         if(list[0] == 'Click ingredients to add them to your inventory, or search for them by name.'){
+         if(list[0] == 'Click to select ingredients from the accordions to the left to add them to your inventory, or search for them by name.'){
             list.splice(0, 1);//an ingredient was clicked to add, so remove the user 
             //prompt before adding the item
          }
@@ -94,7 +94,7 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
          console.log('Clicked '+ clicked +' in constructed inventory.');
             list.splice(itemIndex, 1); 
             if(list.length === 0){//if array is empty, print user prompt
-               list.push('Click ingredients to add them to your inventory, or search for them by name.');
+               list.push('Click to select ingredients from the accordions to the left to add them to your inventory, or search for them by name.');
             }
       },
       /** clearInventory
@@ -104,7 +104,7 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
       clearInventory:function(){
        
          list.length = 0;
-         list.push('Click ingredients to add them to your inventory, or search for them by name.');
+         list.push('Click to select ingredients from the accordions to the left to add them to your inventory, or search for them by name.');
       },
       /**
       * constructs an array called tagsList to store search filters selected by one user at a time
@@ -241,11 +241,11 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
          filter.recipeTags = [];
          filter.equipment = [];
          filter.without = [];
-         filter.ExclusiveIngredients = restrict;
+         filter.exclusiveIngredients = restrict;
          //console.log(JSON.stringify(recTags));
          /* found way to return objects from get/post methods in an angular service here: http://stackoverflow.com/questions/12505760/processing-http-response-in-service
          with plunkr here: http://plnkr.co/edit/TTlbSv?p=preview */
-         if(list[0] === 'Click ingredients to add them to your inventory, or search for them by name.' && tagsList[0] === 'No Search Filters Selected' ){
+         if(list[0] === 'Click to select ingredients from the accordions to the left to add them to your inventory, or search for them by name.' && tagsList[0] === 'No Search Filters Selected' ){
             var response = $http.get("php/generate_recipe_json.php")
             .success(function(data) {
                //console.log(JSON.stringify(data) ) ;
@@ -262,7 +262,7 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
          //console.log("entered else");
           //test print to see that we are in fact getting the right thing from ingredients param
           //console.log(JSON.stringify(ingredients));
-            if ( list[0] !== 'Click ingredients to add them to your inventory, or search for them by name.' ){
+            if ( list[0] !== 'Click to select ingredients from the accordions to the left to add them to your inventory, or search for them by name.' ){
                for ( var i = 0; i < list.length; i++ ){ //iterate through array for inventory
                   for(var k = 0; k < ingredients.length; k++){
                      if(ingredients[k].ingredientName === list[i]){
@@ -341,7 +341,7 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
             }
 
              //test print to see what we built
-             console.log( "HERE" + JSON.stringify( filter ) );
+             console.log( "Filters sent:" + JSON.stringify( filter ) );
 
              //based on code from http://codeforgeek.com/2014/07/angular-post-request-php/
              //Tommy Leedberg - 3/10/2015 - Added steps for doing an http post. Not sure if this will work or not. We'll need to test/debug
