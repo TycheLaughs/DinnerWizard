@@ -191,7 +191,7 @@
 
                 //Now that we've simplified our current list we can go in and get all the other recipes that pertain
                 //to this recipe filter
-                if( $result = $this->filter( $recipeFilter, "recipeTags" ) ) != NULL )
+                if( $result = $this->filter( $recipeTagFilter, "recipeTags" )  != NULL )
                 {
                     foreach( $result as $recipeID )
                     {
