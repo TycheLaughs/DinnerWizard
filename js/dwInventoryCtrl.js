@@ -19,6 +19,7 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, $modal,
       $scope.selected = undefined;
       $scope.toggled = 0;
       $scope.clickedHeader = '';
+      $scope.restricted = persistentService.isItChecked();
      
 
       /*$http.get("php/generate_recipe_json.php").success(function(data) {
@@ -55,43 +56,34 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, $modal,
          }
       }); 
       
-      $scope.openInstr = function(){//ref: https://angular-ui.github.io/bootstrap/
-         console.log('opening modal');
-         settimeout(3000);
-         var modalInstance = $modal.open({
-            templateUrl: 'instructions.html',
-            controller: 'instrController'
-         });
-      };
+      
       /* call mutators for the arrays stored 'globally' in a service*/
      $scope.clickedFromListing = function(content){
-         persistentService.addIngredient(content);    
+         persistentService.addIngredient(content);   
+         search();        
       };
       
       $scope.clickedFromInventory = function(item){
          persistentService.removeIngredient(item);
+         search();
          
       };
 
       $scope.clearInv = function(){
          persistentService.clearInventory();
         // $scope.recipes=  persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList) ;  
+        search();
       };
       
         $scope.checkIt = function(){
-        
-        $scope.count= persistentService.toggleCheck($scope.box);
-        if($scope.count%2 === 0){
-         $scope.restricted = false;
-        }
-        else{
-         $scope.restricted = true;
-        }
+         persistentService.toggleCheck($scope.box);
+         $scope.restricted = persistentService.isItChecked();
+         console.log($scope.restricted);
       };  
-    $scope.search= function (){
+      function search(){
       // $scope.recipes = persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList);
       //console.log(JSON.stringify(persistentService.Tags() + persistentService.List()));
-      persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList).then(function(R){
+      $emit.persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList).then(function(R){
          //console.log("R.data.recipes: "+JSON.stringify(R.data.recipes));
          //console.log("We got this back: " +JSON.stringify(R.data));
          if(JSON.stringify(R.data)==='[]'){

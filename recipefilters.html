@@ -20,7 +20,7 @@ http://angular-ui.github.io/bootstrap/ -->
                </div>
             </accordion-heading>
             <ul ng-repeat="content in cat.Contents">
-               <li style="list-style-type: none" ><a ng-click="clickedFromTagListing(content.name)">{{content.name}}</a></li>
+               <li style="list-style-type: none" ng-if="content.name !=='Component'" ng-class="{'selected': tags.indexOf(content.name) > -1}"ng-click="clickedFromTagListing(content.name)">{{content.name}}</li>
             </ul>
             </accordion-group>
              <accordion-group>
@@ -30,7 +30,7 @@ http://angular-ui.github.io/bootstrap/ -->
                      </div>
                   </accordion-heading>
                   <ul ng-repeat="item in equipment">
-                     <li style="list-style-type: none" ><a ng-click="clickedFromEquip(item.name)">{{item.name}}</a></li>
+                     <li style="list-style-type: none" ng-class="{'selected': tags.indexOf('Use ' + item.name) > -1}" ng-click="clickedFromEquip(item.name)">{{item.name}}</li>
                   </ul>
                </accordion-group>
                <accordion-group>
@@ -55,7 +55,7 @@ http://angular-ui.github.io/bootstrap/ -->
                                  </div>
                               </accordion-heading>
                               <ul>
-                                 <li ng-repeat="content in ingredients" ng-if="content.tags[0].name===cat" style="list-style-type: none" ><a ng-click="clickedFromWithout(content.ingredientName)">{{content.ingredientName}}</a></li>
+                                 <li ng-repeat="content in ingredients" ng-if="content.tags[0].name===cat" style="list-style-type: none" ng-click="clickedFromWithout(content.ingredientName)" ng-class="{'selected': tags.indexOf('NO ' + content.ingredientName) > -1}">{{content.ingredientName}}</li>
                               </ul>
                            </accordion-group>
                            <!-- end Without Ingredients-->
@@ -69,7 +69,7 @@ http://angular-ui.github.io/bootstrap/ -->
                               </div>
                            </accordion-heading>
                            <ul ng-repeat="item in equipment">
-                              <li style="list-style-type: none" ><a ng-click="clickedFromWithout(item.name)">{{item.name}}</a></li>
+                              <li style="list-style-type: none" ng-class="{'selected': tags.indexOf('NO ' + item.name) > -1}" ng-click="clickedFromWithout(item.name)">{{item.name}}</li>
                            </ul>
                         </accordion-group>
                      </accordion>

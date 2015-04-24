@@ -46,20 +46,25 @@ DinnerWizardApp.controller('filterController', function($scope, $http, persisten
       }); 
       
       $scope.clickedFromTagListing = function(item){
-         persistentService.addTag(item);    
+         persistentService.addTag(item); 
+         search();
       };
       $scope.clickedFromWithout= function(item){
          persistentService.addWithoutTag(item);  
+         search(); 
       };
       $scope.clickedFromEquip = function(item){
          persistentService.addEquipTag(item);
-      }
+         search();
+      };
       $scope.clickedFromSelectedTags = function(item){
          persistentService.removeTag(item);
+         search();
       }; 
       $scope.clearList = function(){
          persistentService.clearTags();
          //$scope.recipes = persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList) ;
+         search();
       };
       function search(){
          // $scope.recipes = persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList);

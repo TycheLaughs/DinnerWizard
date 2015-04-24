@@ -19,7 +19,9 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
    return{
    
    
-   
+   isItChecked:function(){
+      return restrict;
+   },
    
    /** toggleCheck
    * Toggles checked status on checkbox
@@ -39,7 +41,7 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
          restrict = true;
         
       }
-      return count;
+      return restrict;
    },
    
    

@@ -66,7 +66,15 @@ DinnerWizardApp.config(function($routeProvider, $locationProvider) {
       });
 });
 
+DinnerWizardApp.run(function($modal) {
+   //ref: https://angular-ui.github.io/bootstrap/
+         console.log('opening modal');
+         
+         var modalInstance = $modal.open({
+            templateUrl: 'instructions.html',
+            controller: 'instrController'
+         });
 
-
+ });
 
 	

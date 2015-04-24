@@ -1,11 +1,14 @@
 /* instrCtrl.js */ //ref: https://angular-ui.github.io/bootstrap/
 DinnerWizardApp.controller('instrController', function($scope, $modalInstance) {
-
-  $scope.ok = function () {
-    $modalInstance.dismiss('cancel');
+  $scope.guideCount = 0;
+  $scope.cont = function () {
+   $scope.guideCount++;
   };
 
-  $scope.cancel = function () {
-    $modalInstance.dismiss('cancel');
+  $scope.skip = function () {
+    $modalInstance.dismiss('skip');
+  };
+  $scope.close = function () {
+    $modalInstance.dismiss('close');
   };
 });

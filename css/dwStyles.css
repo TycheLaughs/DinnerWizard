@@ -128,6 +128,7 @@
      
      .splash{
       max-height:690px;
+      
      }
      
 }
@@ -175,6 +176,7 @@ li:hover{   /*most list items are interactive, so here's something to show that 
    cursor: pointer;
    
 }
+
 
 .listing{ /*a box to which we add a scrollbar if there are too many recipes to fit nicely on the page*/
    overflow-y: auto;
@@ -491,7 +493,7 @@ a:hover{
 .without{
    color: #8d1801; /*dark red*/
   /* border: 1px solid #8d1801; */
-   background-color: #ebebfb; /*very pale bluish gray*/ #e6ebef; /* pale gray*/
+   background-color: #ebebfb; /*very pale bluish gray #e6ebef; /* pale gray*/
 }
 /*if, instead of a tag, this is something else displayed in any of the tag lists, remove all the relevant 'tag' styling.*/
 .noStyle{
@@ -499,11 +501,7 @@ a:hover{
    color: black;
    background-color: transparent;
 }
-.selected{
-   cursor: default;
-   background-color: lavender;
-   color: lightgray;
-}
+
 .haveIt{
    right: 22px;
    margin-right:-17px;
@@ -807,6 +805,35 @@ div.panel-body{
    position: relative;
    right: 5px;
    font-size: .7em;
+}
+.selected{
+   cursor: default!important; /* important used, because I can't seem to track 
+   down why this wasn't overriding any previous cursor properties */
+   background-color: lavender;
+   color: gray;
+   font-style: italic;
+   width: 250px;
+}
+.modal-content{
+   height: 400px;
+   padding:5px;
+
+}
+.modal-content li{
+   cursor: default;
+}
+.modal-content li:hover{
+   cursor: default;
+   font-weight:normal;
+}
+.modal-header{
+   padding:5px;
+}
+div.modal-body.container-fluid{
+   padding:5px;
+}
+ul li{
+   list-style-type: none;
 }
 /***** end styling accordions*******/
 #splashBlanket{/*supposed to prevent issues with teh spash screen's hidden cursor from affecting the rest of the app*/

@@ -53,14 +53,14 @@
 
   </head>
   
-  <body ng-controller="inventoryController" onpageshow = "openInstr()">
+  <body>
  <!--splash screen-->
-   <!-- <div id="splash" class ="splash col-xs-12">
+   <!--<div id="splash" class ="splash col-xs-12">
       <p>Just a moment while Dinner Wizard summons chefs from the nether realm to combine the contents of your fridge...</p>
     </div>  
   <!-- end splash screen-->
    <div id="splashBlanket"class="col-xs-12"></div>
-    <div  id ="bigBox">
+    <div  ng-controller="inventoryController" id ="bigBox">
  
      <div id="headerRow"class="container-fluid">
          <a class = "col-xs-3" href="#inventory">

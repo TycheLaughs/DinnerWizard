@@ -40,7 +40,7 @@ Modified: 3/15/2015 by Susan Souza to limit typeahead results to the correct obj
                   </div>
                </accordion-heading>
                <ul>
-                  <li ng-repeat="content in ingredients|orderBy: 'ingredientName'" ng-if="content.tags[0].name===cat" style="list-style-type: none" ><a ng-click="clickedFromListing(content.ingredientName)"> {{content.ingredientName}}</a></li>
+                  <li ng-repeat="content in ingredients|orderBy: 'ingredientName'" ng-if="content.tags[0].name===cat" style="list-style-type: none" ng-class="{'selected': list.indexOf(content.ingredientName) > -1}" ng-click="clickedFromListing(content.ingredientName)">{{content.ingredientName}}</li>
                </ul>
             </accordion-group>
          </accordion>
