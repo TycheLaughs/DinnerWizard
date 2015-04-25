@@ -6,7 +6,7 @@ Created:  4/11/2015 by Susan Souza for use in the Dinner Wizard application
 -->
 <div class="aboutPage">
    <div class="col-xs-6 col-sm-5 leftCol" >
-      <h1>About</h1>
+      <!--<h1 class="col-xs-12"> About</h1>--><span class="col-xs-3"></span><a ng-click="openModal(1)" class="col-xs-9"><span class="roundEdges col-xs-6 viewGuideBtn">View Guide</span></a>
       <p>Dinner Wizard is an application that provides suggestions on what dish or dishes to make, given a list of ingredients users already have.  </p>
       <div class="col-xs-5"></div><span class="glyphicon glyphicon-cutlery"></span>
       <p>Inspired by <em>The New York Times Cooking</em> 'No-Recipe Wednesdays', Dinner Wizard is meant to help encourage improvisation and experimentation with ingredients while cooking by avoiding giving measurements and phrasing instructions more loosely than what might be expected in a cookbook.</p>
@@ -15,7 +15,9 @@ Created:  4/11/2015 by Susan Souza for use in the Dinner Wizard application
       <div class="keyHolding">
          <p><span class="glyphicon glyphicon-chevron-right iconKey"></span>This icon indicates that an ingredient can be substituted with others. </p>
          <p><span class="glyphicon glyphicon-expand iconKey"></span>This icon indicates that this ingredient has its own recipe.</p>
+         <p><span class="glyphicon glyphicon-cutlery iconKey"></span>This icon indicates that this ingredient is in your Dinner Wizard Inventory.</p>
       </div>
+      
    </div>
 
    <div class="col-xs-1 col-sm-1"></div>  
@@ -30,6 +32,17 @@ Created:  4/11/2015 by Susan Souza for use in the Dinner Wizard application
       <!--<ul>Updates:
          <li></li>
       </ul>-->
+      <ul class="keyHolding">An Explanation of Search Filters:
+      <li><span class="other key">Spicy</span><span>: only show combinations that are spicy</span></li>
+      <li><span class="other key">Vegetarian</span><span>: only show vegetarian combinations</span></li>
+      <li><span class="other key">Under 30</span><span>(minutes) for preparation</span></li>
+      <li><span class="flavor key">Chinese</span><span>: Flavors derivative of Chinese food</span></li>
+      <li><span class="flavor key">Italian</span><span>: Flavors derivative of Italian food</span></li>
+      <li><span class="flavor key">Mediterranean</span><span>: Flavors derivative of those found around the Mediterranean Sea</span></li>
+      <!--<li><span class="flavor key">Mexican</span><span>: Flavors are vaguely Mexican </span></li>-->
+      <li><span class="flavor key">Southeast Asian</span><span>: Flavors derivative of some of those found in Southeast Asia</span></li>
+      <li><span class="flavor key">Western</span><span>: This kind of food can probably be found in North America and may not fit any of the filters listed previously</span></li>
+   </ul>
 
    </div>
 </div>

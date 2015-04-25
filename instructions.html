@@ -6,88 +6,67 @@ Created: 4/23/2015 for use in the Dinner Wizard application
 -->
 
    <div ng-if="guideCount === 0" class="modal-header">
-         <h3 class="modal-title">Welcome to Dinner Wizard!</h3>
+         <h3 class="modal-title"><span class="col-xs-3"></span>Welcome to Dinner Wizard!</h3>
    </div>
    <div ng-if="guideCount === 1" class="modal-header">
-      <h3 class="modal-title">Overview</h3>
+      <h3 class="modal-title"><span class="col-xs-4"></span>Overview</h3>
    </div>
       <div ng-if="guideCount === 2" class="modal-header">
-      <h3 class="modal-title">Selecting Ingredients</h3>
+      <h3 class="modal-title"><span class="col-xs-3"></span>The Dinner Wizard Inventory</h3>
    </div>
    <div ng-if="guideCount === 3" class="modal-header">
-      <h3 class="modal-title">Modifying Your Inventory</h3>
+      <h3 class="modal-title"><span class="col-xs-4"></span>Search Filters</h3>
    </div>
    <div ng-if="guideCount === 4" class="modal-header">
-      <h3 class="modal-title">Search Filters</h3>
+      <h3 class="modal-title"><span class="col-xs-3"></span>Explore Combinations</h3>
    </div>
-   <div ng-if="guideCount === 5" class="modal-header">
-      <h3 class="modal-title">Explore Combinations</h3>
+      <div ng-if="guideCount === 5" class="modal-header">
+      <h3 class="modal-title"><span class="col-xs-3"></span>More on Combinations</h3>
    </div>
       <div ng-if="guideCount === 6" class="modal-header">
-      <h3 class="modal-title">More on Combinations</h3>
+      <h3 class="modal-title"><span class="col-xs-3"></span>Even More on Combinations</h3>
    </div>
-      <div ng-if="guideCount === 7" class="modal-header">
-      <h3 class="modal-title">Even More on Combinations</h3>
-   </div>
-   <div ng-if="guideCount === 0"class="modal-body container-fluid">
-      <div class="col-xs-12" style="height:200px; border:1px solid black"></div>
-      <div class="col-xs-12">
-         <span class="col-xs-1"></span>
-         <div class="col-xs-6"><p>If you'd like to view the Dinner Wizard Guide, click: </p></div>
-         <div class="col-xs-5"><p>Otherwise, click:</p></div>
-      </div>
+   
+
+   <div class="modal-body container-fluid"ng-if="guideCount === 0">
+ 
+      <div class="col-xs-12 modalFirst"></div>
+
       <div  class="col-xs-12">
-         <div class="col-xs-6"><span class="col-xs-3"></span><a ng-click="cont()"><span class="col-xs-5 roundEdges">Show Me</span></a></div>
-         <div class="col-xs-5"><span class="col-xs-3"></span><a ng-click="skip()"><span class="col-xs-4 roundEdges">Skip</span></a></div>
+         <div class="col-xs-7 shiftUp"><span class="col-xs-4"></span><a ng-click="cont()"><span class="col-xs-5 roundEdges">Show Guide</span></a></div>
+         <div class="col-xs-5 shiftUp"><span class="col-xs-4"></span><a ng-click="skip()"><span class="col-xs-4 roundEdges">Skip</span></a></div>
       </div>
+       <div  class="col-xs-12"><span class="col-xs-3"></span><div class="col-xs-9 shiftUp">The guide can also be accessed from the <span class="glyphicon glyphicon-question-sign"></span> page.</div></div>
    </div>
-   <div ng-if="guideCount === 1"class="modal-body container-fluid">
-    <div class="col-xs-12"><p>Dinner Wizard takes a list of ingredients that you have in your fridge, kitchen or pantry and suggests ways to combine them, according to any other options you choose.</p><div class="col-xs-1"></div><div class = "col-xs-2" style="border:1px solid black; height: 100px"></div><div class="col-xs-1"></div><div class = "col-xs-2" style="border:1px solid black; height: 100px"></div><div class="col-xs-1"></div><div class = "col-xs-2" style="border:1px solid black; height: 100px"></div></div>
-    <div class="col-xs-12" style="height:125px;"></div>
-    <div class="col-xs-6"></div>
-    <div class="col-xs-6"><span class="col-xs-3"></span><a ng-click="cont()"><span class="col-xs-4 roundEdges">Next</span></a></div>
-   </div>
-   <div ng-if="guideCount === 2"class="modal-body container-fluid">
-     <div class="col-xs-12"><div class="col-xs-5"style="border:1px solid black; height: 260px"></div><div class="col-xs-7"><p>First, you'd probably want to build a list of ingredients inside Dinner Wizard that reflects what you actually have.  The accordion in the left panel on the Inventory page contains ingredients sorted by category.  You can also use the search box to find ingredients directly, without browsing through the accordion.</p> <p> Clicking ingredients in the accordions or selecting them in the search box will add them to your Dinner Wizard Inventory, which appears to the right. </p></div></div>
-     <div class="col-xs-12" style="height:15px;"></div>
-      <div class="col-xs-6"></div>
-      <div class="col-xs-6"><span class="col-xs-3"></span><a ng-click="cont()"><span class="col-xs-4 roundEdges">Next</span></a></div>
-   </div>
-   <div ng-if="guideCount === 3"class="modal-body container-fluid">
-      <div class="col-xs-12"><p>Removing items from your Inventory is as easy as clicking them,  after which they will again be available in the accordions for future selection.</p><p>You can also remove everything from your Dinner Wizard Inventory by clicking the 'Clear Inventory' button below the Inventory box.</p></div>
-      <div class="col-xs-12" style="height:179px;"></div>
-      <div class="col-xs-6"></div>
-      <div class="col-xs-6"><span class="col-xs-3"></span><a ng-click="cont()"><span class="col-xs-4 roundEdges">Next</span></a></div>
-   </div>
-   <div ng-if="guideCount === 4"class="modal-body container-fluid">
-      <div class="col-xs-12">
-         <div class="col-xs-5"style="border:1px solid black; height: 260px"></div><p>Search Filters are used to restrict your search to potential ingredient combinations matching whichever descriptions you choose.</p><p>Filters chosen under the Flavor header approximate one of the flavors from the region they name.</p>
-         Clarification for filters in the Other category:
-         <ul class="col-xs-5">
-            <li>Vegetarian: only look for vegetarian combinations</li>
-            <li>Under 30: the suggested procedure should take approximately 30 minutes or less to complete</li>
-            <li>Spicy: only look for combinations that might be spicy</li>
+   <div class="modal-body container-fluid  " >
+    <div ng-if="guideCount === 1"class="col-xs-12"style="height:280px"><p>Dinner Wizard takes a list of ingredients that you have in your fridge, kitchen or pantry and suggests ways to combine them, according to any other options you choose.</p><span class="col-xs-2"></span><img class="col-xs-8"src="images/overviewFlow.png"/>
+    </div>
+    
+
+     <div ng-if="guideCount === 2"class="col-xs-12 shiftUp" style="height:280px"><img src="images/guideInv01.png" class="col-xs-6"/><div class="col-xs-6" style="height:260px"><p>First, you'd probably want to build a list of ingredients inside Dinner Wizard that reflects what you actually have.  <p>The accordion in the left panel on the Inventory page contains ingredients sorted by category.  You can also use the search box to find ingredients directly, without browsing through the accordion.</p> <p> Clicking ingredients in the accordions or selecting them in the search box will add them to your Dinner Wizard Inventory, which appears in the right panel. </p><p>Removing items from your Inventory is as easy as clicking them.</p></div><div class="col-xs-12 "><p class ="col-xs-8 shiftUp2">You can also remove everything from your<br> Dinner Wizard Inventory by clicking the 'Clear Inventory' button below the Inventory box.</p></div></div>
+ 
+
+      <div ng-if="guideCount === 3"class="col-xs-12"style="height: 280px">
+         <img class="col-xs-5" src="images/guideFilter01.png"/><div class="col-xs-7"><p>Search Filters are used to restrict your search to potential ingredient combinations matching whichever descriptions you choose.</p><p>Filters chosen under the Flavor header approximate one of the flavors from the region they name.</p>
+         <ul class ="keyHolding goLeft">
+            <li><span class="other key">Spicy</span><span>: only show combinations that are spicy</span></li>
+            <li><span class="other key">Vegetarian</span><span>: only show vegetarian combinations</span></li>
+            <li><span class="other key">Under 30</span><span>(minutes) for preparation</span></li>
          </ul>
-            <div class="col-xs-6"></div>
-            <div class="col-xs-6"><span class="col-xs-3"></span><a ng-click="cont()"><span class="col-xs-4 roundEdges">Next</span></a></div>
+         
+         </div><div class="shiftUp3"><p> Applying filters to your search without leaving the page can be done by clicking the 'Search' button.  </p><p>Navigating to the Combinations page will also automatically apply your filters to your search.</p>More descriptions of each filter are available on the <span class="glyphicon glyphicon-question-sign"></span> page.</div>
       </div>
-   </div>
-   <div ng-if="guideCount === 5"class="modal-body container-fluid">
-      <div class="col-xs-12"><p>Guide Page 5</p></div>
-      <div class="col-xs-12" style="height:252px;"></div>
+
+      <div ng-if="guideCount === 4"class="col-xs-12"style="height:280px;"><p>Overview of Combinations</p></div>
+      <div ng-if="guideCount === 5"class="col-xs-12"style="height:280px;"><p>Possibly more on some of the interactive elements on Combos page</p></div>
+      <div ng-if="guideCount === 6"class="col-xs-12"style="height:280px;"><p>Anything else, closing remarks, etc.</p></div>
       <div class="col-xs-6"></div>
-      <div class="col-xs-6"><span class="col-xs-3"></span><a ng-click="cont()"><span class="col-xs-4 roundEdges">Next</span></a></div>
+      <div ng-if="guideCount === 6" class="col-xs-6">
+         <span class="col-xs-3"></span><a ng-click="skip()"><span class="col-xs-4 roundEdges">Close</span></a></div>
+      <div ng-if="guideCount != 6 && guideCount > 0" class="col-xs-6"> 
+         <span class="col-xs-3"></span><a ng-click="cont()"><span class="col-xs-4 roundEdges">Next</span></a>
+      </div>
+      
    </div>
-    <div ng-if="guideCount === 6"class="modal-body container-fluid">
-      <div class="col-xs-12"><p>Guide Page 6</p></div>
-      <div class="col-xs-12" style="height:252px;"></div>
-      <div class="col-xs-6"></div>
-      <div class="col-xs-6"><span class="col-xs-3"></span><a ng-click="cont()"><span class="col-xs-4 roundEdges">Next</span></a></div>
-   </div>
-    <div ng-if="guideCount === 7"class="modal-body container-fluid">
-      <div class="col-xs-12"><p>Guide Page 7</p></div>
-      <div class="col-xs-12" style="height:252px;"></div>
-      <div class="col-xs-6"></div>
-      <div class="col-xs-6"><span class="col-xs-3"></span><a ng-click="skip()"><span class="col-xs-4 roundEdges">Close</span></a></div>
-   </div>
+   
 

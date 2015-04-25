@@ -24,7 +24,7 @@
 */
 // create the module
 var DinnerWizardApp = angular.module('DinnerWizardApp', ['ngRoute', 'ui.bootstrap']);
-
+var guidePage = 0;
 /** code for routing initially found here, with initial comments:
 * http://plnkr.co/edit/dd8Nk9PDFotCQu4yrnDg?p=preview
 */
@@ -67,14 +67,30 @@ DinnerWizardApp.config(function($routeProvider, $locationProvider) {
 });
 
 DinnerWizardApp.run(function($modal) {
+      var loadingStrings = ["Just a moment while Dinner Wizard summons chefs from the nether realm to combine the contents of your fridge...", "Please wait while Dinner Wizard confers with the Great Cooking Machine in the Sky...", "Dinner Wizard is having tea with the finest selection of deceased chefs. Just a moment while we hold a seance to get it back to this plane...", "[Insert witty message here]", "[Something trite here]", "Dinner Wizard is playing golf with some druids. Just a moment while we fetch it back...", "Just a moment while Dinner Wizard researches the exact amount of garlic necessary to fumigate a town from vampires..." ];
+      var index = Math.floor((Math.random() * 7)); 
+      var splashString = loadingStrings[index];
+      document.getElementById('splashMessage').innerHTML = splashString;
    //ref: https://angular-ui.github.io/bootstrap/
-         console.log('opening modal');
+        window.setTimeout(openModal, 10000, $modal, guidePage);
+        
+        function openModal($modal, page){
+   //ref: https://angular-ui.github.io/bootstrap/
+         //console.log('opening modal');
          
          var modalInstance = $modal.open({
             templateUrl: 'instructions.html',
-            controller: 'instrController'
+            controller: 'instrController',
+            resolve: {
+               page: function () {
+               return page;
+               }
+            }
          });
 
+   };
+ 
  });
+ 
 
 	

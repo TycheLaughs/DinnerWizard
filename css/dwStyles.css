@@ -817,6 +817,18 @@ div.panel-body{
 .modal-content{
    height: 400px;
    padding:5px;
+   background-image:url("dinnerWizardLogoColor_B.png");
+   background-repeat: no-repeat;
+   background-position:center;
+   border-radius: 20px;
+
+}
+.modalFirst{
+   height: 240px;
+   padding:5px;
+   background-image:url("DW03.png");
+   background-repeat: no-repeat;
+   background-position:center;
 
 }
 .modal-content li{
@@ -825,15 +837,78 @@ div.panel-body{
 .modal-content li:hover{
    cursor: default;
    font-weight:normal;
+ 
 }
 .modal-header{
    padding:5px;
+   border-bottom: none;
 }
 div.modal-body.container-fluid{
    padding:5px;
 }
 ul li{
    list-style-type: none;
+}
+
+.leftKey{
+   position: absolute;
+   left: -15%;
+   top: 18%;
+   z-index: 1;
+   width: 175px;
+
+}
+.leftKey ul li{
+   font-size: .8em;
+}
+.leftKey ul li:hover{
+   cursor: default!important;
+   font-weight: normal;
+}
+.leftKey ul li span.optional:hover{
+   cursor: default!important;
+   font-weight: normal;
+}
+.leftKey ul + li{
+   max-height: 50px;
+}
+.key{
+   font-weight: bold;
+}
+.viewGuideBtn{
+   font-size: .9em;
+   border-radius: 20px;
+}
+.keyHolding li:hover{
+   cursor: default!important;
+   font-weight: normal;
+}
+.shiftUp{
+   top: -16px;
+   position:relative;
+}
+.shiftUp2{
+   top:-15px;
+   left: -20px;
+   
+}
+.shiftUp3{
+   position:relative;
+   top:-14px;
+}
+.goLeft{ 
+   padding-left: 5px;
+   
+}
+.modal-body p{
+   text-indent: 17px;
+   line-height: 18px;
+}
+@media (max-width: 1300px){
+   .leftKey{
+      left: 20%;
+   }
+
 }
 /***** end styling accordions*******/
 #splashBlanket{/*supposed to prevent issues with teh spash screen's hidden cursor from affecting the rest of the app*/

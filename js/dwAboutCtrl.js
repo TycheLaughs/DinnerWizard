@@ -5,7 +5,7 @@
 * Created:  4/11/2015 by Susan Souza for use in the Dinner Wizard application
 * 
 */
-DinnerWizardApp.controller('aboutController',function($scope, $http, persistentService) {
+DinnerWizardApp.controller('aboutController',function($scope, $http, $modal, persistentService) {
       
     /* Honestly, this controller does very little aside from exist...*/
       $scope.message = 'About';
@@ -38,5 +38,20 @@ DinnerWizardApp.controller('aboutController',function($scope, $http, persistentS
          //console.log($scope.recipes.length);
          }
       }); 
+      $scope.openModal = function(page){
+   //ref: https://angular-ui.github.io/bootstrap/
+         //console.log('opening modal');
+         
+         $scope.modalInstance = $modal.open({
+            templateUrl: 'instructions.html',
+            controller: 'instrController',
+            resolve: {
+               page: function () {
+               return page;
+               }
+            }
+         });
+
+      };
    
 });

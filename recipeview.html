@@ -14,13 +14,15 @@ tags/search filters rather than names, as described in original documentation. A
 Modified: 3/18/2015 by Susan Souza to add a pipe in between recipe tags in each header
 
 
--->
+--> 
+
+
 <div class="col-xs-5 col-sm-6"><!--left-hand column. Contains recipe selection accordion (with ingredients) -->
    <p class="hidden-xs" ng-if="recipes.length !== 0 && recipes != []">{{recipes.length}} Combination<span ng-if="recipes.length !== 1">s</span> Found:</p>
-    
+   <p ng-if="recipes.length <= 0 || recipes===''">No Combinations Found</p>
 <!-- AngularUI Bootstrap Accordion found here, with some modifications: http://angular-ui.github.io/bootstrap/ -->
    <div class= "listing">
-   <p ng-if="recipes.length <= 0 || recipes===''">No Combinations Found</p>
+
    <accordion class = "rec" close-others="oneAtATime"><!--captured click from examples found here: http://stackoverflow.com/questions/15642082/handle-open-collapse-events-of-accordion-in-angular/15642577#15642577
    -->
       <accordion-group ng-repeat="recipe in recipes track by $index">
@@ -168,3 +170,11 @@ Modified: 3/18/2015 by Susan Souza to add a pipe in between recipe tags in each 
       </div>
    </div><!--end all recipe display content for right-hand column-->
 </div><!--end rightColumn-->
+<div class="leftKey">
+   <ul>
+      <li><span class="glyphicon glyphicon-chevron-right"></span><span>  View substitutions</span></li>
+      <li><span class="glyphicon glyphicon-expand"></span><span>  Click for recipe</span></li>
+      <li><span class="glyphicon glyphicon-cutlery"></span><span>  You have this</span></li>
+      <li><span class="optional"> Optional Ingredient</span></li>
+   </ul>
+</div>

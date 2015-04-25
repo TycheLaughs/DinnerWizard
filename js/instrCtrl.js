@@ -1,8 +1,10 @@
 /* instrCtrl.js */ //ref: https://angular-ui.github.io/bootstrap/
-DinnerWizardApp.controller('instrController', function($scope, $modalInstance) {
-  $scope.guideCount = 0;
+DinnerWizardApp.controller('instrController', function($scope, $modalInstance, page) {
+  $scope.guideCount = page;
+   //console.log($scope.guideCount);
   $scope.cont = function () {
-   $scope.guideCount++;
+      $scope.guideCount++;
+      //console.log($scope.guideCount);
   };
 
   $scope.skip = function () {
