@@ -93,7 +93,7 @@ DinnerWizardApp.controller('recipesController', function($scope, $http, $sce, pe
             $scope.currentRecipe = recipe;
             clearCanvas(); //added to avoid some isses where created charts would overlap, 
             //causing hover-related bugs
-            foo();
+            createPieChart($scope.currentRecipe, "ratioChart");
           
           
             
@@ -146,103 +146,105 @@ DinnerWizardApp.controller('recipesController', function($scope, $http, $sce, pe
       
       
       
-      /* charts to follow */
+	/* charts to follow */
       
-      function shuffle(o)
-		{ 
-			for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
-			return o;
-		};
+	// Variable that holds our chart.
+	// Originally we just used new Chart and never saved that data to a variable
+	// Unfortunately that led to old charts never being deleted.
+	// This variable's existence fixes that.
+	// Incidentally if it's not set to null at the start here Angular complains.
+	var globalChart = null;
+      
+	function shuffleArray(o)
+	{ 
+		for (var j, x, i = o.length; i; j = Math.floor(Math.random() * i), x = o[--i], o[i] = o[j], o[j] = x);
+		return o;
+	};
 		
-		// Pass this function a recipe object and the string ID of a canvas and a pie chart will be placed inside it.
-		function createPieChart(recipe, canvasID)
-		{			
-			// These are the colors the graph will use. 
-			// They're hardcoded right now. Could we dynamically generate nice-looking colors...?
-			
-			//							Dark red,  Blue       Green      Light red   Cyan      Orange-ish  Dark gray  Purple   
-			var graphNormalColors =    ["#992F0F", "#4D53A3", "#00A719", "#F7464A", "#46BFBD", "#FDB45C", "#4D5360", "#8C2BAF"];
-			var graphHighlightColors = ["#CC3C14", "#616ACC", "#00DB19", "#FF5A5E", "#5AD3D1", "#FFC870", "#616774", "#A333CC"];
+	// Pass this function a recipe object and the string ID of a canvas and a pie chart will be placed inside it.
+	function createPieChart(recipe, canvasID)
+	{			
+		// These are the colors the graph will use. 
+		// They're hardcoded right now. Could we dynamically generate nice-looking colors...?
+		
+		//							Dark red,  Blue       Green      Light red   Cyan      Orange-ish  Dark gray  Purple   
+		var graphNormalColors =    ["#992F0F", "#4D53A3", "#00A719", "#F7464A", "#46BFBD", "#FDB45C", "#4D5360", "#8C2BAF"];
+		var graphHighlightColors = ["#CC3C14", "#616ACC", "#00DB19", "#FF5A5E", "#5AD3D1", "#FFC870", "#616774", "#A333CC"];
 
-			// Combine the arrays into one.
-			// We shuffle the colors to add some element of randomness,
-			// But if we shuffle each array individually we'll get strange results with the colors seemingly changing randomly when highlighted.
-			// Sure would be nice if we could set Math.random()'s seed...
-			var graphCombinedColors = new Array();
-			for (var i = 0; i < graphNormalColors.length; i++)
-			{
-				graphCombinedColors[i] = { normalColor: graphNormalColors[i], highlightColor: graphHighlightColors[i] };
-			}
-			graphCombinedColors = shuffle(graphCombinedColors);
-			
-			
-			// This is the data we'll pass to chart.js.
-			// It contains the data that will be used to create our graph
-			var graphData = new Array();
-			
-			var ingredientCount = recipe.ingredients.length;
-			
-			// Need this because not all recipe ratios add up to 100.
-			var ratioMaxValue = 0;
-			
-			// First, find out what the "total" ratio is 
-			// (ideally it should be close to 100, but that's not always the case)
-			for (var i = 0; i < ingredientCount; i++)
-			{
-				if (typeof(recipe.ingredients[i].ratio) === "undefined")
-					continue;
-					
-				// Negative ratios should not exist, but just in case...
-				// Also remove really tiny ratios, since they're hard to see and select.
-				if (recipe.ingredients[i].ratio <= 1)
-					continue;
-				
-				ratioMaxValue += recipe.ingredients[i].ratio;
-			}
-			
-			// Now with that information, we can build our graph data.
-			
-			var colorIndex = 0;
-			for (var i = 0; i < ingredientCount; i++)
-			{
-				if (typeof(recipe.ingredients[i].ratio) === "undefined")
-					continue;
-				if (recipe.ingredients[i].ratio <= 1)
-					continue;
-				
-				
-				var correctedRatio = recipe.ingredients[i].ratio / ratioMaxValue;
-				
-				// Just in case, make sure we don't run past the end of the color array.
-				// We really shouldn't need to, though--this is just in case.
-				var normalColor, highlightColor;
-				normalColor = typeof(graphCombinedColors[colorIndex]) === "undefined"? "#000" : graphCombinedColors[colorIndex].normalColor;
-				highlightColor = typeof(graphCombinedColors[colorIndex]) === "undefined"? "#333" : graphCombinedColors[colorIndex].highlightColor;
-				
-				graphData[graphData.length] = { 
-					value: correctedRatio,
-					color: normalColor,
-					highlight: highlightColor,
-					label: recipe.ingredients[i].name + ": " + (correctedRatio * 100).toFixed(0).toString() + "%"
-				};
-				
-				colorIndex++;
-			}
-			
-			
-			// Finally, create our pie chart.
-			var ctx = document.getElementById(canvasID).getContext("2d");	
-/* HERE--------------------------------------> */         
-			new Chart(ctx).Pie(graphData, { animationEasing : "easeOutQuart", animateScale: true, tooltipTemplate: "<%=label%>" });
-		}
-      
-      function foo() 
+		// Combine the arrays into one.
+		// We shuffle the colors to add some element of randomness,
+		// But if we shuffle each array individually we'll get strange results with the colors seemingly changing randomly when highlighted.
+		// Sure would be nice if we could set Math.random()'s seed...
+		var graphCombinedColors = new Array();
+		for (var i = 0; i < graphNormalColors.length; i++)
 		{
-			// Then just call this. 
-			// The second argument is the element ID of the canvas the chart will be drawn in.
-			createPieChart($scope.currentRecipe, "ratioChart");
-			
+			graphCombinedColors[i] = { normalColor: graphNormalColors[i], highlightColor: graphHighlightColors[i] };
 		}
+		graphCombinedColors = shuffleArray(graphCombinedColors);
+		
+		
+		// This is the data we'll pass to chart.js.
+		// It contains the data that will be used to create our graph
+		var graphData = new Array();
+		
+		var ingredientCount = recipe.ingredients.length;
+		
+		// Need this because not all recipe ratios add up to 100.
+		var ratioMaxValue = 0;
+		
+		// First, find out what the "total" ratio is 
+		// (ideally it should be close to 100, but that's not always the case)
+		for (var i = 0; i < ingredientCount; i++)
+		{
+			if (typeof(recipe.ingredients[i].ratio) === "undefined")
+				continue;
+				
+			// Negative ratios should not exist, but just in case...
+			// Also remove really tiny ratios, since they're hard to see and select.
+			if (recipe.ingredients[i].ratio <= 1)
+				continue;
+			
+			ratioMaxValue += recipe.ingredients[i].ratio;
+		}
+		
+		// Now with that information, we can build our graph data.
+		
+		var colorIndex = 0;
+		for (var i = 0; i < ingredientCount; i++)
+		{
+			if (typeof(recipe.ingredients[i].ratio) === "undefined")
+				continue;
+			if (recipe.ingredients[i].ratio <= 1)
+				continue;
+			
+			
+			var correctedRatio = recipe.ingredients[i].ratio / ratioMaxValue;
+			
+			// Just in case, make sure we don't run past the end of the color array.
+			// We really shouldn't need to, though--this is just in case.
+			var normalColor, highlightColor;
+			normalColor = typeof(graphCombinedColors[colorIndex]) === "undefined"? "#000" : graphCombinedColors[colorIndex].normalColor;
+			highlightColor = typeof(graphCombinedColors[colorIndex]) === "undefined"? "#333" : graphCombinedColors[colorIndex].highlightColor;
+			
+			graphData[graphData.length] = { 
+				value: correctedRatio,
+				color: normalColor,
+				highlight: highlightColor,
+				label: recipe.ingredients[i].name + ": " + (correctedRatio * 100).toFixed(0).toString() + "%"
+			};
+			
+			colorIndex++;
+		}
+		
+		
+		// Finally, create our pie chart.
+		// But first destroy our old chart, if we had one
+		if (globalChart !== null) globalChart.destroy();
+		
+		var ctx = document.getElementById(canvasID).getContext("2d");	 
+		globalChart = new Chart(ctx).Pie(graphData, { animationEasing : "easeOutQuart", animateScale: true, tooltipTemplate: "<%=label%>" });
+	}
+	
       function clearCanvas(){
          var canv = document.getElementById("ratioChart");
          var ctx = canv.getContext("2d");	
