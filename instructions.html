@@ -18,13 +18,13 @@ Created: 4/23/2015 for use in the Dinner Wizard application
       <h3 class="modal-title"><span class="col-xs-4"></span>Search Filters</h3>
    </div>
    <div ng-if="guideCount === 4" class="modal-header">
-      <h3 class="modal-title"><span class="col-xs-3"></span>Explore Combinations</h3>
+      <h3 class="modal-title"><span class="col-xs-4"></span>Combinations</h3>
    </div>
       <div ng-if="guideCount === 5" class="modal-header">
-      <h3 class="modal-title"><span class="col-xs-3"></span>More on Combinations</h3>
+      <h3 class="modal-title"><span class="col-xs-4"></span>Combinations, Continued.</h3>
    </div>
       <div ng-if="guideCount === 6" class="modal-header">
-      <h3 class="modal-title"><span class="col-xs-3"></span>Even More on Combinations</h3>
+      <h3 class="modal-title"><span class="col-xs-4"></span>Ready, Set, Go!</h3>
    </div>
    
 
@@ -54,13 +54,16 @@ Created: 4/23/2015 for use in the Dinner Wizard application
             <li><span class="other key">Under 30</span><span>(minutes) for preparation</span></li>
          </ul>
          
-         </div><div class="shiftUp3"><p> Applying filters to your search without leaving the page can be done by clicking the 'Search' button.  </p><p>Navigating to the Combinations page will also automatically apply your filters to your search.</p>More descriptions of each filter are available on the <span class="glyphicon glyphicon-question-sign"></span> page.</div>
+         </div><div class="shiftUp4"><p> Applying filters to your search without leaving the page can be done by clicking the 'Search' button.  </p><p>Navigating to the Combinations page will also automatically apply your filters to your search.</p>More descriptions of each filter are available on the <span class="glyphicon glyphicon-question-sign"></span> page.</div>
       </div>
 
-      <div ng-if="guideCount === 4"class="col-xs-12"style="height:280px;"><p>Overview of Combinations</p></div>
-      <div ng-if="guideCount === 5"class="col-xs-12"style="height:280px;"><p>Possibly more on some of the interactive elements on Combos page</p></div>
-      <div ng-if="guideCount === 6"class="col-xs-12"style="height:280px;"><p>Anything else, closing remarks, etc.</p></div>
+      <div ng-if="guideCount === 4"class="col-xs-12"style="height:280px;"><img src="images/guideCombos01.png" class="col-xs-6"/><div class="col-xs-6"><p>Combinations are the heart of Dinner Wizard. Every ingredient that Dinner Wizard Lists can be combined with others in at least one way. On the Combinations page, what you'll see are the combinations matching both the ingredients you placed in your Dinner Wizard Inventory and whichever search filters you chose.</p><p>Combinations are listed, as you may notice, by their primary three search filters.</p></div><span class="col-xs-6"><p>This is because combinations in dinner Wizard are simply suggestions of ways to</p></span><img src="images/guideCombos02.png" class="col-xs-6"/><div class="col-xs-12 shiftUp3">combine ingredients. While Dinner Wizard does provide a rudimentary prodedure and some suggested, approximate ingredient ratios, the decision is mainly up to you as to just how much you want to add of each ingredient and when.</div></div>
+      
+      <div ng-if="guideCount === 5"class="col-xs-12"style="height:280px;"><div class="col-xs-12"><img src="images/guideCombos03.png" class="col-xs-4"/><p class="col-xs-8">Some information aside from potential preparation procedures for combinations is also available on the Combinations page. Upon selecting a combination, you'll see a pie chart representation of the approximate suggested ingredient ratios for that combination. Interacting with the chart itself will display which ingredient belongs to which wedge of the chart.</p></div><div class="col-xs-7"><p>Some ingredients will also be interactive, providing more information as to how they can be substituted, and, in some cases, how they can be made.</p><p>Explore ingredient combinations yourself and see what you discover!</p></div><img src="images/guideCombos04.png" class="col-xs-5"/></div>
+      
+      <div ng-if="guideCount === 6"class="col-xs-12"style="height:280px;"><p>That's all for now!</p><div style="height:200px"></div>You can find more information or view the guide again on the <span class="glyphicon glyphicon-question-sign"></span> page.</div>
       <div class="col-xs-6"></div>
+      
       <div ng-if="guideCount === 6" class="col-xs-6">
          <span class="col-xs-3"></span><a ng-click="skip()"><span class="col-xs-4 roundEdges">Close</span></a></div>
       <div ng-if="guideCount != 6 && guideCount > 0" class="col-xs-6"> 

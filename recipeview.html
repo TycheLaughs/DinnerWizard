@@ -30,7 +30,7 @@ Modified: 3/18/2015 by Susan Souza to add a pipe in between recipe tags in each 
          <div ng-click="showRecipe(recipe.name, recipe)">
             <ul style="margin-bottom:1px" >
                <li ng-repeat="item in recipe.categories track by $index" ng-if="$index < 3" style="display: inline-block; left:-50px; font-size:1em"><span ng-if="($index === 1) || ($index === 2)"> | </span>{{item.name}}</li>
-            </ul>
+            </ul><span class="glyphicon glyphicon-chevron-down"></span>
          </div>
          </accordion-heading>
          <ul ng-repeat="ingredient in recipe.ingredients" >

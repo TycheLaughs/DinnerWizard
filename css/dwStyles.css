@@ -886,15 +886,24 @@ ul li{
 .shiftUp{
    top: -16px;
    position:relative;
+   line-height:18px;
 }
 .shiftUp2{
    top:-15px;
    left: -20px;
+   line-height:18px;
    
 }
 .shiftUp3{
    position:relative;
    top:-14px;
+   line-height:18px;
+}
+.shiftUp4{
+   position:relative;
+  
+   left: 5px;
+   line-height:18px;
 }
 .goLeft{ 
    padding-left: 5px;
