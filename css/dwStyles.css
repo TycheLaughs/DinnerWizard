@@ -87,16 +87,24 @@
 }
 
 #chartBox{
-   position: relative;
-   left:-13px;
+   
+   left:6px;
    top: 13px;
    padding:0px;
    margin: 0px;
    z-index:2;
+   position:absolute;
 }
 
 #subsBox{
    padding-right:15px;
+   background-color:white;
+   z-index: 3;
+   left:-2px;
+   width:200px!important;
+   height:190px!important;
+   overflow-x:hidden;
+   position:absolute;
 }
 
 @media(min-width: 1300px){
@@ -233,6 +241,12 @@ li:hover{   /*most list items are interactive, so here's something to show that 
 .componentRecipe{
    font-size: .9em;
    padding-right:15px;
+   z-index:3;
+   left:-3px;
+   min-width:200px;
+   overflow-x:hidden;
+   background-color:white;
+   position:absolute;
 }
 
 
@@ -243,10 +257,12 @@ li:hover{   /*most list items are interactive, so here's something to show that 
    -webkit-column-gap: 2px; /* Chrome, Safari, Opera */
    -moz-column-gap: 2px; /* Firefox */
    column-gap: 2px;
+    padding-right:15px;
 }
 .componentRecipe  ul, .componentRecipe ol{
    margin-left: 4px;
    padding-left: 4px;
+   padding-right:15px;
    
 }
 .closingX{
@@ -442,6 +458,9 @@ a:hover{
    border: 4px dashed #f8b30e; /* dark yellow */
    border-radius: 9px;
    overflow-y: auto;
+   overflow-x:hidden;
+   background-color:white;
+   
    
 }
 
@@ -921,7 +940,7 @@ ul li{
 }
 /***** end styling accordions*******/
 #splashBlanket{/*supposed to prevent issues with teh spash screen's hidden cursor from affecting the rest of the app*/
-   z-index:-1;
+   z-index:-2;
    width:100%;
    max-height:1200px;
    min-height:650px;
@@ -987,47 +1006,47 @@ ul li{
 
 @keyframes splash{
    0%{opacity: 10;
-   z-index: 2;}
+   z-index: 4;}
    40%{opacity:100;
-   z-index: 2;}
+   z-index: 4;}
    50%{opacity:100;
-   z-index: 2;}
+   z-index: 4;}
    90%{opacity: 0;
-   z-index: 2;}
+   z-index: 4;}
    100%{opacity: 0;
-   z-index: -2;}
+   z-index: -3;}
 }
 
 @-webkit-keyframes splash{
    40%{opacity:100;
-   z-index: 2;}
+   z-index: 4;}
    50%{opacity:100;
-   z-index: 2;}
+   z-index: 4;}
    90%{opacity: 0;
-   z-index: 2;}
+   z-index: 4;}
    100%{opacity: 0;
-   z-index: -2;}
+   z-index: -3;}
 }
 
 @keyframes splashText{
    0%{opacity: 0;
-   z-index: 2;}
-   30%{opacity:100;
-   z-index: 2;}
+   z-index: 4;}
+   25%{opacity:100;
+   z-index: 4;}
    50%{opacity:100;
-   z-index: 2;}
+   z-index: 4;}
    100%{opacity: 0;
-   z-index: -2;}
+   z-index: -3;}
 }
 
 @-webkit-keyframes splashText{
    0%{opacity: 0;}
-   30%{opacity:100;
-   z-index: 2;}
+   25%{opacity:100;
+   z-index: 4;}
    50%{opacity:100;
-   z-index: 2;}
+   z-index: 4;}
    100%{opacity: 0;
-   z-index: -2;}
+   z-index: -3;}
 }
 
 /*

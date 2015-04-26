@@ -82,21 +82,15 @@ DinnerWizardApp.controller('recipesController', function($scope, $http, $sce, pe
          if($scope.showMeRecipe === recipeName){
             $scope.insert = '';
             $scope.showMeRecipe = '';
-            clearCanvas(); //added to avoid some isses where created charts would overlap, 
-            //causing hover-related bugs
-            
          }
          else{
-            
             $scope.showMeRecipe = recipeName;
             //$scope.insert = recipeName + " Ingredient Suggested Ratio chart goes here";
             $scope.currentRecipe = recipe;
-            clearCanvas(); //added to avoid some isses where created charts would overlap, 
-            //causing hover-related bugs
+            $scope.subs = false;
+            $scope.comp = false;
             createPieChart($scope.currentRecipe, "ratioChart");
-          
-          
-            
+ 
          }
          $scope.subs = false;
          $scope.comp = false;
@@ -104,6 +98,7 @@ DinnerWizardApp.controller('recipesController', function($scope, $http, $sce, pe
       
       $scope.substitutions = function(clickedI){
          $scope.subs = true;
+         $scope.comp = false;
          console.log('clicked ' + clickedI +' in ' + $scope.showMeRecipe + $scope.subs);
          $scope.clickedIngr = clickedI;
          
@@ -112,6 +107,7 @@ DinnerWizardApp.controller('recipesController', function($scope, $http, $sce, pe
       $scope.showComponent = function(clicked){
          $scope.comp = true;
          $scope.subs = false;
+         
          console.log('clicked ' + clicked +' in ' + $scope.showMeRecipe +' subs: ' + $scope.subs+ ', comp: '+$scope.comp);
          $scope.componentRecipe = clicked;
       };
@@ -245,10 +241,5 @@ DinnerWizardApp.controller('recipesController', function($scope, $http, $sce, pe
 		globalChart = new Chart(ctx).Pie(graphData, { animationEasing : "easeOutQuart", animateScale: true, tooltipTemplate: "<%=label%>" });
 	}
 	
-      function clearCanvas(){
-         var canv = document.getElementById("ratioChart");
-         var ctx = canv.getContext("2d");	
-         ctx.clearRect(0, 0, canv.width, canv.height);
-   
-      };
+      
 	});

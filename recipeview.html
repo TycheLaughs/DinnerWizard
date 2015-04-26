@@ -30,7 +30,7 @@ Modified: 3/18/2015 by Susan Souza to add a pipe in between recipe tags in each 
          <div ng-click="showRecipe(recipe.name, recipe)">
             <ul style="margin-bottom:1px" >
                <li ng-repeat="item in recipe.categories track by $index" ng-if="$index < 3" style="display: inline-block; left:-50px; font-size:1em"><span ng-if="($index === 1) || ($index === 2)"> | </span>{{item.name}}</li>
-            </ul><span class="glyphicon glyphicon-chevron-down"></span>
+            </ul><span class="glyphicon glyphicon-chevron-down shiftUp3"></span>
          </div>
          </accordion-heading>
          <ul ng-repeat="ingredient in recipe.ingredients" >
@@ -90,7 +90,7 @@ Modified: 3/18/2015 by Susan Souza to add a pipe in between recipe tags in each 
 <div class="col-xs-6 rightColumn noInteract"><!--container for positioning of the right-hand column's content -->
    <div class="col-xs-11 topBox">
       <div class="col-xs-6 hidden-xs infoBox">
-         <div id= "subsBox" ng-if="subs">Substitutions for {{clickedIngr}}: <!-- substitution listing start-->
+         <div id= "subsBox" class="col-xs-12"ng-if="subs">Substitutions for {{clickedIngr}}: <!-- substitution listing start-->
             <div ng-repeat="rec in recipes | filter: {name:showMeRecipe}:true">
                <ul ng-repeat="ingr in rec.ingredients | filter:{name: clickedIngr}:true">
                   <li ng-repeat="item in ingr.replaceableWith" class="noStyleList" >{{item.name}}</li><!-- will style in a bit to be more consistent with everything else-->
@@ -111,9 +111,8 @@ Modified: 3/18/2015 by Susan Souza to add a pipe in between recipe tags in each 
                <!-- add a way to, like random recipe button, view only one recipe (this one) in the accordion-style layout? -->
             </div>
          </div><!--complex component recipe end-->
-         <div id="chartBox" ng-if="!subs && !comp">
-
-         <canvas id="ratioChart" width="160" height="160"></canvas><!--chart could go here... function in recipeCtrl is showRecipe() -->
+         <div id="chartBox">
+         <canvas id="ratioChart"  width="160" height="160"></canvas><!--chart could go here... function in recipeCtrl is showRecipe() -->
          </div>
       </div><!--end info box-->
       <div class="col-xs-0 col-sm-1"></div><!--spacer column; hidden on smaller screens-->
