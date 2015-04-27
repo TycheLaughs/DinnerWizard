@@ -6,7 +6,9 @@ DinnerWizardApp.controller('instrController', function($scope, $modalInstance, p
       $scope.guideCount++;
       //console.log($scope.guideCount);
   };
-
+   $scope.back = function(){
+      $scope.guideCount--;
+   };
   $scope.skip = function () {
     $modalInstance.dismiss('skip');
   };

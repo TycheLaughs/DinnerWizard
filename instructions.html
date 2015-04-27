@@ -6,25 +6,25 @@ Created: 4/23/2015 for use in the Dinner Wizard application
 -->
 
    <div ng-if="guideCount === 0" class="modal-header">
-         <h3 class="modal-title"><span class="col-xs-3"></span>Welcome to Dinner Wizard!</h3>
+         <h3 class="modal-title"><span class="col-xs-3"></span><span class="col-xs-7">Welcome to Dinner Wizard!</span> <span class="col-xs-2"></span><span class="col-xs-1 closingX shiftUp5" ng-click="skip()"><a>x</a></span></h3>
    </div>
    <div ng-if="guideCount === 1" class="modal-header">
-      <h3 class="modal-title"><span class="col-xs-4"></span>Overview</h3>
+      <h3 class="modal-title"><span class="col-xs-3"></span><span class="col-xs-7">Overview </span><span class="col-xs-2"></span><span class="col-xs-1 closingX shiftUp5" ng-click="skip()"><a>x</a></span></h3>
    </div>
       <div ng-if="guideCount === 2" class="modal-header">
-      <h3 class="modal-title"><span class="col-xs-3"></span>The Dinner Wizard Inventory</h3>
+      <h3 class="modal-title"><span class="col-xs-3"></span><span class="col-xs-7">The Dinner Wizard Inventory </span><span class="col-xs-1 closingX shiftUp5"ng-click="skip()"><a>x</a></span></h3>
    </div>
    <div ng-if="guideCount === 3" class="modal-header">
-      <h3 class="modal-title"><span class="col-xs-4"></span>Search Filters</h3>
+      <h3 class="modal-title"><span class="col-xs-3"></span><span class="col-xs-7">Search Filters</span><span class="col-xs-1 closingX shiftUp5"ng-click="skip()"><a>x</a></span></h3>
    </div>
    <div ng-if="guideCount === 4" class="modal-header">
-      <h3 class="modal-title"><span class="col-xs-4"></span>Combinations</h3>
+      <h3 class="modal-title"><span class="col-xs-5"></span><span class="col-xs-5">Combinations </span><span class="col-xs-2"></span><span class="col-xs-1 closingX shiftUp5"ng-click="skip()"><a>x</a></span></h3>
    </div>
       <div ng-if="guideCount === 5" class="modal-header">
-      <h3 class="modal-title"><span class="col-xs-4"></span>Combinations, Continued.</h3>
+      <h3 class="modal-title"><span class="col-xs-3"></span><span class="col-xs-7">Combinations, Continued </span><span class="col-xs-1 closingX shiftUp5"ng-click="skip()"><a>x</a></span></h3>
    </div>
       <div ng-if="guideCount === 6" class="modal-header">
-      <h3 class="modal-title"><span class="col-xs-4"></span>Ready, Set, Go!</h3>
+      <h3 class="modal-title"><span class="col-xs-3"></span><span class="col-xs-7">Ready, Set, Go! </span><span class="col-xs-1 closingX shiftUp5"ng-click="skip()"><a>x</a></span></h3>
    </div>
    
 
@@ -62,12 +62,14 @@ Created: 4/23/2015 for use in the Dinner Wizard application
       <div ng-if="guideCount === 5"class="col-xs-12"style="height:280px;"><div class="col-xs-12"><img src="images/guideCombos03.png" class="col-xs-4"/><p class="col-xs-8">Some information aside from potential preparation procedures for combinations is also available on the Combinations page. Upon selecting a combination, you'll see a pie chart representation of the approximate suggested ingredient ratios for that combination. Interacting with the chart itself will display which ingredient belongs to which wedge of the chart.</p></div><div class="col-xs-7"><p>Some ingredients will also be interactive, providing more information as to how they can be substituted, and, in some cases, how they can be made.</p><p>Explore ingredient combinations yourself and see what you discover!</p></div><img src="images/guideCombos04.png" class="col-xs-5"/></div>
       
       <div ng-if="guideCount === 6"class="col-xs-12"style="height:280px;"><p>That's all for now!</p><div style="height:200px"></div>You can find more information or view the guide again on the <span class="glyphicon glyphicon-question-sign"></span> page.</div>
-      <div class="col-xs-6"></div>
       
-      <div ng-if="guideCount === 6" class="col-xs-6">
-         <span class="col-xs-3"></span><a ng-click="skip()"><span class="col-xs-4 roundEdges">Close</span></a></div>
-      <div ng-if="guideCount != 6 && guideCount > 0" class="col-xs-6"> 
-         <span class="col-xs-3"></span><a ng-click="cont()"><span class="col-xs-4 roundEdges">Next</span></a>
+      
+      <div ng-if="guideCount === 6" class="col-xs-12">
+         <div class="col-xs-6"><a ng-click="back()"><span class="col-xs-4 roundEdges">Back</span></a></div>
+         <span class="col-xs-6"><span class="col-xs-6"></span><a ng-click="skip()"><span class="col-xs-5 roundEdges">Close</span></a></div></span>
+      <div ng-if="guideCount != 6 && guideCount > 0" class="col-xs-12"> 
+         <div class="col-xs-6"><a ng-click="back()"><span class="col-xs-4 roundEdges">Back</span></a></div>
+         <span class="col-xs-6"><span class="col-xs-6"></span><a ng-click="cont()"><span class="col-xs-5 roundEdges">Next</span></a></span>
       </div>
       
    </div>
