@@ -187,8 +187,6 @@
             //so we need to check our recipe list and make sure that the tag matches
             if( $recipeTagFilter != NULL )
             {
-                //first lets get only recipes that pertain to this tag from our current recipe list
-                $recipeList = $this->matchRecipeTags( $recipeTagFilter, $recipeList ) ;
 
                 //Now that we've simplified our current list we can go in and get all the other recipes that pertain
                 //to this recipe filter
@@ -200,6 +198,10 @@
                         $recipeList = array_unique( $recipeList ); //there's no reason for duplicate recipes
                     }
                 }
+
+                //first lets get only recipes that pertain to this tag from our current recipe list
+                $recipeList = $this->matchRecipeTags( $recipeTagFilter, $recipeList ) ;
+
             }
             if( $exclusiveIngredients )
             {
@@ -394,6 +396,7 @@
             foreach( $recipeList as $item )
             {
 
+                $tempTagList = $tagList ;
                 $tagMatch = FALSE ;
 
                 //SELECT tagID FROM TABLE_RECIPE_TAG_MAP WHERE recipeID = $item["id"]
@@ -407,18 +410,24 @@
 
                         //Check to see if a tagID from the tagList and the tagID from the recipe_tag_map, for the given
                         //recipeID, match
-                        foreach( $tagList as $tagItem )
+                        foreach( $tempTagList as $tagItem )
                         {
                             if( $row[0] == $tagItem["id"] )
                             {
-                                $tagMatch = TRUE ;
-                                break ;
+
+                                //If we found a tag that is in our tag list remove it from the temporary list so we can tell
+                                //if we have found all of the required tags for this recipe.
+                                if( ( $key = array_search( $tagItem, $tempTagList) ) !== false )
+                                {
+                                    unset( $tempTagList[$key] );
+                                }
+
                             }
                         }
 
-                        if( $tagMatch == TRUE )
+                        if( count( $tempTagList ) == 0 )
                         {
-                            break ;
+                            $tagMatch = TRUE ;
                         }
                     }
 
