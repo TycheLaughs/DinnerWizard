@@ -1,5 +1,14 @@
 <?php
-
+/** db_lib.php
+ * Tommy Leedberg
+ * Date: 1/27/2015
+ * Revision: 1.0
+ * Summary:
+ *      This is the base base class for the db_lib.php. It comprises of most of the backend for DinnerWizard.
+ *      The majority of the class was written by Tommy Leedberg but the recipe/ingredient/equipment generation methods
+ *      were developed by Matt Szekely and ported over from generate_equipment_json/generate_ingredient_json/
+ *      generate_recipe_categories_json/and generate_recipe_json.
+ */
     namespace db_lib ;
     use mysqli ; //import the mysqli class
 
