@@ -183,6 +183,14 @@ DinnerWizardApp.controller('recipesController', function($scope, $http, $sce, pe
 		// It contains the data that will be used to create our graph
 		var graphData = new Array();
 		
+		// Sort our ingredients in order of ratio to get all the small, insignificant stuff bunched together.
+		recipe.ingredients.sort(function(a, b) 
+		{  
+			var ratioA = typeof(a.ratio) === "undefined"? 0 : a.ratio;	// Safely get our ratios,
+			var ratioB = typeof(b.ratio) === "undefined"? 0 : b.ratio;	// guarding against if the ingredient doesn't have one
+			return ratioB - ratioA;		// This sort order puts small ingredients at the far end (clockwise) of the graph.
+		});
+		
 		var ingredientCount = recipe.ingredients.length;
 		
 		// Need this because not all recipe ratios add up to 100.
