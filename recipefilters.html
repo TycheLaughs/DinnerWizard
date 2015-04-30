@@ -33,7 +33,7 @@ http://angular-ui.github.io/bootstrap/ -->
                      <li style="list-style-type: none" ng-class="{'selected': tags.indexOf('Use ' + item.name) > -1}" ng-click="clickedFromEquip(item.name)">{{item.name}}</li>
                   </ul>
                </accordion-group>
-               <accordion-group>
+               <accordion-group ng-if="list[0] != 'Click to select ingredients from the accordions to the left to add them to your inventory, or search for them by name.'">
                   <accordion-heading>
                   <div>
                      Without <span class="glyphicon glyphicon-chevron-down"></span>

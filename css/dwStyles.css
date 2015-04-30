@@ -934,6 +934,15 @@ ul li{
    cursor:pointer;
    font-weight: bold;
 }
+.shiftUp6{
+   top: -17px;
+   position:relative;
+   line-height:18px;
+}
+.shiftUp7{
+   position:relative;
+   top:-8px;
+}
 .goLeft{ 
    padding-left: 5px;
    
@@ -941,13 +950,12 @@ ul li{
 .modal-body p{
    text-indent: 17px;
    line-height: 18px;
+   margin-bottom: 2px;
 }
-@media (max-width: 1300px){
-   .leftKey{
-      left: 20%;
-   }
+.modal-body *{
+   line-height: 18px;
+}
 
-}
 /***** end styling accordions*******/
 #splashBlanket{/*supposed to prevent issues with teh spash screen's hidden cursor from affecting the rest of the app*/
    z-index:-2;

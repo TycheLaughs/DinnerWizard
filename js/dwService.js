@@ -16,8 +16,11 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
    var restrict = false;
    var count = 0;
    var response ;
+
    return{
    
+   
+  
    
    isItChecked:function(){
       return restrict;
@@ -350,6 +353,7 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
                var response = $http.post( "php/request_filter.php", { 'filter': filter } )
                   .success(function(data) {
                //console.log(JSON.stringify(data) ) ;
+              
                return data.recipes;
            
             })
@@ -357,7 +361,8 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
                      console.log( error ) ;
                });
             //console.log(JSON.stringify(response));
-            return response;
+           
+            return response; 
          }
       }
    };

@@ -120,7 +120,7 @@ DinnerWizardApp.controller('recipesController', function($scope, $http, $sce, pe
       $scope.magic = function(html_text){
          return $sce.trustAsHtml(html_text);
       };
-      function search(){
+   /*   function search(){
    // $scope.recipes = persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList);
    //console.log(JSON.stringify(persistentService.Tags() + persistentService.List()));
          persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList).then(function(R){
@@ -138,7 +138,7 @@ DinnerWizardApp.controller('recipesController', function($scope, $http, $sce, pe
                //console.log($scope.recipes.length);
             }
          }); 
-      };
+      };*/
       
       
       

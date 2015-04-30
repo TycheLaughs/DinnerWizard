@@ -20,7 +20,27 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, $modal,
       $scope.toggled = 0;
       $scope.clickedHeader = '';
       $scope.restricted = persistentService.isItChecked();
-     
+      $scope.search = function(){
+   
+     // $scope.recipes = persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList);
+      //console.log(JSON.stringify(persistentService.Tags() + persistentService.List()));
+         persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList).then(function(R){
+         //console.log("R.data.recipes: "+JSON.stringify(R.data.recipes));
+         //console.log("We got this back: " +JSON.stringify(R.data));
+         if(JSON.stringify(R.data)==='[]'){
+            $scope.recipes = '';
+            //console.log("Just to be clear, we got an empty array back: " +JSON.stringify(R.data));
+            console.log($scope.recipes.length);
+         }
+         else{
+            $scope.recipes = R.data.recipes; 
+            console.log($scope.recipes.length);
+            //console.log(JSON.stringify($scope.recipes[0].ingredients));
+            //console.log($scope.recipes.length);
+         }
+      }); 
+      
+   };
 
       /*$http.get("php/generate_recipe_json.php").success(function(data) {
          $scope.recipes = data.recipes; //assign the array of objects called
@@ -60,19 +80,19 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, $modal,
       /* call mutators for the arrays stored 'globally' in a service*/
      $scope.clickedFromListing = function(content){
          persistentService.addIngredient(content);   
-         search();        
+         $scope.search();       
       };
       
       $scope.clickedFromInventory = function(item){
          persistentService.removeIngredient(item);
-         search();
+         $scope.search(); 
          
       };
 
       $scope.clearInv = function(){
          persistentService.clearInventory();
         // $scope.recipes=  persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList) ;  
-        search();
+        $scope.search();
       };
       
         $scope.checkIt = function(){
@@ -80,24 +100,26 @@ DinnerWizardApp.controller('inventoryController',function($scope, $http, $modal,
          $scope.restricted = persistentService.isItChecked();
          console.log($scope.restricted);
       };  
-      function search(){
-      // $scope.recipes = persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList);
-      //console.log(JSON.stringify(persistentService.Tags() + persistentService.List()));
-      $emit.persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList).then(function(R){
-         //console.log("R.data.recipes: "+JSON.stringify(R.data.recipes));
-         //console.log("We got this back: " +JSON.stringify(R.data));
-         if(JSON.stringify(R.data)==='[]'){
-            $scope.recipes = '';
-            //console.log("Just to be clear, we got an empty array back: " +JSON.stringify(R.data));
-            console.log($scope.recipes.length);
-         }
-         else{
-            $scope.recipes = R.data.recipes; 
-            console.log($scope.recipes.length);
-            //console.log(JSON.stringify($scope.recipes[0].ingredients));
-            //console.log($scope.recipes.length);
-         }
-      }); 
-   };
+     /*function search(){
+         // $scope.recipes = persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList);
+         //console.log(JSON.stringify(persistentService.Tags() + persistentService.List()));
+         persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList).then(function(R){
+            //console.log("R.data.recipes: "+JSON.stringify(R.data.recipes));
+            //console.log("We got this back: " +JSON.stringify(R.data));
+            if(JSON.stringify(R.data)==='[]'){
+               $scope.recipes = '';
+               //console.log("Just to be clear, we got an empty array back: " +JSON.stringify(R.data));
+               console.log($scope.recipes.length);
+            }
+            else{
+               $scope.recipes = R.data.recipes; 
+               console.log($scope.recipes.length);
+               //console.log(JSON.stringify($scope.recipes[0].ingredients));
+               //console.log($scope.recipes.length);
+            }
+         }); 
+      };
+      */
+      
 });
          
