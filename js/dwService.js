@@ -3,12 +3,15 @@
 * Project Team: Susan Souza, Tommy Leedberg, Matthew Szekely 
 * 91.462 GUI Programming II, Prof. Heines, University of Massachusetts Lowell
 * Created:  3/18/2015 by Susan Souza for use in the Dinner Wizard application
-* Re-factored into separate files 3/18/2015. See dwScript.js for earlier revision notes.
+* Original script re-factored into separate files 3/18/2015. See dwScript.js for any earlier revision notes.
 * This service makes the inventory built by users and teh filters/tags they select
 * persist for the entire session, or until they refresh the page. References:
 * http://onehungrymind.com/angularjs-sticky-notes-pt-1-architecture/
 * and
 * http://jsfiddle.net/b2fCE/1/
+* Modified 3/20/2015 by susan Souza to add logic to prohibit users adding opposing tags to list of selected tags.
+* Modified 4/08/2015 to correct an issue in filtering() where some of the id's were not being sent with the rest of the JSON for searching
+* Modified 4/10/2015 by Susan Souza to fix an issue in filtering() where there was an extra space at the end of equipment names added to filter object sent to back end.
 */
 DinnerWizardApp.service('persistentService', function($http, $sce){
    var list = ['Click to select ingredients from the accordions to the left to add them to your inventory, or search for them by name.'];
@@ -21,7 +24,8 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
    
    
   
-   
+   /**let the inventory controller know that the checkbox for serach restriction is 
+   checked and preserve that state upon navigating way and back*/
    isItChecked:function(){
       return restrict;
    },
@@ -250,6 +254,7 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
          //console.log(JSON.stringify(recTags));
          /* found way to return objects from get/post methods in an angular service here: http://stackoverflow.com/questions/12505760/processing-http-response-in-service
          with plunkr here: http://plnkr.co/edit/TTlbSv?p=preview */
+         //if both user-constructed lists are empty, short-circuit and use the simpler function that just gets all recipes, total
          if(list[0] === 'Click to select ingredients from the accordions to the left to add them to your inventory, or search for them by name.' && tagsList[0] === 'No Search Filters Selected' ){
             var response = $http.get("php/generate_recipe_json.php")
             .success(function(data) {
@@ -267,9 +272,11 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
          //console.log("entered else");
           //test print to see that we are in fact getting the right thing from ingredients param
           //console.log(JSON.stringify(ingredients));
+          
+          //if they do have something in their inventory... 
             if ( list[0] !== 'Click to select ingredients from the accordions to the left to add them to your inventory, or search for them by name.' ){
                for ( var i = 0; i < list.length; i++ ){ //iterate through array for inventory
-                  for(var k = 0; k < ingredients.length; k++){
+                  for(var k = 0; k < ingredients.length; k++){ //find matching id's for ingredients in their inventory
                      if(ingredients[k].ingredientName === list[i]){
                         idFinder = ingredients[k].id;
                         //console.log(idFinder);
@@ -278,10 +285,11 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
                   var ing = {};
                   ing.id = idFinder;
                   ing.name = list[i];
-                  filter.ingredientTags.push(ing);
+                  filter.ingredientTags.push(ing); 
                   //console.log(i + (JSON.stringify(filter.ingredientTags)));
                }
             }
+            //if they selected some 'regular' search filters... do the same as above
             if ( tagsList[0] !== 'No Search Filters Selected' ){//iterate through array for tags
                for ( var i = 0; i < tagsList.length; i++ ){ 
                   //console.log(tagsList[i].substr(0, 3));
@@ -302,6 +310,7 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
                      rec.name = tagsList[i];
                      filter.recipeTags.push(rec);
                   }
+                  //if they elected to use a Without filter of some sort...
                   else if((tagsList[i]).substr(0, 3) === 'NO '){//found a Without tag
                      //console.log('Found a Without tag to process into JSON');
                      var wo = {};
@@ -328,6 +337,7 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
                      }  
                      filter.without.push(wo);  
                   }
+                  //otherwise, it was none of these other things in their chosen search filters, so it must be equipment on their list
                   else{//we found an equipment tag
                         //find id
                      var equip = {};
@@ -346,7 +356,7 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
             }
 
              //test print to see what we built
-             console.log( "Filters sent:" + JSON.stringify( filter ) );
+             //console.log( "Filters sent:" + JSON.stringify( filter ) );
 
              //based on code from http://codeforgeek.com/2014/07/angular-post-request-php/
              //Tommy Leedberg - 3/10/2015 - Added steps for doing an http post. Not sure if this will work or not. We'll need to test/debug
@@ -354,7 +364,7 @@ DinnerWizardApp.service('persistentService', function($http, $sce){
                   .success(function(data) {
                //console.log(JSON.stringify(data) ) ;
               
-               return data.recipes;
+               return data.recipes;//get this data back to the appropriate controller
            
             })
             .error( function( error ){

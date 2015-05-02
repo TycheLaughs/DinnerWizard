@@ -63,6 +63,7 @@
    /*left:15px;*/
 }
 
+/* styling for hidden buttons for mobile that ppear at the bottom of the screen*/
 #recipeFoot{
    padding-right: 2px;
    padding-left:5px;
@@ -79,13 +80,17 @@
    padding-right:0px;
 
 }
+/*end mobile buttons*/
 
+/*first chunk of styling for restrict search button*/
 #restriction{
    position:absolute;
    left:290px;
    width: 250px;
 }
 
+/*position chart box so it sits behind all the rest of the things in 
+info box rather than dynamically hide it. Chart.js doesn't work well with hidden elements*/
 #chartBox{
    
    left:6px;
@@ -96,6 +101,7 @@
    position:absolute;
 }
 
+/*special styling for the list of substitutions displayed in info box*/
 #subsBox{
    padding-right:15px;
    background-color:white;
@@ -107,6 +113,8 @@
    position:absolute;
 }
 
+/*bigBox wraps most of the page content, making it so that said content 
+mostly remains the same aspect ratio on all devices (when possible. Sometimes it doesn't work*/
 @media(min-width: 1300px){
 
    #bigBox{
@@ -114,6 +122,7 @@
       max-height:720px;
    }
 }
+/*just some styling for the differences between huge screen to more laptop sized screen*/
 @media(max-width: 1300px){
      #bigBox{
       position:absolute;
@@ -141,6 +150,7 @@
      
 }
 
+/*the rest of the restrict search button styling*/
 .restrictButtonUP{
    border: 1px solid lightgray; 
    border-radius: 12px; 
@@ -205,6 +215,7 @@ li:hover{   /*most list items are interactive, so here's something to show that 
    font-weight: bold;
    /* here we make sure that that link underline doesn't show up*/
 }
+/* style optional ingredients*/
 .optional{
    cursor: pointer;
    color: gray;
@@ -220,10 +231,12 @@ li:hover{   /*most list items are interactive, so here's something to show that 
    color: #065195; /* dark blue*/ 
 }
 
+/*style the chevron to access substitution listings*/
 .subsAvailable{
    cursor: pointer;
    color: #065195; /* dark blue*/  
 }
+/*style interactive things to do with complex components*/
 .component{
    cursor:pointer;
    color: green;
@@ -238,6 +251,9 @@ li:hover{   /*most list items are interactive, so here's something to show that 
    position: relative;
    float:right;
 }
+/* end component interactive styling*/
+
+/*component recipe display styling*/
 .componentRecipe{
    font-size: .9em;
    padding-right:15px;
@@ -265,6 +281,9 @@ li:hover{   /*most list items are interactive, so here's something to show that 
    padding-right:15px;
    
 }
+/* end component recipe styling*/
+
+
 .closingX{
    font-size: 1.2em;
    margin-left: 5px;
@@ -429,7 +448,7 @@ body {
    }
 }
 
-/*again re-interating that we want a pointer over links */
+/*again re-iterating that we want a pointer over links */
 a:hover{
    cursor: pointer;
 
@@ -571,7 +590,9 @@ ul.pushDown{
    font-weight:normal;
    cursor:default;
  }
-/* styling accordions, overriding bootstrap css */
+ 
+ 
+/* styling accordions, overriding bootstrap css, to follow for a few hundred lines, interspersed with some occasional other things */
 .panel-default > .panel-heading{
    /*border: 1px solid gray;*/
   /* background-color: #8d1801; /*dark red /*#99b9f4; medium light blue    #f8b30e; /* dark yellow */
@@ -833,6 +854,12 @@ div.panel-body{
    font-style: italic;
    width: 250px;
 }
+
+
+/***************************/
+/*end accordion overrides and other accordion styling*/
+
+
 .modal-content{
    height: 400px;
    padding:5px;
@@ -868,6 +895,7 @@ div.modal-body.container-fluid{
 ul li{
    list-style-type: none;
 }
+/* style the little legends on the filters and results page*/
 
 .leftKey{
    position: absolute;
@@ -894,14 +922,18 @@ ul li{
 .key{
    font-weight: bold;
 }
+/* button for user to view guide on about page*/
 .viewGuideBtn{
    font-size: .9em;
    border-radius: 20px;
 }
+/*legends on the about page*/
 .keyHolding li:hover{
    cursor: default!important;
    font-weight: normal;
 }
+
+/* a long succession of minor positioning adjustments to get text and other content to align properly inside the guide modal*/
 .shiftUp{
    top: -16px;
    position:relative;
@@ -956,7 +988,7 @@ ul li{
    line-height: 18px;
 }
 
-/***** end styling accordions*******/
+
 #splashBlanket{/*supposed to prevent issues with teh spash screen's hidden cursor from affecting the rest of the app*/
    z-index:-2;
    width:100%;
@@ -967,7 +999,7 @@ ul li{
    overflow-x: hidden;
    overflow-y:hidden;
 }
-/* splash screen and its fade in/out animations*/
+/* splash screen and its fade in/out animations follows*/
 .splash {
   background: white;
   background-image:url("DWLogo05.png");

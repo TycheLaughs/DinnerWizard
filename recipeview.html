@@ -12,7 +12,14 @@ anywhere in the header-- rather than the text only.
 Modified: 3/15/2015 by Susan Souza to make accordion headings for recipes show the first three (major) 
 tags/search filters rather than names, as described in original documentation. Added a div to display all search filters/tags associated with each recipe above procedure box.
 Modified: 3/18/2015 by Susan Souza to add a pipe in between recipe tags in each header
-
+Modified: 3/26/2015 by Susan Souza to add optional ingredient tooltips, basic ingredient substitution listing
+Modified: 3/31/2015 by Susan Souza to fix overlap between various points of interaction in ingredient listing for each recipe
+Modified: 4/01/2015 by Susan Souza to get complex components showing in recipe ingredient lists
+Modified: 4/02/2015 by Susan Souza to get complex component recipes to display in the appropriate box
+Modified: 4/08/2015 by Susan Souza to tweak things a little using actual data from DB
+Modified: 4/09/2015 by Susan Souza to implement some small cosmetic changes
+Modified: 4/23/2015 by Susan Souza to add Matt's chart-generating stuff in the appropriate spot
+Modified: 4/27/2015 by Susan Souza to correct some issues with the info box displaying or not displaying some of hte proper information at certain times.
 
 --> 
 
@@ -24,7 +31,7 @@ Modified: 3/18/2015 by Susan Souza to add a pipe in between recipe tags in each 
    <div class= "listing">
 
    <accordion class = "rec" close-others="oneAtATime"><!--captured click from examples found here: http://stackoverflow.com/questions/15642082/handle-open-collapse-events-of-accordion-in-angular/15642577#15642577
-   -->
+   --><!--what follows is the complicated checking for the different kinds of ingredients listed in each recipe.  It checks for whether an ingredient is optional, whether it has substitutions, whether it is in the user's inventory and whether it is one of the ones that has its own recipe, in every combination of these and applied the appropriate class or additional code ot the list item.-->
       <accordion-group ng-repeat="recipe in recipes track by $index">
          <accordion-heading>
          <div ng-click="showRecipe(recipe.name, recipe)">
@@ -82,14 +89,14 @@ Modified: 3/18/2015 by Susan Souza to add a pipe in between recipe tags in each 
             </li>
             
          </ul>
-      </accordion-group>
+      </accordion-group><!--end ingredient listing-->
    </accordion>
    </div>
 </div><!--end left-hand column-->
 <div class="col-xs-1 col-sm-0"></div><!--spacer column-->
 <div class="col-xs-6 rightColumn noInteract"><!--container for positioning of the right-hand column's content -->
    <div class="col-xs-11 topBox">
-      <div class="col-xs-6 hidden-xs infoBox">
+      <div class="col-xs-6 hidden-xs infoBox"><!--this is the info box in which charts, substitutions and component recipes are displayed-->
          <div id= "subsBox" class="col-xs-12"ng-if="subs">Substitutions for {{clickedIngr}}: <!-- substitution listing start-->
             <div ng-repeat="rec in recipes | filter: {name:showMeRecipe}:true">
                <ul ng-repeat="ingr in rec.ingredients | filter:{name: clickedIngr}:true">
@@ -98,6 +105,7 @@ Modified: 3/18/2015 by Susan Souza to add a pipe in between recipe tags in each 
             </div>
          </div><!-- substitution listing end-->
          <div ng-if="comp && !subs" class="componentRecipe col-xs-12">{{componentRecipe}}: <!-- complex component recipe start-->
+         <!--component recipe begin-->
             <div ng-repeat="rec in recipes | filter: {name:componentRecipe}:true" >
                <ul class="componentIngredients">
                   <li ng-repeat="ingr in rec.ingredients" style="list-style-type:none">{{ingr.name}}</li>
@@ -111,7 +119,7 @@ Modified: 3/18/2015 by Susan Souza to add a pipe in between recipe tags in each 
                <!-- add a way to, like random recipe button, view only one recipe (this one) in the accordion-style layout? -->
             </div>
          </div><!--complex component recipe end-->
-         <div id="chartBox">
+         <div id="chartBox"><!--chart-->
          <canvas id="ratioChart"  width="160" height="160"></canvas><!--chart could go here... function in recipeCtrl is showRecipe() -->
          </div>
       </div><!--end info box-->
@@ -163,6 +171,7 @@ Modified: 3/18/2015 by Susan Souza to add a pipe in between recipe tags in each 
                <span class="glyphicon glyphicon-expand subsAvailable accessGlyph accessGlyphLeft" tooltip-placement="right" tooltip-popup-delay='50' tooltip='Click for recipe!' ng-click ="showComponent(ingredient.name)" ng-if="(ingredient.isOptional === true && ingredient.replaceableWith.length) >0 && 0 <= comps.indexOf(ingredient.name)"></span><!-- function to open component recipe in info box-->
             </li>
          </ul>
+         <!--and here is the suggested procedure for a recipe, determined by the accordion header clicked-->
       <p>Procedure:</p>
       <div ng-repeat="rec in recipes| filter: {name:showMeRecipe}:true">
          <ol ng-bind-html="magic(rec.prepInst)"></ol>

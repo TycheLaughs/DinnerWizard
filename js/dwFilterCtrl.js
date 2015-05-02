@@ -4,6 +4,8 @@
 * 91.462 GUI Programming II, Prof. Heines, University of Massachusetts Lowell
 * Created:  3/18/2015 by Susan Souza for use in the Dinner Wizard application
 * Re-factored into separate files 3/18/2015. See dwScript.js for earlier revision notes.
+* Modified: 4/08/2015 by Susan Souza to add search function (access filtering() from persistentService)
+* 
 */
 DinnerWizardApp.controller('filterController', function($scope, $http, persistentService) {
         //console.log( "filterController") ;
