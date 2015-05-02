@@ -20,6 +20,7 @@
 * Modified: 3/18/2015 by Susan Souza to begin to address Equipment and Without tags, both for user
 * selection and to send to the back end. Moved service, controllers to different files as per 
 * suggestions from style guide: https://github.com/mgechev/angularjs-style-guide#general
+* Modified: 4/24/2015 to add script for guide modal and random splash message
 * 
 */
 // create the module
@@ -66,12 +67,16 @@ DinnerWizardApp.config(function($routeProvider, $locationProvider) {
       });
 });
 
+
 DinnerWizardApp.run(function($modal) {
+   /*little bit to randomize the 'loading' message strings on splash screen*/
       var loadingStrings = ["Just a moment while Dinner Wizard summons chefs from the nether realm to combine the contents of your fridge...", "Please wait while Dinner Wizard confers with the Great Cooking Machine in the Sky...", "Dinner Wizard is having tea with the finest selection of deceased chefs. Just a moment while we hold a seance to get it back to this plane...", "[Insert witty message here]", "[Something trite here]", "Dinner Wizard is playing golf with some druids. Just a moment while we fetch it back...", "Just a moment while Dinner Wizard researches the exact amount of garlic necessary to fumigate a town from vampires..." ];
       var index = Math.floor((Math.random() * 7)); 
       var splashString = loadingStrings[index];
       document.getElementById('splashMessage').innerHTML = splashString;
    //ref: https://angular-ui.github.io/bootstrap/
+   
+   /*script to pop up a modal when we first laod the app*/ 
         window.setTimeout(openModal, 10000, $modal, guidePage);
         
         function openModal($modal, page){

@@ -6,16 +6,13 @@
 * Re-factored into separate files 3/18/2015. See dwScript.js for earlier revision notes.
 * Modified: 3/22/2015 by Susan Souza to add a quick little variable to reflect display changes 
 * to the box above Procedure when a recipe is selected from the accordion.
-
-
-
-
-
+* Modified: 4/02-4/14/2015 by Susan Souza to make a number of fairly small changes necessary 
+* once recipe data was received from the DB rather than a flat file.
 * Modified: 4/23/2015 by Susan Souza to add Matt's ratio charts and tweak how they are displayed
 */
 DinnerWizardApp.controller('recipesController', function($scope, $http, $sce, persistentService)
    {
-      $scope.list = persistentService.List();
+      $scope.list = persistentService.List();//user's inventory
       $scope.message = 'Recipe View';
       $scope.oneAtATime = true;
       $scope.showMeRecipe = '';
@@ -30,21 +27,24 @@ DinnerWizardApp.controller('recipesController', function($scope, $http, $sce, pe
       $scope.currentRecipe = {};
 
       //console.log()
-     
+     /* get search filter categories, so we can style them appropriately*/
       $http.get("php/generate_recipe_categories_json.php").success(function(data) {
          $scope.filterList = data.RecipeTags; //assign the array of objects called
          //console.log(JSON.stringify(data));
       });
+      /*get equipment for the same reason as the filters above*/
       $http.get("php/generate_equipment_json.php").success(function(data) {
          $scope.equipment = data.equipment;
          //Tags in the json file to a variable named ingredients
          //console.log(JSON.stringify(data));
       });
+      /*get ingredients partly for the reason above and partly for displaying ingredient combinations/recipes*/
       $http.get("php/generate_ingredient_json.php").success(function(data) {
          $scope.ingredients = data.ingredients; //assign the array of objects called
          //INGREDIENTS in the json file to a variable named ingredients
          //console.log(JSON.stringify(data));
       });
+      /*get recipes*/
       persistentService.filtering($scope.ingredients, $scope.equipment, $scope.filterList).then(function(R){
       //console.log("R.data.recipes: "+JSON.stringify(R.data.recipes));
       console.log("We got this back: " +JSON.stringify(R.data));
@@ -62,14 +62,14 @@ DinnerWizardApp.controller('recipesController', function($scope, $http, $sce, pe
       }); 
       
       //console.log($scope.recipes));
-      /*get the mapping between name of ingredient in an ingredient list and name in recipes*/
+      /*figure out which ingredients should have their own recipes*/
       //$scope.comps = persistentService.Components($scope.recipes, $scope.ingredients);
       for(var i = 0; i < $scope.ingredients.length; i++){
          if($scope.ingredients[i].tags[0].name === 'Pre-Made'){
             $scope.comps.push($scope.ingredients[i].ingredientName);
          }
       }
-   console.log(JSON.stringify($scope.comps));      
+      //console.log(JSON.stringify($scope.comps));      
 
       /**showRecipe
       * Determines which JSON object to be using based on parameters (gotten via click)
@@ -95,7 +95,7 @@ DinnerWizardApp.controller('recipesController', function($scope, $http, $sce, pe
          $scope.subs = false;
          $scope.comp = false;
       };
-      
+      /* registers that a substitution chevron was clicked. and saves which ingredient it was into a variable so its substitutions can be displayed outside of the accordion scope*/
       $scope.substitutions = function(clickedI){
          $scope.subs = true;
          $scope.comp = false;
@@ -104,6 +104,7 @@ DinnerWizardApp.controller('recipesController', function($scope, $http, $sce, pe
          
         //$scope.insert = '<div ng-repeat="rec in recipes| filter: {name:showMeRecipe}:true"><ul ng-repeat="ingr in rec.ingredients"><li class ="rec" ng-repeat="item in ingr.replaceableWith">{{item}}</li></ul></div>';
       };
+      /* registers that a complex component glyph was clicked. and saves which ingredient it was into a variable so its recipe can be displayed outside of the accordion scope*/
       $scope.showComponent = function(clicked){
          $scope.comp = true;
          $scope.subs = false;
@@ -143,7 +144,9 @@ DinnerWizardApp.controller('recipesController', function($scope, $http, $sce, pe
       
       
 	/* charts to follow */
-      
+   
+
+   /**Matt:*/
 	// Variable that holds our chart.
 	// Originally we just used new Chart and never saved that data to a variable
 	// Unfortunately that led to old charts never being deleted.

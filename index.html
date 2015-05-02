@@ -13,6 +13,7 @@
       Modified: 2/09/2015 by Susan Souza to add necessary script and elements for routing/views/navigation, found here: http://plnkr.co/edit/dd8Nk9PDFotCQu4yrnDg?p=preview 
       Modified: 3/09/2015 by Susan Souza to rearrange some of the button positions and add splash screen
       Modified: 4/05/2015 by Susan Souza to begin making this app more mobile friendly
+      Modified: 4/26/2015 by Susan Souza to change splash screen message to one that could be randomized
       -->
    <!-- Load jQuery before Angular so they don't collide in unpleasant ways -->
    <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
@@ -41,7 +42,7 @@
    
    <!--Dinner Wizard's style sheet -->
    <link href="css/dwStyles.css" rel="stylesheet">
-   <!--Routing script here-->
+   <!--Routing scripts and Angular controllers here-->
    <script src="//ajax.googleapis.com/ajax/libs/angularjs/1.2.25/angular-route.js"></script>
    <script src="js/dwScript.js"></script>
    <script src="js/dwService.js"></script>
@@ -69,11 +70,11 @@
          </a><!-- end logo-->
            
             <div class="hidden-xs col-sm-5"></div>
-            <div class="col-xs-4 col-md-2 rightHandButtons">
+            <div class="col-xs-4 col-md-2 rightHandButtons"><!--combinations button here-->
                <a href="#recipes"tooltip-placement="bottom" tooltip-popup-delay='50' tooltip='Explore ingredient combinations'><span class= "roundEdges recStyle recipeButton" ng-click="search()" ng-class="{'activeButton':$route.current.templateUrl=== 'recipeview.html'}">{{recipes.length}} Combination<span ng-if="recipes.length!== 1">s</span></span></a>
                <a href="#about"tooltip-placement="bottom" tooltip-popup-delay='50' tooltip='Help/About'><span class ="glyphicon glyphicon-question-sign recipeButton aboutStyle "></span></a>
             </div>
-         <!-- end recipes button placement -->
+         <!-- end combos button placement -->
         
      </div><!-- end headerRow --> 
      
@@ -88,9 +89,9 @@
 
       <div class="col-xs-12" style="height:7px "></div><!--hacked-in spacer-->
       <div class="col-xs-2 col-sm-2 col-md-2 hidden-xs" >
-         <div class="col-xs-12" style="height:18px"></div><!--hacked-in spacer-->
+         <div class="col-xs-12" style="height:18px"></div><!--hacked-in spacer--><!-- Inventory navigation button-->
          <a class="hidden-xs col-xs-12"href="#inventory"tooltip-placement="top" tooltip-popup-delay='50' tooltip='Build your Dinner Wizard Inventory'><span class= "roundEdges invStyle" ng-class="{'activeButton':$route.current.templateUrl==='inventory.html'}" >Inventory</span></a>
-         <div class="col-xs-12" style="height:10px"></div><!--hacked-in spacer-->
+         <div class="col-xs-12" style="height:10px"></div><!--hacked-in spacer--><!--Search Filters navigation button-->
          <a class="hidden-xs col-xs-12" href="#filter"tooltip-placement="bottom" tooltip-popup-delay='50' tooltip='Narrow your search'><span class= "roundEdges filtStyle"ng-class="{'activeButton':$route.current.templateUrl==='recipefilters.html'}" >Search Filters</span></a>
          <div class="col-xs-12" style="height:7px"></div><!--hacked-in spacer--> 
       </div>
@@ -101,9 +102,7 @@
          <div class="col-xs-12" style="height:7px"></div><!--hacked-in spacer-->   
       </div>
    </div>
-   <!-- These are the two buttons at the bottom of the mobile layout.  
-   Need logic to swap them for appropriate ones(with appropriate navigation) 
-   depending on screen.-->
+   <!-- These are the two buttons at the bottom of the mobile layout.  -->
    <div id = "hiddenFootButtons" class ="hidden-sm hidden-md hidden-lg hidden-xl col-xs-12">
       
       <a class="col-xs-6 col-sm-3 "href="#recipes" id="randFoot"><span class= "roundEdges filtStyle">Random Suggestion</span></a> 
